@@ -56,6 +56,32 @@ def _looks_spanish(s: str) -> bool:
     return bool(_ES.search(s))
 
 
+# ── Page count parser ───────────────────────────────────────────────────────
+def _count_pages(pages_str: str) -> int:
+    """
+    Parse a pages string and return the total number of physical pages cited.
+    Handles: '19', '44-47', '52-56, 59, 125', '29-30, 125', '83-88, 126'.
+    """
+    total = 0
+    for part in str(pages_str).split(","):
+        part = part.strip()
+        if not part:
+            continue
+        if "-" in part:
+            try:
+                a, b = part.split("-", 1)
+                total += abs(int(b.strip()) - int(a.strip())) + 1
+            except ValueError:
+                total += 1
+        else:
+            try:
+                int(part)
+                total += 1
+            except ValueError:
+                pass
+    return max(total, 1)
+
+
 # ── ANSI colours (fall back gracefully on Windows without colorama) ─────────
 def _colour(code: str, text: str) -> str:
     if sys.stdout.isatty():
@@ -179,6 +205,29 @@ def validate_chunk(path: pathlib.Path, all_ids: set[str]) -> ChunkResult:
         r.error(f"Body has only {body_words} words (minimum 300). Merge or expand coverage.")
     elif body_words < 400:
         r.warn(f"Body has {body_words} words — above the floor but thin for RAG (recommend >=400)")
+
+    # ── Extraction density: body words per cited page ────────────────────────
+    # Only meaningful when >= 3 pages are cited (single-page chunks are always
+    # dense by construction). Thresholds calibrated from observed corpora:
+    #   S4610/Sonnet: ~140-185 w/p  (good)
+    #   S4615/Codex original: ~47 w/p  (clearly superficial)
+    #   S4615/fixed:  ~74-90 w/p  (acceptable — SAP courses include figures
+    #                               and assessment pages that don't yield text)
+    total_cited_pages = sum(_count_pages(str(s.get("pages", "1"))) for s in sources)
+    if total_cited_pages >= 3:
+        wpp = body_words / total_cited_pages
+        if wpp < 50:
+            r.warn(
+                f"[DENSITY] {wpp:.0f} words/page ({body_words}w / {total_cited_pages}p). "
+                "Very low — strongly suspect superficial extraction. "
+                "Re-read source pages and expand content."
+            )
+        elif wpp < 80:
+            r.warn(
+                f"[DENSITY] {wpp:.0f} words/page ({body_words}w / {total_cited_pages}p). "
+                "Below 80 w/p — verify all source pages were fully read "
+                "(figures, tables, back-matter appendix)."
+            )
 
     # ── Mandatory sections per chunk_type ─────────────────────────────────────
     ctype = meta.get("chunk_type", "")
