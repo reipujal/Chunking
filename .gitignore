@@ -1,8 +1,8 @@
-# PDFs fuente — binarios grandes, no se versionan
+# Source PDFs — large binaries, not versioned
 docu sap/
 
-# Temporales del agente
+# Agent temp files
 chunks/_tmp_*
 
-# Claude Code local
+# Claude Code local settings
 .claude/settings.local.json

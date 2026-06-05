@@ -1,141 +1,118 @@
 # SAP SD Knowledge Base — Chunking Agent
 
-## Rutas del proyecto
+## Project Paths
 
-| Variable | Valor |
+| Variable | Value |
 |---|---|
 | **Workspace** | `c:\Users\aranu\Desktop\IA\Chunking` |
-| **Carpeta fuente PDFs** | `c:\Users\aranu\Desktop\IA\Chunking\docu sap` |
+| **Source PDFs** | `c:\Users\aranu\Desktop\IA\Chunking\docu sap` |
 | **Chunks output** | `c:\Users\aranu\Desktop\IA\Chunking\chunks\` |
-| **Shell preferida** | PowerShell (Windows) — usar Bash tool para comandos POSIX |
+| **Preferred shell** | PowerShell (Windows) — use Bash tool for POSIX commands |
 
-> En comandos bash del protocolo, el directorio de trabajo es siempre el workspace.
-> Las rutas `chunks/` son relativas al workspace.
+> In bash protocol commands, the working directory is always the workspace.
+> All `chunks/` paths are relative to the workspace.
 
 ---
 
-## Arranque obligatorio de cada sesión
+## Mandatory Session Startup
 
-Ejecuta esto en orden. No saltes pasos.
+Run these steps in order. Do not skip any.
 
-### 1. Orientación en el filesystem
+### 1. Filesystem Orientation
 
 ```bash
 pwd
 ls -la
-cat chunks/_processing_log.md 2>/dev/null | tail -40 || echo "Log vacío"
-cat chunks/_index.md 2>/dev/null | head -40 || echo "Índice vacío"
+cat chunks/_processing_log.md 2>/dev/null | tail -40 || echo "Log empty"
+cat chunks/_index.md 2>/dev/null | head -40 || echo "Index empty"
 ```
 
-### 2. Localizar carpeta fuente
+### 2. Locate Source Folder
 
+The source folder is confirmed: **`docu sap`** (workspace-relative).
+
+At the start of a new session, if `chunks/_project_state.md` exists:
 ```bash
-mapfile -t ROOTS < <(find . -maxdepth 5 -type d -name "docu sap" 2>/dev/null | sort -u)
-printf '%s\n' "${ROOTS[@]}"
-echo "Total encontrados: ${#ROOTS[@]}"
-```
-
-Busca solo dentro del directorio de trabajo actual. No sale del proyecto.
-Si los PDFs no están dentro del workspace, el usuario debe moverlos
-antes de continuar.
-
-Interpreta el resultado:
-- 0 resultados: detente. Informa al usuario y pide que confirme la ruta
-  o que mueva los ficheros dentro del workspace.
-- 1 resultado: muéstralo al usuario y pide confirmación antes de asignar.
-- Más de 1: muéstralos todos, pide al usuario que elija explícitamente.
-
-No asignes SOURCE_ROOT hasta tener confirmación explícita del usuario.
-No continúes sin SOURCE_ROOT confirmado.
-
-```bash
-# Solo después de confirmación:
-SOURCE_ROOT="[ruta confirmada por el usuario]"
-
-# Verificar que la ruta es resoluble en este shell (forward slashes)
-# En Git Bash/WSL usar /c/Users/... no C:\Users\...
-[ -d "$SOURCE_ROOT" ] || { echo "ERROR: ruta no resoluble — usa forward slashes (/c/Users/...) no backslashes"; exit 1; }
-echo "SOURCE_ROOT: $SOURCE_ROOT"
-
-# Garantizar que chunks/ existe antes de escribir estado
-mkdir -p chunks
-touch chunks/_index.md chunks/_processing_log.md chunks/_source_inventory.md
-
-# Persistir en Bash puro — sin dependencia de Python en este paso crítico
-printf "source_root: '%s'\nconfirmed_at: '%s'\n" "$SOURCE_ROOT" "$(date +%Y-%m-%d)" > chunks/_project_state.md
-echo "SOURCE_ROOT guardado en chunks/_project_state.md"
-cat chunks/_project_state.md
-```
-
-Al arrancar una sesión nueva, si existe `chunks/_project_state.md`:
-```bash
-# Leer SOURCE_ROOT guardado
 python3 -c "
 import yaml
 state = yaml.safe_load(open('chunks/_project_state.md'))
-print('SOURCE_ROOT previo:', state.get('source_root'))
-print('Confirmado el:', state.get('confirmed_at'))
+print('Previous SOURCE_ROOT:', state.get('source_root'))
+print('Confirmed on:', state.get('confirmed_at'))
 " 2>/dev/null || grep "source_root:" chunks/_project_state.md
 ```
-Muestra el SOURCE_ROOT guardado, propón reutilizarlo al usuario y espera
-confirmación explícita antes de continuar. No lo asumas automáticamente.
+Show the stored SOURCE_ROOT, propose reusing it to the user, and wait for explicit confirmation before proceeding.
 
-### 3. Verificar herramientas
+```bash
+# Only after confirmation:
+SOURCE_ROOT="[path confirmed by user]"
+
+[ -d "$SOURCE_ROOT" ] || { echo "ERROR: path not resolvable — use forward slashes (/c/Users/...) not backslashes"; exit 1; }
+echo "SOURCE_ROOT: $SOURCE_ROOT"
+
+mkdir -p chunks
+touch chunks/_index.md chunks/_processing_log.md chunks/_source_inventory.md
+
+printf "source_root: '%s'\nconfirmed_at: '%s'\n" "$SOURCE_ROOT" "$(date +%Y-%m-%d)" > chunks/_project_state.md
+echo "SOURCE_ROOT saved to chunks/_project_state.md"
+cat chunks/_project_state.md
+```
+
+### 3. Verify Tools
 
 ```bash
 for tool in pdfinfo pdftotext pdffonts; do
-  command -v "$tool" >/dev/null 2>&1 && echo "OK: $tool" || echo "FALTA: $tool"
+  command -v "$tool" >/dev/null 2>&1 && echo "OK: $tool" || echo "MISSING: $tool"
 done
-command -v pdftoppm >/dev/null 2>&1 && echo "OK: pdftoppm" || echo "OPCIONAL FALTA: pdftoppm"
-command -v python3 >/dev/null 2>&1 && echo "OK: python3" || echo "OPCIONAL FALTA: python3"
+command -v pdftoppm >/dev/null 2>&1 && echo "OK: pdftoppm" || echo "OPTIONAL MISSING: pdftoppm"
+command -v python3 >/dev/null 2>&1 && echo "OK: python3" || echo "OPTIONAL MISSING: python3"
 ```
 
-- Si falta `pdfinfo`, `pdftotext` o `pdffonts`: detente. Explica qué falta y para qué sirve.
-- Si falta `pdftoppm`: puedes procesar texto, pero no documentos Tipo B visuales.
-- Si falta `python3`: el script de regeneración de índice no estará disponible.
+- If `pdfinfo`, `pdftotext`, or `pdffonts` are missing: stop. Explain what is missing and why it is needed.
+- If `pdftoppm` is missing: text documents can be processed, but not visual Type B documents.
+- If `python3` is missing: the index regeneration script will not be available.
 
-### 4. Inventariar fuentes
+### 4. Inventory Sources
 
 ```bash
 find "$SOURCE_ROOT" -type f -iname "*.pdf" | sed "s|$SOURCE_ROOT/||" | sort
 find "$SOURCE_ROOT" -type f -iname "*.pdf" | wc -l
 ```
 
-### 5. Presentar propuesta al usuario
+### 5. Present Proposal to User
 
-Después de los pasos anteriores presenta:
-- Cuántos PDFs hay en SOURCE_ROOT y su listado
-- Qué documentos ya están procesados según el log
-- Una propuesta concreta: "Propongo procesar [documento] porque [motivo]. ¿Confirmas?"
+After the steps above, present:
+- How many PDFs are in SOURCE_ROOT and their listing
+- Which documents are already processed according to the log
+- A concrete proposal: "I propose processing [document] because [reason]. Confirm?"
 
-No hagas preguntas abiertas. Una propuesta específica, espera confirmación.
-
----
-
-## Reglas absolutas
-
-**Lectura permitida:**
-- `$SOURCE_ROOT` y sus subcarpetas
-- `chunks/`
-- `/tmp/` solo para temporales generados por el agente
-
-**Escritura permitida:**
-- `chunks/`
-- `/tmp/` solo para temporales
-
-**Prohibido:**
-- Modificar, mover, renombrar ni borrar documentos fuente
-- Sobrescribir chunks existentes sin confirmación explícita
-- Inventar contenido no soportado por la fuente
-- Copiar texto literal extenso de documentación SAP
-- Crear chunks duplicados sobre el mismo tema
-- Escribir outputs finales fuera de `chunks/`
+Do not ask open-ended questions. One specific proposal, wait for confirmation.
 
 ---
 
-## Estructura de output
+## Absolute Rules
 
-Crear estructura de directorios (mkdir -p es idempotente — seguro en cualquier sesión):
+**Reading allowed:**
+- `$SOURCE_ROOT` and its subfolders
+- `chunks/`
+- `/tmp/` only for agent-generated temporaries
+
+**Writing allowed:**
+- `chunks/`
+- `/tmp/` only for temporaries
+
+**Prohibited:**
+- Modifying, moving, renaming, or deleting source documents
+- Overwriting existing chunks without explicit confirmation
+- Inventing content not supported by the source
+- Copying extensive verbatim text from SAP documentation
+- Creating duplicate chunks on the same topic
+- Writing final outputs outside `chunks/`
+
+---
+
+## Output Structure
+
+Create directory structure (`mkdir -p` is idempotent — safe in any session):
 
 ```bash
 for area in enterprise-structure master-data order-management pricing shipping billing credit-management configuration integration special-processes; do
@@ -149,7 +126,7 @@ chunks/
 ├── _index.md
 ├── _processing_log.md
 ├── _source_inventory.md
-├── _project_state.md       ← SOURCE_ROOT confirmado y fecha de inicio
+├── _project_state.md       ← confirmed SOURCE_ROOT and start date
 ├── enterprise-structure/
 ├── master-data/
 ├── order-management/
@@ -164,9 +141,9 @@ chunks/
 
 ---
 
-## Prioridad de documentos
+## Document Priority
 
-### Alta — procesar primero
+### High — Process First
 ```
 S4600_EN_Col17  Business Processes in SAP S4HANA Sales
 S4601_EN_Col17  Business Processes in SAP S4HANA Supply Chain Execution
@@ -182,14 +159,14 @@ SAP FI-MM-SD INTEGRATION A SPECIAL REPORT
 Transportation Management with SAP TM
 ```
 
-### Media — procesar después
+### Medium — Process Second
 ```
 S4F30_EN_Col12 Order to Cash Optimizations
-TSCM60, TSCM62 y sus partes   → marcar sap_release: "ECC 6.0"
-Diagramas de proceso (Tipo B): BD6, BDD, BKA, BDA, BKL, BDQ, BJE, BKZ, BD9
+TSCM60, TSCM62 and parts   → mark sap_release: "ECC 6.0"
+Process diagrams (Type B): BD6, BDD, BKA, BDA, BKL, BDQ, BJE, BKZ, BD9
 ```
 
-### Baja — solo si no duplica contenido de prioridad alta
+### Low — Only If Not Duplicate of High Priority
 ```
 __SAP SD.pdf
 SD - User Manual.pdf
@@ -197,7 +174,7 @@ sap_sd_tutorial / sap-sd-training-tutorial
 Sales and Distribution in SAP ERP Practical Guide
 ```
 
-### Omitir por defecto (salvo instrucción expresa del usuario)
+### Skip by Default (unless explicitly instructed)
 ```
 certification questions / material
 dumps / sample certification
@@ -207,315 +184,301 @@ sap-s-4hana-sales-dumps
 
 ---
 
-## Paso 1 — Clasificar el documento
+## Step 1 — Classify the Document
 
-> ⚠️ **Contexto de shell**: Si `$SOURCE_ROOT` está vacía (nuevo subproceso), recupérala antes de continuar:
+> ⚠️ **Shell context**: If `$SOURCE_ROOT` is empty (new subprocess), recover it before continuing:
 > ```bash
 > SOURCE_ROOT=$(python3 -c "import yaml; print(yaml.safe_load(open('chunks/_project_state.md'))['source_root'])" 2>/dev/null || grep "source_root:" chunks/_project_state.md | awk -F"'" '{print $2}')
-> [ -d "$SOURCE_ROOT" ] || { echo "ERROR: SOURCE_ROOT no resoluble — confirma con el usuario"; exit 1; }
+> [ -d "$SOURCE_ROOT" ] || { echo "ERROR: SOURCE_ROOT not resolvable — confirm with user"; exit 1; }
 > ```
 
 ```bash
-DOC="$SOURCE_ROOT/[nombre].pdf"
+DOC="$SOURCE_ROOT/[name].pdf"
 
 pdfinfo "$DOC"
 pdffonts "$DOC" | head -10
 pdftotext -f 1 -l 4 "$DOC" - 2>/dev/null | head -120
 
-# Ratio palabras/página — muestrea desde p.30 para evitar portada, copyright e índice
-# Los manuales SAP tienen 15-20 páginas de preámbulo con densidad muy baja
+# Word/page ratio — sample from p.30 to avoid cover, copyright, and TOC
+# SAP manuals have 15-20 preambule pages with very low density
 pages=$(pdfinfo "$DOC" 2>/dev/null | awk '/^Pages:/{print $2}')
-[ -z "$pages" ] && { echo "ERROR: pdfinfo no devuelve nº de páginas — PDF cifrado, dañado o export inválido"; exit 1; }
+[ -z "$pages" ] && { echo "ERROR: pdfinfo returned no page count — PDF encrypted, damaged, or invalid export"; exit 1; }
 sample_start=$(( pages > 30 ? 30 : (pages > 10 ? 10 : 1) ))
 sample_end=$(( pages < (sample_start + 15) ? pages : (sample_start + 15) ))
 sample_words=$(pdftotext -f "$sample_start" -l "$sample_end" "$DOC" - 2>/dev/null | wc -w)
 sample_pages=$(( sample_end - sample_start + 1 ))
-echo "Ratio muestra (págs $sample_start-$sample_end): $((sample_words / sample_pages)) palabras/página"
+echo "Sample ratio (p.$sample_start-$sample_end): $((sample_words / sample_pages)) words/page"
 ```
 
-| Tipo | Nombre | Criterio | Estrategia |
+| Type | Name | Criterion | Strategy |
 |---|---|---|---|
-| A | Curso oficial SAP | Prefijo S4600-S4680, TSCM60/62; >200 palabras/página | Extraer por capítulos/unidades |
-| A* | Documento mixto | 80-200 palabras/página → tratar como Tipo A con detección de páginas visuales activada (sección mixtos en Paso 2) | Extraer texto + rasterizar páginas visuales |
-| B | Slide deck visual | "Process Diagrams" en nombre, o <80 palabras/página | Rasterizar con pdftoppm |
-| C | Manual comunidad | "User Manual", "tutorial", "training", BBP | Extraer, validar calidad antes |
-| D | Especializado | "Shipment", "Variant Config", "FI-MM-SD", "Transportation" | Igual que Tipo A |
-| E | Certificación/dumps | "certification", "dumps", "sample questions" | Omitir por defecto |
+| A | Official SAP course | Prefix S4600-S4680, TSCM60/62; >200 words/page | Extract by chapters/units |
+| A* | Mixed document | 80-200 words/page → treat as Type A with visual page detection active | Extract text + rasterize visual pages |
+| B | Visual slide deck | "Process Diagrams" in name, or <80 words/page | Rasterize with pdftoppm |
+| C | Community manual | "User Manual", "tutorial", "training", BBP | Extract, validate quality first |
+| D | Specialized | "Shipment", "Variant Config", "FI-MM-SD", "Transportation" | Same as Type A |
+| E | Certification/dumps | "certification", "dumps", "sample questions" | Skip by default |
 
-**Nota para corpus HTML→PDF (exports de Edge/Chromium):**
-`pdfinfo` mostrará `Producer: Skia/PDF` u otro engine de Chromium.
-En ese caso, las heurísticas de palabras/página son indicios, no criterios definitivos.
-Confirma el tipo visualmente rasterizando 2-3 páginas representativas antes de proceder.
-Documenta el origen en `_source_inventory.md` (Producer del pdfinfo).
+**Note for HTML→PDF corpus (Edge/Chromium exports):**
+`pdfinfo` will show `Producer: Skia/PDF` or another Chromium engine.
+In that case, words/page heuristics are indicators, not definitive criteria.
+Confirm the type visually by rasterizing 2-3 representative pages before proceeding.
+Document the origin in `_source_inventory.md` (Producer from pdfinfo).
 
-Comunica al usuario antes de continuar:
+Communicate to the user before continuing:
 ```
-Documento: [nombre]
-Tipo: [A/B/C/D/E]
-Páginas: N
-Ratio: N palabras/página
-Texto extraíble: alto/medio/bajo
-Propuesta: procesar [sección/rango] porque [motivo]. ¿Confirmas?
+Document: [name]
+Type: [A/B/C/D/E]
+Pages: N
+Ratio: N words/page
+Extractable text: high/medium/low
+Proposal: process [section/range] because [reason]. Confirm?
 ```
 
 ---
 
-## Paso 2 — Extraer contenido
+## Step 2 — Extract Content
 
-> ⚠️ **Contexto de shell**: Si `$SOURCE_ROOT` está vacía (nuevo subproceso), recupérala antes de continuar:
+> ⚠️ **Shell context**: If `$SOURCE_ROOT` is empty (new subprocess), recover it before continuing:
 > ```bash
 > SOURCE_ROOT=$(python3 -c "import yaml; print(yaml.safe_load(open('chunks/_project_state.md'))['source_root'])" 2>/dev/null || grep "source_root:" chunks/_project_state.md | awk -F"'" '{print $2}')
-> [ -d "$SOURCE_ROOT" ] || { echo "ERROR: SOURCE_ROOT no resoluble — confirma con el usuario"; exit 1; }
+> [ -d "$SOURCE_ROOT" ] || { echo "ERROR: SOURCE_ROOT not resolvable — confirm with user"; exit 1; }
 > ```
 
-### Tipo A, C, D — Documentos con texto
+### Type A, C, D — Text Documents
 
-**Regla de extracción**: nunca más de 30 páginas en una sola llamada.
-Extraer bloques mayores satura el contexto y degrada las decisiones
-de chunking (efecto "Lost in the Middle").
+**Extraction rule**: never more than 30 pages in a single call.
+Extracting larger blocks saturates context and degrades chunking decisions
+("Lost in the Middle" effect).
 
-**Primera vez con cualquier documento Tipo A, C o D: mapear el índice**
+**First time with any Type A, C, or D document: map the index**
 ```bash
 pdftotext -f 1 -l 12 "$DOC" - | head -250
 ```
-Identifica capítulos, títulos y páginas. Anota el mapa antes de continuar.
-Este paso no aplica a documentos Tipo B — tienen estructura visual, no textual.
-Para Tipo B, pasa directamente a la sección de rasterización.
+Identify chapters, titles, and page numbers. Record the map before continuing.
+This step does not apply to Type B documents — they have visual structure, not textual.
+For Type B, go directly to the rasterization section.
 
-**Extracción por bloques de máximo 30 páginas**
+**Extract in blocks of maximum 30 pages**
 ```bash
-pdftotext -layout -f [inicio] -l [fin] "$DOC" /tmp/bloque.txt
-wc -w /tmp/bloque.txt
-head -80 /tmp/bloque.txt
+pdftotext -layout -f [start] -l [end] "$DOC" /tmp/block.txt
+wc -w /tmp/block.txt
+head -80 /tmp/block.txt
 ```
 
-**Ruido a ignorar:** cabeceras/pies ("© SAP SE", números de página),
-marcas de agua ("For Internal Use Only"), referencias a diapositivas
+**Noise to ignore:** headers/footers ("© SAP SE", page numbers),
+watermarks ("For Internal Use Only"), slide references
 ("As shown in the figure above").
 
-**Si el texto tiene encoding roto** (señales: `Ã©`, `â€™`):
+**If text has broken encoding** (signals: `Ã©`, `â€™`):
 ```bash
-pdftoppm -jpeg -r 150 -f [pagina] -l [pagina] "$DOC" /tmp/pagina_rota
-ls /tmp/pagina_rota-*.jpg
+pdftoppm -jpeg -r 150 -f [page] -l [page] "$DOC" /tmp/broken_page
+ls /tmp/broken_page-*.jpg
 ```
-Si el entorno permite inspección visual, lee la imagen.
-Si no permite inspección visual: no inventes el contenido.
-Registra la página como no procesada en el log y márcala para
-revisión posterior. No crees el chunk hasta poder revisar visualmente.
+If the environment allows visual inspection, read the image.
+If not: do not invent content.
+Record the page as unprocessed in the log and mark it for later review.
+Do not create the chunk until it can be visually reviewed.
 
-### Tipo B — Slide decks visuales
+### Type B — Visual Slide Decks
 
 ```bash
-# Limpiar y crear carpeta específica para este documento
 DOC_SLUG="$(basename "$DOC" .pdf | tr ' ' '-' | tr -cd '[:alnum:]-_')"
 rm -rf "/tmp/slides-$DOC_SLUG"
 mkdir -p "/tmp/slides-$DOC_SLUG"
 
-# Rasterizar en bloques de 30 páginas máximo — igual que la extracción de texto
-# Nunca rasterices todo el documento de golpe
 pages=$(pdfinfo "$DOC" | awk '/^Pages:/ {print $2}')
-echo "Total páginas: $pages — rasterizar en bloques de 30"
+echo "Total pages: $pages — rasterize in blocks of 30"
 
-# Primer bloque (ajusta [inicio] y [fin] según el bloque a procesar):
-pdftoppm -jpeg -r 150 -f [inicio] -l [fin] "$DOC" "/tmp/slides-$DOC_SLUG/page"
+pdftoppm -jpeg -r 150 -f [start] -l [end] "$DOC" "/tmp/slides-$DOC_SLUG/page"
 ls "/tmp/slides-$DOC_SLUG/"
 ```
 
-Procesa un bloque, analiza las imágenes, extrae el conocimiento,
-luego avanza al siguiente bloque. Mismo principio que la extracción de texto.
+Process one block, analyze the images, extract the knowledge,
+then move to the next block. Same principle as text extraction.
 
-Si el entorno permite inspección visual, lee cada imagen extrayendo:
-- Transacciones SAP visibles
-- Campos clave en pantallas SAP GUI
-- Anotaciones textuales superpuestas
-- Flujo implícito entre pantallas
+If the environment allows visual inspection, read each image extracting:
+- Visible SAP transactions
+- Key fields in SAP GUI screens
+- Superimposed text annotations
+- Implicit flow between screens
 
-Si no permite inspección visual: registra el documento como
-`bloqueado` en `_source_inventory.md` y consulta al usuario.
+If visual inspection is not possible: record the document as
+`blocked` in `_source_inventory.md` and consult the user.
 
-Un documento Tipo B se divide por proceso o subproceso funcional,
-no por documento ni por slide:
-- No crees un chunk por slide.
-- No fuerces un único chunk por documento.
-- Crea un chunk por flujo funcional continuo y coherente.
-- Si el deck contiene varios procesos distintos, crea varios chunks.
+A Type B document is divided by process or sub-process function,
+not by document or slide:
+- Do not create one chunk per slide.
+- Do not force a single chunk per document.
+- Create one chunk per continuous, coherent functional flow.
+- If the deck contains multiple distinct processes, create multiple chunks.
 
-Agrupa las slides que compongan un subproceso operativo completo en
-un único chunk de tipo `proceso`.
+Group slides that form a complete operational sub-process into
+a single chunk of type `process`.
 
-**Documentos mixtos (Tipo A/C/D con páginas visuales):**
+**Mixed documents (Type A/C/D with visual pages):**
 
-`pdftotext` separa páginas con el carácter de control `\f` (form feed).
-Para detectar páginas visuales dentro de un bloque extraído, parsea
-ese carácter explícitamente:
+`pdftotext` separates pages with the control character `\f` (form feed).
+To detect visual pages within an extracted block, parse that character explicitly:
 
 ```bash
-# Extraer bloque y evaluar densidad por página
-pdftotext -layout -f [inicio] -l [fin] "$DOC" /tmp/bloque.txt
+pdftotext -layout -f [start] -l [end] "$DOC" /tmp/block.txt
 
-# Contar palabras por página usando  como separador
 python3 - << 'PY'
 import sys
-text = open("/tmp/bloque.txt", encoding="utf-8", errors="replace").read()
+text = open("/tmp/block.txt", encoding="utf-8", errors="replace").read()
 pages = [p for p in text.split("\f") if p.strip()]
 BUTTON_SET = {"save","cancel","execute","ok","back","enter","help",
               "display","change","create","delete","post","check",
               "continue","exit","refresh","print","previous","next"}
-for i, page in enumerate(pages, start=[inicio]):
+for i, page in enumerate(pages, start=[start]):
     tokens = page.lower().split()
     words = len(tokens)
     all_buttons = len(tokens) > 0 and set(tokens).issubset(BUTTON_SET)
-    status = "VISUAL" if (words < 40 or all_buttons) else "texto"
-    print(f"  Página {i}: {words} palabras — {status}")
+    status = "VISUAL" if (words < 40 or all_buttons) else "text"
+    print(f"  Page {i}: {words} words — {status}")
 PY
 ```
 
-Si una página aparece como VISUAL o contiene solo nombres de botones
-("Save", "Cancel", "Execute", "OK", "Back", "Enter", "Help"):
-1. Descarta ese texto plano — no lo uses para chunkear
-2. Anota el número de página
-3. Rasteriza solo esa página:
+If a page appears as VISUAL or contains only button labels:
+1. Discard that plain text — do not use it for chunking
+2. Note the page number
+3. Rasterize only that page:
 ```bash
-pdftoppm -jpeg -r 150 -f [numero_pagina] -l [numero_pagina] "$DOC" /tmp/visual
+pdftoppm -jpeg -r 150 -f [page_number] -l [page_number] "$DOC" /tmp/visual
 ls /tmp/visual-*.jpg
 ```
-4. Lee la imagen visualmente para extraer la información relevante
+4. Read the image visually to extract relevant information
 
-No rasterices todo el documento — solo las páginas que activen estas señales.
+Do not rasterize the entire document — only pages that trigger these signals.
 
 ---
 
-## Paso 3 — Detectar duplicados y gestionar versiones SAP
+## Step 3 — Detect Duplicates and Manage SAP Versions
 
-Los términos de búsqueda deben ser específicos al tema que estás
-procesando. Construye la búsqueda usando los T-codes, tablas, términos
-SAP en inglés, aliases en español y objetos de negocio identificados
-en el texto fuente:
+Search terms must be specific to the topic being processed.
+Build the search using T-codes, tables, SAP terms in English,
+Spanish aliases, and business objects identified in the source:
 
 ```bash
-grep -RniE "TERM1|TERM2|TCODE|TABLE|alias_español" chunks/ --include="*.md" || true
+grep -RniE "TERM1|TERM2|TCODE|TABLE|spanish_alias" chunks/ --include="*.md" || true
 ```
 
-Ejemplo para un tema de Pricing:
+Example for a Pricing topic:
 ```bash
 grep -RniE "pricing procedure|esquema de precios|condition type|clase de condicion|access sequence|secuencia de acceso|V/08|VK11|KONV|KONP" chunks/ --include="*.md" || true
 ```
 
-Ejemplo para un tema de Delivery:
+Example for a Delivery topic:
 ```bash
 grep -RniE "outbound delivery|entrega de salida|\bVL01N\b|\bVL10E\b|\bLIKP\b|\bLIPS\b|shipping point|punto de expedicion" chunks/ --include="*.md" || true
 ```
 
-El `|| true` evita que el script falle si no hay resultados (grep
-devuelve código 1 cuando no encuentra nada).
-
-### Caso 1 — Mismo tema, misma versión SAP, fuente diferente
-No modifiques el chunk directamente. Presenta un plan de actualización:
+### Case 1 — Same Topic, Same SAP Version, Different Source
+Do not modify the chunk directly. Present an update plan:
 
 ```
-Chunk existente: [id]
-Nueva fuente: [fichero], p. [N-M]
-Cambios propuestos:
-  - [sección que se amplía o corrige]
-  - añadir fuente al frontmatter
-¿Confirmas la actualización?
+Existing chunk: [id]
+New source: [file], p. [N-M]
+Proposed changes:
+  - [section to be expanded or corrected]
+  - add source to frontmatter
+Confirm update?
 ```
 
-Solo después de confirmación explícita: actualiza el chunk, añade la
-fuente al array `sources`, documenta en el log: "actualizado con [fuente]".
-No crees un chunk nuevo.
+Only after explicit confirmation: update the chunk, add the source to the
+`sources` array, document in the log: "updated with [source]".
+Do not create a new chunk.
 
-### Caso 2 — Mismo tema, versiones SAP distintas (S/4HANA vs ECC)
+### Case 2 — Same Topic, Different SAP Versions (S/4HANA vs ECC)
 
-¿La diferencia es significativa funcionalmente?
-(pantallas distintas, T-codes distintos, lógica diferente)
-→ Crea dos chunks separados por versión:
+Is the difference functionally significant?
+→ Create two separate chunks by version:
   `shipping/goods-issue-s4hana-001.md`  → sap_release: "S/4HANA 2020"
   `shipping/goods-issue-ecc-001.md`     → sap_release: "ECC 6.0"
-→ Añade en cada uno una sección `## Diferencias con [otra versión]`.
+→ Add a `## Differences from [other version]` section to each.
 
-¿La diferencia es solo cosmética? (misma lógica, UI ligeramente distinta)
-→ Un solo chunk con `sap_release: generico`
-→ Añade sección `## Notas de versión`.
+Is the difference only cosmetic?
+→ Single chunk with `sap_release: generic`
+→ Add a `## Version Notes` section.
 
-¿No sabes si la diferencia es significativa?
-→ Crea chunks separados por versión. Es más seguro que fusionar.
+Unknown significance?
+→ Create separate chunks by version. Safer than merging.
 
-### Caso 3 — Misma versión, fuentes contradictorias
-→ Fuente Tipo A tiene prioridad sobre B, C, D.
-→ Entre dos Tipo A: la más reciente tiene prioridad.
-→ Documenta la contradicción en el log.
+### Case 3 — Same Version, Contradictory Sources
+→ Type A source takes priority over B, C, D.
+→ Between two Type A: the more recent takes priority.
+→ Document the contradiction in the log.
 
-### Caso 4 — Duplicado puro
-→ Omite. Documenta en el log: "omitido — duplicado de [id]".
+### Case 4 — Pure Duplicate
+→ Skip. Document in the log: "skipped — duplicate of [id]".
 
-**Regla de oro**: un concepto = un chunk (por versión SAP si hay
-diferencias significativas). El chunk debe ser completo: sintetiza
-todas las fuentes disponibles. Un funcional no debería encontrar
-información sobre el mismo tema repartida en varios chunks.
+**Golden rule**: one concept = one chunk (per SAP version if there are
+significant differences). The chunk must be complete: synthesizes all
+available sources. A consultant should not find information about the same
+topic spread across multiple chunks.
 
 ---
 
-## Paso 4 — Decidir cómo chunkear
+## Step 4 — Decide How to Chunk
 
-### Principio fundamental
-Un chunk es correcto si puede responder una intención de búsqueda
-funcional concreta sin necesitar leer ningún otro chunk.
+### Core Principle
+A chunk is correct if it can answer a concrete functional search intent
+without needing to read any other chunk.
 
-### Cuándo crear un chunk nuevo
-- Cambio de proceso de negocio (Delivery Creation ≠ Goods Issue)
-- Cambio de audiencia: concepto funcional vs configuración SPRO
-- Cambio de área de customizing (Output Determination ≠ Partner Determination)
-- El tema supera 1500 palabras → subdivide por subtemas coherentes
+### When to Create a New Chunk
+- Change of business process (Delivery Creation ≠ Goods Issue)
+- Change of audience: functional concept vs. SPRO configuration
+- Change of customizing area (Output Determination ≠ Partner Determination)
+- Topic exceeds 1500 words → subdivide by coherent sub-topics
 
-### Cuándo agrupar en un solo chunk
-- Contenido inseparable conceptualmente
-- Resultado sería menor de 150 palabras
-- Solo listas de transacciones sin contexto funcional
+### When to Group in a Single Chunk
+- Content that cannot be separated conceptually
+- Result would be fewer than 150 words
+- Only transaction lists without functional context
 
-### Ejemplo de división — Pricing
+### Division Example — Pricing
 ```
-pricing/condition-types-001.md      → qué son, estructura, categorías
-pricing/access-sequences-001.md     → cómo busca el sistema el precio
-pricing/pricing-procedures-001.md   → esquema de cálculo, rutinas, V/08
-pricing/condition-records-001.md    → dónde se mantienen precios, VK11
+pricing/condition-types-001.md      → what they are, structure, categories
+pricing/access-sequences-001.md     → how the system searches for prices
+pricing/pricing-procedures-001.md   → calculation schema, routines, V/08
+pricing/condition-records-001.md    → where prices are maintained, VK11
 ```
 
-### Ejemplo de agrupación — Shipping Point y Loading Point
-Relacionados en configuración y uso. Un chunk es más útil que dos que
-se requieren mutuamente.
+### Grouping Example — Shipping Point and Loading Point
+Related in configuration and usage. One chunk is more useful than two
+that require each other.
 
-### Antes de escribir: presentar plan al usuario
+### Before Writing: Present Plan to User
 ```
-Sección: Unit 1 — Delivery Processing (p. 12-67)
-Chunks identificados:
+Section: Unit 1 — Delivery Processing (p. 12-67)
+Chunks identified:
   1. shipping/delivery-creation-individual-001
-     tipo: proceso | p. 15-28
-     intención: "¿Cómo se crea una entrega individual?"
+     type: process | p. 15-28
+     intent: "How is an individual delivery created?"
   2. shipping/delivery-creation-collective-001
-     tipo: proceso | p. 29-41
-     intención: "¿Cómo se crean entregas masivas con VL10E?"
+     type: process | p. 29-41
+     intent: "How are bulk deliveries created with VL10E?"
   3. shipping/delivery-types-concept-001
-     tipo: concepto | p. 12-14
-     intención: "¿Qué tipos de entrega existen en SAP SD?"
-¿Procedo?
+     type: concept | p. 12-14
+     intent: "What delivery types exist in SAP SD?"
+Proceed?
 ```
-Espera confirmación antes de escribir nada en disco.
+Wait for confirmation before writing anything to disk.
 
 ---
 
-## Paso 5 — Escribir el chunk
+## Step 5 — Write the Chunk
 
-### Idioma y terminología
-Redacta en español neutro. Los términos oficiales SAP van en inglés
-en cursiva en el cuerpo del texto. Incluye equivalentes en español
-en el campo `aliases` para mejorar el recall del RAG.
+### Language and Terminology
+Write in English. SAP official terms appear in italics in the body text.
+Include Spanish equivalents in the `aliases` field to improve RAG recall
+for Spanish-speaking consultants.
 
-Correcto: "El *Pricing Procedure* utiliza una *Access Sequence* para
-buscar los *Condition Records*."
-Incorrecto: mezclar español e inglés sin criterio, o traducir T-codes.
+Correct: "The *Pricing Procedure* uses an *Access Sequence* to search
+for *Condition Records*."
 
-Los `aliases` deben incluir tanto el término inglés como el español:
+`aliases` must include both English and Spanish terms:
 ```yaml
 aliases:
   - pricing procedure
@@ -526,13 +489,13 @@ aliases:
   - registro de condición
 ```
 
-### Convención de ID y path — crítico
+### ID and Path Convention — Critical
 
 ```
-Path físico:  chunks/{area}/{slug}-{NNN}.md
-ID lógico:    {area}-{slug}-{NNN}
+Physical path:  chunks/{area}/{slug}-{NNN}.md
+Logical ID:     {area}-{slug}-{NNN}
 
-Ejemplos:
+Examples:
   Path: chunks/shipping/delivery-creation-individual-001.md
   ID:   shipping-delivery-creation-individual-001
 
@@ -540,223 +503,201 @@ Ejemplos:
   ID:   pricing-condition-types-001
 ```
 
-El ID nunca contiene `/`.
-El ID siempre incluye el área como prefijo.
-El área del ID siempre coincide con la carpeta donde vive el fichero.
-Comprueba el índice antes de asignar número secuencial.
+The ID never contains `/`.
+The ID always includes the area as prefix.
+The area in the ID always matches the folder where the file lives.
+Check the index before assigning the sequential number.
 
-### Formato obligatorio del frontmatter
+### Mandatory Frontmatter Format
 
 ```yaml
 ---
 schema_version: 1
 id: {area}-{slug}-{NNN}
-title: "[Título descriptivo]"
+title: "[Descriptive title]"
 area: [enterprise-structure|master-data|order-management|pricing|
        shipping|billing|credit-management|configuration|
        integration|special-processes]
 process_tags: [order-to-cash, delivery-processing]
-chunk_type: [concepto|proceso|configuracion|transaccion|integracion]
-sap_release: [S/4HANA 2020|ECC 6.0|generico|no especificado]
+chunk_type: [concept|process|configuration|transaction|integration]
+sap_release: [S/4HANA 2020|ECC 6.0|generic|not specified]
 sources:
-  - file: "[nombre exacto del PDF]"
-    relative_path: "[ruta relativa desde SOURCE_ROOT]"
-    pages: "[N-M]"       # CRÍTICO: siempre string con comillas, incluso página única (ej. "15" no 15)
+  - file: "[exact PDF name]"
+    relative_path: "[relative path from SOURCE_ROOT]"
+    pages: "[N-M]"       # CRITICAL: always a quoted string, even single page (e.g., "15" not 15)
     source_type: "[A|B|C|D]"
     role: "[primary|secondary]"
-transacciones: [VA01, VL01N]
-tablas: [VBAK, LIKP]
+transactions: [VA01, VL01N]
+tables: [VBAK, LIKP]
 aliases:
-  - término inglés
-  - término español
-  - variante española
-nivel: [funcional|tecnico|ambos]
+  - english term
+  - spanish term
+  - spanish variant
+level: [functional|technical|both]
 status: draft
-quality: [alta|media|baja]
+quality: [high|medium|low]
 created: YYYY-MM-DD
 last_updated: YYYY-MM-DD
 ---
 ```
 
-### Criterios de quality
+### Quality Criteria
 
-**alta**: fuente fiable (Tipo A o D), páginas exactas identificadas,
-contenido completo, sin contradicciones, sin inferencias relevantes.
-Para Tipo B: solo si el flujo visual es inequívoco, las transacciones
-y campos son claramente legibles, y no hay inferencias funcionales.
+**high**: reliable source (Type A or D), exact pages identified,
+complete content, no contradictions, no significant inferences.
+For Type B: only if the visual flow is unambiguous, transactions
+and fields are clearly readable, and no functional inferences were made.
 
-**media**: fuente fiable pero parcial; fuente Tipo B por defecto
-(depende de interpretación visual); inferencia menor necesaria;
-requiere validación funcional. Valor por defecto para Tipo B salvo
-que cumpla todos los criterios de `alta`.
+**medium**: reliable but partial source; Type B source by default;
+minor inference required; requires functional validation.
+Default value for Type B unless all `high` criteria are met.
 
-**baja**: fuente comunitaria (Tipo C); OCR con problemas; contenido
-incompleto; contradicción no resuelta; interpretación visual incierta
-o páginas no legibles.
+**low**: community source (Type C); OCR issues; incomplete content;
+unresolved contradiction; uncertain visual interpretation.
 
-`quality` refleja el resultado neto del chunk: combina la fiabilidad
-de la fuente con la completitud del contenido resultante. Un chunk bien
-construido desde una fuente parcial puede ser `media` aunque esté bien
-redactado.
+`quality` reflects the net outcome of the chunk: combines source
+reliability with content completeness.
 
-Todo chunk nuevo nace con `status: draft`. Ciclo de vida completo:
-- `draft`: recién creado, pendiente de revisión humana
-- `reviewed`: validado por el usuario — contenido correcto
-- `validated`: verificado contra sistema SAP real o fuente adicional
-- `deprecated`: obsoleto (versión SAP cambiada, contenido superado)
+All new chunks start with `status: draft`. Full lifecycle:
+- `draft`: just created, pending human review
+- `reviewed`: validated by user — content correct
+- `validated`: verified against a real SAP system or additional source
+- `deprecated`: obsolete (SAP version changed, content superseded)
 
-### Nota sobre sap_release
+### Note on sap_release
 
-- `S/4HANA 2020`: el documento especifica explícitamente esta versión
-- `ECC 6.0`: el documento es claramente de ECC (TSCM60/62, pre-2015)
-- `generico`: el concepto aplica de forma estable a ECC y S/4HANA
-  sin diferencias funcionales significativas
-- `no especificado`: la fuente no indica versión y no es posible
-  determinarlo. Usar con precaución — marcar `quality: media` como mínimo
+- `S/4HANA 2020`: document explicitly specifies this version
+- `ECC 6.0`: document is clearly ECC (TSCM60/62, pre-2015)
+- `generic`: concept applies stably to both ECC and S/4HANA without significant functional differences
+- `not specified`: source does not indicate version and it cannot be determined — mark `quality: medium` at minimum
 
-### Valores válidos para process_tags
+### Valid Values for process_tags
 
 ```
 order-to-cash, delivery-processing, billing, pricing,
 returns, credit-management, transportation, consignment,
 third-party, free-of-charge, complaints, credit-memo,
 debit-memo, invoice-correction, make-to-order,
-stock-transfer, intercompany, ninguno
+stock-transfer, intercompany, none
 ```
 
-### Secciones de contenido por chunk_type
+### Content Sections by chunk_type
 
-**proceso:**
+**process:**
 ```
-## Resumen operativo
-## Preguntas que responde este chunk
-## Cuándo aplica y contexto
-## Flujo del proceso  (pasos numerados con T-codes)
-## Condiciones y restricciones
-## Errores frecuentes  (Síntoma → Causa → Solución)
-## Referencias cruzadas
-```
-
-**configuracion:**
-```
-## Resumen operativo
-## Preguntas que responde este chunk
-## Qué controla esta configuración
-## Ruta SPRO o T-code directo
-## Parámetros clave  (tabla: Campo | Descripción | Valores típicos)
-## Impacto según configuración
-## Errores de configuración frecuentes
-## Referencias cruzadas
+## Operational Summary
+## Questions This Chunk Answers
+## When It Applies and Context
+## Process Flow  (numbered steps with T-codes)
+## Conditions and Restrictions
+## Common Errors  (Symptom → Cause → Solution)
+## Cross-References
 ```
 
-**concepto:**
+**configuration:**
 ```
-## Resumen operativo
-## Preguntas que responde este chunk
-## Definición
-## Para qué sirve en el proceso SD
-## Estructura y variantes
-## Relación con otros objetos SAP SD
-## Referencias cruzadas
-```
-
-**transaccion:**
-```
-## Resumen operativo
-## Preguntas que responde este chunk
-## Cuándo usar esta transacción
-## Objeto de negocio afectado
-## Campos clave de la pantalla principal  (tabla)
-## Flujo típico de uso
-## Alternativas y variantes
-## Restricciones
-## Errores frecuentes
-## Referencias cruzadas
+## Operational Summary
+## Questions This Chunk Answers
+## What This Configuration Controls
+## SPRO Path or Direct T-code
+## Key Parameters  (table: Field | Description | Typical Values)
+## Configuration Impact
+## Common Configuration Errors
+## Cross-References
 ```
 
-**integracion:**
+**concept:**
 ```
-## Resumen operativo
-## Preguntas que responde este chunk
-## Qué integra
-## Módulos o sistemas implicados
-## Objetos SAP afectados
-## Flujo de datos  (tabla: Origen | Objeto/dato | Destino | Momento)
-## Puntos de configuración relevantes
-## Impacto funcional
-## Errores frecuentes de integración
-## Referencias cruzadas
+## Operational Summary
+## Questions This Chunk Answers
+## Definition
+## Purpose in the SD Process
+## Structure and Variants
+## Relationship with Other SAP SD Objects
+## Cross-References
 ```
 
-### Reglas de escritura
-- Tus propias palabras. No copies texto del PDF.
-- Términos SAP en inglés en cursiva en el cuerpo. Equivalentes
-  españoles en `aliases`.
-- Concreto: "La *selection date* determina qué *schedule lines*
-  se incluyen" es útil. "La fecha es importante" no lo es.
-- No inventes. Si la fuente no lo menciona, no lo incluyas.
-- Omite secciones sin contenido en la fuente. Sin relleno.
-- **Tablas SAP en `tablas`**: incluye solo las tablas que aparecen
-  explícitamente en la fuente o que el documento asocia claramente
-  al objeto técnico descrito. No añadas tablas por conocimiento
-  general del dominio. Si una tabla es relevante pero no está en la
-  fuente, anótala como comentario en el cuerpo del chunk y márcala
-  para validación: `<!-- tabla inferida, pendiente validación: VBAK -->`.
+**transaction:**
+```
+## Operational Summary
+## Questions This Chunk Answers
+## When to Use This Transaction
+## Affected Business Object
+## Key Fields on the Main Screen  (table)
+## Typical Usage Flow
+## Alternatives and Variants
+## Restrictions
+## Common Errors
+## Cross-References
+```
+
+**integration:**
+```
+## Operational Summary
+## Questions This Chunk Answers
+## What It Integrates
+## Involved Modules or Systems
+## Affected SAP Objects
+## Data Flow  (table: Source | Object/Data | Destination | When)
+## Relevant Configuration Points
+## Functional Impact
+## Common Integration Errors
+## Cross-References
+```
+
+### Writing Rules
+- Your own words. Do not copy text from the PDF.
+- SAP terms in English in italics in the body. Spanish equivalents in `aliases`.
+- Be specific: "The *selection date* determines which *schedule lines* are included" is useful. "The date is important" is not.
+- Do not invent. If the source does not mention it, do not include it.
+- Omit sections with no source content. No filler.
+- **SAP tables in `tables`**: include only tables that appear explicitly in the source or that the document clearly associates with the described technical object. If a table is relevant but not in the source, annotate it as a comment and mark for validation: `<!-- inferred table, pending validation: VBAK -->`.
 
 ---
 
-## Paso 6 — Validar consistencia
+## Step 6 — Validate Consistency
 
-Después de escribir cada chunk y antes de actualizar el índice:
-
-Sustituye los valores reales antes de ejecutar. Asigna las variables primero:
+After writing each chunk and before updating the index.
+Assign variables first:
 
 ```bash
-# Sustituir con los valores reales del chunk a crear/validar
-AREA="shipping"            # área real
-SLUG="delivery-creation-individual"  # slug real
-NNN="001"                  # número secuencial real
+AREA="shipping"
+SLUG="delivery-creation-individual"
+NNN="001"
 FILE="chunks/$AREA/$SLUG-$NNN.md"
 ID="$AREA-$SLUG-$NNN"
 ```
 
-**Prevalidación — ejecutar ANTES de escribir el chunk:**
+**Pre-validation — run BEFORE writing the chunk:**
 ```bash
-# Garantizar que el directorio de área existe
 mkdir -p "chunks/$AREA"
 
-# El fichero NO debe existir (si existe, requiere plan de actualización + confirmación)
 if [ -f "$FILE" ]; then
-  echo "AVISO: $FILE ya existe — presentar plan de actualización y esperar confirmación"
+  echo "WARNING: $FILE already exists — present update plan and wait for confirmation"
   exit 1
 fi
 
-# El ID no debe existir en ningún chunk real
 matches=$(grep -Rni "^id: ${ID}$" chunks/ --include="*.md" | wc -l)
 if [ "$matches" -gt 0 ]; then
-  echo "AVISO: ID $ID ya existe en $matches chunk(s) — verificar duplicado o actualización"
+  echo "WARNING: ID $ID already exists in $matches chunk(s)"
   grep -Rni "^id: ${ID}$" chunks/ --include="*.md"
 fi
 ```
 
-**Postvalidación — ejecutar DESPUÉS de escribir el chunk:**
+**Post-validation — run AFTER writing the chunk:**
 ```bash
-# El fichero debe existir
-ls "$FILE" || { echo "ERROR: $FILE no se escribió correctamente"; exit 1; }
+ls "$FILE" || { echo "ERROR: $FILE was not written correctly"; exit 1; }
 
-# El ID debe aparecer exactamente una vez
 matches=$(grep -Rni "^id: ${ID}$" chunks/ --include="*.md" | wc -l)
 if [ "$matches" -ne 1 ]; then
-  echo "ERROR: $ID debe aparecer exactamente una vez. Apariciones: $matches"
+  echo "ERROR: $ID must appear exactly once. Occurrences: $matches"
 fi
 
-# El área del frontmatter coincide con la carpeta
 grep "^area:" "$FILE"
 ```
 
-**Validación YAML (si python3 + pyyaml disponibles):**
+**YAML validation (if python3 + pyyaml available):**
 ```bash
-# Exportar variables al entorno para que el heredoc protegido pueda leerlas
 export AREA SLUG NNN
 python3 - << 'VALIDATE'
 import os, yaml, sys, pathlib
@@ -766,97 +707,97 @@ slug = os.environ.get("SLUG", "")
 nnn  = os.environ.get("NNN", "")
 
 if not area or not slug or not nnn:
-    sys.exit("ERROR: AREA, SLUG o NNN no están definidos en el entorno")
+    sys.exit("ERROR: AREA, SLUG, or NNN not defined in environment")
 
 path = pathlib.Path(f"chunks/{area}/{slug}-{nnn}.md")
 if not path.exists():
-    sys.exit(f"ERROR: fichero no encontrado en {path}")
+    sys.exit(f"ERROR: file not found at {path}")
 text = path.read_text(encoding="utf-8")
 
 if not text.startswith("---"):
-    sys.exit("ERROR: falta frontmatter YAML")
+    sys.exit("ERROR: YAML frontmatter missing")
 
 meta = yaml.safe_load(text.split("---", 2)[1])
 
 required = ["schema_version","id","title","area","process_tags",
-            "chunk_type","sap_release","sources","transacciones",
-            "tablas","aliases","nivel","status","quality",
+            "chunk_type","sap_release","sources","transactions",
+            "tables","aliases","level","status","quality",
             "created","last_updated"]
 for field in required:
     if field not in meta:
-        sys.exit(f"ERROR: campo obligatorio ausente: {field}")
+        sys.exit(f"ERROR: required field missing: {field}")
 
 valid_areas = {"enterprise-structure","master-data","order-management",
                "pricing","shipping","billing","credit-management",
                "configuration","integration","special-processes"}
-valid_types = {"concepto","proceso","configuracion","transaccion","integracion"}
+valid_types = {"concept","process","configuration","transaction","integration"}
 valid_status = {"draft","reviewed","validated","deprecated"}
-valid_quality = {"alta","media","baja"}
-valid_release = {"S/4HANA 2020","ECC 6.0","generico","no especificado"}
-valid_nivel = {"funcional","tecnico","ambos"}
+valid_quality = {"high","medium","low"}
+valid_release = {"S/4HANA 2020","ECC 6.0","generic","not specified"}
+valid_level = {"functional","technical","both"}
 valid_source_type = {"A","B","C","D"}
 valid_role = {"primary","secondary"}
 valid_tags = {"order-to-cash","delivery-processing","billing","pricing",
               "returns","credit-management","transportation","consignment",
               "third-party","free-of-charge","complaints","credit-memo",
               "debit-memo","invoice-correction","make-to-order",
-              "stock-transfer","intercompany","ninguno"}
+              "stock-transfer","intercompany","none"}
 
-if meta["area"] not in valid_areas: sys.exit(f"ERROR: area inválida: {meta['area']}")
-if meta["chunk_type"] not in valid_types: sys.exit(f"ERROR: chunk_type inválido: {meta['chunk_type']}")
-if meta["status"] not in valid_status: sys.exit(f"ERROR: status inválido: {meta['status']}")
-if meta["quality"] not in valid_quality: sys.exit(f"ERROR: quality inválida: {meta['quality']}")
-if meta["sap_release"] not in valid_release: sys.exit(f"ERROR: sap_release inválido: {meta['sap_release']}")
-if meta["nivel"] not in valid_nivel: sys.exit(f"ERROR: nivel inválido: {meta['nivel']}")
+if meta["area"] not in valid_areas: sys.exit(f"ERROR: invalid area: {meta['area']}")
+if meta["chunk_type"] not in valid_types: sys.exit(f"ERROR: invalid chunk_type: {meta['chunk_type']}")
+if meta["status"] not in valid_status: sys.exit(f"ERROR: invalid status: {meta['status']}")
+if meta["quality"] not in valid_quality: sys.exit(f"ERROR: invalid quality: {meta['quality']}")
+if meta["sap_release"] not in valid_release: sys.exit(f"ERROR: invalid sap_release: {meta['sap_release']}")
+if meta["level"] not in valid_level: sys.exit(f"ERROR: invalid level: {meta['level']}")
 
 invalid_tags = set(meta.get("process_tags",[])) - valid_tags
-if invalid_tags: sys.exit(f"ERROR: process_tags inválidos: {invalid_tags}")
+if invalid_tags: sys.exit(f"ERROR: invalid process_tags: {invalid_tags}")
 
 for s in meta.get("sources", []):
     for k in ["file","relative_path","pages","source_type","role"]:
         if k not in s:
-            sys.exit(f"ERROR: source sin campo: {k}")
+            sys.exit(f"ERROR: source missing field: {k}")
     if s.get("source_type") not in valid_source_type:
-        sys.exit(f"ERROR: source_type inválido: {s.get('source_type')}")
+        sys.exit(f"ERROR: invalid source_type: {s.get('source_type')}")
     if s.get("role") not in valid_role:
-        sys.exit(f"ERROR: role inválido: {s.get('role')}")
+        sys.exit(f"ERROR: invalid role: {s.get('role')}")
     if not isinstance(s.get("pages",""), str):
-        sys.exit(f"ERROR: pages debe ser string con comillas, no número: {s.get('pages')}")
+        sys.exit(f"ERROR: pages must be a quoted string, not a number: {s.get('pages')}")
 
-print("YAML OK — chunk válido")
+print("YAML OK — chunk valid")
 VALIDATE
 ```
 
-Si alguna comprobación falla: corrige el chunk antes de continuar.
-No actualices el índice con un chunk defectuoso.
+If any check fails: fix the chunk before continuing.
+Do not update the index with a defective chunk.
 
 ---
 
-## Paso 7 — Actualizar estado
+## Step 7 — Update State
 
-### `_processing_log.md` — append-only, nunca reescribir
+### `_processing_log.md` — append-only, never rewrite
 
 ```markdown
-## YYYY-MM-DD — [nombre exacto del PDF]
-- Relative path: [ruta desde SOURCE_ROOT]
-- Tipo: A/B/C/D/E
-- Páginas totales: N
-- Rango procesado: p. X-Y
-- Próxima página pendiente: p. Z  (o "ninguna — completado")
-- Texto extraíble: alto/medio/bajo
-- Encoding issues: [páginas problemáticas, o "ninguno"]
-- Chunks creados: N
-  - [id] → chunks/area/fichero.md
-- Chunks actualizados:
-  - [id] → motivo
-- Duplicados encontrados y decisión:
-  - [id existente] → [omitido/fusionado/separado por versión SAP]
-- Contenido omitido: [qué y por qué, o "nada"]
-- Decisiones de chunking no obvias: [decisión y justificación]
-- Estado: no iniciado / parcial / completado / omitido
+## YYYY-MM-DD — [exact PDF name]
+- Relative path: [path from SOURCE_ROOT]
+- Type: A/B/C/D/E
+- Total pages: N
+- Processed range: p. X-Y
+- Next pending page: p. Z  (or "none — completed")
+- Extractable text: high/medium/low
+- Encoding issues: [problematic pages, or "none"]
+- Chunks created: N
+  - [id] → chunks/area/file.md
+- Chunks updated:
+  - [id] → reason
+- Duplicates found and decision:
+  - [existing id] → [skipped/merged/separated by SAP version]
+- Omitted content: [what and why, or "none"]
+- Non-obvious chunking decisions: [decision and justification]
+- Status: not started / partial / completed / skipped
 ```
 
-### `_index.md` — regenerar con script
+### `_index.md` — regenerate with script
 
 ```bash
 python3 << 'PYEOF'
@@ -864,10 +805,10 @@ import os, sys
 try:
     import yaml
 except ImportError:
-    print("AVISO: pyyaml no disponible en este entorno.")
-    print("ACCIÓN MANUAL REQUERIDA: añade la fila directamente al final de chunks/_index.md")
-    print("Formato: | {id} | chunks/{area}/{slug}-{NNN}.md | {título} | ... |")
-    sys.exit(0)  # Dependencia ausente no es error de datos — permite continuar con fallback manual
+    print("WARNING: pyyaml not available.")
+    print("MANUAL ACTION REQUIRED: add the row directly at the end of chunks/_index.md")
+    print("Format: | {id} | chunks/{area}/{slug}-{NNN}.md | {title} | ... |")
+    sys.exit(0)
 
 import datetime
 chunks_dir = "chunks"
@@ -888,7 +829,7 @@ for root, _, files in os.walk(chunks_dir):
             def esc(v):
                 return str(v).replace("|", "\\|").replace("\n", " ")
 
-            t_codes = esc(", ".join(str(t) for t in meta.get("transacciones", [])))
+            t_codes = esc(", ".join(str(t) for t in meta.get("transactions", [])))
             sources = meta.get("sources", [])
             src_files = esc(", ".join(s.get("file", "") for s in sources))
             src_pages = esc(", ".join(str(s.get("pages", "")) for s in sources))
@@ -908,387 +849,345 @@ for root, _, files in os.walk(chunks_dir):
                 f"| {meta.get('quality','')} |"
             )
         except Exception as e:
-            print(f"Error en {path}: {e}")
+            print(f"Error in {path}: {e}")
 
 today = datetime.date.today()
 header = [
-    "# SAP SD Knowledge Base — Índice\n",
-    f"Última actualización: {today}  |  Total chunks: {len(rows)}\n",
-    "| ID | Path | Título | Área | Tipo | SAP Release | Process Tags"
-    " | Fuentes | Páginas | T-codes | Status | Calidad |",
+    "# SAP SD Knowledge Base — Index\n",
+    f"Last updated: {today}  |  Total chunks: {len(rows)}\n",
+    "| ID | Path | Title | Area | Type | SAP Release | Process Tags"
+    " | Sources | Pages | T-codes | Status | Quality |",
     "|---|---|---|---|---|---|---|---|---|---|---|---|",
 ]
 rows.sort(key=lambda r: r.lower())
-# Detectar IDs duplicados antes de escribir
 seen_ids = {}
 for row in rows:
     parts = row.split("|")
     id_val = parts[1].strip() if len(parts) > 1 else ""
     path_val = parts[2].strip() if len(parts) > 2 else ""
     if id_val in seen_ids:
-        print(f"ERROR: ID duplicado — {id_val}")
-        print(f"  ya en: {seen_ids[id_val]}")
-        print(f"  también en: {path_val}")
-        print("Corrige los IDs duplicados antes de regenerar el índice.")
+        print(f"ERROR: duplicate ID — {id_val}")
         sys.exit(1)
     else:
         seen_ids[id_val] = path_val
 with open(os.path.join(chunks_dir, "_index.md"), "w", encoding="utf-8") as fh:
     fh.write("\n".join(header + rows) + "\n")
-print(f"Índice regenerado: {len(rows)} chunks.")
+print(f"Index regenerated: {len(rows)} chunks.")
 PYEOF
-```
-
-Si python3/pyyaml no están disponibles, añade la fila manualmente
-(toda en una línea, sin saltos):
-```markdown
-| {id} | chunks/{area}/{slug}-{NNN}.md | {título} | {área} | {tipo} | {sap_release} | {tags} | {fuente} | {páginas} | {t-codes} | draft | {calidad} |
 ```
 
 ### `_source_inventory.md`
 
 ```markdown
 # Source Inventory — SAP SD Knowledge Base
-Última actualización: YYYY-MM-DD
+Last updated: YYYY-MM-DD
 
-| Fichero | Relative path | Tipo | Prioridad | Páginas | Palabras/pág | Estado | Nota |
+| File | Relative Path | Type | Priority | Pages | Words/Page | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| S4610_EN_Col17 Delivery Processing.pdf | S4610_EN_Col17 ... | A | alta | 178 | 320 | parcial | p.68 pendiente |
+| S4610_EN_Col17 Delivery Processing.pdf | S4610_EN_Col17 ... | A | high | 178 | 320 | partial | p.68 pending |
 ```
 
-Estados: `no iniciado` / `parcial` / `completado` / `omitido` / `bloqueado`
+Statuses: `not started` / `partial` / `completed` / `skipped` / `blocked`
 
 ---
 
-## Límite por sesión
+## Session Limit
 
-### Primeras dos sesiones — modo calibración
-- Máximo una unidad lógica (capítulo o bloque funcional cerrado)
-- O máximo 5 chunks, lo que ocurra antes
-- Para y pide validación humana
+### First Two Sessions — Calibration Mode
+- Maximum one logical unit (closed chapter or functional block)
+- Or maximum 5 chunks, whichever comes first
+- Stop and request human validation
 
-### Después de calibrar
-- Máximo un documento completo por sesión
-- O un bloque lógico completo en documentos >300 páginas
-- No uses "hasta la mitad" — usa la frontera lógica del documento
-- Registra siempre la próxima página pendiente en el log
+### After Calibration
+- Maximum one complete document per session
+- Or one complete logical block in documents >300 pages
+- Do not use "up to halfway" — use the logical boundary of the document
+- Always record the next pending page in the log
 
-### Al terminar cada sesión, presenta:
+### At the End of Each Session, Present:
 ```
-Chunks creados/actualizados esta sesión:
+Chunks created/updated this session:
   - [id] → [path]
-Pendiente de validación:
-  - [qué debe revisar el usuario]
-Siguiente recomendación:
-  - [propuesta concreta para la próxima sesión]
+Pending validation:
+  - [what the user should review]
+Next recommendation:
+  - [concrete proposal for the next session]
 ```
 
 ---
 
-## Ejemplos de referencia
+## Reference Examples
 
-Chunks validados manualmente desde `SD - Shipment.pdf` (Tipo B).
-Úsalos como referencia de densidad técnica, formato y criterio.
+Manually validated chunks from `SD - Shipment.pdf` (Type B).
+Use as reference for technical density, format, and criteria.
 
-### Ejemplo 1 — chunk_type: proceso
+### Example 1 — chunk_type: process
 
 ```markdown
 ---
 schema_version: 1
 id: shipping-delivery-creation-process-001
-title: "Creación de entregas de salida en SAP SD"
+title: "Creating Outbound Deliveries in SAP SD"
 area: shipping
 process_tags: [order-to-cash, delivery-processing]
-chunk_type: proceso
-sap_release: generico
+chunk_type: process
+sap_release: generic
 sources:
   - file: "SD - Shipment.pdf"
     relative_path: "SD/SD - Shipment.pdf"
     pages: "2-9"
     source_type: B
     role: primary
-transacciones: [VL01N, VL10E, VL02N, VL03N, VL06O]
-tablas: []
+transactions: [VL01N, VL10E, VL02N, VL03N, VL06O]
+tables: []
 aliases:
   - outbound delivery
   - entrega de salida
   - crear entrega
   - delivery creation
   - creación entrega
-nivel: funcional
+level: functional
 status: draft
-quality: alta
+quality: high
 created: 2026-06-01
 last_updated: 2026-06-01
 ---
 
-# Creación de entregas de salida en SAP SD
+# Creating Outbound Deliveries in SAP SD
 
-<!-- tablas inferidas, pendiente validación: LIKP, LIPS, VBUK -->
+<!-- inferred tables, pending validation: LIKP, LIPS, VBUK -->
 
-## Resumen operativo
-Una entrega de salida (*outbound delivery*) es el documento que inicia
-el proceso físico de expedición contra un pedido de cliente. SAP permite
-crearla individualmente para un pedido concreto o colectivamente para
-un conjunto de pedidos pendientes. Solo se incluyen las *schedule lines*
-confirmadas hasta la *selection date* indicada.
+## Operational Summary
+An *outbound delivery* is the document that initiates the physical shipping process against a customer order. SAP allows creating it individually for a specific order or collectively for a set of pending orders. Only *schedule lines* confirmed up to the *selection date* are included.
 
-## Preguntas que responde este chunk
-- ¿Cómo se crea una entrega de salida en SAP SD?
-- ¿Qué diferencia hay entre crear entregas de forma individual y colectiva?
-- ¿Por qué no se generan posiciones en la entrega aunque haya stock?
-- ¿Qué es la *selection date* y cómo afecta a las entregas?
+## Questions This Chunk Answers
+- How is an outbound delivery created in SAP SD?
+- What is the difference between creating deliveries individually and collectively?
+- Why are no items generated in the delivery even though there is stock?
+- What is the *selection date* and how does it affect deliveries?
 
-## Cuándo aplica y contexto
-La entrega se crea después de que el pedido tiene *schedule lines*
-confirmadas. Es el paso previo al picking, embalaje y *Goods Issue*.
-Sin entrega no hay GI y sin GI no hay factura.
+## When It Applies and Context
+The delivery is created after the order has confirmed *schedule lines*. It is the step before picking, packing, and *Goods Issue*. Without a delivery there is no GI, and without GI there is no invoice.
 
-## Flujo del proceso
+## Process Flow
 
-### Opción 1 — Entrega individual desde el pedido (VA02)
-1. Entrar en el pedido con **VA02**
-2. Menú: *Sales document > Deliver*
-3. SAP redirige a la misma pantalla que VL01N con el pedido pre-rellenado
-4. Verificar *Shipping point* y *Selection date*
-5. Confirmar → entrega creada
+### Option 1 — Individual Delivery from the Order (VA02)
+1. Open the order with **VA02**
+2. Menu: *Sales document > Deliver*
+3. SAP redirects to the same screen as VL01N with the order pre-filled
+4. Verify *Shipping point* and *Selection date*
+5. Confirm → delivery created
 
-### Opción 2 — Entrega individual directa (VL01N)
-1. Ejecutar **VL01N**
-2. Introducir *Shipping point*, *Selection date* y número de pedido
-3. Confirmar → pantalla de overview de la entrega
+### Option 2 — Direct Individual Delivery (VL01N)
+1. Run **VL01N**
+2. Enter *Shipping point*, *Selection date*, and order number
+3. Confirm → delivery overview screen
 
-### Opción 3 — Entregas colectivas (VL10E — Delivery Due List)
-1. Ejecutar **VL10E**
-2. Criterios: *Shipping point*, rango de fechas; opcionales: ruta,
-   *ship-to*, org. ventas, canal, división, prioridad
-3. El sistema muestra *schedule lines* confirmadas hasta la fecha
-4. Seleccionar líneas y elegir modo:
-   - **Dialog**: crea entregas manualmente, igual que VL01N
-   - **Background**: crea todas automáticamente en batch
+### Option 3 — Collective Deliveries (VL10E — Delivery Due List)
+1. Run **VL10E**
+2. Criteria: *Shipping point*, date range; optional: route, *ship-to*, sales org.
+3. System shows *schedule lines* confirmed up to the date
+4. Select lines and choose mode:
+   - **Dialog**: creates deliveries manually, same as VL01N
+   - **Background**: creates all automatically in batch
 
-## Condiciones y restricciones
-- Solo *schedule lines* confirmadas (ATP aprobado)
-- La *selection date* filtra: solo líneas confirmadas hasta esa fecha
-- El *Shipping point* debe estar asignado al centro del pedido
+## Conditions and Restrictions
+- Only confirmed *schedule lines* (ATP approved)
+- *Selection date* filters: only lines confirmed up to that date
+- *Shipping point* must be assigned to the order's plant
 
-## Errores frecuentes
+## Common Errors
 
 **"No schedule lines due for delivery up to the selected date"**
-→ La *selection date* es anterior a la fecha de confirmación del pedido.
-→ Ampliar la *selection date* hasta cubrir la fecha confirmada.
+→ *Selection date* is earlier than the order confirmation date.
+→ Extend the *selection date* to cover the confirmed date.
 
-**El pedido no aparece en VL10E**
-→ Verificar que el *Shipping point* coincide con el del pedido.
-→ Verificar que las *schedule lines* no están bloqueadas.
+**Order does not appear in VL10E**
+→ Verify that the *Shipping point* matches the order's shipping point.
+→ Verify that *schedule lines* are not blocked.
 
-## Referencias cruzadas
-- Ver también: shipping-delivery-types-concept-001
-- Siguiente paso: shipping-goods-issue-001
+## Cross-References
+- See also: shipping-delivery-types-concept-001
+- Next step: shipping-goods-issue-001
 ```
 
----
-
-### Ejemplo 2 — chunk_type: concepto
+### Example 2 — chunk_type: concept
 
 ```markdown
 ---
 schema_version: 1
 id: shipping-delivery-types-concept-001
-title: "Entrega de salida en SAP SD — concepto y estructura"
+title: "Outbound Delivery in SAP SD — Concept and Structure"
 area: shipping
 process_tags: [order-to-cash, delivery-processing]
-chunk_type: concepto
-sap_release: generico
+chunk_type: concept
+sap_release: generic
 sources:
   - file: "SD - Shipment.pdf"
     relative_path: "SD/SD - Shipment.pdf"
     pages: "2, 10"
     source_type: B
     role: primary
-transacciones: [VL01N, VL02N, VL03N]
-tablas: []
+transactions: [VL01N, VL02N, VL03N]
+tables: []
 aliases:
   - outbound delivery
   - entrega de salida
   - delivery document
   - documento de entrega
-nivel: funcional
+level: functional
 status: draft
-quality: media
+quality: medium
 created: 2026-06-01
 last_updated: 2026-06-01
 ---
 
-# Entrega de salida en SAP SD — concepto y estructura
+# Outbound Delivery in SAP SD — Concept and Structure
 
-<!-- tablas inferidas, pendiente validación: LIKP, LIPS -->
+<!-- inferred tables, pending validation: LIKP, LIPS -->
 
-## Resumen operativo
-La entrega de salida es el documento logístico que representa la expedición
-física de mercancía contra un pedido de cliente. Tiene cabecera con datos
-del destinatario y posiciones con los materiales. No tiene *schedule lines*.
-Es el pivote entre la gestión de pedidos (SD) y el almacén (WM/EWM).
+## Operational Summary
+The outbound delivery is the logistics document representing the physical shipment of goods against a customer order. It has a header with recipient data and items with the materials. It has no *schedule lines*. It is the pivot between order management (SD) and the warehouse (WM/EWM).
 
-## Preguntas que responde este chunk
-- ¿Qué es una entrega de salida en SAP SD?
-- ¿Qué estructura tiene el documento de entrega?
-- ¿En qué se diferencia la entrega del pedido de ventas?
+## Questions This Chunk Answers
+- What is an outbound delivery in SAP SD?
+- What structure does the delivery document have?
+- How does the delivery differ from the sales order?
 
-## Definición
-Documento SAP SD que representa la intención y ejecución de enviar
-mercancía a un cliente. Se crea con referencia a un pedido de ventas
-y hereda sus datos de expedición.
+## Definition
+SAP SD document representing the intent and execution of sending goods to a customer. Created with reference to a sales order, inheriting its shipping data.
 
-## Para qué sirve en el proceso SD
-Permite iniciar el picking, registrar embalaje y carga, ejecutar el
-*Goods Issue* (reduce stock y genera documento contable en FI), y sirve
-de base para la factura.
+## Purpose in the SD Process
+Enables initiating picking, recording packing and loading, executing *Goods Issue* (reduces stock and generates an accounting document in FI), and serves as the basis for the invoice.
 
-## Estructura y variantes
+## Structure and Variants
 
-| Nivel | Datos que contiene |
+| Level | Data Contained |
 |---|---|
-| Cabecera | *Ship-to party*, fecha de entrega, *shipping point*, peso total, bultos |
-| Posición | Material, cantidad, unidad de medida, lote, estado de picking |
+| Header | *Ship-to party*, delivery date, *shipping point*, total weight, packages |
+| Item | Material, quantity, unit of measure, batch, picking status |
 
-A diferencia del pedido, la entrega **no tiene *schedule lines***.
+Unlike the order, the delivery **has no *schedule lines***.
 
-## Relación con otros objetos SAP SD
+## Relationship with Other SAP SD Objects
 
-| Objeto | Relación |
+| Object | Relationship |
 |---|---|
-| Pedido de ventas | La entrega se crea con referencia; hereda *ship-to*, materiales y cantidades confirmadas |
-| *Transfer Order* (WM) | Si hay gestión de almacén, genera una *transfer order* para picking |
-| *Goods Issue* | Se ejecuta sobre la entrega en VL02N |
-| Factura | Se crea con referencia a la entrega después del GI |
+| Sales Order | Delivery created with reference; inherits *ship-to*, materials, confirmed quantities |
+| *Transfer Order* (WM) | If warehouse management active, generates a *transfer order* for picking |
+| *Goods Issue* | Executed on the delivery in VL02N |
+| Invoice | Created with reference to the delivery after GI |
 
-## Referencias cruzadas
-- Proceso de creación: shipping-delivery-creation-process-001
-- Siguiente paso: shipping-goods-issue-001
+## Cross-References
+- Creation process: shipping-delivery-creation-process-001
+- Next step: shipping-goods-issue-001
 ```
 
----
-
-### Ejemplo 3 — chunk_type: transaccion
+### Example 3 — chunk_type: transaction
 
 ```markdown
 ---
 schema_version: 1
 id: shipping-goods-issue-cancel-vl09-001
-title: "Cancelación de Goods Issue con VL09"
+title: "Cancelling Goods Issue with VL09"
 area: shipping
 process_tags: [returns, delivery-processing]
-chunk_type: transaccion
-sap_release: generico
+chunk_type: transaction
+sap_release: generic
 sources:
   - file: "SD - Shipment.pdf"
     relative_path: "SD/SD - Shipment.pdf"
     pages: "15"
     source_type: B
     role: primary
-transacciones: [VL09]
-tablas: []
+transactions: [VL09]
+tables: []
 aliases:
+  - cancel GI
   - cancelar GI
   - reverse goods issue
   - VL09
   - cancelar salida de mercancías
   - revertir GI
-nivel: funcional
+level: functional
 status: draft
-quality: media
+quality: medium
 created: 2026-06-01
 last_updated: 2026-06-01
 ---
 
-# Cancelación de Goods Issue con VL09
+# Cancelling Goods Issue with VL09
 
-<!-- tablas inferidas, pendiente validación: LIKP, MKPF -->
+<!-- inferred tables, pending validation: LIKP, MKPF -->
 
-## Resumen operativo
-**VL09** revierte un *Goods Issue* registrado por error. Deshace el
-descenso de stock y anula el documento contable en FI. Solo es posible
-dentro del mismo período contable en que se registró el GI original.
+## Operational Summary
+**VL09** reverses a *Goods Issue* posted in error. Undoes the stock decrease and cancels the accounting document in FI. Only possible within the same accounting period in which the original GI was posted.
 
-## Preguntas que responde este chunk
-- ¿Cómo se cancela un *Goods Issue* registrado por error?
-- ¿Cuándo ya no es posible usar VL09?
-- ¿Qué alternativa existe si el período contable está cerrado?
+## Questions This Chunk Answers
+- How do you cancel a *Goods Issue* posted in error?
+- When is VL09 no longer possible?
+- What is the alternative if the accounting period is closed?
 
-## Cuándo usar esta transacción
-Cuando se ha registrado un GI sobre una entrega de salida por error
-y el período contable del GI aún está abierto en FI.
+## When to Use This Transaction
+When a GI has been posted against an outbound delivery in error and the GI's accounting period is still open in FI.
 
-## Objeto de negocio afectado
-Entrega de salida (*outbound delivery*) con GI registrado.
+## Affected Business Object
+Outbound delivery with a posted GI.
 
-## Campos clave de la pantalla principal
+## Key Fields on the Main Screen
 
-| Campo | Descripción | Notas |
+| Field | Description | Notes |
 |---|---|---|
-| *Shipping point* | Punto de expedición | Obligatorio |
-| *Inbound/Outbound delivery* | Número de entrega | Introducir directamente |
-| *Define date* | Fecha de reversión | Por defecto = hoy |
+| *Shipping point* | Shipping point | Required |
+| *Inbound/Outbound delivery* | Delivery number | Enter directly |
+| *Define date* | Reversal date | Defaults to today |
 
-## Flujo típico de uso
-1. Ejecutar **VL09**
-2. Introducir *Shipping point* y número de entrega
-3. Seleccionar la línea que aparece en el resultado
-4. Ejecutar *Cancel/Reverse*
-5. El sistema revierte el GI; la entrega vuelve a estado abierto
+## Typical Usage Flow
+1. Run **VL09**
+2. Enter *Shipping point* and delivery number
+3. Select the line shown in the results
+4. Execute *Cancel/Reverse*
+5. System reverses the GI; delivery returns to open status
 
-## Restricciones
-Solo posible en el **mismo período contable** en que se registró
-el GI original. Si el período está cerrado en FI: usar devolución
-de cliente (*Returns Order* + *Return Delivery* + GR).
+## Restrictions
+Only possible in the **same accounting period** in which the original GI was posted.
+If the period is closed in FI: use a customer return (*Returns Order* + *Return Delivery* + GR).
 
-## Errores frecuentes
+## Common Errors
 
 **"Reversal not possible — period already closed"**
-→ Período contable cerrado. Proceder con devolución de cliente.
+→ Accounting period closed. Proceed with customer return.
 
-**La entrega no aparece en la selección**
-→ Verificar que el GI está registrado y que el *Shipping point* coincide.
+**Delivery does not appear in the selection**
+→ Verify that the GI is posted and that the *Shipping point* matches.
 
-## Referencias cruzadas
-- Proceso previo: shipping-goods-issue-001
-- Alternativa si período cerrado: special-processes-customer-returns-001
+## Cross-References
+- Prior step: shipping-goods-issue-001
+- Alternative if period closed: special-processes-customer-returns-001
 ```
 
 ---
 
-## Qué observar en estos ejemplos
+## What to Observe in These Examples
 
-**Resumen operativo**: 3-5 líneas con el concepto completo. Si no puedes
-escribirlo sin relleno, el chunk está mal delimitado.
+**Operational Summary**: 3-5 lines with the complete concept. If you cannot write it without filler, the chunk is poorly delimited.
 
-**Preguntas reales**: no genéricas sino preguntas que haría un funcional
-en un proyecto real.
+**Real questions**: not generic, but questions a consultant would ask on a real project.
 
-**Sin secciones vacías**: el ejemplo 3 no incluye secciones que la fuente
-no cubría. Sin relleno inventado.
+**No empty sections**: example 3 does not include sections the source did not cover. No invented filler.
 
-**Terminología**: términos SAP en inglés en cursiva en el cuerpo.
-Equivalentes en español en `aliases`. Nunca al revés, nunca mezclado.
+**Terminology**: SAP terms in English in italics in the body. Spanish equivalents in `aliases`.
 
-**quality: media vs alta en Tipo B**: los tres ejemplos vienen de
-`SD - Shipment.pdf` (Tipo B, slide deck). El primero tiene `alta` porque
-el flujo visual era inequívoco, las transacciones y campos eran
-claramente legibles, y no hubo inferencias funcionales. Los otros dos
-tienen `media` porque la información era parcial o requirió interpretación.
-`quality: media` es el valor por defecto para cualquier Tipo B. Solo
-sube a `alta` si cumples todos los criterios descritos en la definición.
+**quality: medium vs high for Type B**: `medium` is the default for Type B. Only raise to `high` if the visual flow is unambiguous, transactions and fields are clearly readable, and no functional inferences were required.
 
-**chunk_type correcto**: VL09 es `transaccion`, no `configuracion`.
-Una transacción operativa de reversión no es configuración SPRO.
+**Correct chunk_type**: VL09 is `transaction`, not `configuration`.
 
 ---
 
-## Contexto del proyecto
+## Project Context
 
-Objetivo: sistema RAG para responder preguntas de un consultor funcional SAP SD.
-El usuario está aprendiendo SAP SD y técnicas RAG simultáneamente.
-Calidad sobre velocidad. 20 chunks excelentes valen más que 200 mediocres.
-No generes chunks si no puedes indicar fuente y páginas exactas.
-Cuando dudes entre dos opciones razonables, propón ambas y espera confirmación.
+Goal: RAG system to answer questions from a functional SAP SD consultant.
+The user is learning SAP SD and RAG techniques simultaneously.
+Quality over speed. 20 excellent chunks are worth more than 200 mediocre ones.
+Do not generate chunks if you cannot provide exact source and pages.
+When in doubt between two reasonable options, propose both and wait for confirmation.
