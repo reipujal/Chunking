@@ -9,7 +9,7 @@ sap_release: S/4HANA 2020
 sources:
   - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
     relative_path: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
-    pages: "100"
+    pages: "108"
     source_type: "A"
     role: "primary"
 transactions: []
@@ -17,6 +17,13 @@ tables: ["001"]
 aliases:
   - negative posting
   - contabilización negativa
+  - credit memo negative posting
+  - nota de crédito contabilización negativa
+  - reverse posting FI
+  - contabilización inversa FI
+  - inflated ledger credit memo
+  - factura tabla 001 FI
+  - FI table 001
 level: functional
 status: draft
 quality: high
@@ -24,18 +31,49 @@ created: 2026-06-05
 last_updated: 2026-06-05
 ---
 
+# Negative Postings for Billing Documents
+
 ## Operational Summary
-The negative posting feature forces cancellations and credit memos to mathematically reduce identical-side account totals in Financial Accounting rather than posting traditionally to the opposing debit/credit side.
+Negative postings cause cancellations and credit memos to reduce the **same side** of the general ledger account (rather than posting to the opposing credit/debit side), keeping ledger totals clean and intuitive. Without negative postings, a credit memo adds to both sides of the ledger (a debit entry and a credit entry), inflating both totals even though no net sale occurred. This feature is activated in the billing type and requires enabling in the FI company code settings (table `001`).
 
 ## Questions This Chunk Answers
-- How do you prevent credit memos from inflating both sides of an accounting ledger?
-- Where is the negative posting indicator stored?
+- What is the difference between a standard credit memo posting and a negative posting?
+- Why do credit memos without negative posting inflate both sides of the ledger?
+- Where is the negative posting indicator configured in SD?
+- What FI configuration is required for negative postings to take effect?
+- Which billing types typically use negative postings?
 
 ## What This Configuration Controls
-In a standard SAP system, cancellations and credit memos are traditionally posted on the opposite side of the account compared to standard receivables. While mathematically identical, this can superficially inflate the "sales" totals line visually on both sides of a ledger despite no net sale taking place.
+The negative posting indicator in the billing type controls whether the FI posting for that document type is made as a standard opposing-side entry (normal credit memo behavior) or as a **negative amount on the same side** as the original transaction (reducing the total instead of adding to both sides).
 
-Customers frequently request that credit memos and cancellations be posted securely on the *exact same side* as the receivables but executed as a negative amount. Consequently, the totals line maintains an intuitive zero balance.
+## SPRO Path or Direct T-code
+Sales and Distribution → Billing → Billing Documents → Define Billing Types
+(Field: *Negative posting* in the billing type settings)
 
-## Setup
-To achieve this behavior, you must activate the **Negative posting** field explicitly within the billing type configuration for credit memos and cancellations. 
-The system automatically transfers this designated indicator to Financial Accounting. Negative posting ultimately takes effect only if it is concurrently permitted by the receiving FI company code (this safety constraint is controlled securely in the FI table `001`).
+FI prerequisite:
+Financial Accounting → Financial Accounting Global Settings → Company Code → Enter Global Parameters
+(Negative postings must also be permitted at company code level — controlled in FI table `001`)
+
+## Key Parameters
+
+| Setting | Behavior |
+|---|---|
+| Negative posting = blank in billing type | Standard opposing-side posting (normal credit memo behavior) |
+| Negative posting = active in billing type | Negative amount on same side — requires FI company code to also permit negative postings |
+| FI table `001` — negative posting permitted | Must be enabled in FI for the feature to take effect end-to-end |
+
+## Configuration Impact
+Negative postings are relevant for customers who run statutory financial reports that must show clean, unambiguous totals. Typical use: credit memos (G2), cancellation documents (S1, S2), and returns (RE). Without this configuration, high-volume credit activity inflates both debit and credit totals on revenue accounts, making period-end reconciliation more complex.
+
+## Common Configuration Errors
+
+**Negative posting indicator active in SD billing type, but behavior in FI is still standard**
+→ The FI company code has not enabled negative postings in its global parameters (table `001`). Enable the setting at company code level.
+
+**Negative postings enabled globally but unwanted for some billing types**
+→ The negative posting indicator in SD is controlled per billing type — set it only for the credit memo and cancellation types, not for standard invoices.
+
+## Cross-References
+- See also: billing-credit-debit-memo-process-001
+- See also: configuration-billing-fi-interface-controls-001
+- See also: configuration-billing-types-sap-s4hana-001

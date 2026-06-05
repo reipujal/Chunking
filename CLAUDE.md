@@ -274,15 +274,39 @@ Proposal: process [section/range] because [reason]. Confirm?
 Extracting larger blocks saturates context and degrades chunking decisions
 ("Lost in the Middle" effect).
 
-**First time with any Type A, C, or D document: map the index**
+**First time with any Type A, C, or D document: map the index AND the back matter**
 
 ```bash
+# Front: table of contents
 pdftotext -f 1 -l 12 "$DOC" - | head -250
 ```
 
 Identify chapters, titles, and page numbers. Record the map before continuing.
 This step does not apply to Type B documents — they have visual structure, not textual.
 For Type B, go directly to the rasterization section.
+
+**Then scan the back matter for a transaction/table reference appendix.**
+SAP courses routinely place a "Frequently Used Menu Paths", "Transaction Codes (TX)",
+or glossary appendix in the **last 10–15 pages**. This appendix is where the course
+prints its T-codes and table names *explicitly* (`TX: VF11`, `table VBRK`), even when
+the lesson bodies describe everything by function. **Skipping it is the most common
+cause of empty `transactions`/`tables` on a source that actually names them.**
+
+```bash
+pages=$(pdfinfo "$DOC" | awk '/^Pages:/{print $2}')
+back_start=$(( pages > 15 ? pages - 14 : 1 ))
+pdftotext -layout -f "$back_start" -l "$pages" "$DOC" - \
+  | grep -inE 'TX:|transaction code|menu path|^[[:space:]]*V[AFL][0-9]{2}|appendix|glossary' \
+  | head -40
+```
+
+If this surfaces a T-code/menu-path table or glossary: **treat it as a first-class
+source page, not noise.** Extract it, and when you later write each lesson chunk,
+pull the matching T-codes/tables from this appendix into that chunk's fields
+(provenance is satisfied — they appear literally here). Record the appendix page
+range in the processing log. If you choose *not* to chunk the appendix itself,
+you must still mine it for identifiers and you must log "appendix p.X-Y mined for
+T-codes, not chunked separately" — never drop it silently.
 
 **Extract in blocks of maximum 30 pages**
 
@@ -486,7 +510,7 @@ without needing to read any other chunk.
 ### When to Group in a Single Chunk
 
 - Content that cannot be separated conceptually
-- Result would be fewer than 150 words
+- Body text would be under 300 words even with full extraction — merge with the nearest related topic rather than creating a standalone thin chunk. 300 words is the hard floor; 150 words is insufficient for RAG retrieval — it is a paragraph, not a chunk.
 - Only transaction lists without functional context
 
 ### Division Example — Pricing
@@ -535,7 +559,10 @@ for Spanish-speaking consultants.
 Correct: "The *Pricing Procedure* uses an *Access Sequence* to search
 for *Condition Records*."
 
-`aliases` must include both English and Spanish terms:
+`aliases` must include both English and Spanish terms. **Minimum 4 aliases per chunk**, with at least 2 in Spanish and at least 1 natural query variant (how a consultant would phrase a search, not just the technical term). Aliases drive RAG recall for Spanish-speaking consultants — 2 sparse aliases defeat the purpose.
+
+Good: `["pricing procedure", "esquema de precios", "access sequence", "secuencia de acceso", "cómo funciona la determinación de precios"]`
+Bad: `["pricing procedure", "esquema de precios"]`
 
 ```yaml
 aliases:
@@ -583,6 +610,10 @@ sources:
   - file: "[exact PDF name]"
     relative_path: "[relative path from SOURCE_ROOT]"
     pages: "[N-M]"       # CRITICAL: always a quoted string, even single page (e.g., "15" not 15)
+                         # CRITICAL: use PHYSICAL PDF page numbers (what pdftotext -f/-l use),
+                         # NOT the printed footer label. SAP courses have front matter (often
+                         # ~8 pages: cover, legal, TOC) so printed "120" is typically a different
+                         # physical page. See "Page numbering" note below.
     source_type: "[A|B|C|D]"
     role: "[primary|secondary]"
 transactions: [VA01, VL01N]
@@ -616,12 +647,55 @@ unresolved contradiction; uncertain visual interpretation.
 `quality` reflects the net outcome of the chunk: combines source
 reliability with content completeness.
 
+**`quality: high` is earned, not the default.** Any one of these caps a chunk at
+`medium`, regardless of source type:
+- a `<!-- inferred ... pending validation -->` comment is present (the chunk admits an unverified element);
+- a PROVENANCE WARNING (over- or under-extraction) was raised and not resolved;
+- the cited page range was not read in full, or a relevant appendix/figure was skipped;
+- any field value required inference beyond what the source states.
+
+If you find yourself assigning `high` to every chunk in a batch, stop and re-examine:
+a uniform `high` distribution across a large batch is itself a signal that the
+criterion is being rubber-stamped, not applied. A healthy batch from a dense Type A
+course typically mixes `high` and `medium`. Rate each chunk on its own evidence.
+
 All new chunks start with `status: draft`. Full lifecycle:
 
 - `draft`: just created, pending human review
 - `reviewed`: validated by user — content correct
 - `validated`: verified against a real SAP system or additional source
 - `deprecated`: obsolete (SAP version changed, content superseded)
+
+### Page numbering — physical vs. printed (avoid silent traceability breakage)
+
+The `pages` field must record **physical PDF page numbers** — the values you pass to
+`pdftotext -f/-l`. Do **not** record the printed page label from the page footer.
+
+Why this matters: SAP courses carry front matter (cover, copyright, typographic
+conventions, TOC) before printed page 1, commonly an offset of ~8 pages. If a chunk
+cites the printed label "120" but the content is on physical page 128, then every
+downstream consumer — the provenance validator, a human reviewer, the *revisor* agent —
+that re-opens "page 120" lands 8 pages early and concludes the content (or a T-code, or
+a table) is missing. The chunk looks internally fine but its citation is unfollowable.
+This is silent and corpus-wide; it does not trip any YAML check.
+
+**Detect the offset once per document** (run during Step 1 classification) and record it
+in the log:
+
+```bash
+# Find which physical page carries printed footer "1"
+for p in $(seq 1 20); do
+  lbl=$(pdftotext -layout -f $p -l $p "$DOC" - | grep -oE 'Copyright.*reserved\.[[:space:]]*[0-9]+' | grep -oE '[0-9]+$' | head -1)
+  [ "$lbl" = "1" ] && { echo "Offset: printed 1 = physical $p  (printed N = physical N+$((p-1)))"; break; }
+done
+```
+
+Then either (a) cite physical pages directly in `pages` (preferred — the field stays
+consistent with the extraction tools), or (b) if you prefer printed labels for human
+readability, record `page_offset: N` in `_project_state.md` for that document and have
+every re-extraction add it. Pick one convention per document and state it in the log.
+The default and recommended convention is **physical pages**, because that is what every
+tool in this workflow consumes.
 
 ### Note on sap_release
 
@@ -639,6 +713,8 @@ third-party, free-of-charge, complaints, credit-memo,
 debit-memo, invoice-correction, make-to-order,
 stock-transfer, intercompany, none
 ```
+
+**Use differentiating tags, not just the area generic.** A billing chunk about credit memos should use `[billing, credit-memo]`, not just `[billing]`. A chunk about complaints that leads to a credit memo should include `[billing, credit-memo, complaints]`. The tag set is the primary metadata filter for RAG retrieval — using only the generic area tag (`billing`) for all 30+ billing chunks makes them indistinguishable at query time. Apply every specific tag that is accurate for the chunk's content.
 
 ### Content Sections by chunk_type
 
@@ -710,9 +786,25 @@ stock-transfer, intercompany, none
 - SAP terms in English in italics in the body. Spanish equivalents in `aliases`.
 - Be specific: "The *selection date* determines which *schedule lines* are included" is useful. "The date is important" is not.
 - Do not invent. If the source does not mention it, do not include it.
-- Omit sections with no source content. No filler.
+- Omit sections with no source content. No filler — **except `Cross-References`, which is mandatory (see below).**
 
-#### Provenance rule for `transactions` and `tables` — literal extraction only
+#### Cross-References are mandatory — they are the retrieval graph's edges
+
+Every chunk must end with a `## Cross-References` section. A knowledge base is not a pile
+of independent chunks; it is a graph, and cross-references are its edges. A chunk with no
+links is an isolated node: a consultant who lands on "cancel billing document" gets no
+pointer to "create billing document", and the RAG system cannot walk from one to the next.
+
+- Write at least one of: `Prior step:`, `Next step:`, or `See also:`, pointing to real chunk IDs.
+- If you genuinely cannot identify a related chunk yet (e.g. the related topic has not been
+  processed), write `See also: None identified yet` — an explicit placeholder, never silent omission.
+- **Batch cohesion**: when you process a whole document in one session, the chunks you create
+  in that batch almost always relate to each other (a process and its cancellation, a concept
+  and its configuration). Before finishing the session, link them. Sibling chunks from the same
+  document left mutually unlinked is the most common cross-reference gap.
+- Reference by **chunk ID** (`billing-invoice-list-001`), not by prose ("see the invoice chunk"),
+  so links are machine-resolvable. The Step 6 validator now rejects a chunk that lacks this section.
+- **Format**: plain chunk ID, no backticks, no quotes, no markdown link syntax. Correct: `See also: billing-invoice-list-001`. Wrong: `` See also: `billing-invoice-list-001` `` or `See also: [Invoice List](billing-invoice-list-001)`. The batch-audit regex matches plain IDs — decorated formats may fail tooling.
 
 These two fields are **extraction fields, not knowledge fields**. They record what the *source text literally contains*, never what a consultant would know is relevant. This is the single most common failure mode of this agent: emitting correct-but-unsourced SAP identifiers. Treat it as a hard rule.
 
@@ -723,6 +815,24 @@ These two fields are **extraction fields, not knowledge fields**. They record wh
   - `<!-- inferred table, pending validation: LIKP, LIPS -->`
 - **Default is empty.** `transactions: []` and `tables: []` are the *correct, expected* values for conceptual courses (most S46xx Type A material). An empty field is a sign the agent respected provenance, not a defect to be "filled in." Never populate these fields to make a chunk look more complete.
 - **Self-check before writing the field**: for each token you are about to list, can you point to the line of extracted text it came from? If not, it belongs in a comment, not the field.
+
+**Provenance has two failure modes — guard both:**
+
+1. *Over-extraction (hallucination)*: listing a correct-but-unsourced identifier. Covered by the rules above. Symptom: a token in the field that is not in the text.
+2. *Under-extraction (omission)*: the source **does** name a T-code or table — often in an appendix, a menu-path table, or a data-model figure — and the chunk leaves the field empty anyway. This is just as wrong, because it silently drops retrievable signal the source actually provided.
+
+Before finalizing a chunk, run the reverse check: grep the **source text for this chunk's topic** for T-code and table patterns, and confirm every match that belongs to this chunk's scope is captured.
+
+```bash
+# T-codes and tables present in THIS chunk's cited source pages:
+pdftotext -layout -f [start] -l [end] "$DOC" - \
+  | grep -oE '\b(V[AFL]|F[BK]|VK|MM)[0-9]{2,3}[A-Z]?\b|\b(VBRK|VBRP|VBFA|VBPA|VBAK|VBAP|LIKP|LIPS|KONV|PRCD_COND|BSEG|BKPF|ACDOCA)\b' \
+  | sort -u
+# Cross-check this list against the chunk's transactions/tables fields.
+# Also consult the back-matter appendix you mapped in Step 2 for this topic's codes.
+```
+
+A token that appears in the source for this chunk's topic and is missing from the field is an omission to fix — not a "safe empty." `transactions: []` is correct only when the source genuinely does not name any code for this topic (the S46xx conceptual-lesson case). When a transaction/menu-path appendix exists, the empty default no longer applies — populate from it.
 
 ---
 
@@ -853,6 +963,57 @@ for s in meta.get("sources", []):
     if not isinstance(s.get("pages",""), str):
         sys.exit(f"ERROR: pages must be a quoted string, not a number: {s.get('pages')}")
 
+# --- Structural section checks (catches silently-dropped sections) ---
+import re as _re
+body = text.split("---", 2)[2]
+headings = [h.strip() for h in _re.findall(r'^##\s+(.*)$', body, _re.M)]
+
+# Cross-References is mandatory for EVERY chunk_type: it is the retrieval graph's edges.
+# Match the SECTION HEADING, not the word "cross-reference" appearing in prose.
+if not any(_re.match(r'cross[- ]?ref', h, _re.I) for h in headings):
+    sys.exit("ERROR: missing '## Cross-References' section (mandatory for all chunk types). "
+             "A chunk with no links is an isolated node — at minimum state 'Prior step', "
+             "'Next step', or 'See also', or write 'None identified' if truly standalone.")
+
+# H1 title is mandatory: every chunk must have a "# Title" heading (not just ## headings).
+import re as _re
+if not _re.search(r'^#\s+[^#]', body, _re.M):
+    sys.exit("ERROR: missing H1 title (# Title). Every chunk must have a top-level heading "
+             "matching the frontmatter title field.")
+
+# Body word count floor: 300 words minimum (excluding frontmatter).
+body_words = len(body.split())
+if body_words < 300:
+    sys.exit(f"ERROR: body has only {body_words} words — minimum is 300. "
+             "Merge with a related chunk or expand coverage from the source.")
+
+# Each chunk_type has anchor sections it must not silently drop.
+REQUIRED_BY_TYPE = {
+    "process":       ["Operational Summary", "Process Flow"],
+    "concept":       ["Operational Summary", "Definition"],
+    "configuration": ["Operational Summary", "SPRO"],   # SPRO path is mandatory for configuration chunks
+    "transaction":   ["Operational Summary", "Typical Usage Flow"],
+    "integration":   ["Operational Summary", "Data Flow"],
+}
+for need in REQUIRED_BY_TYPE.get(meta["chunk_type"], []):
+    if not any(need.lower() in h.lower() for h in headings):
+        # process chunks may use "Typical Usage Flow" in place of "Process Flow"
+        alt_ok = (need == "Process Flow" and any("usage flow" in h.lower() for h in headings))
+        if not alt_ok:
+            sys.exit(f"ERROR: chunk_type '{meta['chunk_type']}' missing required section: '{need}'")
+
+# "Questions This Chunk Answers" is mandatory everywhere (drives RAG recall).
+# Minimum 4 questions per chunk; each must cover a DISTINCT search intent.
+# No reformulations of the same question (e.g., "What is X?" and "How is X defined?" are one question, not two).
+if not any("question" in h.lower() for h in headings):
+    sys.exit("ERROR: missing '## Questions This Chunk Answers' section")
+
+# Count questions in the section and warn if too few
+for m in re.finditer(r'^## Questions This Chunk Answers(.*?)(?=^##|\Z)', body, re.M | re.S):
+    q_count = len(re.findall(r'^\s*[-*]', m.group(1), re.M))
+    if q_count < 4:
+        print(f"WARN: only {q_count} questions in 'Questions This Chunk Answers' — minimum is 4. Add distinct search intents.")
+
 print("YAML OK — chunk valid")
 VALIDATE
 ```
@@ -879,7 +1040,7 @@ src = src_path.read_text(encoding="utf-8", errors="replace") if src_path.exists(
 src_upper = src.upper()
 
 problems = []
-# Each listed token must appear as a standalone token in the source text.
+# PASS 1 — over-extraction: each listed token must appear in the source text.
 for field in ("transactions", "tables"):
     for tok in meta.get(field, []):
         tok = str(tok).strip()
@@ -887,19 +1048,35 @@ for field in ("transactions", "tables"):
             continue
         # word-boundary match, case-insensitive; tables/tcodes are tokens, not substrings
         if not re.search(r"(?<![A-Z0-9_])" + re.escape(tok.upper()) + r"(?![A-Z0-9])", src_upper):
-            problems.append(f"  {field}: '{tok}' NOT found as a standalone token in source text")
+            problems.append(f"  {field}: '{tok}' listed but NOT in source text (possible hallucination)")
+
+# PASS 2 — under-extraction: T-codes/tables present in the source but not listed.
+# These patterns are conservative (well-known SD/billing identifiers) to limit noise.
+TCODE_RE = re.compile(r"(?<![A-Z0-9_])(V[AFL][0-9]{2,3}[A-Z]?|F[BK][0-9]{2,3}|VK[0-9]{2})(?![A-Z0-9])")
+TABLE_RE = re.compile(r"(?<![A-Z0-9_])(VBRK|VBRP|VBFA|VBPA|VBAK|VBAP|VBUK|VBUP|LIKP|LIPS|KONV|PRCD_COND|BSEG|BKPF|ACDOCA|FPLT|FPLA)(?![A-Z0-9])")
+listed = {str(t).strip().upper() for t in (meta.get("transactions") or []) + (meta.get("tables") or [])}
+src_tcodes = {m.group(0).upper() for m in TCODE_RE.finditer(src_upper)}
+src_tables = {m.group(0).upper() for m in TABLE_RE.finditer(src_upper)}
+missing = (src_tcodes | src_tables) - listed
+# A token in the chunk body but missing from the field is a strong omission signal.
+body_upper = chunk.read_text(encoding="utf-8").split("---", 2)[2].upper()
+for tok in sorted(missing):
+    in_body = re.search(r"(?<![A-Z0-9_])" + re.escape(tok) + r"(?![A-Z0-9])", body_upper)
+    flag = "and is used in this chunk's body" if in_body else "in source pages for this chunk"
+    problems.append(f"  OMISSION: '{tok}' appears {flag} but is not in transactions/tables")
 
 if problems:
-    print("PROVENANCE WARNINGS — these tokens are not in the extracted source text:")
+    print("PROVENANCE WARNINGS:")
     print("\n".join(problems))
-    print("Action: confirm each against a rasterized figure, or REMOVE it from the")
-    print("field and record it as a '<!-- inferred ... pending validation -->' comment.")
-    print("Do NOT keep an unsourced token in transactions/tables just because it is")
-    print("technically correct SAP knowledge.")
+    print("Over-extraction → remove the token or move it to a '<!-- inferred ... -->' comment.")
+    print("Omission → if the token belongs to this chunk's topic, ADD it to the field")
+    print("(check the back-matter appendix mapped in Step 2). Do not leave it empty by default.")
 else:
-    print("PROVENANCE OK — every transactions/tables token traces to the source text")
+    print("PROVENANCE OK — listed tokens trace to source, and no obvious source token is omitted")
 PROV
 ```
+
+> The omission pass uses a conservative list of well-known SD/billing identifiers, so it will not catch every table, but it reliably flags the high-value ones (VF-codes, VBRK/VBRP, etc.). Treat an `OMISSION` on a token that is *in this chunk's body* as a near-certain fix.
 
 > **What this check can and cannot do.** It confirms *literal token presence*. It cannot tell that a token appears in the wrong sense — e.g. `VL10` present only as the *value* of parameter ID `LE_VL10_SZENARIO` (not an invoked transaction), or `MARA` present as a *picking rule* (not the material master table). A `PROVENANCE OK` therefore means "nothing is purely invented," not "every token is semantically a transaction/table." The prose rule in Step 5 and human review remain responsible for sense-disambiguation. A `PROVENANCE WARNING`, by contrast, is close to definitive: the token is absent from the text and must be justified by a legible figure or removed.
 
@@ -908,9 +1085,87 @@ Do not update the index with a defective chunk.
 
 ---
 
+## Step 6b — Batch Audit (run once before closing a document)
+
+Per-chunk validation in Step 6 is necessary but **not sufficient**: it inspects each chunk
+in isolation, so it cannot see a defect that is uniform across the whole batch. Real
+incidents have all shared this shape — *every* chunk passed Step 6 individually while the
+batch as a whole had a systemic flaw:
+- all chunks citing printed page labels instead of physical pages (silent traceability break);
+- all chunks missing `Cross-References` (isolated nodes, no retrieval graph);
+- the whole transaction appendix skipped (empty `transactions` across the batch);
+- a uniform `quality: high` distribution masking unreviewed inference.
+
+So after creating/correcting all chunks for a document and before writing the log, run a
+batch-level sweep over everything you just produced:
+
+```bash
+python3 - << 'BATCH'
+import pathlib, yaml, re, collections
+DOCKEY = "S4615"   # <-- set to a string unique to THIS document's sources
+chunks = [p for p in pathlib.Path("chunks").rglob("*.md")
+          if not p.name.startswith("_") and DOCKEY in p.read_text(encoding="utf-8")]
+metas = [(p, yaml.safe_load(p.read_text(encoding="utf-8").split("---",2)[1])) for p in chunks]
+print(f"batch size: {len(metas)} chunks for {DOCKEY}")
+
+# 1) Cross-reference graph: every chunk should link, and links should resolve.
+ids = {m["id"] for _,m in metas}
+def _has_xref(p):
+    body = p.read_text(encoding="utf-8").split("---",2)[2]
+    return any(re.match(r'cross[- ]?ref', h, re.I)
+               for h in re.findall(r'^##\s+(.*)$', body, re.M))
+no_xref = [m["id"] for p,m in metas if not _has_xref(p)]
+refs = collections.Counter()
+broken = []
+for p,m in metas:
+    body = p.read_text(encoding="utf-8").split("---",2)[2]
+    for r in re.findall(r'\b[a-z][a-z0-9-]+-\d{3}\b', body):
+        refs[r]+=1
+        if r not in ids and r not in {x.stem for x in pathlib.Path("chunks").rglob("*.md")}:
+            broken.append((m["id"], r))
+print(f"  chunks with NO cross-ref section: {len(no_xref)}  {no_xref[:5]}")
+print(f"  broken cross-ref targets: {broken if broken else 'none'}")
+# isolated nodes: created this batch but nothing in the batch links TO them
+linked_targets = set(refs)
+isolated = [m['id'] for _,m in metas if m['id'] not in linked_targets]
+print(f"  never referenced by any sibling (candidate isolated nodes): {len(isolated)}")
+
+# 2) Quality distribution sanity (uniformity is a smell).
+q = collections.Counter(m["quality"] for _,m in metas)
+print(f"  quality distribution: {dict(q)}"
+      + ("  <-- WARN: uniform, re-check calibration" if len(q)==1 and len(metas)>5 else ""))
+
+# 3) Page-citation sanity: are pages plausibly PHYSICAL (offset applied)?
+#    Heuristic: if max cited page < (physical page count - typical front matter), suspect printed labels.
+maxpage = 0
+for _,m in metas:
+    for s in m["sources"]:
+        for n in re.findall(r'\d+', s["pages"]):
+            maxpage = max(maxpage, int(n))
+print(f"  max cited page across batch: {maxpage}  (compare to physical page count; "
+      f"if well below, you may still be citing printed labels)")
+
+# 4) chunk_type vs section presence already enforced per-chunk; here just report the mix.
+ct = collections.Counter(m["chunk_type"] for _,m in metas)
+print(f"  chunk_type mix: {dict(ct)}")
+BATCH
+```
+
+Read the output as a whole. A batch that is internally consistent but uniformly wrong
+(every page off by the same offset, every chunk unlinked) is exactly what this step exists
+to surface. Fix systemic findings here, then proceed to Step 7.
+
+---
+
 ## Step 7 — Update State
 
 ### `_processing_log.md` — append-only, never rewrite
+
+**Writing this entry is mandatory and is part of "processing a document."** A document is
+not done until its log entry exists. If you created chunks but did not append an entry,
+the work is incomplete — a later session (or the *revisor*) has no record of what was
+covered, what was skipped, or where to resume. Never finish a session having written
+chunks without the matching log entry.
 
 ```markdown
 ## YYYY-MM-DD — [exact PDF name]
@@ -918,6 +1173,7 @@ Do not update the index with a defective chunk.
 - Type: A/B/C/D/E
 - Total pages: N
 - Processed range: p. X-Y
+- Appendix / reference tables: [page range mined for T-codes/tables, or "none present"]
 - Next pending page: p. Z  (or "none — completed")
 - Extractable text: high/medium/low
 - Encoding issues: [problematic pages, or "none"]
@@ -927,10 +1183,18 @@ Do not update the index with a defective chunk.
   - [id] → reason
 - Duplicates found and decision:
   - [existing id] → [skipped/merged/separated by SAP version]
-- Omitted content: [what and why, or "none"]
+- Omitted content: [what and why, or "none"]   ← if an appendix was not chunked, say so HERE explicitly
 - Non-obvious chunking decisions: [decision and justification]
 - Status: not started / partial / completed / skipped
 ```
+
+**Coverage self-check before writing `Status: completed`:** confirm that (a) every page
+in `Processed range` was actually read, (b) any transaction/menu-path appendix found in
+Step 2 was mined for identifiers and accounted for in the `Appendix` line, and (c) the
+union of all chunks' cited pages has no unexplained gaps in the document's content pages.
+A silent gap — especially a skipped appendix on a T-code-rich source — is the failure
+this check exists to catch. If something was skipped on purpose, it goes in `Omitted
+content` with a reason; "completed" must mean completed.
 
 ### `_index.md` — regenerate with script
 

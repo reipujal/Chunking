@@ -9,7 +9,7 @@ sap_release: S/4HANA 2020
 sources:
   - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
     relative_path: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
-    pages: "24-26"
+    pages: "32-34"
     source_type: "A"
     role: "primary"
 transactions: []
@@ -17,6 +17,13 @@ tables: []
 aliases:
   - invoice correction request
   - solicitud de corrección de factura
+  - corrección de factura
+  - credit and debit combined
+  - crédito y débito combinado
+  - incorrect invoice correction
+  - corregir factura incorrecta
+  - price correction billing
+  - quantity correction billing
 level: functional
 status: draft
 quality: high
@@ -24,24 +31,50 @@ created: 2026-06-05
 last_updated: 2026-06-05
 ---
 
+# Invoice Correction Requests in SAP SD
+
 ## Operational Summary
-An *invoice correction request* represents a combination of credit and debit memo requests. It is used to correct pricing or quantities for a complaint, automatically creating a paired credit and debit item where the net difference represents the final amount to be credited or debited.
+An *invoice correction request* combines a credit memo item and a debit memo item in a single document to correct pricing or quantity errors on an existing invoice. The system automatically creates two paired items per line — one credit (reverses the original) and one debit (states the corrected value) — so the net difference is precisely the amount credited or charged to the customer. It must always be created with reference to the original billing document.
 
 ## Questions This Chunk Answers
-- How does an invoice correction request work?
-- How does the system handle quantity or price differences using this process?
+- What is an invoice correction request and how does it differ from a plain credit memo?
+- Why are two items created automatically for each corrected line?
+- Can the credit memo item be changed? Can the debit item be changed?
+- How does the system handle a quantity error versus a price error?
+- Why must the invoice correction request reference a billing document, not an order?
+- How are unchanged correction items cleaned up?
 
 ## When It Applies and Context
-You create an invoice correction request whenever a customer complains about an incorrect invoice due to a quantity discrepancy (e.g., damaged goods) or a pricing error. It must always be created with reference to the corresponding **billing document** (no reference to orders or inquiries).
+Use an invoice correction request when a customer disputes an incorrect invoice and the correction requires both a reversal of the wrong amount and re-billing of the correct amount in the same document. Unlike a plain credit memo, the invoice correction request provides a self-contained audit trail of what was wrong and what was corrected.
 
 ## Process Flow
-1. **Creation**: When you create the invoice correction request, the system automatically duplicates the items. For every item in the reference billing document, it creates two items with opposite (+ and -) signs. First, all credit memo items are listed, followed by all debit memo items.
-2. **Adjustment**: 
-   - **Credit Item**: Grants full credit for the incorrect billing item. *You cannot change the credit memo item.*
-   - **Debit Item**: You update the debit memo item with the new, correct characteristics (e.g., the correct price or the accepted correct quantity).
-3. **Calculation**: The difference between the credit item and the adjusted debit item represents the final full amount to be credited to the customer.
-4. **Cleanup**: You can delete the credit and debit memos in paired steps using the "Delete unchanged item" function for any lines that required no correction.
+1. **Create with reference to billing document**: The invoice correction request must reference the billing document that contains the error — references to orders or inquiries are not valid here.
+2. **Automatic paired items**: For each item in the reference billing document, the system creates two items:
+   - All **credit memo items** are listed first (the original values, reversed).
+   - All **debit memo items** follow (where the correction is entered).
+3. **Adjust the debit item**: The credit memo item cannot be changed — it represents the full reversal of the original. The debit memo item is where you enter the corrected values:
+   - **Quantity difference**: Change the quantity on the debit item (e.g., reduce for damaged goods).
+   - **Price difference**: Adjust the pricing elements on the debit item (e.g., correct the price).
+4. **Net calculation**: The difference between the locked credit item and the adjusted debit item is the final amount credited or debited.
+5. **Cleanup**: Use the *Delete unchanged item* function to remove paired lines where no correction was needed, keeping the document clean.
 
-## Variants: Quantity vs. Price Differences
-- **Quantity Difference**: Used when correcting the quantity (e.g., a certain amount of goods were damaged or substandard). You alter the quantity on the debit memo item.
-- **Price Difference**: Used when processing a complaint for incorrect pricing. The correction of the pricing elements is carried out strictly in the debit memo item.
+## Conditions and Restrictions
+- Must always reference a billing document — not an order, inquiry, or delivery.
+- The credit memo item is read-only; only the debit memo item can be changed.
+- Billing block may be set automatically depending on Customizing, requiring release before billing.
+
+## Common Errors
+
+**Correction request shows no net value difference**
+→ Both credit and debit items are copied identically from the reference. The debit item has not been adjusted yet — enter the corrected quantity or pricing elements on the debit side.
+
+**Cannot create invoice correction request with reference to order**
+→ Invoice correction requests require a billing document as reference. Use a credit memo request if the source is a sales order.
+
+**Unwanted zero-value pairs remain in the document**
+→ Use the *Delete unchanged item* function to remove paired items that required no correction before saving.
+
+## Cross-References
+- See also: billing-credit-debit-memo-process-001
+- See also: billing-returns-process-001
+- See also: configuration-billing-types-sap-s4hana-001

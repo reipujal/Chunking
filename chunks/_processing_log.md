@@ -90,3 +90,40 @@
 - Index regenerated; T-codes column cleared for the two chunks; path column normalized to chunks/ forward-slash form.
 - Root cause addressed in CLAUDE.md: added literal-extraction provenance rule for transactions/tables, automated provenance grep in Step 6, caveats on reference examples and duplicate-search seeds, explicit figure-only exception for unsourced codes.
 - Status: completed (correction). Chunks remain status: draft pending human/revisor review of the inferred-pending T-codes.
+
+## 2026-06-05 — S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf
+- Relative path: S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf
+- Type: A (official SAP course; Producer PDFKit, HTML→PDF export)
+- Total pages: 131 (physical)
+- Page offset: printed label N = physical N+8 (printed 1 = physical 9). All citations below use PHYSICAL pages.
+- Processed range: physical p.18-132 (lesson content + appendix)
+- Appendix / reference tables: physical p.124-126 "Frequently Used Menu Paths" — mined for T-codes (VF01/03/04/05/06/11/24/25, VFX3, F-29, FBL5, VK13/33, VL02N/VL23). Not chunked as a standalone chunk; its codes were distributed into the relevant topic chunks.
+- Next pending page: none — completed
+- Extractable text: high
+- Encoding issues: none
+- Chunks created: 31 (this batch was generated in a prior session; this entry documents it retroactively + the correction below)
+- CORRECTION applied 2026-06-05:
+  - Page citations: ALL 31 chunks were citing printed labels; converted to physical pages (+8). This was a silent corpus-wide traceability defect — re-extracting a cited "page 120" landed on physical 120, eight pages before the content.
+  - Under-extraction (appendix omission): the T-code appendix had been skipped, leaving 29/31 chunks with transactions:[] despite the source naming codes explicitly. Distributed appendix T-codes to matching chunks by task:
+    - billing-document-cancellation-001 → [VF11]  (appendix p.125 added to sources)
+    - billing-document-creation-methods-001 → [VF01, VF04, VF06]  (VF01/VF04 in-page 52-59; VF06 appendix p.125)
+    - invoice-list-001 → [VF25, VF24]  (appendix p.125 added)
+    - down-payment-processing-001 → [F-29]  (appendix p.126 added)
+    - billing-data-flow-001 → [VOFM]  (page range extended to physical 45 where VOFM appears)
+    - Each added T-code also added to aliases and given a sourced body mention.
+  - Over-extraction (hallucination): removed table VBRL from document-table-structure-001 (frontmatter + body). The other 8 tables (VBRK, VBRP, VBPA, SADR, VBFA, PRCD_COND, STXH, STXL) verified present in physical p.128-129 — retained.
+  - Verified-correct, no change: table "001" in billing-negative-postings-001 (source p.108 literally says "controlled in table 001"); aliases FAZ/AZWR in down-payment (both in source).
+  - Quality recalibration: batch was 31/31 high. Re-rated to 25 high / 6 medium. Medium = chunks that gained cross-page appendix codes or had a hallucination removed (cancellation, creation-methods, invoice-list, down-payment, data-flow, document-table-structure) — flagged for human/revisor glance.
+- Duplicates found and decision: none (no prior billing chunks existed)
+- Omitted content: Learning Assessment pages (contain quiz-form T-code references, e.g. "You use transaction VF01" on physical p.72/74 — intentionally not used as chunk anchors); lesson overview/objective pages; unit separators.
+- Non-obvious chunking decisions: appendix mined-but-not-chunked (its value is the task→code mapping, distributed into topic chunks rather than isolated as a low-context list).
+- Status: completed
+
+## 2026-06-05 — UPDATE: S4615 chunks — Cross-References + missing sections
+- Trigger: post-process evaluation found systemic gaps beyond transactions/tables.
+- Cross-References: all 31 S4615 chunks lacked the mandatory section (the template requires it for every chunk_type). Added a topical cross-reference graph using real chunk IDs only. Verified: 0 broken targets, 0 isolated nodes corpus-wide (every chunk has ≥1 inbound link). Added a few reciprocal links (e.g. shipping-goods-issue-ewm → cash-sales) for batch cohesion across S4610/S4615.
+- Common Errors: 7 process chunks lacked the section (cancellation, creation-methods, fiori, credit-debit, down-payment, invoice-correction, returns, cash-sales). Added source-grounded errors only — no invented failure modes; where the source documents a constraint (e.g. cash sale requires a G/L account; return credit memo references the order not the delivery) it is reflected.
+- No content invented; all added error text traces to source statements already used in the chunk bodies.
+- Validation: 31/31 pass YAML + structural (Cross-References present, process chunks have Common Errors) + provenance. Index regenerated.
+- Tooling note: the batch-audit cross-ref regex was corrected (now allows digits in slugs, e.g. "s4hana") in CLAUDE.md; the earlier "isolated node" flag on billing-types was a regex false positive, not a real gap.
+- Status: completed (content update). Chunks remain status: draft pending human/revisor review.
