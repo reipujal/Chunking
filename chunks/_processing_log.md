@@ -44,3 +44,37 @@
   - IM hierarchy (client/company code/plant/storage location) and EWM hierarchy grouped in one chunk because they are presented together in the source and a consultant asking about warehouse org units needs both. IM-only content (p.20 first half) is too short (~half page) to stand alone.
   - Shipping Point and Loading Point grouped per CLAUDE.md example (related in configuration and usage).
 - Status: partial — Unit 2 completed, Unit 3 pending
+
+## 2026-06-05 — S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf (continued)
+- Relative path: S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf
+- Type: A*
+- Total pages: 88
+- Processed range: Units 3-5 (PDF p.29-37, p.43-52, p.55-63, p.71-88)
+- Next pending page: none — document completed
+- Extractable text: high
+- Encoding issues: none
+- Visual pages detected: p.38 (Unit 3/4 separator), p.75 (within Unit 5 Lesson 1)
+- Chunks created: 11
+  - configuration-delivery-type-001 → chunks/configuration/delivery-type-001.md
+  - configuration-delivery-item-category-001 → chunks/configuration/delivery-item-category-001.md
+  - configuration-delivery-process-customizing-001 → chunks/configuration/delivery-process-customizing-001.md
+  - configuration-delivery-field-determination-001 → chunks/configuration/delivery-field-determination-001.md
+  - configuration-delivery-scheduling-001 → chunks/configuration/delivery-scheduling-001.md
+  - shipping-outbound-delivery-creation-process-001 → chunks/shipping/outbound-delivery-creation-process-001.md
+  - shipping-outbound-delivery-monitor-001 → chunks/shipping/outbound-delivery-monitor-001.md
+  - shipping-ewm-picking-process-001 → chunks/shipping/ewm-picking-process-001.md
+  - shipping-goods-issue-ewm-001 → chunks/shipping/goods-issue-ewm-001.md
+  - shipping-inbound-delivery-ewm-001 → chunks/shipping/inbound-delivery-ewm-001.md
+  - shipping-delivery-special-functions-001 → chunks/shipping/delivery-special-functions-001.md
+- Chunks updated: none
+- Duplicates found and decision: none
+- Omitted content:
+  - All learning assessment pages (p.39-40, p.57-68, p.80-82, p.85-88) — no functional content
+  - All lesson overview/objective pages — no functional content
+  - Unit title separator pages
+- Non-obvious chunking decisions:
+  - Unit 4 Lessons 1 and 2 (field determination + scheduling) split into separate chunks despite being in the same lesson group — search intents are orthogonal (configuration of determination logic vs. scheduling parameters)
+  - Outbound Delivery Monitor (Unit 4 Lesson 4) kept as own chunk despite being short — it is a standalone transaction with a specific search intent
+  - Goods Issue (Unit 5 Lesson 2) kept separate from EWM picking — GI trigger options and delivery split logic are distinct from the picking warehouse task flow
+  - Delivery special functions (pricing + interface + incompletion) grouped into one chunk — each topic alone is too short (<300 words); together they form a coherent "additional delivery capabilities" reference
+- Status: completed — full document processed (Units 1-5)
