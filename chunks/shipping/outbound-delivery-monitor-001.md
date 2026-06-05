@@ -12,15 +12,13 @@ sources:
     pages: "62-63"
     source_type: A
     role: primary
-transactions: [VL06O, VL06I]
+transactions: []
 tables: []
 aliases:
   - outbound delivery monitor
   - monitor de entregas de salida
-  - VL06O
   - inbound delivery monitor
   - monitor de entregas de entrada
-  - VL06I
   - delivery worklist
   - lista de trabajo de entregas
 level: functional
@@ -32,8 +30,10 @@ last_updated: 2026-06-05
 
 # Outbound Delivery Monitor in SAP SD
 
+<!-- inferred transactions, pending validation: VL06O (outbound delivery monitor), VL06I (inbound delivery monitor) — the source describes both monitors by function only and does not print the T-codes -->
+
 ## Operational Summary
-The *Outbound Delivery Monitor* (**VL06O**) is a central transaction for monitoring and executing all delivery-related activities. It displays all outbound deliveries — both pending and completed — and allows executing subsequent functions directly from the list, including picking transfer order creation and goods issue posting in collective background processing. An equivalent *Inbound Delivery Monitor* (**VL06I**) exists for inbound delivery activities.
+The *Outbound Delivery Monitor* is a central transaction for monitoring and executing all delivery-related activities. It displays all outbound deliveries — both pending and completed — and allows executing subsequent functions directly from the list, including picking transfer order creation and goods issue posting in collective background processing. An equivalent *Inbound Delivery Monitor* exists for inbound delivery activities.
 
 ## Questions This Chunk Answers
 - What does the Outbound Delivery Monitor display?
@@ -61,17 +61,17 @@ From the Outbound Delivery Monitor, users can execute the following in collectiv
 
 Additional document navigation is also available: branching directly to individual delivery documents from the list.
 
-### Inbound Delivery Monitor (VL06I)
+### Inbound Delivery Monitor
 The inbound delivery monitor provides the same capabilities for monitoring and executing inbound delivery activities (goods receipt processing, putaway, etc.).
 
 ## Relationship with Other SAP SD Objects
 
 | Object | Relationship |
 |---|---|
-| Outbound Delivery | Primary object displayed and processed in VL06O |
-| Transfer Order (WM) | Can be created in background from VL06O for picking |
-| *Goods Issue* | Can be posted in background from VL06O |
-| Inbound Delivery | Monitored and processed via VL06I |
+| Outbound Delivery | Primary object displayed and processed in the outbound delivery monitor |
+| Transfer Order (WM) | Can be created in background from the outbound delivery monitor for picking |
+| *Goods Issue* | Can be posted in background from the outbound delivery monitor |
+| Inbound Delivery | Monitored and processed via the inbound delivery monitor |
 
 ## Cross-References
 - Delivery creation via Delivery Due List: shipping-outbound-delivery-creation-process-001

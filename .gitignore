@@ -4,5 +4,5 @@ docu sap/
 # Agent temp files
 chunks/_tmp_*
 
-# Claude Code local settings
-.claude/settings.local.json
+# Claude Code settings (local, not project-specific)
+.claude/

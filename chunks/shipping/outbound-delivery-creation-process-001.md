@@ -12,14 +12,13 @@ sources:
     pages: "55-60"
     source_type: A
     role: primary
-transactions: [VL10E]
+transactions: []
 tables: []
 aliases:
   - delivery due list
   - lista de entregas pendientes
   - collective processing delivery
   - procesamiento colectivo de entregas
-  - VL10E
   - delivery scenario
   - escenario de entrega
   - picking location determination
@@ -37,12 +36,14 @@ last_updated: 2026-06-05
 
 # Creating Outbound Deliveries — Collective Processing, Delivery Due List, and Picking Location
 
+<!-- inferred transaction, pending validation: VL10E (the source names the "Delivery Due List" / "Create Outbound Delivery" by function but does not print the T-code) -->
+
 ## Operational Summary
-Outbound deliveries can be created manually (one at a time) or via collective processing using the *Delivery Due List* (**VL10E**). Collective processing is the standard operational mode — it handles all types of shipping documents, supports order combination, and can run online or in the background. The system also determines the picking storage location automatically when creating the delivery, using a configurable rule defined per delivery type.
+Outbound deliveries can be created manually (one at a time) or via collective processing using the *Delivery Due List*. Collective processing is the standard operational mode — it handles all types of shipping documents, supports order combination, and can run online or in the background. The system also determines the picking storage location automatically when creating the delivery, using a configurable rule defined per delivery type.
 
 ## Questions This Chunk Answers
 - What are the options for creating outbound deliveries?
-- What is the Delivery Due List (VL10E) and how does it work?
+- What is the Delivery Due List and how does it work?
 - What are delivery scenarios and user roles in delivery processing?
 - How does the system determine the picking storage location?
 - Can items be added to an existing delivery? What can and cannot be changed?
@@ -56,10 +57,10 @@ Outbound delivery creation follows sales order confirmation and is the first ste
 ### Option 1 — Manual Creation
 Create a single outbound delivery with or without reference to a specific order. Limitation: cannot deliver purchase orders or other non-sales-order request documents in this mode.
 
-### Option 2 — Collective Processing (Delivery Due List, VL10E)
+### Option 2 — Collective Processing (Delivery Due List)
 The standard operational approach. Creates multiple deliveries for all types of shipping documents in one run. Can execute **online** (user controls creation interactively) or **in the background** (batch, e.g., overnight).
 
-**Delivery Due List (VL10E)** is a worklist of all operations requiring delivery. Selection criteria are organized on tabstrips — the number and type of criteria vary by delivery scenario and user role. After selection, the system displays all documents due for delivery matching the criteria. From the list, deliveries can be created online or in the background.
+**Delivery Due List** is a worklist of all operations requiring delivery. Selection criteria are organized on tabstrips — the number and type of criteria vary by delivery scenario and user role. After selection, the system displays all documents due for delivery matching the criteria. From the list, deliveries can be created online or in the background.
 
 **Delivery scenarios**: pre-defined in S/4HANA, each modelling a specific business process for delivering goods (e.g., item-by-item delivery of sales orders). A default user role is assigned to each scenario.
 

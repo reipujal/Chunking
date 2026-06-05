@@ -2,15 +2,27 @@
 
 ## Project Paths
 
-| Variable | Value |
-|---|---|
-| **Workspace** | `c:\Users\aranu\Desktop\IA\Chunking` |
-| **Source PDFs** | `c:\Users\aranu\Desktop\IA\Chunking\docu sap` |
-| **Chunks output** | `c:\Users\aranu\Desktop\IA\Chunking\chunks\` |
+| Variable            | Value                                                   |
+| ------------------- | ------------------------------------------------------- |
+| **Workspace**       | `c:\Users\aranu\Desktop\IA\Chunking`                    |
+| **Source PDFs**     | `c:\Users\aranu\Desktop\IA\Chunking\docu sap`           |
+| **Chunks output**   | `c:\Users\aranu\Desktop\IA\Chunking\chunks\`            |
 | **Preferred shell** | PowerShell (Windows) — use Bash tool for POSIX commands |
 
 > In bash protocol commands, the working directory is always the workspace.
 > All `chunks/` paths are relative to the workspace.
+
+---
+
+## Placeholder Convention
+
+Code blocks use three types of markers that require manual substitution:
+
+- `[name]`, `[start]`, `[end]`, `[page]` — **bash values**: substitute with the real value before executing. Example: `[start]` → `45`, `[name]` → `S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf`
+- `{area}`, `{slug}`, `{NNN}` in bash context — **shell variables**: assign first with `AREA=...`, `SLUG=...`, `NNN=...` and use `$AREA`, `$SLUG`, `$NNN`
+- `{area}`, `{field}`, `{path}` inside Python heredoc blocks (`<< 'PY'`, `<< 'VALIDATE'`) — **Python f-strings**: do not substitute, they are Python syntax using variables defined with `os.environ`
+
+If an agent executes a literal placeholder without substituting in bash, the command will fail or produce incorrect results. Always verify before executing.
 
 ---
 
@@ -32,6 +44,7 @@ cat chunks/_index.md 2>/dev/null | head -40 || echo "Index empty"
 The source folder is confirmed: **`docu sap`** (workspace-relative).
 
 At the start of a new session, if `chunks/_project_state.md` exists:
+
 ```bash
 python3 -c "
 import yaml
@@ -40,6 +53,7 @@ print('Previous SOURCE_ROOT:', state.get('source_root'))
 print('Confirmed on:', state.get('confirmed_at'))
 " 2>/dev/null || grep "source_root:" chunks/_project_state.md
 ```
+
 Show the stored SOURCE_ROOT, propose reusing it to the user, and wait for explicit confirmation before proceeding.
 
 ```bash
@@ -52,6 +66,7 @@ echo "SOURCE_ROOT: $SOURCE_ROOT"
 mkdir -p chunks
 touch chunks/_index.md chunks/_processing_log.md chunks/_source_inventory.md
 
+# Persist in pure bash — no Python dependency at this critical step
 printf "source_root: '%s'\nconfirmed_at: '%s'\n" "$SOURCE_ROOT" "$(date +%Y-%m-%d)" > chunks/_project_state.md
 echo "SOURCE_ROOT saved to chunks/_project_state.md"
 cat chunks/_project_state.md
@@ -81,6 +96,7 @@ find "$SOURCE_ROOT" -type f -iname "*.pdf" | wc -l
 ### 5. Present Proposal to User
 
 After the steps above, present:
+
 - How many PDFs are in SOURCE_ROOT and their listing
 - Which documents are already processed according to the log
 - A concrete proposal: "I propose processing [document] because [reason]. Confirm?"
@@ -92,15 +108,18 @@ Do not ask open-ended questions. One specific proposal, wait for confirmation.
 ## Absolute Rules
 
 **Reading allowed:**
+
 - `$SOURCE_ROOT` and its subfolders
 - `chunks/`
 - `/tmp/` only for agent-generated temporaries
 
 **Writing allowed:**
+
 - `chunks/`
 - `/tmp/` only for temporaries
 
 **Prohibited:**
+
 - Modifying, moving, renaming, or deleting source documents
 - Overwriting existing chunks without explicit confirmation
 - Inventing content not supported by the source
@@ -144,6 +163,7 @@ chunks/
 ## Document Priority
 
 ### High — Process First
+
 ```
 S4600_EN_Col17  Business Processes in SAP S4HANA Sales
 S4601_EN_Col17  Business Processes in SAP S4HANA Supply Chain Execution
@@ -160,6 +180,7 @@ Transportation Management with SAP TM
 ```
 
 ### Medium — Process Second
+
 ```
 S4F30_EN_Col12 Order to Cash Optimizations
 TSCM60, TSCM62 and parts   → mark sap_release: "ECC 6.0"
@@ -167,6 +188,7 @@ Process diagrams (Type B): BD6, BDD, BKA, BDA, BKL, BDQ, BJE, BKZ, BD9
 ```
 
 ### Low — Only If Not Duplicate of High Priority
+
 ```
 __SAP SD.pdf
 SD - User Manual.pdf
@@ -175,6 +197,7 @@ Sales and Distribution in SAP ERP Practical Guide
 ```
 
 ### Skip by Default (unless explicitly instructed)
+
 ```
 certification questions / material
 dumps / sample certification
@@ -210,22 +233,22 @@ sample_pages=$(( sample_end - sample_start + 1 ))
 echo "Sample ratio (p.$sample_start-$sample_end): $((sample_words / sample_pages)) words/page"
 ```
 
-| Type | Name | Criterion | Strategy |
-|---|---|---|---|
-| A | Official SAP course | Prefix S4600-S4680, TSCM60/62; >200 words/page | Extract by chapters/units |
-| A* | Mixed document | 80-200 words/page → treat as Type A with visual page detection active | Extract text + rasterize visual pages |
-| B | Visual slide deck | "Process Diagrams" in name, or <80 words/page | Rasterize with pdftoppm |
-| C | Community manual | "User Manual", "tutorial", "training", BBP | Extract, validate quality first |
-| D | Specialized | "Shipment", "Variant Config", "FI-MM-SD", "Transportation" | Same as Type A |
-| E | Certification/dumps | "certification", "dumps", "sample questions" | Skip by default |
+| Type | Name                | Criterion                                                             | Strategy                              |
+| ---- | ------------------- | --------------------------------------------------------------------- | ------------------------------------- |
+| A    | Official SAP course | Prefix S4600-S4680, TSCM60/62; >200 words/page                        | Extract by chapters/units             |
+| A*   | Mixed document      | 80-200 words/page → treat as Type A with visual page detection active | Extract text + rasterize visual pages |
+| B    | Visual slide deck   | "Process Diagrams" in name, or <80 words/page                         | Rasterize with pdftoppm               |
+| C    | Community manual    | "User Manual", "tutorial", "training", BBP                            | Extract, validate quality first       |
+| D    | Specialized         | "Shipment", "Variant Config", "FI-MM-SD", "Transportation"            | Same as Type A                        |
+| E    | Certification/dumps | "certification", "dumps", "sample questions"                          | Skip by default                       |
 
-**Note for HTML→PDF corpus (Edge/Chromium exports):**
-`pdfinfo` will show `Producer: Skia/PDF` or another Chromium engine.
+**Note for HTML→PDF corpus (Edge/Chromium exports):** `pdfinfo` will show `Producer: Skia/PDF` or another Chromium engine.
 In that case, words/page heuristics are indicators, not definitive criteria.
 Confirm the type visually by rasterizing 2-3 representative pages before proceeding.
 Document the origin in `_source_inventory.md` (Producer from pdfinfo).
 
 Communicate to the user before continuing:
+
 ```
 Document: [name]
 Type: [A/B/C/D/E]
@@ -252,14 +275,17 @@ Extracting larger blocks saturates context and degrades chunking decisions
 ("Lost in the Middle" effect).
 
 **First time with any Type A, C, or D document: map the index**
+
 ```bash
 pdftotext -f 1 -l 12 "$DOC" - | head -250
 ```
+
 Identify chapters, titles, and page numbers. Record the map before continuing.
 This step does not apply to Type B documents — they have visual structure, not textual.
 For Type B, go directly to the rasterization section.
 
 **Extract in blocks of maximum 30 pages**
+
 ```bash
 pdftotext -layout -f [start] -l [end] "$DOC" /tmp/block.txt
 wc -w /tmp/block.txt
@@ -271,14 +297,15 @@ watermarks ("For Internal Use Only"), slide references
 ("As shown in the figure above").
 
 **If text has broken encoding** (signals: `Ã©`, `â€™`):
+
 ```bash
 pdftoppm -jpeg -r 150 -f [page] -l [page] "$DOC" /tmp/broken_page
 ls /tmp/broken_page-*.jpg
 ```
+
 If the environment allows visual inspection, read the image.
 If not: do not invent content.
 Record the page as unprocessed in the log and mark it for later review.
-Do not create the chunk until it can be visually reviewed.
 
 ### Type B — Visual Slide Decks
 
@@ -290,24 +317,29 @@ mkdir -p "/tmp/slides-$DOC_SLUG"
 pages=$(pdfinfo "$DOC" | awk '/^Pages:/ {print $2}')
 echo "Total pages: $pages — rasterize in blocks of 30"
 
+# Rasterize in blocks of 30 pages max — same principle as text extraction
 pdftoppm -jpeg -r 150 -f [start] -l [end] "$DOC" "/tmp/slides-$DOC_SLUG/page"
 ls "/tmp/slides-$DOC_SLUG/"
 ```
 
 Process one block, analyze the images, extract the knowledge,
-then move to the next block. Same principle as text extraction.
+then move to the next block.
 
 If the environment allows visual inspection, read each image extracting:
-- Visible SAP transactions
+
+- Visible SAP transactions — read the T-code **exactly as shown** in the command field or screen title (e.g. `VL10E`, not "the delivery due list"). Only a code you can actually read goes into `transactions`.
+- SAP table names visible in technical annotations or data-model figures
 - Key fields in SAP GUI screens
 - Superimposed text annotations
 - Implicit flow between screens
 
-If visual inspection is not possible: record the document as
-`blocked` in `_source_inventory.md` and consult the user.
+A figure is the **only** source from which a T-code or table may enter `transactions`/`tables` without appearing in the extracted text. If a figure is too low-resolution to read an identifier with certainty, treat it as absent and record it as an inferred-pending comment — never guess the code from the screen's apparent purpose.
+
+If visual inspection is not possible: record the document as `blocked` in `_source_inventory.md` and consult the user.
 
 A Type B document is divided by process or sub-process function,
 not by document or slide:
+
 - Do not create one chunk per slide.
 - Do not force a single chunk per document.
 - Create one chunk per continuous, coherent functional flow.
@@ -319,19 +351,27 @@ a single chunk of type `process`.
 **Mixed documents (Type A/C/D with visual pages):**
 
 `pdftotext` separates pages with the control character `\f` (form feed).
-To detect visual pages within an extracted block, parse that character explicitly:
+To detect visual pages within an extracted block, export `INICIO` and
+parse that character explicitly:
 
 ```bash
 pdftotext -layout -f [start] -l [end] "$DOC" /tmp/block.txt
 
+# Export INICIO so the protected heredoc can read it via os.environ
+export INICIO=[start]
 python3 - << 'PY'
-import sys
+import os, sys
 text = open("/tmp/block.txt", encoding="utf-8", errors="replace").read()
-pages = [p for p in text.split("\f") if p.strip()]
+inicio = int(os.environ.get("INICIO", "1"))
+
+# Do NOT filter empty pages — preserve alignment with physical page numbers
+pages = text.split("\f")
 BUTTON_SET = {"save","cancel","execute","ok","back","enter","help",
               "display","change","create","delete","post","check",
               "continue","exit","refresh","print","previous","next"}
-for i, page in enumerate(pages, start=[start]):
+for i, page in enumerate(pages, start=inicio):
+    if not page.strip():
+        continue  # empty page: skip without breaking page numbering
     tokens = page.lower().split()
     words = len(tokens)
     all_buttons = len(tokens) > 0 and set(tokens).issubset(BUTTON_SET)
@@ -341,13 +381,16 @@ PY
 ```
 
 If a page appears as VISUAL or contains only button labels:
+
 1. Discard that plain text — do not use it for chunking
 2. Note the page number
 3. Rasterize only that page:
+
 ```bash
 pdftoppm -jpeg -r 150 -f [page_number] -l [page_number] "$DOC" /tmp/visual
 ls /tmp/visual-*.jpg
 ```
+
 4. Read the image visually to extract relevant information
 
 Do not rasterize the entire document — only pages that trigger these signals.
@@ -360,21 +403,26 @@ Search terms must be specific to the topic being processed.
 Build the search using T-codes, tables, SAP terms in English,
 Spanish aliases, and business objects identified in the source:
 
+> Note: the T-codes and tables in the examples below are **search seeds for finding existing chunks**, not a checklist of identifiers to write into the new chunk's frontmatter. What goes into `transactions`/`tables` is governed solely by the provenance rule in Step 5 (literal presence in the current source).
+
 ```bash
 grep -RniE "TERM1|TERM2|TCODE|TABLE|spanish_alias" chunks/ --include="*.md" || true
 ```
 
 Example for a Pricing topic:
+
 ```bash
 grep -RniE "pricing procedure|esquema de precios|condition type|clase de condicion|access sequence|secuencia de acceso|V/08|VK11|KONV|KONP" chunks/ --include="*.md" || true
 ```
 
 Example for a Delivery topic:
+
 ```bash
 grep -RniE "outbound delivery|entrega de salida|\bVL01N\b|\bVL10E\b|\bLIKP\b|\bLIPS\b|shipping point|punto de expedicion" chunks/ --include="*.md" || true
 ```
 
 ### Case 1 — Same Topic, Same SAP Version, Different Source
+
 Do not modify the chunk directly. Present an update plan:
 
 ```
@@ -386,16 +434,15 @@ Proposed changes:
 Confirm update?
 ```
 
-Only after explicit confirmation: update the chunk, add the source to the
-`sources` array, document in the log: "updated with [source]".
-Do not create a new chunk.
+Only after explicit confirmation: update the chunk, add the source to the `sources` array,
+document in the log: "updated with [source]". Do not create a new chunk.
 
 ### Case 2 — Same Topic, Different SAP Versions (S/4HANA vs ECC)
 
 Is the difference functionally significant?
 → Create two separate chunks by version:
-  `shipping/goods-issue-s4hana-001.md`  → sap_release: "S/4HANA 2020"
-  `shipping/goods-issue-ecc-001.md`     → sap_release: "ECC 6.0"
+  `shipping/goods-issue-s4hana-001.md` → sap_release: "S/4HANA 2020"
+  `shipping/goods-issue-ecc-001.md`    → sap_release: "ECC 6.0"
 → Add a `## Differences from [other version]` section to each.
 
 Is the difference only cosmetic?
@@ -406,11 +453,13 @@ Unknown significance?
 → Create separate chunks by version. Safer than merging.
 
 ### Case 3 — Same Version, Contradictory Sources
+
 → Type A source takes priority over B, C, D.
 → Between two Type A: the more recent takes priority.
 → Document the contradiction in the log.
 
 ### Case 4 — Pure Duplicate
+
 → Skip. Document in the log: "skipped — duplicate of [id]".
 
 **Golden rule**: one concept = one chunk (per SAP version if there are
@@ -423,21 +472,25 @@ topic spread across multiple chunks.
 ## Step 4 — Decide How to Chunk
 
 ### Core Principle
+
 A chunk is correct if it can answer a concrete functional search intent
 without needing to read any other chunk.
 
 ### When to Create a New Chunk
+
 - Change of business process (Delivery Creation ≠ Goods Issue)
 - Change of audience: functional concept vs. SPRO configuration
 - Change of customizing area (Output Determination ≠ Partner Determination)
 - Topic exceeds 1500 words → subdivide by coherent sub-topics
 
 ### When to Group in a Single Chunk
+
 - Content that cannot be separated conceptually
 - Result would be fewer than 150 words
 - Only transaction lists without functional context
 
 ### Division Example — Pricing
+
 ```
 pricing/condition-types-001.md      → what they are, structure, categories
 pricing/access-sequences-001.md     → how the system searches for prices
@@ -446,10 +499,12 @@ pricing/condition-records-001.md    → where prices are maintained, VK11
 ```
 
 ### Grouping Example — Shipping Point and Loading Point
+
 Related in configuration and usage. One chunk is more useful than two
 that require each other.
 
 ### Before Writing: Present Plan to User
+
 ```
 Section: Unit 1 — Delivery Processing (p. 12-67)
 Chunks identified:
@@ -464,6 +519,7 @@ Chunks identified:
      intent: "What delivery types exist in SAP SD?"
 Proceed?
 ```
+
 Wait for confirmation before writing anything to disk.
 
 ---
@@ -471,6 +527,7 @@ Wait for confirmation before writing anything to disk.
 ## Step 5 — Write the Chunk
 
 ### Language and Terminology
+
 Write in English. SAP official terms appear in italics in the body text.
 Include Spanish equivalents in the `aliases` field to improve RAG recall
 for Spanish-speaking consultants.
@@ -479,6 +536,7 @@ Correct: "The *Pricing Procedure* uses an *Access Sequence* to search
 for *Condition Records*."
 
 `aliases` must include both English and Spanish terms:
+
 ```yaml
 aliases:
   - pricing procedure
@@ -528,7 +586,7 @@ sources:
     source_type: "[A|B|C|D]"
     role: "[primary|secondary]"
 transactions: [VA01, VL01N]
-tables: [VBAK, LIKP]
+tables: []
 aliases:
   - english term
   - spanish term
@@ -559,6 +617,7 @@ unresolved contradiction; uncertain visual interpretation.
 reliability with content completeness.
 
 All new chunks start with `status: draft`. Full lifecycle:
+
 - `draft`: just created, pending human review
 - `reviewed`: validated by user — content correct
 - `validated`: verified against a real SAP system or additional source
@@ -646,12 +705,24 @@ stock-transfer, intercompany, none
 ```
 
 ### Writing Rules
+
 - Your own words. Do not copy text from the PDF.
 - SAP terms in English in italics in the body. Spanish equivalents in `aliases`.
 - Be specific: "The *selection date* determines which *schedule lines* are included" is useful. "The date is important" is not.
 - Do not invent. If the source does not mention it, do not include it.
 - Omit sections with no source content. No filler.
-- **SAP tables in `tables`**: include only tables that appear explicitly in the source or that the document clearly associates with the described technical object. If a table is relevant but not in the source, annotate it as a comment and mark for validation: `<!-- inferred table, pending validation: VBAK -->`.
+
+#### Provenance rule for `transactions` and `tables` — literal extraction only
+
+These two fields are **extraction fields, not knowledge fields**. They record what the *source text literally contains*, never what a consultant would know is relevant. This is the single most common failure mode of this agent: emitting correct-but-unsourced SAP identifiers. Treat it as a hard rule.
+
+- **`transactions`**: include a T-code **only if the exact token appears in the extracted text or is legibly visible in a rasterized figure.** A T-code matches the pattern of 2–4 letters + 2–4 digits + optional trailing letter (e.g. `VL01N`, `VA01`, `VL10E`, `VF04`, `LT03`). The transaction's *functional name* appearing in prose ("Create Outbound Delivery", "the outbound delivery monitor", "delivery due list") is **not** a T-code and does **not** license adding the code. A token that appears only as part of another identifier (e.g. `VL10` inside the parameter ID `LE_VL10_SZENARIO`) is **not** an invoked transaction and must not be listed.
+- **`tables`**: include a table name **only if the exact token appears explicitly in the source.** A table name is an all-caps token the source presents as a database table (e.g. `LIKP`, `LIPS`, `VBAK`, `KONV`). Beware homographs: `MARA` as a *picking rule* (alongside `MALA`/`RETA`) is not the material master table; `VBUK` named only in your own training is not in the source. When a token is ambiguous, check its surrounding sentence before including it.
+- **If an identifier is functionally relevant but not in the source**, do not put it in the field. Record it in the body as a pending-validation comment so a human (or the *revisor* agent) can confirm it later:
+  - `<!-- inferred transaction, pending validation: VL06O (outbound delivery monitor, not named in source) -->`
+  - `<!-- inferred table, pending validation: LIKP, LIPS -->`
+- **Default is empty.** `transactions: []` and `tables: []` are the *correct, expected* values for conceptual courses (most S46xx Type A material). An empty field is a sign the agent respected provenance, not a defect to be "filled in." Never populate these fields to make a chunk look more complete.
+- **Self-check before writing the field**: for each token you are about to list, can you point to the line of extracted text it came from? If not, it belongs in a comment, not the field.
 
 ---
 
@@ -661,43 +732,54 @@ After writing each chunk and before updating the index.
 Assign variables first:
 
 ```bash
-AREA="shipping"
-SLUG="delivery-creation-individual"
-NNN="001"
+# Substitute with the real values of the chunk to create/validate
+AREA="shipping"            # real area
+SLUG="delivery-creation-individual"  # real slug
+NNN="001"                  # real sequential number
 FILE="chunks/$AREA/$SLUG-$NNN.md"
 ID="$AREA-$SLUG-$NNN"
 ```
 
 **Pre-validation — run BEFORE writing the chunk:**
+
 ```bash
+# Ensure area directory exists
 mkdir -p "chunks/$AREA"
 
+# File must NOT exist (if it does, requires update plan + confirmation)
 if [ -f "$FILE" ]; then
   echo "WARNING: $FILE already exists — present update plan and wait for confirmation"
   exit 1
 fi
 
+# ID must not exist in any real chunk
 matches=$(grep -Rni "^id: ${ID}$" chunks/ --include="*.md" | wc -l)
 if [ "$matches" -gt 0 ]; then
-  echo "WARNING: ID $ID already exists in $matches chunk(s)"
+  echo "WARNING: ID $ID already exists in $matches chunk(s) — verify duplicate or update"
   grep -Rni "^id: ${ID}$" chunks/ --include="*.md"
 fi
 ```
 
 **Post-validation — run AFTER writing the chunk:**
+
 ```bash
+# File must exist
 ls "$FILE" || { echo "ERROR: $FILE was not written correctly"; exit 1; }
 
+# ID must appear exactly once across all chunks
 matches=$(grep -Rni "^id: ${ID}$" chunks/ --include="*.md" | wc -l)
 if [ "$matches" -ne 1 ]; then
   echo "ERROR: $ID must appear exactly once. Occurrences: $matches"
 fi
 
+# Area in frontmatter must match folder
 grep "^area:" "$FILE"
 ```
 
 **YAML validation (if python3 + pyyaml available):**
+
 ```bash
+# Export variables so the protected heredoc can read them via os.environ
 export AREA SLUG NNN
 python3 - << 'VALIDATE'
 import os, yaml, sys, pathlib
@@ -753,6 +835,13 @@ if meta["level"] not in valid_level: sys.exit(f"ERROR: invalid level: {meta['lev
 invalid_tags = set(meta.get("process_tags",[])) - valid_tags
 if invalid_tags: sys.exit(f"ERROR: invalid process_tags: {invalid_tags}")
 
+# Validate ID matches area-slug-nnn and area matches folder (N3 fix)
+expected_id = f"{area}-{slug}-{nnn}"
+if meta["id"] != expected_id:
+    sys.exit(f"ERROR: id '{meta['id']}' != expected '{expected_id}'")
+if meta["area"] != area:
+    sys.exit(f"ERROR: frontmatter area '{meta['area']}' != folder '{area}'")
+
 for s in meta.get("sources", []):
     for k in ["file","relative_path","pages","source_type","role"]:
         if k not in s:
@@ -767,6 +856,52 @@ for s in meta.get("sources", []):
 print("YAML OK — chunk valid")
 VALIDATE
 ```
+
+**Provenance check — verify every `transactions`/`tables` token exists in the source:**
+
+This check is what prevents structurally-valid chunks from carrying hallucinated identifiers. YAML validity does not imply the T-codes and tables came from the source. Run it against the extracted text of the pages this chunk cites. It is advisory (it cannot read rasterized figures), but a token that fails here must be justified by a legible figure or moved to a comment.
+
+```bash
+# Point this at the text you extracted for THIS chunk's page range.
+# Re-extract the cited pages if /tmp/block.txt no longer holds them.
+# Example: pdftotext -layout -f 47 -l 62 "$DOC" /tmp/chunk_src.txt
+SRC_TXT="/tmp/chunk_src.txt"
+[ -f "$SRC_TXT" ] || { echo "WARN: no source text at $SRC_TXT — re-extract the cited pages before trusting this check"; }
+
+export FILE SRC_TXT
+python3 - << 'PROV'
+import os, re, yaml, pathlib, sys
+
+chunk = pathlib.Path(os.environ["FILE"])
+src_path = pathlib.Path(os.environ["SRC_TXT"])
+meta = yaml.safe_load(chunk.read_text(encoding="utf-8").split("---", 2)[1])
+src = src_path.read_text(encoding="utf-8", errors="replace") if src_path.exists() else ""
+src_upper = src.upper()
+
+problems = []
+# Each listed token must appear as a standalone token in the source text.
+for field in ("transactions", "tables"):
+    for tok in meta.get(field, []):
+        tok = str(tok).strip()
+        if not tok:
+            continue
+        # word-boundary match, case-insensitive; tables/tcodes are tokens, not substrings
+        if not re.search(r"(?<![A-Z0-9_])" + re.escape(tok.upper()) + r"(?![A-Z0-9])", src_upper):
+            problems.append(f"  {field}: '{tok}' NOT found as a standalone token in source text")
+
+if problems:
+    print("PROVENANCE WARNINGS — these tokens are not in the extracted source text:")
+    print("\n".join(problems))
+    print("Action: confirm each against a rasterized figure, or REMOVE it from the")
+    print("field and record it as a '<!-- inferred ... pending validation -->' comment.")
+    print("Do NOT keep an unsourced token in transactions/tables just because it is")
+    print("technically correct SAP knowledge.")
+else:
+    print("PROVENANCE OK — every transactions/tables token traces to the source text")
+PROV
+```
+
+> **What this check can and cannot do.** It confirms *literal token presence*. It cannot tell that a token appears in the wrong sense — e.g. `VL10` present only as the *value* of parameter ID `LE_VL10_SZENARIO` (not an invoked transaction), or `MARA` present as a *picking rule* (not the material master table). A `PROVENANCE OK` therefore means "nothing is purely invented," not "every token is semantically a transaction/table." The prose rule in Step 5 and human review remain responsible for sense-disambiguation. A `PROVENANCE WARNING`, by contrast, is close to definitive: the token is absent from the text and must be justified by a legible figure or removed.
 
 If any check fails: fix the chunk before continuing.
 Do not update the index with a defective chunk.
@@ -808,7 +943,7 @@ except ImportError:
     print("WARNING: pyyaml not available.")
     print("MANUAL ACTION REQUIRED: add the row directly at the end of chunks/_index.md")
     print("Format: | {id} | chunks/{area}/{slug}-{NNN}.md | {title} | ... |")
-    sys.exit(0)
+    sys.exit(0)  # Dependency absent, not a data error — allows manual fallback
 
 import datetime
 chunks_dir = "chunks"
@@ -867,6 +1002,9 @@ for row in rows:
     path_val = parts[2].strip() if len(parts) > 2 else ""
     if id_val in seen_ids:
         print(f"ERROR: duplicate ID — {id_val}")
+        print(f"  already in: {seen_ids[id_val]}")
+        print(f"  also in: {path_val}")
+        print("Fix duplicate IDs before regenerating the index.")
         sys.exit(1)
     else:
         seen_ids[id_val] = path_val
@@ -874,6 +1012,11 @@ with open(os.path.join(chunks_dir, "_index.md"), "w", encoding="utf-8") as fh:
     fh.write("\n".join(header + rows) + "\n")
 print(f"Index regenerated: {len(rows)} chunks.")
 PYEOF
+```
+
+If python3/pyyaml not available, add the row manually (all on one line):
+```markdown
+| {id} | chunks/{area}/{slug}-{NNN}.md | {title} | {area} | {type} | {sap_release} | {tags} | {source} | {pages} | {t-codes} | draft | {quality} |
 ```
 
 ### `_source_inventory.md`
@@ -894,17 +1037,20 @@ Statuses: `not started` / `partial` / `completed` / `skipped` / `blocked`
 ## Session Limit
 
 ### First Two Sessions — Calibration Mode
+
 - Maximum one logical unit (closed chapter or functional block)
 - Or maximum 5 chunks, whichever comes first
 - Stop and request human validation
 
 ### After Calibration
+
 - Maximum one complete document per session
 - Or one complete logical block in documents >300 pages
 - Do not use "up to halfway" — use the logical boundary of the document
 - Always record the next pending page in the log
 
 ### At the End of Each Session, Present:
+
 ```
 Chunks created/updated this session:
   - [id] → [path]
@@ -919,7 +1065,10 @@ Next recommendation:
 ## Reference Examples
 
 Manually validated chunks from `SD - Shipment.pdf` (Type B).
-Use as reference for technical density, format, and criteria.
+Use as reference for **technical density, section format, and writing style** — not as a template for which T-codes or tables to list.
+
+> ⚠️ **Read the `transactions`/`tables` of these examples as source-specific, not as a delivery-chunk default.**
+> These examples come from a visual deck (`SD - Shipment.pdf`) whose figures show SAP GUI screens, so their T-code lists were read off legible screenshots. A *conceptual* course like S4610 that only names transactions by function ("Create Outbound Delivery", "outbound delivery monitor") yields `transactions: []` — and that is correct. Do **not** copy the T-code lists below into a new delivery chunk because "deliveries use these transactions." Apply the provenance rule in Step 5: list only what the *current* source literally contains. The `<!-- inferred ... -->` comments below are the right place for relevant-but-unsourced identifiers.
 
 ### Example 1 — chunk_type: process
 
@@ -1191,3 +1340,5 @@ The user is learning SAP SD and RAG techniques simultaneously.
 Quality over speed. 20 excellent chunks are worth more than 200 mediocre ones.
 Do not generate chunks if you cannot provide exact source and pages.
 When in doubt between two reasonable options, propose both and wait for confirmation.
+
+**Provenance over completeness.** A chunk that omits a relevant T-code because the source did not name it is *correct*. A chunk that adds a relevant T-code the source did not name is *wrong* — even though the T-code is real and on-topic. `transactions: []` and `tables: []` are the right answer for the conceptual S46xx courses that dominate this corpus. Your SAP knowledge is for understanding and explaining the source in your own words, never for populating the extraction fields. When tempted to "fill in" an identifier you know is correct, put it in a `<!-- inferred ... pending validation -->` comment and let the human or *revisor* agent confirm it.

@@ -78,3 +78,15 @@
   - Goods Issue (Unit 5 Lesson 2) kept separate from EWM picking — GI trigger options and delivery split logic are distinct from the picking warehouse task flow
   - Delivery special functions (pricing + interface + incompletion) grouped into one chunk — each topic alone is too short (<300 words); together they form a coherent "additional delivery capabilities" reference
 - Status: completed — full document processed (Units 1-5)
+
+## 2026-06-05 — CORRECTION: S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf
+- Trigger: provenance audit of generated chunks against extracted source text (pdftotext -layout) + figure review.
+- Finding: S4610 is a conceptual course. It names transactions only by function ("Create Outbound Delivery", "Delivery Due List", "outbound/inbound delivery monitor") and prints no T-codes. No database table names appear (the token "MARA" present is the picking RULE, not the table). Only literal technical token in text: "VL10" as the VALUE of parameter ID LE_VL10_SZENARIO — not an invoked transaction.
+- Chunks corrected (hallucinated T-codes removed from frontmatter, aliases, body prose, headings, and tables; relevant codes preserved as inferred-pending comments):
+  - shipping-outbound-delivery-creation-process-001 → transactions: [VL10E] → []  (VL10E parked in <!-- inferred -->)
+  - shipping-outbound-delivery-monitor-001 → transactions: [VL06O, VL06I] → []  (both parked in <!-- inferred -->)
+- Preserved (correctly sourced): table row "LE_VL10_SZENARIO | VL10" in creation-process chunk (VL10 is the literal parameter value in the source).
+- Other 13 chunks: transactions already [] — confirmed correct (true negatives), no change.
+- Index regenerated; T-codes column cleared for the two chunks; path column normalized to chunks/ forward-slash form.
+- Root cause addressed in CLAUDE.md: added literal-extraction provenance rule for transactions/tables, automated provenance grep in Step 6, caveats on reference examples and duplicate-search seeds, explicit figure-only exception for unsourced codes.
+- Status: completed (correction). Chunks remain status: draft pending human/revisor review of the inferred-pending T-codes.
