@@ -165,6 +165,8 @@ grep -RniE "TERM1|TERM2|TCODE|TABLE|spanish_alias" chunks/ --include="*.md" || t
 
 **Case 3 — Contradictory sources**: Type A > B, C, D. Between two Type A: more recent wins. Document in log.
 
+**Case 3b — Internal factual conflict within a single chunk**: when the same chunk uses a SAP document type token (order type, delivery type, billing type) inconsistently — e.g., using the order type abbreviation where the billing type should appear — verify the correct values in the source before writing. SAP document types have distinct roles: order type (creates the sales order) ≠ delivery type (creates the delivery) ≠ billing type (creates the billing document). They may share an abbreviation (e.g., BV for both delivery type and billing type in cash sales) but must be named in the correct functional context.
+
 **Case 4 — Pure duplicate**: skip. Log: "skipped — duplicate of [id]."
 
 **Golden rule**: one concept = one chunk per SAP version. A consultant must not find the same topic spread across multiple chunks.
@@ -281,7 +283,7 @@ Use **differentiating tags**, not just the area generic. A billing credit memo c
 
 **Density check before finalizing quality.** After writing the body, calculate `word_count / page_count`:
 - ≥ 100 w/p → `quality: high` is eligible (if other criteria are met)
-- 80–99 w/p → `quality: medium`; try to expand before accepting
+- 80–99 w/p → `quality: medium`, no exceptions. Attempt expansion — if density reaches ≥ 100 after expansion, upgrade to `high`. If not, `medium` is final.
 - < 80 w/p → `quality: medium` mandatory; re-read source pages using rasterization (see below)
 
 **Rasterization protocol for low-density pages.** When density < 100 w/p, re-read the exact page range before accepting the chunk:
@@ -320,9 +322,14 @@ Re-extract content and expand the chunk body. Only accept density < 80 w/p after
 - Every chunk must start with a `# Title` H1 heading matching the frontmatter title.
 - Body minimum: **300 words**. Under 300 words → merge with the nearest related topic.
 - When **modifying an existing chunk** (adding cross-refs, correcting metadata, expanding content): always update `last_updated` to today's date.
+- **Active voice, no source attribution in body**: write "The *selection date* determines…" not "The source states that the selection date determines…". Provenance is captured in the frontmatter — the body speaks in the present tense as a reference document, not as a summary of what a course says.
+- **SPRO section when T-code not in source**: write `Not stated in source.` (5 words) on a single line. Do NOT write a paragraph explaining why no T-code was found. If the IMG path is inferrable from context, add it on a second line: `Navigate via IMG: [path].`
+- **Every question listed in "Questions This Chunk Answers" must be answered explicitly in the chunk body.** If the source does not cover the answer, do not list the question.
 
 ### Aliases (minimum 4 per chunk)
 At least 2 in Spanish, at least 1 natural query variant (how a consultant would search, not just the SAP term). Sparse aliases defeat RAG recall.
+
+**Alias specificity rule**: do NOT include aliases that are so generic they would match dozens of chunks (e.g., "plant", "material", "company code", "sales order", "factura"). Every alias should be specific enough that, if a user searches for it, this chunk is the right result — not one of 20. Bad: `- plant`. Good: `- delivering plant determination`, `- delivering plant EWM`.
 
 ### Questions This Chunk Answers (minimum 4)
 Each must cover a **distinct** search intent. "What is X?" and "How is X defined?" count as one question, not two.
