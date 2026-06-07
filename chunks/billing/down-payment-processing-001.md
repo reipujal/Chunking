@@ -8,7 +8,7 @@ chunk_type: process
 sap_release: S/4HANA 2020
 sources:
   - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
-    relative_path: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
     pages: "83-88, 126"
     source_type: "A"
     role: "primary"

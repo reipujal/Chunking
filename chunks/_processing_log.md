@@ -1,7 +1,7 @@
 # Processing Log — SAP SD Knowledge Base
 
 ## 2026-06-05 — S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf
-- Relative path: S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf
+- Relative path: processed/S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf
 - Type: A* (mixed — PDFKit, 152-195 words/page depending on section)
 - Total pages: 88
 - Processed range: p. 9-14 (Unit 1 — Idea and Function of the Delivery Document)
@@ -23,7 +23,7 @@
 - Status: partial — calibration session, Unit 1 only
 
 ## 2026-06-05 — S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf (continued)
-- Relative path: S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf
+- Relative path: processed/S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf
 - Type: A*
 - Total pages: 88
 - Processed range: p. 19-24 (Unit 2 — Basic Organizational Units for the Delivery Process)
@@ -46,7 +46,7 @@
 - Status: partial — Unit 2 completed, Unit 3 pending
 
 ## 2026-06-05 — S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf (continued)
-- Relative path: S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf
+- Relative path: processed/S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf
 - Type: A*
 - Total pages: 88
 - Processed range: Units 3-5 (PDF p.29-37, p.43-52, p.55-63, p.71-88)
@@ -92,7 +92,7 @@
 - Status: completed (correction). Chunks remain status: draft pending human/revisor review of the inferred-pending T-codes.
 
 ## 2026-06-05 — S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf
-- Relative path: S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf
+- Relative path: processed/S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf
 - Type: A (official SAP course; Producer PDFKit, HTML→PDF export)
 - Total pages: 131 (physical)
 - Page offset: printed label N = physical N+8 (printed 1 = physical 9). All citations below use PHYSICAL pages.
@@ -128,7 +128,7 @@
 - Tooling note: the batch-audit cross-ref regex was corrected (now allows digits in slugs, e.g. "s4hana") in CLAUDE.md; the earlier "isolated node" flag on billing-types was a regex false positive, not a real gap.
 - Status: completed (content update). Chunks remain status: draft pending human/revisor review.
 ## 2026-06-07 — CORRECTION: S4615 chunks — Overhaul (post adversarial review)
-- Relative path: S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf
+- Relative path: processed/S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf
 - Type: A
 - Total pages: 132 (physical)
 - Processed range: p. 1-132 (complete)

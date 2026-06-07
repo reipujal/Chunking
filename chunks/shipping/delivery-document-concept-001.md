@@ -8,7 +8,7 @@ chunk_type: concept
 sap_release: S/4HANA 2020
 sources:
   - file: "S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf"
-    relative_path: "S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf"
+    relative_path: "processed/S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf"
     pages: "9-12"
     source_type: A
     role: primary

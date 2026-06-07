@@ -77,9 +77,14 @@ If `pdfinfo`, `pdftotext`, or `pdffonts` are missing: stop and explain.
 
 ### 4. Inventory Sources
 
+**Folder convention:**
+- `$SOURCE_ROOT/` — PDFs pending processing (root only, not subdirectories)
+- `$SOURCE_ROOT/processed/` — PDFs already processed; do not reprocess unless explicitly asked
+
 ```bash
-find "$SOURCE_ROOT" -type f -iname "*.pdf" | sed "s|$SOURCE_ROOT/||" | sort
-find "$SOURCE_ROOT" -type f -iname "*.pdf" | wc -l
+echo "=== PENDING (root) ===" && find "$SOURCE_ROOT" -maxdepth 1 -iname "*.pdf" | sed "s|$SOURCE_ROOT/||" | sort
+echo "=== PROCESSED ===" && find "$SOURCE_ROOT/processed" -iname "*.pdf" 2>/dev/null | sed "s|$SOURCE_ROOT/||" | sort
+echo "=== TOTAL ===" && find "$SOURCE_ROOT" -iname "*.pdf" | wc -l
 ```
 
 ### 5. Present Proposal
