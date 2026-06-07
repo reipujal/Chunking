@@ -27,7 +27,7 @@ aliases:
   - parámetros de clase de factura
 level: functional
 status: draft
-quality: high
+quality: medium
 created: 2026-06-05
 last_updated: 2026-06-05
 ---

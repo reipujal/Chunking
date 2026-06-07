@@ -119,6 +119,14 @@
 - Non-obvious chunking decisions: appendix mined-but-not-chunked (its value is the task→code mapping, distributed into topic chunks rather than isolated as a low-context list).
 - Status: completed
 
+## 2026-06-05 — UPDATE: S4615 chunks — Cross-References + missing sections
+- Trigger: post-process evaluation found systemic gaps beyond transactions/tables.
+- Cross-References: all 31 S4615 chunks lacked the mandatory section (the template requires it for every chunk_type). Added a topical cross-reference graph using real chunk IDs only. Verified: 0 broken targets, 0 isolated nodes corpus-wide (every chunk has ≥1 inbound link). Added a few reciprocal links (e.g. shipping-goods-issue-ewm → cash-sales) for batch cohesion across S4610/S4615.
+- Common Errors: 7 process chunks lacked the section (cancellation, creation-methods, fiori, credit-debit, down-payment, invoice-correction, returns, cash-sales). Added source-grounded errors only — no invented failure modes; where the source documents a constraint (e.g. cash sale requires a G/L account; return credit memo references the order not the delivery) it is reflected.
+- No content invented; all added error text traces to source statements already used in the chunk bodies.
+- Validation: 31/31 pass YAML + structural (Cross-References present, process chunks have Common Errors) + provenance. Index regenerated.
+- Tooling note: the batch-audit cross-ref regex was corrected (now allows digits in slugs, e.g. "s4hana") in CLAUDE.md; the earlier "isolated node" flag on billing-types was a regex false positive, not a real gap.
+- Status: completed (content update). Chunks remain status: draft pending human/revisor review.
 ## 2026-06-07 — CORRECTION: S4615 chunks — Overhaul (post adversarial review)
 - Relative path: S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf
 - Type: A
@@ -145,11 +153,3 @@
 - Non-obvious decisions: "001" is FI Customizing table ID, not an ABAP dictionary table — excluded from tables field
 - Status: completed
 
-## 2026-06-05 — UPDATE: S4615 chunks — Cross-References + missing sections
-- Trigger: post-process evaluation found systemic gaps beyond transactions/tables.
-- Cross-References: all 31 S4615 chunks lacked the mandatory section (the template requires it for every chunk_type). Added a topical cross-reference graph using real chunk IDs only. Verified: 0 broken targets, 0 isolated nodes corpus-wide (every chunk has ≥1 inbound link). Added a few reciprocal links (e.g. shipping-goods-issue-ewm → cash-sales) for batch cohesion across S4610/S4615.
-- Common Errors: 7 process chunks lacked the section (cancellation, creation-methods, fiori, credit-debit, down-payment, invoice-correction, returns, cash-sales). Added source-grounded errors only — no invented failure modes; where the source documents a constraint (e.g. cash sale requires a G/L account; return credit memo references the order not the delivery) it is reflected.
-- No content invented; all added error text traces to source statements already used in the chunk bodies.
-- Validation: 31/31 pass YAML + structural (Cross-References present, process chunks have Common Errors) + provenance. Index regenerated.
-- Tooling note: the batch-audit cross-ref regex was corrected (now allows digits in slugs, e.g. "s4hana") in CLAUDE.md; the earlier "isolated node" flag on billing-types was a regex false positive, not a real gap.
-- Status: completed (content update). Chunks remain status: draft pending human/revisor review.

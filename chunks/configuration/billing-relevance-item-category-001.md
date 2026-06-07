@@ -29,7 +29,7 @@ aliases:
   - facturación de servicios
 level: functional
 status: draft
-quality: high
+quality: medium
 created: 2026-06-05
 last_updated: 2026-06-05
 ---
