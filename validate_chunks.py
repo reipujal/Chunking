@@ -29,6 +29,7 @@ VALID_RELEASE = {"S/4HANA 2020", "ECC 6.0", "generic", "not specified"}
 VALID_LEVEL   = {"functional", "technical", "both"}
 VALID_SRC_TYPE = {"A", "B", "C", "D"}
 VALID_ROLE    = {"primary", "secondary"}
+# Canonical tag list — must stay in sync with process_tags in CLAUDE.md
 VALID_TAGS    = {
     "order-to-cash", "delivery-processing", "billing", "pricing", "returns",
     "credit-management", "transportation", "consignment", "third-party",
@@ -300,17 +301,32 @@ def validate_chunk(path: pathlib.Path, all_ids: set[str]) -> ChunkResult:
         if es_count < 2:
             r.warn(f"Only {es_count} Spanish-looking aliases — need >=2 for Spanish-language RAG recall")
 
-    # ── process_tags: warn only for billing/ — 30+ chunks all with [order-to-cash, billing]
-    # is genuinely undifferentiated. For other areas the generic pair is usually correct.
+    # ── process_tags: warn for billing/ chunks with only generic tags ────────
+    # Suggestion intentionally omits specific tag names — the right tag depends
+    # on the chunk's topic and the agent must decide, not copy from the warning.
     tags = set(meta.get("process_tags", []))
     if area == "billing" and tags == {"order-to-cash", "billing"}:
         r.warn(
-            f"process_tags uses only generic tags {sorted(tags)} for area 'billing'. "
-            "Add specific tags (credit-memo, returns, debit-memo, invoice-correction, etc.) "
-            "if the chunk's topic is more specific — helps RAG filter by transaction type."
+            "process_tags uses only generic tags ['billing', 'order-to-cash']. "
+            "If the chunk has a specific sub-topic (credit memos, billing plans, "
+            "invoice lists, returns, etc.) add the matching tag from the valid list in CLAUDE.md."
         )
 
-    # ── Schema version ───────────────────────────────────────────────────────
+    # ── inferred comment → quality must not be high ───────────────────────────
+    if "<!-- inferred" in body and meta.get("quality") == "high":
+        r.error(
+            "quality: high is incompatible with an '<!-- inferred ... -->' comment. "
+            "An unverified element is present — downgrade to quality: medium."
+        )
+
+    # ── Date format: created and last_updated must be YYYY-MM-DD ─────────────
+    date_re = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+    for field in ("created", "last_updated"):
+        val = str(meta.get(field, ""))
+        if not date_re.match(val):
+            r.error(f"'{field}' is not a valid YYYY-MM-DD date: '{val}'")
+
+    # ── Schema version ────────────────────────────────────────────────────────
     if meta.get("schema_version") != 1:
         r.warn(f"schema_version is {meta.get('schema_version')!r} — expected 1")
 

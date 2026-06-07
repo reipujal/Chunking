@@ -78,6 +78,6 @@ In these cases, a **delivery split** is triggered through the EWM outbound deliv
 
 ## Cross-References
 - EWM picking process (precedes GI): shipping-ewm-picking-process-001
-- Cancellation of Goods Issue: shipping-goods-issue-cancel-vl09-001
+- Cancellation of Goods Issue via VL09: chunk not yet created — pending SD-Shipment.pdf processing
 - Inbound delivery and GR in EWM: shipping-inbound-delivery-ewm-001
 - See also: shipping-cash-sales-process-001

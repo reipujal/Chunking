@@ -1,40 +1,35 @@
 # Agent Instructions — SAP SD Knowledge Base
 
-This project uses CLAUDE.md as its authoritative instruction file.
+## Mandatory first step
 
-**MANDATORY FIRST STEP**: Before doing anything else, read `CLAUDE.md` in full.
-It defines paths, schemas, quality rules, and the provenance constraints that govern all chunk creation.
+Before doing anything else in this repository, read the file `CLAUDE.md` in full. It defines paths, schemas, quality rules, and the provenance constraints that govern all chunk creation. Do not skip this step.
 
-```
-Read: CLAUDE.md
-```
+## Phase-based skill files
 
-## Phase-Based Skill Files
+After reading `CLAUDE.md`, read the skill file that corresponds to your current task phase before executing that phase. Each file contains the bash commands and procedures required.
 
-After reading CLAUDE.md, read the skill file that corresponds to your current task phase. Do not skip this step — the skill files contain the bash commands and procedures required for each phase.
-
-| Phase | File to read |
+| Phase | File |
 |---|---|
 | Classify a document | `docs/skills/1-classify.md` |
 | Extract content from PDF | `docs/skills/2-extract.md` |
-| Check for duplicate chunks | `docs/skills/3-deduplicate.md` |
-| Decide how to split content | `docs/skills/4-chunk.md` |
+| Check duplicates + decide chunking | `CLAUDE.md` (Steps 3 and 4 are in the nucleus) |
 | Validate chunk + update state | `docs/skills/5-validate-log.md` |
-| First chunk this session | `docs/examples.md` (reference examples) |
+| First chunk of a new session | also read `docs/examples.md` |
 
 ## Validator
 
-After writing any chunk, run:
+After writing any chunk file, run:
+
 ```bash
 python3 validate_chunks.py chunks/<area>/<slug>-<NNN>.md
 ```
 
 Zero ERRORs required before updating the index. Warnings are advisory.
 
-## Critical Rules (do not skip)
+## Five rules you must not skip
 
-1. **Provenance**: `transactions` and `tables` fields only contain identifiers that appear literally in the source text or are legibly visible in a rasterized figure. Do not add T-codes or table names from your training data.
-2. **Pages**: always use physical PDF page numbers (not footer labels). Detect offset in Step 1.
-3. **300-word minimum**: body below 300 words → merge with nearest related chunk.
-4. **Cross-references**: plain chunk ID format only — no backticks, no quotes.
-5. **Read the back-matter appendix** (see `docs/skills/2-extract.md`) before concluding that `transactions: []` is correct for any SAP course document.
+1. **Provenance**: `transactions` and `tables` fields only contain identifiers that appear literally in the source text or are legibly visible in a rasterized figure. Never add from training knowledge.
+2. **Physical pages**: always use physical PDF page numbers, not footer labels. Detect the offset in Step 1 (see `docs/skills/1-classify.md`).
+3. **300-word minimum**: body below 300 words — merge with the nearest related chunk instead.
+4. **Cross-references**: plain chunk ID only — no backticks, no quotes, no markdown link syntax.
+5. **Back-matter appendix**: always scan the last 10–15 pages of any SAP course for T-code/table appendices before concluding that `transactions: []` is correct. See `docs/skills/2-extract.md`.

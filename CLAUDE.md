@@ -126,19 +126,63 @@ touch chunks/_index.md chunks/_processing_log.md chunks/_source_inventory.md
 
 ---
 
-## Phase Navigation — Read the Skill File Before Each Step
+## Phase Navigation
 
-Before executing any step, read the corresponding skill file:
-
-| Step | Skill file | When to read |
+| Step | Where rules live | When to read |
 |---|---|---|
 | 1 — Classify | `docs/skills/1-classify.md` | Before classifying a new document |
 | 2 — Extract | `docs/skills/2-extract.md` | Before extracting any block |
-| 3 — Deduplicate | `docs/skills/3-deduplicate.md` | Before deciding to create/update a chunk |
-| 4 — Chunk | `docs/skills/4-chunk.md` | Before presenting the chunk plan to the user |
-| 5 — Write | (this file — see below) | Rules are here in the nucleus |
+| 3 — Deduplicate | **This file — see below** | Rules are in the nucleus (short enough) |
+| 4 — Decide how to chunk | **This file — see below** | Rules are in the nucleus (short enough) |
+| 5 — Write the chunk | **This file — see below** | Rules are in the nucleus |
 | 6+7 — Validate & Log | `docs/skills/5-validate-log.md` | After writing each chunk and before closing a document |
-| Examples | `docs/examples.md` | At the start of Step 5, if this is your first chunk this session |
+| Examples | `docs/examples.md` | First chunk of a new session — read before writing |
+
+---
+
+## Step 3 — Detect Duplicates and Manage SAP Versions
+
+Search terms must be specific to the topic. Use T-codes, tables, SAP terms in English, Spanish aliases, and business objects from the source.
+
+> The T-codes/tables in the examples below are **search seeds**, not a checklist for the new chunk's frontmatter. Provenance rules govern what goes in the fields.
+
+```bash
+grep -RniE "TERM1|TERM2|TCODE|TABLE|spanish_alias" chunks/ --include="*.md" || true
+```
+
+**Example — Pricing:** `grep -RniE "pricing procedure|esquema de precios|V/08|VK11|KONV|KONP" chunks/ --include="*.md"`
+
+**Example — Delivery:** `grep -RniE "outbound delivery|entrega de salida|VL01N|VL10E|LIKP|LIPS" chunks/ --include="*.md"`
+
+**Case 1 — Same topic, same version, different source**: present an update plan, wait for confirmation, then update + add source to `sources` array.
+
+**Case 2 — Same topic, different SAP versions**: functionally significant → two chunks with `## Differences from [version]`. Cosmetic only → single chunk `sap_release: generic` + `## Version Notes`. Unknown → separate (safer).
+
+**Case 3 — Contradictory sources**: Type A > B, C, D. Between two Type A: more recent wins. Document in log.
+
+**Case 4 — Pure duplicate**: skip. Log: "skipped — duplicate of [id]."
+
+**Golden rule**: one concept = one chunk per SAP version. A consultant must not find the same topic spread across multiple chunks.
+
+---
+
+## Step 4 — Decide How to Chunk
+
+**Core principle**: a chunk answers a concrete functional search intent without needing any other chunk.
+
+**Create a new chunk when**: business process changes (Delivery Creation ≠ Goods Issue) · audience changes (functional vs. SPRO config) · customizing area changes · topic exceeds 1500 words.
+
+**Group in one chunk when**: content is inseparable conceptually · body would be under 300 words even with full extraction (300w is the hard floor) · only transaction lists with no functional context.
+
+**Before writing — present plan to user:**
+```
+Section: [Unit N — Title] (p. X-Y)
+Chunks identified:
+  1. area/slug-001  |  type: process  |  p. 15-28  |  "How is X done?"
+  2. area/slug-001  |  type: concept  |  p. 12-14  |  "What is X?"
+Proceed?
+```
+Wait for explicit confirmation before writing anything to disk.
 
 ---
 
@@ -203,7 +247,7 @@ last_updated: YYYY-MM-DD
 | source_type | A, B, C, D |
 | role | primary, secondary |
 
-**process_tags valid values:**
+**process_tags valid values** (canonical list — must stay in sync with `VALID_TAGS` in `validate_chunks.py`):
 `order-to-cash, delivery-processing, billing, pricing, returns, credit-management, transportation, consignment, third-party, free-of-charge, complaints, credit-memo, debit-memo, invoice-correction, make-to-order, stock-transfer, intercompany, billing-plans, invoice-list, pro-forma, none`
 
 Use **differentiating tags**, not just the area generic. A billing credit memo chunk → `[billing, credit-memo]`, not just `[billing]`.
