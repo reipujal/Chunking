@@ -79,6 +79,6 @@ Free-of-charge subsequent delivery requires a preceding document according to th
 
 ## Cross-References
 - Prior step: configuration-sales-copying-control-001
-- See also: shipping-cash-sales-process-001
+- See also: special-processes-cash-sales-process-001
 - See also: pricing-free-goods-001
 - See also: billing-returns-process-001

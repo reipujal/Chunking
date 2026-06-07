@@ -169,6 +169,14 @@ grep -RniE "TERM1|TERM2|TCODE|TABLE|spanish_alias" chunks/ --include="*.md" || t
 
 **Golden rule**: one concept = one chunk per SAP version. A consultant must not find the same topic spread across multiple chunks.
 
+**Search by business process name, not only T-codes.** When the new topic is a business process (cash sale, rush order, consignment, returns, etc.), search aliases AND titles in addition to T-codes:
+
+```bash
+grep -RniE "cash.sale|venta.al.contado|rush.order|pedido.urgente|BUSINESS_PROCESS_NAME" chunks/ --include="*.md" || true
+```
+
+Overlap detected → apply the relevant Case above before creating a new chunk.
+
 ---
 
 ## Step 4 — Decide How to Chunk
@@ -178,6 +186,8 @@ grep -RniE "TERM1|TERM2|TCODE|TABLE|spanish_alias" chunks/ --include="*.md" || t
 **Create a new chunk when**: business process changes (Delivery Creation ≠ Goods Issue) · audience changes (functional vs. SPRO config) · customizing area changes · topic exceeds 1500 words.
 
 **Group in one chunk when**: content is inseparable conceptually · body would be under 300 words even with full extraction (300w is the hard floor) · only transaction lists with no functional context.
+
+**Workshop and exercise chapters**: do NOT create a standalone workshop chunk covering multiple unrelated business processes. Instead, extract the useful application context from each scenario and merge it into the existing chunk for that process. If no chunk exists for the process yet and the content exceeds 300 words standalone, create a proper process or configuration chunk. A chunk titled "Workshop scenarios: A, B, and C" is always wrong.
 
 **Before writing — present plan to user:**
 ```
@@ -221,7 +231,7 @@ chunk_type: [concept|process|configuration|transaction|integration]
 sap_release: [S/4HANA 2020|ECC 6.0|generic|not specified]
 sources:
   - file: "[exact PDF name]"
-    relative_path: "[relative path from SOURCE_ROOT]"
+    relative_path: "[relative path from SOURCE_ROOT]"   # use forward slashes; prefix with "processed/" if the PDF is already in SOURCE_ROOT/processed/
     pages: "[N-M]"       # always a quoted string; physical PDF page numbers (not footer labels)
     source_type: "[A|B|C|D]"
     role: "[primary|secondary]"
@@ -257,15 +267,34 @@ last_updated: YYYY-MM-DD
 
 Use **differentiating tags**, not just the area generic. A billing credit memo chunk → `[billing, credit-memo]`, not just `[billing]`.
 
+**Exception — generic billing infrastructure chunks**: chunks covering billing document structure, billing creation methods, billing FI integration, or technical billing tables have no matching sub-tag in the valid list. For these, `[billing, order-to-cash]` is correct and complete — the validator will not warn. Do not force-fit an incorrect sub-tag.
+
 ### Quality Criteria
 
-**high**: reliable source (Type A or D), exact pages identified, complete content, no inferences. For Type B: only if visual flow is unambiguous and all T-codes legibly readable.
+**high**: reliable source (Type A or D), exact pages identified, complete content, no inferences, **and body density ≥ 100 words/page** (buffer above the 80 w/p validator threshold). For Type B: only if visual flow is unambiguous and all T-codes legibly readable.
 
-**medium**: reliable but partial; Type B by default; minor inference required; requires functional validation. Caps to `medium` if: any `<!-- inferred -->` comment present, provenance warning raised, page range not fully read.
+**medium**: reliable but partial; Type B by default; minor inference required; requires functional validation. Caps to `medium` if: any `<!-- inferred -->` comment present, provenance warning raised, page range not fully read, **or density < 80 w/p** (the validator enforces this as an error).
 
 **low**: community source (Type C); OCR issues; incomplete content; unresolved contradiction.
 
 `quality: high` is **earned, not default.** Uniform `high` across a large batch is a calibration smell — re-examine each chunk independently.
+
+**Density check before finalizing quality.** After writing the body, calculate `word_count / page_count`:
+- ≥ 100 w/p → `quality: high` is eligible (if other criteria are met)
+- 80–99 w/p → `quality: medium`; try to expand before accepting
+- < 80 w/p → `quality: medium` mandatory; re-read source pages using rasterization (see below)
+
+**Rasterization protocol for low-density pages.** When density < 100 w/p, re-read the exact page range before accepting the chunk:
+```bash
+PAGES_START=[physical_start] && PAGES_END=[physical_end]
+pdftoppm -r 200 -f $PAGES_START -l $PAGES_END "docu sap/processed/[filename].pdf" /tmp/chunk_pages
+# Examine each /tmp/chunk_pages-*.ppm visually:
+# - Extract text from tables row by row (field | value | description)
+# - Describe process diagrams (box → arrow → box → decision → ...)
+# - Extract exercise questions and their correct answers (functional information)
+# - Extract figure captions and legends
+```
+Re-extract content and expand the chunk body. Only accept density < 80 w/p after rasterization confirms the pages are diagram-only with no extractable text.
 
 **sap_release notes:** `not specified` → mark `quality: medium` at minimum. Physical page offset must be detected once per document (see `docs/skills/1-classify.md`) and recorded in the log.
 
@@ -290,6 +319,7 @@ Use **differentiating tags**, not just the area generic. A billing credit memo c
 - Omit sections with no source content — **except `Cross-References`, which is mandatory.**
 - Every chunk must start with a `# Title` H1 heading matching the frontmatter title.
 - Body minimum: **300 words**. Under 300 words → merge with the nearest related topic.
+- When **modifying an existing chunk** (adding cross-refs, correcting metadata, expanding content): always update `last_updated` to today's date.
 
 ### Aliases (minimum 4 per chunk)
 At least 2 in Spanish, at least 1 natural query variant (how a consultant would search, not just the SAP term). Sparse aliases defeat RAG recall.

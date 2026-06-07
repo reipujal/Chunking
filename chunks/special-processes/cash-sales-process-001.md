@@ -1,8 +1,8 @@
 ---
 schema_version: 1
-id: shipping-cash-sales-process-001
+id: special-processes-cash-sales-process-001
 title: "The Cash Sales Process in SAP SD"
-area: shipping
+area: special-processes
 process_tags: [order-to-cash, billing]
 chunk_type: process
 sap_release: S/4HANA 2020

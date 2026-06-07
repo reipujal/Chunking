@@ -196,6 +196,14 @@ def validate_chunk(path: pathlib.Path, all_ids: set[str]) -> ChunkResult:
             r.error(f"sources[{i}]: invalid role '{s.get('role')}'")
         if not isinstance(s.get("pages", ""), str):
             r.error(f"sources[{i}]: pages must be a quoted string, got {type(s.get('pages')).__name__} — wrap in quotes")
+        # relative_path must start with 'processed/' (PDFs in processed/ subfolder)
+        # or be just a bare filename (PDF not yet moved to processed/).
+        # It must NOT contain backslashes or be an absolute path.
+        rp = str(s.get("relative_path", ""))
+        if rp.startswith("/") or (len(rp) > 2 and rp[1] == ":"):
+            r.error(f"sources[{i}]: relative_path '{rp}' is absolute — must be relative to SOURCE_ROOT")
+        if "\\" in rp:
+            r.error(f"sources[{i}]: relative_path '{rp}' uses backslashes — use forward slashes")
 
     # ── Body: H1 title ───────────────────────────────────────────────────────
     h1_matches = re.findall(r'^#\s+([^#].+)$', body, re.M)
@@ -223,6 +231,7 @@ def validate_chunk(path: pathlib.Path, all_ids: set[str]) -> ChunkResult:
     #   S4615/Codex original: ~47 w/p  (clearly superficial)
     #   S4615/fixed:  ~74-90 w/p  (acceptable — SAP courses include figures
     #                               and assessment pages that don't yield text)
+    # Target for quality:high is >=100 w/p (buffer above the 80 warning threshold).
     total_cited_pages = sum(_count_pages(str(s.get("pages", "1"))) for s in sources)
     if total_cited_pages >= 3:
         wpp = body_words / total_cited_pages
@@ -237,6 +246,13 @@ def validate_chunk(path: pathlib.Path, all_ids: set[str]) -> ChunkResult:
                 f"[DENSITY] {wpp:.0f} words/page ({body_words}w / {total_cited_pages}p). "
                 "Below 80 w/p — verify all source pages were fully read "
                 "(figures, tables, back-matter appendix)."
+            )
+        # quality:high is inconsistent with density < 80 — flag as error
+        if wpp < 80 and meta.get("quality") == "high":
+            r.error(
+                f"[DENSITY+QUALITY] quality:high requires >=80 w/p; "
+                f"this chunk has {wpp:.0f} w/p ({body_words}w / {total_cited_pages}p). "
+                "Downgrade to quality:medium or expand content to >=100 w/p."
             )
 
     # ── Mandatory sections per chunk_type ─────────────────────────────────────
@@ -302,14 +318,24 @@ def validate_chunk(path: pathlib.Path, all_ids: set[str]) -> ChunkResult:
             r.warn(f"Only {es_count} Spanish-looking aliases — need >=2 for Spanish-language RAG recall")
 
     # ── process_tags: warn for billing/ chunks with only generic tags ────────
-    # Suggestion intentionally omits specific tag names — the right tag depends
-    # on the chunk's topic and the agent must decide, not copy from the warning.
+    # Only warn when the chunk title or slug contains words that map to a specific
+    # process sub-tag (credit memo, returns, invoice list, etc.). Generic billing
+    # structure/creation/integration chunks legitimately carry only billing+order-to-cash.
     tags = set(meta.get("process_tags", []))
-    if area == "billing" and tags == {"order-to-cash", "billing"}:
+    _SPECIFIC_BILLING_KW = [
+        "credit memo", "debit memo", "return", "cancell", "invoice list",
+        "billing plan", "invoice correction", "pro-forma", "down payment",
+        "installment", "negative posting", "consignment",
+    ]
+    title_lower = meta.get("title", "").lower()
+    slug_lower  = path.stem.lower()
+    _has_specific = any(kw in title_lower or kw.replace(" ", "-") in slug_lower
+                        for kw in _SPECIFIC_BILLING_KW)
+    if area == "billing" and tags == {"order-to-cash", "billing"} and _has_specific:
         r.warn(
             "process_tags uses only generic tags ['billing', 'order-to-cash']. "
-            "If the chunk has a specific sub-topic (credit memos, billing plans, "
-            "invoice lists, returns, etc.) add the matching tag from the valid list in CLAUDE.md."
+            "The chunk title/slug suggests a specific sub-topic — add the matching "
+            "tag from the valid list in CLAUDE.md (e.g. credit-memo, returns, billing-plans)."
         )
 
     # ── inferred comment → quality must not be high ───────────────────────────

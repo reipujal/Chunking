@@ -91,4 +91,4 @@ Account determination must be configured before billing documents can be release
 ## Cross-References
 - See also: billing-billing-document-integration-001
 - See also: configuration-billing-fi-interface-controls-001
-- See also: shipping-cash-sales-process-001
+- See also: special-processes-cash-sales-process-001
