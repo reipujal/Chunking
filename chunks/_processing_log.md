@@ -219,3 +219,16 @@
   - Condition technique and pricing procedure split into 2 chunks (conceptual vs. Customizing)
   - CCM split into 3 chunks: concept overview, maintenance, settlement
 - Status: completed — next pending page: none
+
+## 2026-06-08 — S4605 Unit 13 coverage gap closure (phys 154-165)
+
+- **Trigger:** analysis doc `analisis_estrategia_pdf_a_chunk_2026-06-08.md` confirmed pages 154-165 uncovered after workshop chunk dissolution.
+- **Chunks modified (no new chunks created):**
+  - `special-processes/sales-special-business-transactions-001.md` → added secondary source pages 154-156 (Sales-to-Employee scenario already merged in prior session)
+  - `configuration/sales-item-category-control-001.md` → added secondary source pages 157-160 + BOM explosion step sequence + business context (distributor model, no ATP, component-level POs, delivery/invoice content)
+  - `master-data/material-determination-001.md` → added secondary source pages 161-165 + analysis menu path (Environment → Analysis → Material Determination On) + order confirmation content options
+- **Coverage result:** all 12 pages (154-165) covered. 0 uncovered pages with ≥100w content.
+- **Validator:** 74 OK / 0 errors / 3 warnings (max-page advisory × 2 + density warning on pricing-procedure-config)
+- **Decisions:**
+  - No new chunks created: BOM scenario (phys 157-160) merges into item-category-control (mechanics already there, added functional context ~150w + step sequence); employee sales (phys 154-156) and material determination (phys 161-165) content already present, source citation added.
+  - sales-item-category-control quality remains high (expanded from 95 to 115 w/p after adding step sequence).

@@ -82,37 +82,7 @@ python3 validate_chunks.py chunks/ 2>&1 | tail -3
 ```
 If any chunk was written and a later edit shows a shorter file, re-read it — prefer atomic writes (write to /tmp, then move) and re-read to confirm persistence.
 
-**B. Source-coverage map + extraction ratio.** Every content-rich page must be either chunked or justified; every chunk must be faithful to its source volume.
-```bash
-python3 - <<'PYEOF'
-import subprocess, re, yaml
-from pathlib import Path
-DOC="docu sap/processed/[exact PDF name].pdf"   # substitute
-SRC="[S46xx]"                                    # substitute, e.g. S4605
-pages=subprocess.run(["pdftotext","-layout",DOC,"-"],capture_output=True,text=True).stdout.split("\f")
-pw=[len(p.split()) for p in pages]
-covered=set(); 
-print(f"{'chunk':40} {'pgs':>3} {'body':>5} {'src':>5} {'ratio':>5}")
-for c in Path('chunks').rglob('*.md'):
-    if c.name.startswith('_'): continue
-    t=c.read_text(encoding='utf-8',errors='replace'); fm=yaml.safe_load(t.split('---',2)[1])
-    if not any(SRC in s.get('file','') for s in (fm.get('sources') or [])): continue
-    body=len(t.split('---',2)[2].split()); pr=[]
-    for src in fm['sources']:
-        for seg in str(src.get('pages','')).split(','):
-            m=re.match(r'(\d+)-(\d+)',seg.strip())
-            if m: pr+=list(range(int(m.group(1)),int(m.group(2))+1))
-            elif seg.strip().isdigit(): pr.append(int(seg.strip()))
-    covered|=set(pr); src_w=sum(pw[i-1] for i in pr if 1<=i<=len(pw))
-    r=round(body/src_w,2) if src_w else 0
-    flag=" <-- check" if (r<0.5 or r>1.5) else ""
-    print(f"{fm['id'][:40]:40} {len(pr):3} {body:5} {src_w:5} {r:5}{flag}")
-unc=[(i+1,w) for i,w in enumerate(pw) if w>=100 and (i+1) not in covered]
-print(f"\nUncovered content pages (>=100w): {len(unc)} -> {unc[:30]}")
-PYEOF
-```
-- **Extraction ratio < 0.5** → under-extraction; re-read those pages. **> 1.5 on a terse source** → inflation / unsourced prose; verify provenance.
-- **Each uncovered >=100w page** must be justified in the log: front-matter, learning-assessment, OR merged into an existing chunk. **Workshop/exercise pages are NOT a free skip** — extract their functional context into the relevant process/config chunk (CLAUDE.md workshop rule). Dropping them loses real content (this happened with Unit 13: bill-of-material in sales and sales-to-employee were lost).
+**B. Source-coverage gate.** Run **Skill 6 — `docs/skills/6-coverage-review.md`** (coverage-map + extraction-ratio + triaje). No marques el documento `completed` hasta que su criterio de "hecho" se cumpla: cada página ≥100w o chunkeada o justificada en el log, y los outliers de ratio triados.
 
 ## Step 7 — Update State
 

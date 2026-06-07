@@ -23,7 +23,7 @@ Context that governs every decision:
 3. **Write-integrity.** After writing/editing any chunk, confirm it is complete: terminal line present, no NUL bytes, no truncated `## Cross-Re…` headers, every cross-ref target resolves. The validator now enforces NUL + truncated/broken cross-refs as ERROR. On this workspace a file watcher can truncate in-place writes — prefer atomic writes (write temp, then move) and re-read to confirm persistence.
 4. **Corrections must preserve content and provenance.** A "fix" may not silently delete content or introduce unsourced tokens. Real failures: (a) dissolving the Unit 13 workshop chunk dropped *bill-of-material in sales* and *sales-to-employee* content instead of merging it into existing chunks (the mandatory merge step was skipped); (b) a cash-sales "correction" CS→BV contradicted the S4615 source (which says billing document type CS). Before closing a correction: confirm no functional content was lost and re-read the source for any token changed.
 5. **Never trust the correction log — re-verify.** A defect marked CORREGIDO is a hypothesis until re-checked against the file. One phantom correction invalidates trust in the whole log (see audit ROL 16).
-6. **Source-coverage gate (per document).** "0 validator errors" ≠ "document complete." After processing a document, build a coverage map: every physical page with ≥100 words not inside any chunk's cited range must be justified in the log (front-matter, learning assessment, or intentionally merged). Also track **extraction ratio** = chunk body words / source words in the cited range; healthy band ≈ 0.5–1.5. <0.5 → under-extraction; >1.5 on a terse source → inflation/unsourced prose. Chunk-internal density (w/p) does not catch either.
+6. **Source-coverage gate (per document).** "0 validator errors" ≠ "document complete." After processing a document, build a coverage map: every physical page with ≥100 words not inside any chunk's cited range must be justified in the log (front-matter, learning assessment, or intentionally merged). Also track **extraction ratio** = chunk body words / source words in the cited range; healthy band ≈ 0.5–1.5. <0.5 → under-extraction; >1.5 on a terse source → inflation/unsourced prose. Chunk-internal density (w/p) does not catch either. Run **Skill 6 (`docs/skills/6-coverage-review.md`)** as the standing close gate.
 7. **Token discipline.** Gate must pass on the first write. Validate once per document (batch), not per chunk. Avoid correction rounds by getting provenance and coverage right the first pass.
 
 ---
@@ -169,6 +169,7 @@ touch chunks/_index.md chunks/_processing_log.md chunks/_source_inventory.md
 | 4 — Decide how to chunk | **This file — see below** | Rules are in the nucleus (short enough) |
 | 5 — Write the chunk | **This file — see below** | Rules are in the nucleus |
 | 6+7 — Validate & Log | `docs/skills/5-validate-log.md` | After writing each chunk and before closing a document |
+| 8 — Coverage review (close) | `docs/skills/6-coverage-review.md` | After all chunks of a document are written, before marking it `completed` |
 | Examples | `docs/examples.md` | First chunk of a new session — read before writing |
 
 ---

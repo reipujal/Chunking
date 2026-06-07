@@ -12,6 +12,11 @@ sources:
     pages: "54-60"
     source_type: A
     role: primary
+  - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    pages: "157-160"
+    source_type: A
+    role: secondary
 transactions: []
 tables: []
 aliases:
@@ -27,7 +32,7 @@ level: functional
 status: draft
 quality: high
 created: 2026-06-07
-last_updated: 2026-06-07
+last_updated: 2026-06-08
 ---
 
 # Sales Item Category Control in SAP SD
@@ -97,6 +102,15 @@ The assignment to sales document types also defines *alternative item categories
 - The extent of the structure (how deep)
 - Which items are relevant for pricing
 - Requirements transfer behavior
+
+**BOM explosion sequence (step by step):** (1) enter the main BOM material in the order; (2) the system determines the item category for the main item; (3) the main item category controls whether and how deeply the BOM is exploded; (4) if explosion is configured, the system automatically lists all components as sub-items under the main item; (5) the system determines an item category for each sub-item; (6) schedule line categories are determined dependent on the sub-item's item category. All of these steps and their results can be customized.
+
+**BOM in sales — business context.** BOM explosion fits scenarios where a company sells configured goods assembled from components sourced externally rather than stocked. Typical properties:
+- No availability check in the order — components are procured from the distributor after the sales order is placed, eliminating warehouse stock and reducing capital tie-up.
+- Requirements are transferred to purchasing at component level: one sales order can generate multiple purchase orders (one per component vendor).
+- The outbound delivery lists both the main item and all its components.
+- The invoice covers the full package with the delivered quantity; all components are itemized.
+- Customers can also order individual replacement parts from the same BOM structure.
 
 ## Common Configuration Errors
 **Wrong item category proposed**

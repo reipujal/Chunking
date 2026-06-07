@@ -12,6 +12,11 @@ sources:
     pages: "127-136"
     source_type: A
     role: primary
+  - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    pages: "161-165"
+    source_type: A
+    role: secondary
 transactions: []
 tables: []
 aliases:
@@ -27,7 +32,7 @@ level: functional
 status: draft
 quality: medium
 created: 2026-06-07
-last_updated: 2026-06-07
+last_updated: 2026-06-08
 ---
 
 # Material Determination and Product Selection in SAP SD
@@ -87,7 +92,9 @@ Master records for material determination are maintained in the SD master data m
 
 **Re-execution at delivery:** material determination can be configured to re-run when the delivery is created. This allows substitution results to change if availability has shifted between order entry and delivery creation.
 
-**Analysis:** the material determination analysis can be activated in the sales document before entering items. It then shows detailed information about how materials were determined.
+**Analysis:** the material determination analysis can be activated in the sales document before entering items (menu path: Environment → Analysis → Material Determination On). It shows detailed information about how materials were determined at each step. Activate before entering the first item — the analysis runs during determination and cannot be triggered retroactively.
+
+**Order confirmation content:** depending on Customizing, the order confirmation printed document can contain either the material originally entered by the customer or the substitution material that was actually determined. This choice is configured per substitution reason.
 
 **Condition technique structure:** one material determination procedure is assigned per sales document type. The procedure contains one or more condition types. Each condition type has one access sequence. Each access in the sequence contains exactly one condition table — the search key used to find a valid master record.
 

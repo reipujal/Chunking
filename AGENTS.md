@@ -14,6 +14,7 @@ After reading `CLAUDE.md`, read the skill file that corresponds to your current 
 | Extract content from PDF | `docs/skills/2-extract.md` |
 | Check duplicates + decide chunking | `CLAUDE.md` (Steps 3 and 4 are in the nucleus) |
 | Validate chunk + update state | `docs/skills/5-validate-log.md` |
+| Close a document (coverage gate) | `docs/skills/6-coverage-review.md` |
 | First chunk of a new session | also read `docs/examples.md` |
 
 ## Validator

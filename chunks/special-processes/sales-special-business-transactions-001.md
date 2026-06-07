@@ -12,6 +12,11 @@ sources:
     pages: "81-87"
     source_type: A
     role: primary
+  - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    pages: "154-156"
+    source_type: A
+    role: secondary
 transactions: []
 tables: []
 aliases:
