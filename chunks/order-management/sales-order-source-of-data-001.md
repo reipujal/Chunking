@@ -8,7 +8,7 @@ chunk_type: process
 sap_release: S/4HANA 2020
 sources:
   - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
-    relative_path: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
     pages: "29-39"
     source_type: A
     role: primary
@@ -22,7 +22,7 @@ aliases:
   - de donde salen los datos del pedido de ventas
 level: functional
 status: draft
-quality: high
+quality: medium
 created: 2026-06-07
 last_updated: 2026-06-07
 ---
@@ -67,5 +67,6 @@ For sales orders, the sold-to party is mandatory and acts as the anchor point. T
 
 ## Cross-References
 - Prior step: enterprise-structure-sales-distribution-enterprise-structure-001
-- See also: master-data-sd-partner-functions-001
 - Next step: order-management-sales-order-special-features-001
+- See also: master-data-sd-partner-functions-001
+- See also: master-data-material-determination-001

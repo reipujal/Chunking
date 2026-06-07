@@ -8,7 +8,7 @@ chunk_type: concept
 sap_release: S/4HANA 2020
 sources:
   - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
-    relative_path: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
     pages: "11-15"
     source_type: A
     role: primary
@@ -70,3 +70,4 @@ The *sales document* initiates or records the commercial step, while later *deli
 ## Cross-References
 - Next step: enterprise-structure-sales-distribution-enterprise-structure-001
 - See also: order-management-sales-document-data-flow-001
+- See also: integration-sales-document-technical-tables-001

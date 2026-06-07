@@ -8,7 +8,7 @@ chunk_type: process
 sap_release: S/4HANA 2020
 sources:
   - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
-    relative_path: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
     pages: "81-87"
     source_type: A
     role: primary
@@ -79,5 +79,6 @@ Free-of-charge subsequent delivery requires a preceding document according to th
 
 ## Cross-References
 - Prior step: configuration-sales-copying-control-001
+- See also: shipping-cash-sales-process-001
 - See also: pricing-free-goods-001
 - See also: billing-returns-process-001

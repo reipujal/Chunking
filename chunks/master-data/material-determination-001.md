@@ -8,7 +8,7 @@ chunk_type: configuration
 sap_release: S/4HANA 2020
 sources:
   - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
-    relative_path: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
     pages: "127-136"
     source_type: A
     role: primary
@@ -22,7 +22,7 @@ aliases:
   - como sustituir materiales automaticamente en pedidos
 level: functional
 status: draft
-quality: high
+quality: medium
 created: 2026-06-07
 last_updated: 2026-06-07
 ---

@@ -73,6 +73,7 @@ For cancellations, use billing type *SV*.
 → Output for billing type CS must not have a print output type assigned (the receipt was already printed at order creation via RD03). Check output determination for billing type CS.
 
 ## Cross-References
+- See also: special-processes-sales-special-business-transactions-001
 - See also: billing-billing-document-creation-methods-001
 - See also: configuration-billing-account-determination-001
 - See also: shipping-goods-issue-ewm-001

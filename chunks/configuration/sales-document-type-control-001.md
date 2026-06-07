@@ -3,12 +3,12 @@ schema_version: 1
 id: configuration-sales-document-type-control-001
 title: "Sales Document Type Control in SAP SD"
 area: configuration
-process_tags: [order-to-cash]
+process_tags: [order-to-cash, delivery-processing, billing]
 chunk_type: configuration
 sap_release: S/4HANA 2020
 sources:
   - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
-    relative_path: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
     pages: "47-53"
     source_type: A
     role: primary
@@ -77,4 +77,7 @@ Adding a new sales document type has broad impact because many Customizing entri
 ## Cross-References
 - Prior step: order-management-sales-order-special-features-001
 - Next step: configuration-sales-item-category-control-001
+- See also: configuration-sales-item-category-control-001
+- See also: configuration-schedule-line-category-control-001
+- See also: configuration-sales-incompletion-check-001
 - See also: configuration-sales-copying-control-001

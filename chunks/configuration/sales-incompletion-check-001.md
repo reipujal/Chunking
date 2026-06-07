@@ -3,12 +3,12 @@ schema_version: 1
 id: configuration-sales-incompletion-check-001
 title: "Incompletion Check and Incompletion Procedure in Sales Documents"
 area: configuration
-process_tags: [order-to-cash]
+process_tags: [order-to-cash, delivery-processing, billing]
 chunk_type: configuration
 sap_release: S/4HANA 2020
 sources:
   - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
-    relative_path: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
     pages: "88-95"
     source_type: A
     role: primary
@@ -22,7 +22,7 @@ aliases:
   - como bloquear facturacion por datos incompletos
 level: functional
 status: draft
-quality: high
+quality: medium
 created: 2026-06-07
 last_updated: 2026-06-07
 ---

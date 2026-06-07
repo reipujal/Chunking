@@ -8,7 +8,7 @@ chunk_type: concept
 sap_release: S/4HANA 2020
 sources:
   - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
-    relative_path: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
     pages: "16-28"
     source_type: A
     role: primary
@@ -22,7 +22,7 @@ aliases:
   - como se modela la estructura comercial en SAP
 level: functional
 status: draft
-quality: high
+quality: medium
 created: 2026-06-07
 last_updated: 2026-06-07
 ---
@@ -65,5 +65,6 @@ The *plant* is the logistics location used for production, MRP, or stock storage
 
 ## Cross-References
 - Prior step: order-management-sales-distribution-process-001
-- See also: configuration-delivery-field-determination-001
 - Next step: order-management-sales-order-source-of-data-001
+- See also: configuration-delivery-field-determination-001
+- See also: master-data-sd-partner-functions-001
