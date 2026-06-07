@@ -76,4 +76,5 @@ When a company transfers stock between two of its own plants, the receiving plan
 As of SAP S/4HANA 1610, *SAP Extended Warehouse Management* (EWM) functions are available in the core system. Legacy *Warehouse Management* (WM) remains available, but all future development is focused exclusively on EWM.
 
 ## Cross-References
+- See also: shipping-delivery-special-functions-001 (pricing, interface and incompletion log in deliveries)
 - Internal document structure: shipping-delivery-document-structure-001
