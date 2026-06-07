@@ -357,6 +357,21 @@ Every chunk ends with `## Cross-References`. Write at least one: `Prior step:`, 
 
 ---
 
+## Cadencia de Auditorías
+
+Ejecutar `/audit-board docs/audit/audit_board_profile.md` ante cualquiera de estos triggers.
+**No esperar a que el usuario lo pida** — proponer la ejecución cuando se cumple alguno.
+
+| Trigger | Tier |
+|---------|------|
+| Tras cada documento procesado | Quick (ROL 2, 4, 6, 10) |
+| ≥ 3 documentos nuevos o mensual | Standard (ROL 1, 2, 4, 5, 6, 7, 9, 10) |
+| Trimestral o antes de integrar corpus en RAG de producción | Full (ROL 1–12 + síntesis) |
+
+Antes de ejecutar: actualizar `docs/audit/audit_context_shared.md` con el estado actual.
+
+---
+
 ## Session Limit
 
 **First two sessions (calibration):** max one logical unit or 5 chunks — stop and request validation.
