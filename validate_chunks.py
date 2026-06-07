@@ -33,13 +33,14 @@ VALID_TAGS    = {
     "order-to-cash", "delivery-processing", "billing", "pricing", "returns",
     "credit-management", "transportation", "consignment", "third-party",
     "free-of-charge", "complaints", "credit-memo", "debit-memo",
-    "invoice-correction", "make-to-order", "stock-transfer", "intercompany", "none",
+    "invoice-correction", "make-to-order", "stock-transfer", "intercompany",
+    "billing-plans", "invoice-list", "pro-forma", "none",
 }
 
 # Mandatory sections per chunk_type (substring match against ## headings)
 REQUIRED_SECTIONS = {
     "process":       ["Operational Summary", "Process Flow"],
-    "concept":       ["Operational Summary", "Definition"],
+    "concept":       ["Operational Summary", "Definition", "Relationship"],
     "configuration": ["Operational Summary", "SPRO"],
     "transaction":   ["Operational Summary", "Typical Usage Flow"],
     "integration":   ["Operational Summary", "Data Flow"],
@@ -47,8 +48,16 @@ REQUIRED_SECTIONS = {
 
 # ── Spanish heuristic ───────────────────────────────────────────────────────
 _ES = re.compile(
-    r'[áéíóúñü]|ción\b|ción |izar\b|\bde \w+|ento\b|ados?\b|idos?\b|encia\b'
-    r'|\bpor \w+|\bcon \w+|\bsin \w+|\bcómo\b|\bqué\b|\bcuál',
+    r'[áéíóúñü]'                         # accented vowels or ñ/ü
+    r'|ción\b|ción '                      # -ción suffix (facturación, cancelación)
+    r'|izar\b'                            # -izar verbs
+    r'|\bde \w+'                          # "de X" prep phrase
+    r'|ento\b|ados?\b|idos?\b|encia\b'   # Spanish noun/adj endings
+    r'|\bpor \w+|\bcon \w+|\bsin \w+'    # common prepositions + noun
+    r'|\bcómo\b|\bqué\b|\bcuál'          # interrogatives
+    r'|\bfactur\w+|\bcontabil\w+'        # high-frequency SAP-Spanish roots (no accent needed)
+    r'|\bsucursal\b|\bpagador\b|\bcompras?\b|\bcuenta\b|\bmayor\b'
+    r'|\bsociedad\b|\bpedido\b|\bentrega\b|\balmacén\b|\bcancelac',
     re.I,
 )
 
@@ -236,13 +245,27 @@ def validate_chunk(path: pathlib.Path, all_ids: set[str]) -> ChunkResult:
         alt   = (need == "Process Flow" and any("usage flow" in h.lower() for h in headings))
         if not found and not alt:
             r.error(f"[{ctype}] missing required section containing '{need}'")
+        elif found and need == "Process Flow":
+            # Check Process Flow has actual content (steps), not just a heading.
+            # Accepts: numbered list items (1.), ### sub-headings, or bullet points (-/*).
+            pf_m = re.search(r'^## (?:Process Flow|Typical Usage Flow)(.*?)(?=^## [^#]|\Z)',
+                             body, re.M | re.S)
+            if pf_m:
+                pf_body = pf_m.group(1)
+                has_steps = (
+                    re.search(r'^\d+\.', pf_body, re.M) or
+                    re.search(r'^###', pf_body, re.M) or
+                    re.search(r'^\s*[-*]\s', pf_body, re.M)
+                )
+                if not has_steps and len(pf_body.split()) < 20:
+                    r.warn("Process Flow section has no numbered steps, sub-headings, or bullet points")
 
     # ── Questions section ─────────────────────────────────────────────────────
     q_heads = [h for h in headings if "question" in h.lower()]
     if not q_heads:
         r.error("Missing '## Questions This Chunk Answers' section")
     else:
-        q_m = re.search(r'^## Questions This Chunk Answers(.*?)(?=^##|\Z)', body, re.M | re.S)
+        q_m = re.search(r'^## Questions This Chunk Answers(.*?)(?=^## [^#]|\Z)', body, re.M | re.S)
         if q_m:
             q_count = len(re.findall(r'^\s*[-*]', q_m.group(1), re.M))
             if q_count < 4:
@@ -253,7 +276,7 @@ def validate_chunk(path: pathlib.Path, all_ids: set[str]) -> ChunkResult:
     if not xref_heads:
         r.error("Missing '## Cross-References' section (mandatory for all chunk types)")
     else:
-        xref_m = re.search(r'^## Cross-References(.*?)(?=^##|\Z)', body, re.M | re.S)
+        xref_m = re.search(r'^## Cross-References(.*?)(?=^## [^#]|\Z)', body, re.M | re.S)
         if xref_m:
             xref_body = xref_m.group(1)
             # Backtick IDs
@@ -392,10 +415,21 @@ def main() -> None:
         print("No chunk files found.")
         sys.exit(0)
 
-    # First pass: collect ALL chunk IDs for cross-reference resolution
-    # (always scan the full chunks/ directory, even when filtering for validation)
+    # First pass: collect ALL chunk IDs for cross-reference resolution.
+    # Always scan the root chunks/ directory regardless of filtering, so cross-refs
+    # to other areas resolve correctly when --area or a subdirectory path is used.
     all_ids: set[str] = set()
-    global_chunks_dir = pathlib.Path("chunks") if target.is_file() else target
+    # Resolve root chunks dir: walk up from target until we find chunks/ or hit cwd
+    def _find_chunks_root(p: pathlib.Path) -> pathlib.Path:
+        candidate = p if p.is_dir() else p.parent
+        while candidate != candidate.parent:
+            if candidate.name == "chunks":
+                return candidate
+            if (candidate / "chunks").is_dir():
+                return candidate / "chunks"
+            candidate = candidate.parent
+        return pathlib.Path("chunks")  # fallback to cwd-relative
+    global_chunks_dir = _find_chunks_root(target)
     for p in global_chunks_dir.rglob("*.md"):
         if p.name.startswith("_"):
             continue

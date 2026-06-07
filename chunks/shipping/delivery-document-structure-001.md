@@ -64,6 +64,16 @@ The overview screen displays selected header and item data grouped by activity i
 ### Items
 Contain information about the materials to be delivered. In the item detail screen, data is also organized into tabstrips similar to the header level.
 
+## Relationship with Other SAP SD Objects
+
+| Object | Relationship |
+|---|---|
+| Sales Order | Delivery created with reference; items and quantities inherited |
+| *Transfer Order* (WM/EWM) | Created from delivery items to trigger warehouse picking |
+| *Goods Issue* | Executed at header level via VL02N; closes the delivery logistically |
+| Shipment Document (LE-TRA) | Groups multiple deliveries into one transport unit |
+| Invoice | Created with reference to the delivery after GI is posted |
+
 ## Delivery vs. Shipment Document vs. TM Freight Order
 
 | Document | Scope | When Used |

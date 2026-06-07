@@ -13,7 +13,7 @@ sources:
     source_type: "A"
     role: "primary"
 transactions: []
-tables: ["001"]
+tables: []
 aliases:
   - negative posting
   - contabilización negativa
@@ -32,6 +32,8 @@ last_updated: 2026-06-05
 ---
 
 # Negative Postings for Billing Documents
+
+<!-- inferred table, pending validation: FI Customizing table "001" (global company code parameters) — present in source as "FI table 001" but not an ABAP dictionary table name; omitted from tables field -->
 
 ## Operational Summary
 Negative postings cause cancellations and credit memos to reduce the **same side** of the general ledger account (rather than posting to the opposing credit/debit side), keeping ledger totals clean and intuitive. Without negative postings, a credit memo adds to both sides of the ledger (a debit entry and a credit entry), inflating both totals even though no net sale occurred. This feature is activated in the billing type and requires enabling in the FI company code settings (table `001`).

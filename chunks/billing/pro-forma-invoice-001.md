@@ -3,7 +3,7 @@ schema_version: 1
 id: billing-pro-forma-invoice-001
 title: "Pro Forma Invoices in SAP SD"
 area: billing
-process_tags: [order-to-cash, billing]
+process_tags: [order-to-cash, billing, pro-forma]
 chunk_type: concept
 sap_release: S/4HANA 2020
 sources:

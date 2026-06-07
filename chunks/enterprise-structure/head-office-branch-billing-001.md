@@ -20,14 +20,15 @@ aliases:
   - branch
   - sucursal
   - head office payer
-  - central como pagador
+  - pagador central facturación
   - branch ship-to
-  - sucursal como destinatario
+  - sucursal destinatario facturación
   - KUNNR billing header
   - purchasing association
   - asociación de compras
   - FI head office field
   - campo central FI
+  - cómo facturar a la central en SAP
 level: functional
 status: draft
 quality: high

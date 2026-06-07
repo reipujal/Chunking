@@ -1,5 +1,5 @@
 # Source Inventory — SAP SD Knowledge Base
-Last updated: 2026-06-05
+Last updated: 2026-06-07
 
 | File | Relative Path | Type | Priority | Pages | Words/Page | Status | Notes |
 |---|---|---|---|---|---|---|---|

@@ -119,6 +119,32 @@
 - Non-obvious chunking decisions: appendix mined-but-not-chunked (its value is the task→code mapping, distributed into topic chunks rather than isolated as a low-context list).
 - Status: completed
 
+## 2026-06-07 — CORRECTION: S4615 chunks — Overhaul (post adversarial review)
+- Relative path: S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf
+- Type: A
+- Total pages: 132 (physical)
+- Processed range: p. 1-132 (complete)
+- Appendix / reference tables: p.124-126 mined in prior session; no new appendix
+- Next pending page: none — completed
+- Extractable text: high
+- Encoding issues: none
+- Chunks created: 0 (overhaul of existing 31 S4615 chunks, no new IDs)
+- Chunks updated: all 31 S4615 chunks — see detail below
+  - H1 title added to all 31 (was missing)
+  - Body word count: 147-436w → 425-639w (avg 262 → ~530)
+  - Questions: 2 → 4-6+ per chunk (distinct search intents)
+  - Aliases: 2-4 → 6-12+ per chunk (>=2 Spanish, >=1 natural query variant)
+  - Concept chunks: added Definition, Purpose, Structure/Variants, Relationship sections
+  - Configuration chunks: added SPRO Path, Configuration Impact, Common Configuration Errors
+  - Cross-refs: normalized from backtick format to plain chunk IDs
+  - process_tags: billing-plans/invoice-list/pro-forma tags added to 5 chunks
+  - BUG FIX: tables: ["001"] in billing-negative-postings-001 → tables: [] + inferred comment
+  - BUG FIX: delivery-document-structure-001 missing Relationship section — added
+- Duplicates found and decision: none
+- Omitted content: none
+- Non-obvious decisions: "001" is FI Customizing table ID, not an ABAP dictionary table — excluded from tables field
+- Status: completed
+
 ## 2026-06-05 — UPDATE: S4615 chunks — Cross-References + missing sections
 - Trigger: post-process evaluation found systemic gaps beyond transactions/tables.
 - Cross-References: all 31 S4615 chunks lacked the mandatory section (the template requires it for every chunk_type). Added a topical cross-reference graph using real chunk IDs only. Verified: 0 broken targets, 0 isolated nodes corpus-wide (every chunk has ≥1 inbound link). Added a few reciprocal links (e.g. shipping-goods-issue-ewm → cash-sales) for batch cohesion across S4610/S4615.

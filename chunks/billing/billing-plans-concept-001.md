@@ -3,7 +3,7 @@ schema_version: 1
 id: billing-billing-plans-concept-001
 title: "Periodic and Milestone Billing Plans"
 area: billing
-process_tags: [order-to-cash, billing]
+process_tags: [order-to-cash, billing, billing-plans]
 chunk_type: concept
 sap_release: S/4HANA 2020
 sources:

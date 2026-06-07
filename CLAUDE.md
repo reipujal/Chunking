@@ -204,7 +204,7 @@ last_updated: YYYY-MM-DD
 | role | primary, secondary |
 
 **process_tags valid values:**
-`order-to-cash, delivery-processing, billing, pricing, returns, credit-management, transportation, consignment, third-party, free-of-charge, complaints, credit-memo, debit-memo, invoice-correction, make-to-order, stock-transfer, intercompany, none`
+`order-to-cash, delivery-processing, billing, pricing, returns, credit-management, transportation, consignment, third-party, free-of-charge, complaints, credit-memo, debit-memo, invoice-correction, make-to-order, stock-transfer, intercompany, billing-plans, invoice-list, pro-forma, none`
 
 Use **differentiating tags**, not just the area generic. A billing credit memo chunk → `[billing, credit-memo]`, not just `[billing]`.
 

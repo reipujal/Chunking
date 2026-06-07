@@ -3,7 +3,7 @@ schema_version: 1
 id: billing-invoice-list-001
 title: "Invoice Lists in SAP SD"
 area: billing
-process_tags: [order-to-cash, billing]
+process_tags: [order-to-cash, billing, invoice-list]
 chunk_type: concept
 sap_release: S/4HANA 2020
 sources:

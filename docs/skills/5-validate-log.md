@@ -114,7 +114,7 @@ for root, _, files in os.walk(chunks_dir):
         if not content.startswith("---"): continue
         try:
             meta = yaml.safe_load(content.split("---", 2)[1])
-            def esc(v): return str(v).replace("|", "\\|").replace("\n", " ")
+            def esc(v): return str(v).replace("|", r"\|").replace("\n", " ")
             rows.append(
                 f"| {meta.get('id','')} | {path} | {meta.get('title','')} "
                 f"| {meta.get('area','')} | {meta.get('chunk_type','')} "

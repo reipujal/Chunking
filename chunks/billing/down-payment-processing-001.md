@@ -3,7 +3,7 @@ schema_version: 1
 id: billing-down-payment-processing-001
 title: "Down Payment Processing in SAP SD"
 area: billing
-process_tags: [order-to-cash, billing]
+process_tags: [order-to-cash, billing, billing-plans]
 chunk_type: process
 sap_release: S/4HANA 2020
 sources:
