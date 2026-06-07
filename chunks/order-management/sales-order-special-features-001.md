@@ -52,21 +52,33 @@ This applies after a *sales document* has been created or while it is being ente
 7. If order entry began with a default sold-to party, the responsible user replaces it with the actual sold-to party before completion.
 
 ## Conditions and Restrictions
-A delivery block can be customized with detailed effects in shipping processing. The source describes options such as preventing delivery creation generally, allowing delivery and picking, or blocking goods issue. A billing block can be set in the header and in individual items.
+A delivery block can be customized with detailed effects in shipping processing. Options include: preventing delivery creation entirely, allowing delivery and picking but blocking goods issue, and other granular combinations. A billing block can be set at the document header and in individual items. The *Fast change* function can be used to set blocks on several or all items simultaneously, and a separate button allows rejecting all items in a document at once.
 
-Reasons for rejection should be used to conclude a business transaction without deleting the item. The item receives completed status. The source also notes that order reasons and reasons for rejection can be limited by assigning them to sales document types and/or sales organizations in Customizing, so users only choose from relevant values.
+Reasons for rejection conclude a business transaction without deleting the item — the item receives *Completed* status, preserving the business evidence. Reasons for rejection also serve as a marketing tool: they allow the company to analyze what customers think of its products during a period, providing planning input for future sales strategies. Order reasons and reasons for rejection can be limited per sales document type and/or sales organization in Customizing so users select only from relevant values.
 
-For phone-sales-like processing, a default sold-to party can be used only if it is supported by user-specific parameters or by a transaction variant depending on the sales document type. The default sold-to party must be flagged as a default in the customer master. The incompletion log is then responsible for ensuring the default is replaced by the real sold-to party.
+**Incoterms** are derived from the *sold-to party*, not the ship-to party. This is a common misconception.
+
+**Sold-to party changes have restrictions.** Once subsequent documents (deliveries, billing documents) already exist for a sales order, the sold-to party **cannot be changed**. Changes are only possible while no subsequent documents exist.
+
+For phone-sales-like processing, a default sold-to party can be used if supported by user-specific parameters or a transaction variant for the sales document type. The default must be flagged as such in the customer master (*Default SP* customer type active). The incompletion log ensures the responsible user replaces the default with the real sold-to party before the document is complete.
+
+When the sold-to party changes, SAP runs the same checks as initial entry and redetermines data such as texts, prices, and delivering plant. Changing the ship-to party later on the overview screen does not trigger redetermination of the sold-to party.
 
 ## Common Errors
 **Rejected item still appears in a subsequent document**
--> The reason for rejection closes the item, but copying control must include a suitable requirement to stop copying rejected items.
+-> Copying control must include a requirement to prevent copying of rejected items.
 
 **Default customer remains in the order**
 -> The incompletion log must check that the default sold-to party has been replaced with the real customer.
 
-**Unexpected redetermination after changing sold-to party**
--> When the sold-to party changes, SAP runs the same checks as initial entry and redetermines data such as texts, prices, and delivering plant. Changing the ship-to party later on the overview screen does not redetermine the sold-to party.
+**Sold-to party field cannot be changed**
+-> If subsequent documents already exist, the sold-to party cannot be changed. Cancel or reverse dependent documents first if a change is truly required.
+
+**Incoterms show unexpected values**
+-> Incoterms come from the sold-to party master record, not the ship-to party.
+
+**User enters order reason to reject an item**
+-> Order reasons and reasons for rejection are distinct. To close an item without deleting it, a reason for rejection must be used, not an order reason.
 
 ## Cross-References
 - Prior step: order-management-sales-order-source-of-data-001

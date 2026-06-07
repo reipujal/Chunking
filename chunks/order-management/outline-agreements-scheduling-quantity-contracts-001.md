@@ -59,19 +59,40 @@ Use outline agreements when a customer and seller agree on goods or services ove
 6. SAP updates released quantities and values in the contract through document flow.
 
 ## Conditions and Restrictions
-Copying control determines which sales document types can be used as release orders from a contract. Release orders can be created from the initial screen with create with reference, from the sales document menu, by assigning an order item to a contract retrospectively, or by using automatic search for open outline agreements during order creation.
 
-Sales document type Customizing can activate messages about open outline agreements. The source lists options ranging from no check, to header or item checks with a selection dialog, to automatic copy if exactly one open agreement exists, to immediate branching to the selection list.
+**Standard document types.** The simplest and most common scheduling agreement uses document type DS. Document types BL and DEL are special cases used in the automotive component supplier industry. Contracts can cover both goods and services; rental and maintenance contracts are frequently used in the service industry.
+
+**Scheduling agreement warnings.** When the sum of schedule line quantities exceeds the target quantity, SAP issues a warning message. The system always shows the comparison between entered quantities, target quantity, and quantity already shipped.
+
+**Release order creation.** Copying control determines which sales document types can be used as release orders from a contract. Four ways to create release orders exist:
+1. Choose *Create with reference* on the initial screen
+2. Via the Sales document menu: *Sales document → Create with reference → To contract*
+3. Assign an order item retrospectively to a contract
+4. Automatic search for open outline agreements when creating an order
+
+**Open outline agreement search options.** Sales document type Customizing controls whether and how SAP searches for open contracts when a release order is created:
+
+| Setting | Behavior |
+|---|---|
+| Blank | No check |
+| A/B | Check at header/item level; display dialog box if agreements found; user selects |
+| C/D | Check at header/item level; if exactly one agreement found, copy automatically and show info message |
+| E/F | Check at header/item level; branch immediately to selection list; if only one agreement, behave as C/D |
+
+**Return orders and contract quantities.** When a return order is placed with reference to a release order, the ordered quantity in the contract is automatically corrected and reduced. Subsequent changes in any release order always cause a correction of the ordered quantity in the contract.
 
 ## Common Errors
 **Quantity contract expected to contain delivery dates**
--> The source states that contracts do not contain schedule lines, delivery quantities, or delivery dates. Those are created in the release order.
+-> Contracts do not contain schedule lines, delivery quantities, or delivery dates. Those are created in the release order.
 
 **No message appears about open contracts**
--> Review the sales document type setting for searching open outline agreements.
+-> Review the sales document type setting (A/B/C/D/E/F) for searching open outline agreements.
 
-**Release order was created without reference**
--> The course notes that an order item can be assigned retrospectively to the contract; later changes in release orders correct the ordered quantity in the contract.
+**Release order was created without reference to contract**
+-> Assign the order item retrospectively to the contract. All subsequent changes in that release order will then correct the contract quantity.
+
+**Schedule line quantities exceed target quantity**
+-> SAP issues a warning message. This is informational; the system does not block further schedule lines unless additional restrictions are configured.
 
 ## Cross-References
 - Prior step: master-data-sd-partner-functions-001
