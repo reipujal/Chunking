@@ -1,5 +1,33 @@
 # SAP SD Knowledge Base — Chunking Agent
 
+## Project Objectives & Operating Context
+
+Two objectives, equally weighted:
+1. **Optimal chunks** for the SAP SD documents in scope (the pilot corpus).
+2. **An industrialized, scalable process** — a professional, *agent-based* RAG generation pipeline (not a Python-script RAG). SD is the pilot used to refine the process before extending it to other SAP modules.
+
+Context that governs every decision:
+- **Token-optimized.** Many documents will be processed; token cost per document is a first-class constraint. Prefer one-pass processing with the gate passing the first time over re-read/re-correct loops. Re-read only the specific pages a finding implicates, never the whole PDF by default.
+- **Every defect is a process defect.** When an error is found, fix the chunk AND update CLAUDE.md / the relevant skill / the validator / the audit board so the class cannot recur. A fix that does not harden the process is incomplete.
+- **Every good practice gets encoded** into CLAUDE.md or a skill — not into one-off memory.
+- **The validator is the only source of truth for corpus health.** Never report "0 errors" from memory.
+
+---
+
+## Preventive Rules — Root-Cause Hardening
+
+> Added 2026-06-08 after a concurrency-corruption + phantom-correction incident. Each rule maps to a real failure; do not relax without cause.
+
+1. **One session per workspace (concurrency).** Never run two agents/sessions against this workspace at once. Parallel writes corrupted 18 files (truncation + NUL bytes) and left a `.git/index.lock`. Split long work by document, never by parallel agents on the same tree.
+2. **Index & inventory are derived from disk, never hand-edited.** Regenerate `_index.md` with a script after any chunk change; `_source_inventory.md` must reflect measured state. A hand-edited index desyncs (it did: 64 vs 74 on disk).
+3. **Write-integrity.** After writing/editing any chunk, confirm it is complete: terminal line present, no NUL bytes, no truncated `## Cross-Re…` headers, every cross-ref target resolves. The validator now enforces NUL + truncated/broken cross-refs as ERROR. On this workspace a file watcher can truncate in-place writes — prefer atomic writes (write temp, then move) and re-read to confirm persistence.
+4. **Corrections must preserve content and provenance.** A "fix" may not silently delete content or introduce unsourced tokens. Real failures: (a) dissolving the Unit 13 workshop chunk dropped *bill-of-material in sales* and *sales-to-employee* content instead of merging it into existing chunks (the mandatory merge step was skipped); (b) a cash-sales "correction" CS→BV contradicted the S4615 source (which says billing document type CS). Before closing a correction: confirm no functional content was lost and re-read the source for any token changed.
+5. **Never trust the correction log — re-verify.** A defect marked CORREGIDO is a hypothesis until re-checked against the file. One phantom correction invalidates trust in the whole log (see audit ROL 16).
+6. **Source-coverage gate (per document).** "0 validator errors" ≠ "document complete." After processing a document, build a coverage map: every physical page with ≥100 words not inside any chunk's cited range must be justified in the log (front-matter, learning assessment, or intentionally merged). Also track **extraction ratio** = chunk body words / source words in the cited range; healthy band ≈ 0.5–1.5. <0.5 → under-extraction; >1.5 on a terse source → inflation/unsourced prose. Chunk-internal density (w/p) does not catch either.
+7. **Token discipline.** Gate must pass on the first write. Validate once per document (batch), not per chunk. Avoid correction rounds by getting provenance and coverage right the first pass.
+
+---
+
 ## Project Paths
 
 | Variable | Value |

@@ -1,6 +1,6 @@
 # Audit Board Profile — SAP SD Knowledge Base (Chunking)
 
-> **Profile versión:** 2.0 — 2026-06-07 (añade ROL 0 pre-vuelo + ROL 16 meta-audit; endurece contexto)
+> **Profile versión:** 2.1 — 2026-06-08 (ROL 0 pre-vuelo + ROL 16 meta-audit; REGLAS 10-14: integridad, cierre, no-confiar-correcciones, cobertura, industrialización/tokens)
 > **Framework:** este profile es **autónomo**. Si existe `~/.claude/skills/audit-board/FRAMEWORK.md`, úsalo; si **no** (caso por defecto en este entorno), el LLM auditor ejecuta los roles directamente desde este archivo. No abortar por framework ausente.
 > **Para ejecutar:** invocar `/audit-board docs/audit/audit_board_profile.md` **o**, si el skill no está instalado, pasar este profile como prompt a un LLM auditor.
 > **Contexto compartido:** `docs/audit/audit_context_shared.md` — **DEBE regenerarse desde disco inmediatamente antes** (ver REGLA 11). No leer una copia que no se acaba de regenerar.
@@ -42,6 +42,20 @@ está cerrado y no se considera ejecutado.
 **REGLA 12 (No confiar en correcciones declaradas):** Los hallazgos marcados "CORREGIDO" en el historial
 **no se asumen resueltos**. ROL 16 re-verifica una muestra contra los archivos. Una corrección fantasma
 (declarada hecha, no hecha) es CRIT por defecto: contamina la confianza en todo el log.
+
+
+**REGLA 13 (Cobertura y preservación de contenido — métrica de primera clase):** Auditar un documento
+procesado **exige** ejecutar el coverage-map fuente→chunk (páginas ≥100w no cubiertas) y la banda de
+extraction-ratio (body/src ≈ 0.5–1.5), además de verificar que ninguna corrección eliminó contenido
+(p.ej. disolución de workshop sin fusionar). La fidelidad al *volumen de la fuente* y la cobertura del
+documento valen tanto como la densidad interna del chunk (w/p). "0 errores del validador" ≠ "documento
+completo".
+
+**REGLA 14 (Industrialización y eficiencia de tokens):** El audit juzga el **proceso**, no solo los chunks.
+Por cada hallazgo: ¿se previno la clase de error actualizando CLAUDE.md / skill / validador / audit? ¿El
+coste en tokens por documento tiende a bajar (menos re-lecturas, menos rondas de corrección)? Una clase de
+defecto **recurrente** es un fallo de proceso y pesa más que cualquier defecto puntual de un chunk. Objetivo
+del proyecto: pipeline RAG agéntico, escalable y token-eficiente; SD es el piloto.
 
 ---
 
@@ -369,157 +383,4 @@ realmente? ¿Cuánto tiempo falta? ¿Vale el esfuerzo restante o hay un camino m
 
 ### ROL 16 — Correction Ledger Verifier (meta-audit)
 
-**Objetivo:** Verificar que los hallazgos marcados "CORREGIDO" en `audit_context_shared.md` y en el
-`_processing_log.md` **realmente** se aplicaron en los archivos. Auditar al auditor.
-
-**Mentalidad:** La afirmación más peligrosa de un proyecto no es "esto está mal" sino "esto ya lo
-arreglamos" cuando no es cierto. Una corrección fantasma desactiva la vigilancia sobre un defecto que
-sigue vivo, y erosiona la confianza en todo el log. La sección "hallazgos conocidos — no reabrir" es
-precisamente donde se esconden: la trato como hipótesis a refutar, no como hecho.
-
-**Checks:**
-1. **Re-verificación directa.** Para cada ítem CORREGIDO del historial, abrir el/los archivo(s) citados y
-   confirmar con `grep`/lectura que el defecto ya no está. Documentar el comando y la línea.
-2. **Foco en los de alto riesgo.** Priorizar correcciones factuales de tokens SAP (order/delivery/billing
-   types), eliminación de alucinaciones (T-codes/tablas), y conversiones de provenance. Ej. verificado en
-   v2.0: "billing type CS → BV CORREGIDO" en `cash-sales-process-001` resultó **fantasma** (CS persiste
-   como order type y, peor, se le llama "CS billing type" en Common Errors → Caso 3b vivo).
-3. **Correcciones parciales.** ¿Una corrección se aplicó a un chunk pero no a sus duplicados/hermanos que
-   comparten el defecto? (p.ej. corregir cash sale en una fuente pero no en la otra).
-4. **Cierre de auditorías previas.** ¿La última auditoría produjo síntesis + regeneró el context (REGLA 11)?
-   Part-files sin executive summary = auditoría no cerrada → hallazgo de proceso.
-5. **Veredicto de fiabilidad del log.** Tasa de correcciones-fantasma sobre la muestra. >0 → el log de
-   correcciones no es confiable como evidencia; todo "CORREGIDO" requiere re-verificación hasta nuevo aviso.
-
-**Salida:** tabla `ítem | declarado | real | evidencia | severidad`, y un veredicto sobre si el historial
-de correcciones es confiable.
-
----
-
-## ROLES — FASE 2 (SÍNTESIS)
-
-========================================
-### SYNTHESIS ROLES (ejecutar en este orden)
-========================================
-
-### ROL 13 — Devil's Advocate / Crítico Sistemático
-
-**Objetivo:** Atacar los findings de Fase 1. ¿Son realmente críticos? ¿O hay falsos positivos
-entre los hallazgos? ¿Hay hallazgos de Fase 1 que se contradicen entre sí?
-
-**Mentalidad:** Los auditores de Fase 1 también pueden equivocarse. Mi trabajo es encontrar
-dónde los hallazgos son exagerados, incorrectos, o malinterpretan la intención del diseño.
-
-Específico para este proyecto:
-- ¿El ROL 9 (token efficiency) propone eliminar contenido que el ROL 4 (RAG quality) necesita?
-- ¿El ROL 3 (provenance) es tan restrictivo que el ROL 2 (SAP expert) vería el corpus como incompleto?
-- ¿Algún "crítico" de Fase 1 está aplicando un estándar imposible para un proyecto de una persona?
-
----
-
-### ROL 14 — System Decomposition / Cross-Cutting Analysis
-
-**Objetivo:** Identificar problemas que traversan múltiples clusters y que ningún rol individual
-capturó completamente.
-
-Preguntas cross-cutting:
-- ¿Hay un patrón sistémico que explique la mayoría de los hallazgos? (ej. "todo viene del hecho de que Codex extrajo el 50% del texto")
-- ¿Cuáles son las 3 invariantes más importantes del sistema que, si se rompen, todo lo demás falla?
-- ¿Qué cambio de una sola línea en CLAUDE.md habría evitado el mayor número de hallazgos?
-
----
-
-### ROL 15 — Attribution Analyst
-
-**Objetivo:** Para cada hallazgo crítico, determinar su causa raíz: ¿es un fallo de instrucciones
-(CLAUDE.md), del modelo (Codex/Claude), del proceso de revisión, o del diseño del schema?
-
-Categorías de atribución:
-- **CLAUDE.md**: la regla no existía, era ambigua, o estaba mal ubicada
-- **Modelo (Codex)**: el modelo no siguió la instrucción existente
-- **Modelo (Claude)**: Claude aplicó la instrucción incorrectamente
-- **Proceso**: la revisión adversaria no detectó el problema a tiempo
-- **Schema**: el diseño del schema no captura la restricción necesaria
-- **Cobertura**: requiere nuevos PDFs, no tiene solución actual
-
----
-
-## DEBATES — FASE 2
-
-### DEBATE D1 — Provenance vs. Completeness
-
-**Participantes:** ROL 3 (Provenance) vs. ROL 2 (SAP Expert)
-
-**Pregunta:** "El chunk `configuration-sales-document-type-control-001` no menciona las
-transacciones VOV8 (para editar tipos de documentos de ventas) ni las VOV4/VOV5 (asignación
-de categorías). Una persona procesando ese chunk las habría incluido. ¿Se deberían añadir como
-`<!-- inferred -->` o dejar el campo `transactions: []` vacío?"
-
-**ROL 3 argumenta:** Si VOV8 no aparece en las páginas 47-53 del S4605, no va en `transactions`.
-Puede ir en `<!-- inferred, pending validation -->` en el body. El campo queda vacío.
-
-**ROL 2 contraargumenta:** Un consultor que busca "cómo configurar el tipo de documento de ventas"
-necesita saber que la transacción es VOV8. Si el campo está vacío, el chunk es funcionalmente incompleto.
-
-**Veredicto:** El campo `transactions: []` es correcto per provenance rule. Un `<!-- inferred -->` en el body con la T-code es el mecanismo correcto. La tensión entre fidelidad y utilidad es permanente: se resuelve procesando el back-matter appendix del documento donde sí aparecen las T-codes.
-
----
-
-### DEBATE D2 — RAG Recall vs. Token Precision
-
-**Participantes:** ROL 4 (RAG Systems) vs. ROL 9 (Token Efficiency)
-
-**Pregunta:** "El chunk `configuration-delivery-scheduling-001` tiene 18 aliases, incluyendo
-'route' y 'ruta'. ¿Se eliminan por demasiado genéricos o se mantienen porque mejoran recall?"
-
-**ROL 4 argumenta:** En un corpus de 64 chunks sobre SAP SD logístico, "route" tiene un contexto
-suficientemente restringido. El recall para queries sobre rutas mejora con el alias.
-
-**ROL 9 contraargumenta:** "route" matcheará cualquier chunk de shipping o delivery. Es ruido puro.
-El alias debería ser "route determination" o "route scheduling" para ser recuperable por la query
-correcta sin contaminar otras.
-
-**Veredicto:** ROL 9 gana: el alias mínimo específico que funciona como seed de retrieval vale más
-que el alias genérico. "route determination" > "route". La regla de especificidad de aliases no es
-solo sobre falsos positivos — es sobre forzar que el redactor piense en la intención de búsqueda real.
-
----
-
-## META-REVIEW FINAL
-
-El agente de síntesis produce al final:
-
-```markdown
-## EXECUTIVE SUMMARY
-
-**Veredicto global:** PASA / PASA CON CONDICIONES / NO PASA
-**Fecha:** YYYY-MM-DD
-**Corpus:** N chunks, N errores, N warnings
-
-### Top-5 Hallazgos Críticos
-[con severidad y acción inmediata]
-
-### RAG Readiness Score
-| Dominio | Score | Bloqueante |
-|---------|-------|-----------|
-| Order-to-cash | /10 | |
-| Delivery processing | /10 | |
-| Billing | /10 | |
-| Configuration | /10 | |
-| Special processes | /10 | |
-
-### Next Action Recomendada
-[documento a procesar O correcciones a aplicar]
-
-### Scoring Agregado
-| Dimensión | Peso | Score |
-|-----------|------|-------|
-| Extracción y fidelidad | 25% | /10 |
-| Corrección factual SAP | 20% | /10 |
-| Calidad RAG | 25% | /10 |
-| Schema y proceso | 15% | /10 |
-| Cobertura | 15% | /10 |
-| **TOTAL** | 100% | /10 |
-
-**Umbral RAG operacional:** ≥ 7.0 total, ninguna dimensión < 5.0
-```
+**Objetivo:** Verificar que los hallazgos marcados "CORREGIDO" e
