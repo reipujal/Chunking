@@ -1,6 +1,6 @@
 # SAP SD Knowledge Base --- Index
 
-Last updated: 2026-06-07  |  Total chunks: 74
+Last updated: 2026-06-08  |  Total chunks: 74
 
 | ID | Path | Title | Area | Type | SAP Release | Tags | Sources | Pages | T-codes | Status | Quality |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -60,7 +60,7 @@ Last updated: 2026-06-07  |  Total chunks: 74
 | order-management-value-contracts-001 | chunks\order-management\value-contracts-001.md | Value Contracts in SAP SD | order-management | process | S/4HANA 2020 | order-to-cash, billing-plans | S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf | 114-126 |  | draft | medium |
 | pricing-condition-contract-maintenance-001 | chunks\pricing\condition-contract-maintenance-001.md | Condition Contract Maintenance: Creating and Managing Condition Contracts | pricing | process | S/4HANA 2020 | order-to-cash, pricing | S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf | 100-106 |  | draft | high |
 | pricing-condition-contract-management-concept-001 | chunks\pricing\condition-contract-management-concept-001.md | Condition Contract Management (CCM) — Concept and Configuration Overview | pricing | concept | S/4HANA 2020 | order-to-cash, pricing | S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf | 92-99 |  | draft | high |
-| pricing-condition-contract-settlement-001 | chunks\pricing\condition-contract-settlement-001.md | Condition Contract Settlement: Settlement Run and Document Flow | pricing | process | S/4HANA 2020 | order-to-cash, pricing | S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf | 107-114 |  | draft | high |
+| pricing-condition-contract-settlement-001 | chunks\pricing\condition-contract-settlement-001.md | Condition Contract Settlement: Settlement Run and Document Flow | pricing | process | S/4HANA 2020 | order-to-cash, pricing | S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf | 107-114 |  | draft | medium |
 | pricing-condition-records-001 | chunks\pricing\condition-records-001.md | Condition Records: Creation, Maintenance, and Reporting in SAP SD | pricing | process | S/4HANA 2020 | order-to-cash, pricing | S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf | 40-53 | VK11, VK12, VK13, SE43 | draft | medium |
 | pricing-condition-technique-overview-001 | chunks\pricing\condition-technique-overview-001.md | Condition Technique and Pricing Overview in SAP SD | pricing | concept | S/4HANA 2020 | order-to-cash, pricing | S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf | 8-24 |  | draft | medium |
 | pricing-free-goods-001 | chunks\pricing\free-goods-001.md | Automatic Free Goods Determination in SAP SD | pricing | configuration | S/4HANA 2020 | order-to-cash, pricing, free-of-charge | S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf | 143-152 | VOFM | draft | medium |

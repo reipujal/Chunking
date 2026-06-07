@@ -29,7 +29,7 @@ level: functional
 status: draft
 quality: medium
 created: 2026-06-07
-last_updated: 2026-06-07
+last_updated: 2026-06-08
 ---
 
 # Pricing Agreements: Promotions and Sales Deals in SAP SD
@@ -79,10 +79,9 @@ All condition records linked to a specific promotion number can be listed and an
 -> Use condition record analysis filtered by the promotion number. The promotion number is stored on the condition record and flows to the billing document.
 
 **Sales deal condition records not appearing in pricing simulation**
--> Check the release status. Status B makes records visible in pricing simulation (net price list) but not in live documents. Status C restricts records to CO-PA planning only.
+-> Check the release status. Status B makes records visible in pricing simulation (net price list) but not in live sales orders. Set the release status to released so the sales deal condition records take effect in order processing.
 
 ## Cross-References
-- Prior step: pricing-statistical-condition-types-001
-- Next step: pricing-condition-contract-management-concept-001
-- See also: pricing-condition-records-001
-- See also: order-management-outline-agreements-scheduling-quantity-contracts-001
+See also: pricing-condition-records-001
+See also: pricing-condition-technique-overview-001
+See also: pricing-special-pricing-functions-001

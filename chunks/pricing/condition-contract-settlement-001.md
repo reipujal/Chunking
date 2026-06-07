@@ -28,9 +28,9 @@ aliases:
   - settlement calculation rebate accruals reversal
 level: functional
 status: draft
-quality: high
+quality: medium
 created: 2026-06-07
-last_updated: 2026-06-07
+last_updated: 2026-06-08
 ---
 
 # Condition Contract Settlement: Settlement Run and Document Flow
@@ -105,10 +105,9 @@ The settlement run can be started periodically — daily or monthly — for one 
 -> Verify that the settlement run included the accruals reversal step. In a partial or final settlement, accruals from prior delta accruals settlements are reversed automatically.
 
 **Rebate not distributed correctly among multiple customers**
--> Check the eligible partner list in the condition contract and the business volume table granularity. If business volume is stored at an aggregate level, plant- or customer-level distribution may not be possible.
+-> Check the eligible partner list in the condition contract and the business volume distribution. Each eligible partner must have a defined share so the settlement run allocates the rebate amount correctly across the partners.
 
 ## Cross-References
-- Prior step: pricing-condition-contract-maintenance-001
-- See also: pricing-condition-contract-management-concept-001
-- See also: billing-billing-document-creation-methods-001
-- See also: integration-general-billing-interface-001
+Prior step: pricing-condition-contract-maintenance-001
+See also: pricing-condition-contract-management-concept-001
+See also: pricing-condition-records-001

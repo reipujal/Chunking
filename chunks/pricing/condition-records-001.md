@@ -30,7 +30,7 @@ level: functional
 status: draft
 quality: medium
 created: 2026-06-07
-last_updated: 2026-06-07
+last_updated: 2026-06-08
 ---
 
 # Condition Records: Creation, Maintenance, and Reporting in SAP SD
@@ -136,6 +136,7 @@ Report layout sections: Page header (break on value change), Group header (new h
 -> Download the template first with the filter specifying the required condition types so that the correct key combinations are pre-populated. Check import history for error detail.
 
 ## Cross-References
-- Prior step: configuration-pricing-procedure-configuration-001
-- Next step: pricing-special-pricing-functions-001
-- See also: pricing-condition-technique-overview-001
+Prior step: pricing-condition-technique-overview-001
+See also: configuration-pricing-procedure-configuration-001
+See also: pricing-special-condition-types-001
+See also: pricing-statistical-condition-types-001

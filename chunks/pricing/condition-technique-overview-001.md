@@ -28,7 +28,7 @@ level: functional
 status: draft
 quality: medium
 created: 2026-06-07
-last_updated: 2026-06-07
+last_updated: 2026-06-08
 ---
 
 # Condition Technique and Pricing Overview in SAP SD
@@ -124,13 +124,13 @@ Copying control handles re-pricing of billing documents based on different scena
 **Pricing fields.** The fields available for defining condition table keys are maintained in a standard field catalog in Customizing. Fields not in the standard catalog can be added using a release-neutral procedure. This catalog determines which data from the sales document can be used as search criteria when looking up condition records.
 
 ## Relationship with Other SAP SD Objects
-- *Condition table* → defines the key → used by *access sequence* → assigned to *condition type* → included in *pricing procedure*
-- *Pricing procedure determination* uses: sales area + customer pricing procedure + document pricing procedure
-- *Condition records* are the master data that the access sequence searches for
-- *PRCD_COND* is the S/4HANA table that stores pricing condition data (replaces KONV from ECC)
+- The *condition technique* is the engine the *pricing procedure* uses to find prices; the procedure lists the *condition types* and the order in which they are evaluated.
+- Each *condition type* points to an *access sequence*, and each access reads a *condition table* whose key fields determine which *condition record* is selected.
+- *Condition records* hold the actual prices, discounts, and surcharges that the technique retrieves at runtime.
+- *Special* and *statistical condition types* plug into the same procedure as standard condition types; their placement (step, counter, requirements) controls when they are evaluated.
 
 ## Cross-References
-- Next step: configuration-pricing-procedure-configuration-001
-- See also: pricing-condition-records-001
-- See also: pricing-special-pricing-functions-001
-- See also: billing-document-table-structure-001
+Next step: pricing-condition-records-001
+See also: configuration-pricing-procedure-configuration-001
+See also: pricing-special-condition-types-001
+See also: pricing-statistical-condition-types-001

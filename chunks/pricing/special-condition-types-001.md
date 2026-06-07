@@ -30,7 +30,7 @@ level: functional
 status: draft
 quality: medium
 created: 2026-06-07
-last_updated: 2026-06-07
+last_updated: 2026-06-08
 ---
 
 # Special Condition Types in SAP SD Pricing
@@ -109,6 +109,7 @@ Interval scales (PR02, scale type D) define non-cumulative, band-based pricing. 
 - All special condition types are included in a pricing procedure alongside standard condition types; their placement (step, counter, requirements) in the procedure controls when they are evaluated
 
 ## Cross-References
-- Prior step: pricing-special-pricing-functions-001
-- Next step: pricing-statistical-condition-types-001
-- See also: pricing-condition-technique-overview-001
+Prior step: pricing-condition-technique-overview-001
+See also: pricing-statistical-condition-types-001
+See also: pricing-condition-records-001
+See also: pricing-special-pricing-functions-001

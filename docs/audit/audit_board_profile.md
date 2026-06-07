@@ -1,16 +1,17 @@
 # Audit Board Profile — SAP SD Knowledge Base (Chunking)
 
-> **Profile versión:** 1.0 — 2026-06-07
-> **Framework:** `~/.claude/skills/audit-board/FRAMEWORK.md`
-> **Para ejecutar:** invocar `/audit-board docs/audit/audit_board_profile.md`
-> **Contexto compartido:** `docs/audit/audit_context_shared.md` (leer antes de cualquier rol)
+> **Profile versión:** 2.0 — 2026-06-07 (añade ROL 0 pre-vuelo + ROL 16 meta-audit; endurece contexto)
+> **Framework:** este profile es **autónomo**. Si existe `~/.claude/skills/audit-board/FRAMEWORK.md`, úsalo; si **no** (caso por defecto en este entorno), el LLM auditor ejecuta los roles directamente desde este archivo. No abortar por framework ausente.
+> **Para ejecutar:** invocar `/audit-board docs/audit/audit_board_profile.md` **o**, si el skill no está instalado, pasar este profile como prompt a un LLM auditor.
+> **Contexto compartido:** `docs/audit/audit_context_shared.md` — **DEBE regenerarse desde disco inmediatamente antes** (ver REGLA 11). No leer una copia que no se acaba de regenerar.
 
 ---
 
 ## CONTEXTO OBLIGATORIO
 
-Leer `docs/audit/audit_context_shared.md` antes de comenzar cualquier rol.
-Contiene el estado actual del corpus, statistics, y hallazgos conocidos previos.
+1. **Primero, ROL 0 (pre-vuelo).** Si ROL 0 falla, el corpus está en estado **NO AUDITABLE**: detener y reportar solo los hallazgos de ROL 0. Auditar un árbol de trabajo corrupto produce conclusiones basura.
+2. Regenerar `docs/audit/audit_context_shared.md` desde disco (REGLA 11) y leerlo.
+3. Contiene el estado actual del corpus, statistics, y hallazgos conocidos previos — pero esos hallazgos "conocidos" **no se asumen ciertos**: ROL 16 los re-verifica.
 
 ---
 
@@ -27,12 +28,28 @@ grave que un chunk faltante en un área de baja demanda.
 (leer archivos, ejecutar el validador, grep). Las afirmaciones generales sin referencia a
 archivos específicos valen cero.
 
+**REGLA 10 (Integridad primero):** Antes de juzgar el *contenido*, verificar la *integridad operacional*
+(ROL 0): el validador ejecuta sin error, su versión coincide con la de `HEAD`, y disco↔índice↔inventario
+son consistentes. Un "0 errores" reportado de memoria o por un validador roto **no cuenta como evidencia** —
+solo cuenta la salida de un validador que demostradamente ejecuta. La salud del corpus se mide con la
+herramienta, nunca se afirma de memoria.
+
+**REGLA 11 (Contexto fresco / cierre obligatorio):** El `audit_context_shared.md` debe regenerarse desde
+disco inmediatamente antes de auditar; una auditoría contra contexto obsoleto es **nula**. Toda auditoría
+**termina** con (a) síntesis + executive summary y (b) regeneración del context. Un audit sin síntesis no
+está cerrado y no se considera ejecutado.
+
+**REGLA 12 (No confiar en correcciones declaradas):** Los hallazgos marcados "CORREGIDO" en el historial
+**no se asumen resueltos**. ROL 16 re-verifica una muestra contra los archivos. Una corrección fantasma
+(declarada hecha, no hecha) es CRIT por defecto: contamina la confianza en todo el log.
+
 ---
 
 ## CONTEXT BUNDLES POR CLUSTER
 
 | Cluster | Archivos a leer |
 |---------|----------------|
+| `C0_integridad` | `validate_chunks.py` (working-tree **y** `git show HEAD:validate_chunks.py`), salida de `python3 validate_chunks.py chunks/`, `git status --short`, `_index.md`, `_source_inventory.md`, conteo `find chunks -name '*.md' -not -name '_*' \| wc -l` |
 | `C1_fuente` | `docs/audit/audit_context_shared.md`, `chunks/_processing_log.md`, `docs/skills/1-classify.md`, `docs/skills/2-extract.md` + 4 chunks de S4605 (muestra) |
 | `C2_contenido` | `docs/audit/audit_context_shared.md`, `chunks/_index.md`, CLAUDE.md §Step 3 y §Step 5 + 6 chunks representativos (2 por fuente) |
 | `C3_rag` | `docs/audit/audit_context_shared.md`, `chunks/_index.md`, `validate_chunks.py` + 8 chunks de distintas áreas |
@@ -45,7 +62,8 @@ archivos específicos valen cero.
 
 | Cluster | Roles asignados | Output |
 |---------|----------------|--------|
-| `C1_fuente` | ROL 1, ROL 3 | `docs/audit/results/audit_FECHA_part_fuente.md` |
+| `C0_integridad` | **ROL 0** (pre-vuelo, bloqueante) | `docs/audit/results/audit_FECHA_part_integridad.md` |
+| `C1_fuente` | ROL 1, ROL 3, **ROL 16** | `docs/audit/results/audit_FECHA_part_fuente.md` |
 | `C2_contenido` | ROL 2, ROL 7 | `docs/audit/results/audit_FECHA_part_contenido.md` |
 | `C3_rag` | ROL 4, ROL 5 | `docs/audit/results/audit_FECHA_part_rag.md` |
 | `C4_schema` | ROL 6, ROL 8, ROL 9 | `docs/audit/results/audit_FECHA_part_schema.md` |
@@ -55,12 +73,15 @@ archivos específicos valen cero.
 
 ## TIERS PARA ESTE PROYECTO
 
+> **ROL 0 es obligatorio en TODOS los tiers** (incluido Quick). Es la condición de entrada: sin integridad operacional no hay nada que auditar.
+
 | Tier | Roles incluidos | Trigger |
 |------|----------------|---------|
-| Quick | ROL 2, ROL 4, ROL 6, ROL 10 | Tras cada documento procesado |
-| Standard | ROL 1, ROL 2, ROL 4, ROL 5, ROL 6, ROL 7, ROL 9, ROL 10 | Tras ≥3 documentos nuevos o mensual |
-| Full | ROL 1–12 + debates + síntesis | Trimestral o antes de integrar en RAG de producción |
+| Quick | **ROL 0**, ROL 2, ROL 4, ROL 6, ROL 10 | Tras cada documento procesado |
+| Standard | **ROL 0**, ROL 1, ROL 2, ROL 4, ROL 5, ROL 6, ROL 7, ROL 9, ROL 10, **ROL 16** | Tras ≥3 documentos nuevos o mensual |
+| Full | **ROL 0**, ROL 1–12, **ROL 16** + debates + síntesis | Trimestral o antes de integrar en RAG de producción |
 
+### ROL 0 — Repository & State Integrity (pre-vuelo, BLOQUEANTE)
 ### ROL 1 — Source Extraction Quality Specialist
 ### ROL 2 — SAP SD Domain Expert / Functional Consultant
 ### ROL 3 — Provenance & Attribution Specialist
@@ -73,6 +94,46 @@ archivos específicos valen cero.
 ### ROL 10 — Coverage & Strategic Gap Analyst
 ### ROL 11 — LLM Processing Bias Analyst
 ### ROL 12 — Project Manager / RAG Readiness Assessor
+### ROL 16 — Correction Ledger Verifier (meta-audit)
+
+---
+
+## ROLES — FASE 0
+
+========================================
+### FASE 0 — INTEGRIDAD OPERACIONAL (PRE-VUELO)
+========================================
+
+### ROL 0 — Repository & State Integrity (BLOQUEANTE)
+
+**Objetivo:** Determinar si el corpus está en estado **auditable** antes de gastar esfuerzo en
+auditar contenido. Detecta el modo de fallo que ningún otro rol cubre: el árbol de trabajo, las
+herramientas o los artefactos de estado están rotos o se contradicen.
+
+**Mentalidad:** Auditar el contenido de un repositorio corrupto es medir la temperatura de un
+termómetro roto. Si el validador no ejecuta, el índice miente sobre qué existe, o hay un proceso
+concurrente a medias, todo hallazgo downstream es ruido. Mi veredicto es binario: AUDITABLE o NO AUDITABLE.
+
+**Checks (todos obligatorios; cualquier fallo → NO AUDITABLE):**
+1. **El validador ejecuta.** `python3 validate_chunks.py chunks/` corre sin `SyntaxError`/excepción.
+   Si falla, comparar con `git show HEAD:validate_chunks.py` y reportar que el working-tree está roto.
+2. **Validador determinista.** ¿La versión working-tree y la de `HEAD` dan el mismo veredicto sobre el
+   mismo corpus? Si difieren (p.ej. una marca Cross-References y otra DENSITY), el árbitro no es fiable
+   → reportar la divergencia y auditar con la versión de `HEAD` declarándolo explícitamente.
+3. **Sincronía disco↔índice↔inventario.** `find chunks -name '*.md' -not -name '_*' | wc -l` vs filas de
+   `_index.md` vs estado declarado en `_source_inventory.md`. Cualquier discrepancia es un hallazgo CRIT:
+   el índice no puede usarse como fuente de verdad por ningún otro rol hasta regenerarse.
+4. **Estado git limpio y sin locks.** `git status --short` (¿cuántos archivos sin commitear?) y
+   ausencia de `.git/index.lock`. Churn masivo y casi simétrico (+N/−N≈N) en archivos no tocados esta
+   sesión = sospecha de normalización de line-endings/encoding que entierra cambios reales → CRIT.
+5. **Concurrencia.** ¿Hay señales de un segundo proceso a medias (archivos truncados, lock, índice
+   creciendo durante la lectura)? Si sí, NO AUDITABLE hasta que termine y se estabilice.
+6. **Salud reportada vs. medida.** ¿El "N errores/warnings" que declaran `_index.md`/`_source_inventory.md`/
+   `audit_context_shared.md` coincide con la salida real del validador? Discrepancia = la salud se está
+   reportando de memoria (REGLA 10) → CRIT.
+
+**Salida:** Veredicto `AUDITABLE` / `NO AUDITABLE` + lista de bloqueantes con la acción de remediación.
+Si NO AUDITABLE, el audit se detiene aquí y reporta solo ROL 0.
 
 ---
 
@@ -303,6 +364,35 @@ realmente? ¿Cuánto tiempo falta? ¿Vale el esfuerzo restante o hay un camino m
 - **Processing velocity:** Basado en el processing log, ¿cuántos chunks por sesión se generan actualmente? ¿A ese ritmo, cuándo se alcanzaría cobertura mínima útil (estimación: 150 chunks, 5 documentos High priority procesados)?
 - **Quality floor:** ¿Hay chunks quality:low en el corpus? ¿Cuántos quality:medium están en el rango 80-99 w/p que podrían mejorarse con re-lectura del PDF y convertirse a high?
 - **Go/No-Go RAG:** Define los criterios mínimos para considerar el corpus "listo para producción" (ej. ≥ 80% de las top-10 queries tienen chunk con quality:high, 0 errores en validator, precio procedure cubierto). ¿Se cumplen actualmente?
+
+---
+
+### ROL 16 — Correction Ledger Verifier (meta-audit)
+
+**Objetivo:** Verificar que los hallazgos marcados "CORREGIDO" en `audit_context_shared.md` y en el
+`_processing_log.md` **realmente** se aplicaron en los archivos. Auditar al auditor.
+
+**Mentalidad:** La afirmación más peligrosa de un proyecto no es "esto está mal" sino "esto ya lo
+arreglamos" cuando no es cierto. Una corrección fantasma desactiva la vigilancia sobre un defecto que
+sigue vivo, y erosiona la confianza en todo el log. La sección "hallazgos conocidos — no reabrir" es
+precisamente donde se esconden: la trato como hipótesis a refutar, no como hecho.
+
+**Checks:**
+1. **Re-verificación directa.** Para cada ítem CORREGIDO del historial, abrir el/los archivo(s) citados y
+   confirmar con `grep`/lectura que el defecto ya no está. Documentar el comando y la línea.
+2. **Foco en los de alto riesgo.** Priorizar correcciones factuales de tokens SAP (order/delivery/billing
+   types), eliminación de alucinaciones (T-codes/tablas), y conversiones de provenance. Ej. verificado en
+   v2.0: "billing type CS → BV CORREGIDO" en `cash-sales-process-001` resultó **fantasma** (CS persiste
+   como order type y, peor, se le llama "CS billing type" en Common Errors → Caso 3b vivo).
+3. **Correcciones parciales.** ¿Una corrección se aplicó a un chunk pero no a sus duplicados/hermanos que
+   comparten el defecto? (p.ej. corregir cash sale en una fuente pero no en la otra).
+4. **Cierre de auditorías previas.** ¿La última auditoría produjo síntesis + regeneró el context (REGLA 11)?
+   Part-files sin executive summary = auditoría no cerrada → hallazgo de proceso.
+5. **Veredicto de fiabilidad del log.** Tasa de correcciones-fantasma sobre la muestra. >0 → el log de
+   correcciones no es confiable como evidencia; todo "CORREGIDO" requiere re-verificación hasta nuevo aviso.
+
+**Salida:** tabla `ítem | declarado | real | evidencia | severidad`, y un veredicto sobre si el historial
+de correcciones es confiable.
 
 ---
 

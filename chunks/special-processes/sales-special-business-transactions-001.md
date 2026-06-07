@@ -27,7 +27,7 @@ level: functional
 status: draft
 quality: high
 created: 2026-06-07
-last_updated: 2026-06-07
+last_updated: 2026-06-08
 ---
 
 # Rush Orders, Cash Sales, Consignment, and Free-of-Charge Deliveries
@@ -60,7 +60,7 @@ Use these scenarios when a standard sales order does not fit the business proces
 2. When saved, SAP automatically creates a delivery of type **BV** and prints a cash invoice document that can be handed immediately to the customer.
 3. An order-related billing index is generated automatically, which updates the billing due list.
 4. Once goods are withdrawn, picking and goods issue are posted. **SAP recommends posting goods issue in the background using a program.**
-5. Billing type **BV** is created while processing the billing due list. The system does not print an invoice during billing — the receipt was already printed at order creation.
+5. Billing type **BV** is created while processing the billing due list. The system does not print an invoice during billing — the receipt was already printed at order creation. (The S4615 Billing course presents this same cash sale process using order/billing document type **CS** and output type **RD03**; see special-processes-cash-sales-process-001. Both are S/4HANA 2020 — the document-type names differ by course convention.)
 6. The financial posting goes directly to a cash account — **no open customer receivable** arises, unlike rush or standard orders. The sales order number is used as the reference for the accounting document in Financial Accounting.
 
 ### Consignment

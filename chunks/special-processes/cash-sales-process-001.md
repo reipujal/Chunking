@@ -30,7 +30,7 @@ level: functional
 status: draft
 quality: high
 created: 2026-06-05
-last_updated: 2026-06-07
+last_updated: 2026-06-08
 ---
 
 # The Cash Sales Process in SAP SD
@@ -54,7 +54,7 @@ Cash sales apply to counter or walk-in sales where the customer pays immediately
 1. **Order and Delivery in One Step**: When the cash sale order (type *CS*) is saved, the system automatically creates the outbound delivery at the same time. No separate delivery creation step is needed.
 2. **Instant Cash Receipt**: The process uses order-related billing logic. Output type *RD03* prints an immediate cash receipt (invoice) directly from the order at the time of creation. Prices are fixed at this point.
 3. **Postponed Goods Issue**: Because the customer picks up goods immediately, picking is typically not required. The goods issue posting is deferred and usually executed by a background program.
-4. **Billing Update (BV)**: After goods issue is posted, a billing document is created using billing type *BV* to formally update the system. Note: the invoice is *not* printed again at this stage — only the billing status is updated.
+4. **Billing Update (CS)**: After goods issue is posted, a billing document is created using billing document type *CS* to formally update the system. Note: the invoice is *not* printed again at this stage — only the billing status is updated.
 5. **Financial Posting**: The posting goes to a *cash settlement account* (a G/L account defined specifically for cash sales), not to the customer's open receivables account.
 
 For cancellations, use billing type *SV*.
@@ -72,6 +72,9 @@ For cancellations, use billing type *SV*.
 
 **Invoice printed twice (once at order, once at billing)**
 → Output for billing type CS must not have a print output type assigned (the receipt was already printed at order creation via RD03). Check output determination for billing type CS.
+
+## Source and Version Notes
+This chunk follows the S4615 (Billing) course, which names the cash sale **order type CS**, **output type RD03**, **billing document type CS**, and **cancellation billing type SV**. The S4605 (Sales Processes) course presents the same business process using **delivery type BV** and **billing type BV** (see special-processes-sales-special-business-transactions-001). Both are S/4HANA 2020; the document-type names differ between the two course conventions. Reconcile against the actual order, delivery, and billing document types configured in the target system before relying on a specific token.
 
 ## Cross-References
 - See also: special-processes-sales-special-business-transactions-001

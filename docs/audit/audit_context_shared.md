@@ -34,27 +34,38 @@ print(f'Quality dist: {quals}')
 
 ---
 
+## Estado real medido (2026-06-08 — POST-REMEDIACIÓN; regenerado desde disco)
+
+- **Total chunks en disco:** 74  — índice e inventario **sincronizados** (74/74).
+- **Validador:** restaurado desde HEAD y **endurecido** (detecta NUL, cross-refs truncados/rotos como ERROR, sync disco↔índice). Resultado: **74 OK / 0 errores / 2 warnings**.
+- **Quality dist:** 44 high / 30 medium.
+- **Corrupción del proceso paralelo (reparada):** 5 chunks de pricing truncados a media escritura + 13 chunks adicionales corruptos (3 con bytes NUL, 10 con cross-ref truncado que el validador NO detectaba). Todos restaurados desde HEAD o completados. 0 NUL, 0 refs rotas corpus-wide.
+- **git index.lock:** persiste (no liberable por permisos del FS montado); las reparaciones se hicieron por escritura directa de archivos, no por git. Falta `git commit` manual del usuario.
+
 ## Documentos procesados
 
-| Documento | Fuente | Chunks | Procesado por | Estado |
+| Documento | Fuente | Chunks (real) | Procesado por | Estado |
 |---|---|---|---|---|
-| S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf | S4615 | ~18 | Claude | processed/ |
-| S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf | S4610 | ~11 | Claude | processed/ |
-| S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf | S4605 | ~18 | Codex + Claude re-read | processed/ |
-| S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf | S4620 | 10 | Claude | pending move to processed/ |
+| S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf | S4615 | 31 | Claude | processed/ |
+| S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf | S4610 | 15 | Claude | processed/ |
+| S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf | S4605 | 18 | Codex + Claude re-read | processed/ |
+| S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf | S4620 | 10 | Claude | completado; 0 errores; PDF en root (regla de inmutabilidad de fuente) |
 
 ---
 
-## Hallazgos históricos conocidos (para contexto, no para reabrir)
+## Hallazgos históricos — RE-VERIFICAR, NO ASUMIR (ver REGLA 12 / ROL 16)
 
-| Fecha | Hallazgo | Estado |
-|---|---|---|
-| 2026-06-07 | S4605 extraído por Codex al 30-50% del texto disponible | CORREGIDO (re-read completo) |
-| 2026-06-07 | Billing type CS incorrecto en cash-sales-process-001 | CORREGIDO (→ BV) |
-| 2026-06-07 | Workshop chunk prohibido (CLAUDE.md violation) | CORREGIDO (disuelto) |
-| 2026-06-07 | 7 chunks quality:high con densidad 80-99 w/p | CORREGIDO (→ medium) |
-| 2026-06-07 | relative_path sin "processed/" en 19 S4605 chunks | CORREGIDO |
-| 2026-06-07 | Billing generic tag false positive en validator | CORREGIDO (validator) |
+> Estos NO son hechos: son afirmaciones a refutar. ROL 16 detectó una corrección fantasma (cash-sales) ya resuelta.
+> Hasta que ROL 16 re-verifique cada fila, ningún "CORREGIDO" cuenta como evidencia.
+
+| Fecha | Hallazgo | Estado declarado | Verificación 2026-06-08 |
+|---|---|---|---|
+| 2026-06-07 | S4605 extraído por Codex al 30-50% del texto | CORREGIDO (re-read) | no re-verificado |
+| 2026-06-07 | Billing type en cash-sales-process-001 | declarado CORREGIDO (a BV) | RESUELTO 2026-06-08 — la "corrección" a BV era erronea: S4615 dice literalmente *billing document type CS*. Revertido a CS (fiel a fuente); discrepancia con la convencion BV de S4605 documentada en ambos chunks + cross-ref reciproco |
+| 2026-06-07 | Workshop chunk prohibido | CORREGIDO (disuelto) | OK — no existe en disco |
+| 2026-06-07 | 7 chunks quality:high con densidad 80-99 w/p | CORREGIDO (a medium) | validador endurecido marca high con 80-99 w/p como ERROR; settlement a medium |
+| 2026-06-07 | relative_path sin "processed/" en 19 S4605 chunks | CORREGIDO | no re-verificado |
+| 2026-06-07 | Billing generic tag false positive en validator | CORREGIDO (validator) | no re-verificado |
 
 ---
 
@@ -62,19 +73,19 @@ print(f'Quality dist: {quals}')
 
 | Gap | Prioridad |
 |---|---|
-| Pricing procedure / condition technique | ALTA |
 | Credit management (0 chunks en área) | ALTA |
 | ATP / availability check | MEDIA |
 | Output determination | MEDIA |
 | Returns end-to-end desde nivel pedido | MEDIA |
+| Pricing procedure / condition technique | CUBIERTO (S4620 — 10 chunks) |
 
 ---
 
-## Reglas de CLAUDE.md más recientes (añadidas 2026-06-07)
+## Reglas de CLAUDE.md más recientes
 
 - **Active voice**: no "The source/course states" en body text
 - **SPRO no-tcode**: "Not stated in source." — 5 palabras máximo
 - **Questions answered**: cada pregunta listada debe responderse en el body
 - **Alias specificity**: no aliases genéricos de una sola palabra
-- **Quality 80-99 w/p**: quality:medium sin excepciones
+- **Quality 80-99 w/p**: quality:medium sin excepciones (validador lo fuerza como ERROR)
 - **Case 3b**: order type ≠ delivery type ≠ billing type (verificar coherencia interna)

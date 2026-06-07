@@ -124,6 +124,11 @@ def validate_chunk(path: pathlib.Path, all_ids: set[str]) -> ChunkResult:
 
     text = path.read_text(encoding="utf-8", errors="replace")
 
+    # ── Corruption guard ─────────────────────────────────────────────────────
+    if "\x00" in text:
+        r.error("File contains NUL bytes (corruption / truncated or interrupted write)")
+        return r
+
     # ── Frontmatter ─────────────────────────────────────────────────────────
     if not text.startswith("---"):
         r.error("No YAML frontmatter (file does not start with ---)")
@@ -310,11 +315,28 @@ def validate_chunk(path: pathlib.Path, all_ids: set[str]) -> ChunkResult:
             # Quoted IDs
             if re.search(r'"[a-z][a-z0-9-]+-\d{3}"', xref_body):
                 r.warn("Cross-references use quoted format — prefer plain IDs without quotes")
-            # Resolvability of referenced IDs
+            # Resolvability of referenced IDs (well-formed, complete IDs)
             ref_ids = set(re.findall(r'\b[a-z][a-z0-9-]+-\d{3}\b', xref_body))
             broken  = ref_ids - all_ids
             for rid in sorted(broken):
-                r.warn(f"Cross-reference '{rid}' does not match any known chunk ID")
+                r.error(f"Cross-reference '{rid}' does not match any known chunk ID")
+            # Malformed / truncated targets: each Prior/Next/See also line must
+            # resolve to a complete, known ID (or 'None'). Catches truncated refs
+            # like 'billing-billing-do' that the full-ID regex above silently skips.
+            for line in xref_body.splitlines():
+                m = re.search(r'(?:Prior step|Next step|See also)\s*:\s*(.+?)\s*$', line, re.I)
+                if not m:
+                    continue
+                target = m.group(1).strip().split()[0].strip('`"') if m.group(1).strip() else ''
+                if not target or target.lower().startswith('none'):
+                    continue
+                if not re.fullmatch(r'[a-z][a-z0-9-]+-\d{3}', target):
+                    r.error(f"Malformed/truncated cross-reference target: '{target}'")
+                elif target not in all_ids:
+                    r.error(f"Cross-reference '{target}' does not match any known chunk ID")
+            # Section present but no usable target at all = likely truncation
+            if not ref_ids and not re.search(r'none', xref_body, re.I):
+                r.error("Cross-References section has no resolvable target (possible truncation)")
 
     # ── Aliases quality ───────────────────────────────────────────────────────
     aliases = [str(a) for a in meta.get("aliases", [])]
@@ -425,6 +447,19 @@ def batch_audit(all_paths_metas: list[tuple]) -> list[str]:
             f"Max cited page across corpus: {max_page}. "
             "Compare to physical page count; if well below, you may be citing printed labels instead of physical pages."
         )
+
+    # Disk vs index synchronization
+    try:
+        idx = pathlib.Path("chunks/_index.md").read_text(encoding="utf-8", errors="replace")
+        idx_rows = len(re.findall(r'(?m)^\|\s*[a-z][a-z0-9-]+-\d{3}\s*\|', idx))
+        disk_n = len(all_paths_metas)
+        if idx_rows != disk_n:
+            issues.append(
+                f"Index desync: chunks/_index.md lists {idx_rows} chunks but {disk_n} exist on disk. "
+                "Regenerate the index from disk."
+            )
+    except Exception:
+        pass
 
     return issues
 
