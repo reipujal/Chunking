@@ -116,6 +116,7 @@ Output is controlled via the **condition technique**: determines how (print, fax
 → Check log for split conflicts or missing mandatory delivery data (incomplete log).
 
 ## Cross-References
+- Prior step (delivering plant determination): order-management-sales-order-source-of-data-001
 - Next step: shipping-goods-issue-ewm-001
 - Delivery due list configuration (delivery scenarios): configuration-delivery-process-customizing-001
 - Scheduling (dates for the delivery): configuration-delivery-scheduling-001

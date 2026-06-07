@@ -30,7 +30,7 @@ level: functional
 status: draft
 quality: high
 created: 2026-06-05
-last_updated: 2026-06-05
+last_updated: 2026-06-07
 ---
 
 # The Cash Sales Process in SAP SD

@@ -3,7 +3,7 @@ schema_version: 1
 id: shipping-inbound-delivery-ewm-001
 title: "Inbound Delivery Creation in EWM — Goods Receipt Process"
 area: shipping
-process_tags: [order-to-cash, delivery-processing]
+process_tags: [delivery-processing]
 chunk_type: process
 sap_release: S/4HANA 2020
 sources:
