@@ -40,7 +40,22 @@ last_updated: 2026-06-07
 - Why can an invalid target item or schedule line category cause determination issues?
 
 ## What This Configuration Controls
-Copying control controls document creation with reference. It determines the permitted source and target document type relationships and the detailed logic used when data moves from one document to another. The course gives examples including standard order from quotation, credit memo request from invoice, delivery from standard order, credit memo from credit memo request, invoice from delivery, and invoice cancellation from invoice.
+Copying control controls document creation with reference. It determines the permitted source and target document type relationships and the detailed logic used when data moves from one document to another.
+
+**Important constraint:** A sales document can be created with reference to another existing sales document **only if copying control is set up** for that source-target relationship. Without the copying control entry, the reference is not allowed.
+
+**Standard document flow examples from the source:**
+
+| Source document type | Target document type | Example |
+|---|---|---|
+| Sales doc type (QT, quotation) | Sales doc type (OR, standard order) | Order from quotation |
+| Billing doc type (F2, invoice) | Sales doc type (G2, credit memo request) | Credit memo request from invoice |
+| Sales doc type (OR, standard order) | Delivery type (DL, delivery) | Delivery from standard order |
+| Sales doc type (G2, credit memo request) | Billing doc type (G2, credit memo) | Credit memo from credit memo request |
+| Delivery type (DF) | Billing doc type (F1, invoice) | Invoice from delivery |
+| Billing doc type (F1, invoice) | Billing doc type (S1, invoice cancellation) | Cancellation from invoice |
+
+**Document flow information.** The document flow contains information on what was copied from the source document to the target document. At item level, it shows the quantities and values that were transferred.
 
 ## SPRO Path or Direct T-code
 The source describes copying control in Sales and Distribution Customizing and mentions that routines and requirements can be processed under the menu option *System Modifications*. It does not provide a direct transaction code in the extracted text.

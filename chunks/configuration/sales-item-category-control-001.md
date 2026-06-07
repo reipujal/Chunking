@@ -20,6 +20,9 @@ aliases:
   - determinacion categoria de posicion
   - sales item category group usage
   - que controla la categoria de posicion
+  - sub-items BOM explosion sales order
+  - sub-posicion explosion lista de materiales
+  - alternative items quotation inquiry
 level: functional
 status: draft
 quality: high
@@ -30,49 +33,86 @@ last_updated: 2026-06-07
 # Sales Item Category Control in SAP SD
 
 ## Operational Summary
-The *item category* controls how each sales document item behaves during the current document and follow-on processing. It determines whether business data can differ from the header, whether pricing applies, whether and how the item is billed, whether the item refers to a material or is only text, which incompleteness procedure checks the item, and how sub-items such as free goods or BOM components are handled. Item category determination depends on sales document type, item category group, usage, and higher-level item category.
+The *item category* controls how each sales document item behaves during the current document and all follow-on processing. It determines whether business data (Incoterms, payment terms) can differ from the header, whether pricing applies, how the item is billed, whether it references a material or is a text item, which incompleteness procedure is used, and how sub-items such as free goods or BOM components are handled. Item category determination uses four inputs: sales document type, item category group, item usage, and the item category of the higher-level item.
 
 ## Questions This Chunk Answers
 - What does the item category control in a sales document?
 - How is the item category proposed automatically?
-- When can item-level business data differ from header data?
+- When can item-level business data (Incoterms, payment terms) differ from header data?
 - How are sub-items, free goods, and BOM components represented in sales orders?
-- Why should new item categories usually be copied from tested standard categories?
+- Why should new item categories always be copied from tested standard categories?
+- What are alternative items in quotations and how do they differ from sub-items?
+- What does the item category key structure indicate?
 
 ## What This Configuration Controls
-An *item category* controls the behavior of an item in the sales document and subsequent processing. The source lists its essential characteristics: separate item business data, pricing relevance, billing behavior, material versus text item behavior, and incompleteness procedure. It also mentions delivery relevance for items without schedule lines, such as copying a text item from the order into the delivery.
+An *item category* is defined with a four-digit key. The key follows a naming convention: the first two characters indicate the sales document type the category was originally designed for; the last two indicate the usage:
+
+| Example key | Original doc type | Usage |
+|---|---|---|
+| AFTX | IN (Inquiry) | TEXT |
+| TAD | OR (Standard Order) | LEIS (service) |
+| KMN | AG (Quotation) | NORM |
+
+Standard item categories can be modified. New ones should always be created by **copying an existing, tested item category**, then changing it to meet requirements — this avoids missing configuration dependencies.
+
+The essential characteristics of an item category:
+- Whether business data (e.g., Incoterms, payment terms) at item level can differ from the document header
+- Whether pricing is carried out
+- Whether and how the item is billed (order-related, delivery-related, or not relevant)
+- Whether the item refers to a material or is a text item
+- Which incompleteness procedure checks the item data
+- *Delivery relevance* (for items without schedule lines, e.g., letting a text item be copied from the order into the delivery)
 
 ## SPRO Path or Direct T-code
-The course describes Customizing for item categories but does not provide a direct transaction code. No transaction is listed in the frontmatter because the source does not literally name one.
+The source describes item category Customizing but does not provide a direct transaction code.
 
 ## Key Parameters
+
 | Field or setting | Description | Typical Values |
 |---|---|---|
-| *Business data allowed at item level* | Controls whether item terms can differ from header business data | Same as header or separately maintainable |
-| *Pricing relevance* | Determines whether pricing is carried out for the item | Pricing active or inactive |
-| *Billing relevance* | Determines whether and how the item is billed | Order-related, delivery-related, not relevant, depending on setup |
-| *Material relevance* | Determines whether the item refers to a material or is a text item | Material item or text item |
+| *Business data at item level* | Controls whether item terms can differ from header | Same as header or separately maintainable |
+| *Pricing relevance* | Determines whether pricing is carried out | Active or inactive |
+| *Billing relevance* | Determines whether and how the item is billed | Order-related, delivery-related, not relevant |
+| *Material relevance* | Material item or text item | Material or text |
 | *Incompletion procedure* | Controls which item fields are checked | Assigned procedure |
-| *Delivery relevance for items without schedule lines* | Lets non-schedule-line items be copied into delivery | Example: text item |
-| *Higher-level item support* | Enables sub-items below a main item | Free goods, BOM, service structures |
+| *Delivery relevance (no schedule lines)* | Lets items without schedule lines be copied to delivery | Example: text item delivery relevance |
+| *Higher-level item support* | Enables sub-items | Free goods, BOM, service structures |
 
 ## Configuration Impact
-Item categories are assigned to sales document types to propose a category when an order is created and to define alternatives the user may choose. The determination is influenced by the item category group from the material master, item usage, and the item category of the higher-level item for sub-items. The course gives examples of usage values set internally by the program, such as `TEXT` when a description is entered without a material number and `FREE` for free goods control.
 
-For *bill of material* scenarios, item categories decide whether the BOM is exploded, which main and sub-items are generated, and which items are relevant for pricing and requirements transfer. The main material is entered in the order, and the system can generate sub-items for BOM components if the item category settings allow it.
+**Item category determination.** The system proposes an item category using four elements:
+1. Sales document type
+2. Item category group (from the material master — groups materials with similar SD behavior; custom groups can be defined)
+3. Item usage (set internally by the program in certain cases: `TEXT` when description is entered without a material number; `FREE` for free goods items)
+4. Item category of the higher-level item (for sub-items)
+
+The assignment to sales document types also defines *alternative item categories* that the user can manually override.
+
+**Sub-items.** An item can be assigned to a higher-level item to create a sub-item structure. Example: for ordering 100 units of material M1 at 1000 Euro, the customer receives 10 units of M2 free of charge — M2's item (item 20) is assigned to M1's item (item 10) via the higher-level item field. Other sub-item use cases include BOM explosion and service items.
+
+**Alternative items** can be recorded in quotations and inquiries (in addition to sub-items). Alternative items are treated differently: they are **not included in the net value of the document**, whereas sub-items contribute to value as configured.
+
+**Bill of material (BOM) explosion.** When the item category is configured to allow it, entering the main BOM material in the order triggers automatic generation of sub-items for all BOM components. The BOM must be flagged as sales-relevant. Using BOM usage 5 (sales and distribution) flags all BOM items as sales-relevant automatically. Item categories control:
+- Whether the BOM is exploded
+- The extent of the structure (how deep)
+- Which items are relevant for pricing
+- Requirements transfer behavior
 
 ## Common Configuration Errors
 **Wrong item category proposed**
--> Check sales document type assignment, material item category group, item usage, and higher-level item category.
+-> Check the sales document type assignment, material item category group, item usage, and higher-level item category.
+
+**Item-level Incoterms or payment terms cannot differ from header**
+-> The item category must be configured to permit separate business data at item level.
 
 **Text or free goods item behaves like a normal priced item**
--> Review item category pricing relevance and usage-based determination.
+-> Review pricing relevance and usage-based determination in the item category.
 
 **BOM does not explode in the sales order**
--> Confirm the BOM is sales-relevant and that the main item category is configured to control BOM explosion.
+-> Confirm the BOM is sales-relevant (BOM usage 5) and the main item category is configured to control BOM explosion.
 
-**Item-level Incoterms or payment terms cannot differ**
--> The item category must permit separate business data at item level.
+**Alternative items appear in the net value**
+-> Alternative items must not be included in net value; check the item category's billing/value relevance settings.
 
 ## Cross-References
 - Prior step: configuration-sales-document-type-control-001

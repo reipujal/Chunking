@@ -20,6 +20,8 @@ aliases:
   - lineas de reparto ventas
   - delivery relevance movement type MRP type
   - que controla la categoria de reparto
+  - CP schedule line category movement type 601
+  - tipo de movimiento categoria reparto
 level: functional
 status: draft
 quality: high
@@ -30,7 +32,7 @@ last_updated: 2026-06-07
 # Schedule Line Category Control in SAP SD
 
 ## Operational Summary
-The *schedule line category* controls delivery dates, delivery quantities, requirements transfer, availability behavior, inventory management, movement type, and delivery relevance at schedule line level. Schedule lines are prerequisites for delivering materials. The source explains that item categories allow or prevent schedule lines, schedule line categories are assigned to item categories, and automatic determination uses item category plus MRP type, then item category without MRP type if no more specific assignment exists.
+The *schedule line category* controls delivery dates, delivery quantities, requirements transfer, availability check, inventory management, movement type, and delivery relevance at schedule line level. Schedule lines are prerequisites for delivering materials. Item categories allow or prevent schedule lines, and schedule line categories are then assigned to item categories. Automatic determination uses item category plus MRP type; if no match is found, item category alone is used. A schedule line category can exist even for items that are not physically delivered, such as service items.
 
 ## Questions This Chunk Answers
 - What does a schedule line category control in SAP SD?
@@ -38,40 +40,83 @@ The *schedule line category* controls delivery dates, delivery quantities, requi
 - How does SAP determine the schedule line category automatically?
 - Which settings connect schedule lines to inventory management and goods movements?
 - Can schedule line categories exist for items that are not delivered?
+- What do the two characters in the schedule line category key mean?
 
 ## What This Configuration Controls
-The *schedule line category* determines how an item's delivery dates and quantities behave. It also controls whether requirements are transferred, whether availability checks are active, which movement type posts inventory changes, and whether a delivery block is set automatically at schedule line level. The course notes that schedule line categories are required by item categories: a schedule line category always needs an item category.
+The schedule line category is defined with a two-character key with a specific naming convention:
+
+**First character — sales process:**
+| Code | Process |
+|---|---|
+| A | Inquiry |
+| B | Quotation |
+| C | Order |
+| D | Returns |
+
+**Second character — logistics behavior:**
+| Code | Meaning |
+|---|---|
+| D | No inventory management |
+| N | No MRP |
+| V | Consumption-based planning |
+| X | No inventory management with goods issue |
+| P | Material requirements planning |
+
+These standard keys can be kept or replaced with custom abbreviations that reference your specific sales document types.
 
 ## SPRO Path or Direct T-code
-The source describes schedule line category Customizing but does not provide a direct transaction code. No transaction is listed in the extraction field.
+The source describes schedule line category Customizing but does not provide a direct transaction code.
 
 ## Key Parameters
+
 | Field or setting | Description | Typical Values |
 |---|---|---|
-| *Relevant for delivery* | Determines whether schedule lines generate delivery items | Active for deliverable sales order items |
+| *Relevant for delivery* | Determines whether schedule lines generate delivery items | Active for deliverable items |
 | *Requirements transfer* | Controls whether demand is passed to requirements planning | Active or inactive |
 | *Availability check* | Can be deactivated at schedule line level | Active or inactive |
-| *Movement type* | Controls quantity and value postings in inventory accounting | Course examples include 601 and 651 |
-| *Purchase requisition controls* | Supports automatic purchase requisition generation | Purchase order type, item category, account assignment category |
-| *Delivery block* | Can be set automatically on the schedule line | Configured block |
+| *Movement type* | Controls quantity and value postings in inventory accounting | 601 (standard GI), 651 (returns to blocked stock), 601-699 range for sales |
+| *Purchase requisition controls* | Supports automatic PR generation from sales document | PO type, item category, account assignment category |
+| *Delivery block* | Set automatically on schedule line when configured | Configured block type |
 
 ## Configuration Impact
-Different schedule line categories model different processes. The source describes quotation schedule lines as not relevant for delivery, with inactive requirements transfer and no need for goods movement. Sales order schedule lines from category CP generate delivery items, have delivery relevance active, transfer requirements, and use movement type 601 so goods issue removes stock from unrestricted use. Return orders need a schedule line category that is relevant for delivery but does not require requirements transfer; movement type 651 posts the return goods receipt to blocked returns stock instead of a normal goods issue.
 
-Automatic determination uses two steps. First, the system searches for a schedule line category with the combination of item category and MRP type from the material master. If it finds no match, it searches by item category with no MRP type. This means MRP type can refine the logistics behavior without changing the item category.
+**Standard examples from the source:**
+
+*Quotation schedule lines* are not relevant for delivery. Requirements transfer is inactive; no movement type is needed since no physical goods movement is required.
+
+*Sales order schedule lines — category CP* generate delivery items. The relevant-for-delivery indicator is active. Requirements transfer is active. Movement type **601** posts goods issue from unrestricted-use stock when the delivery is confirmed.
+
+*Return order schedule lines* must be relevant for delivery (a returns delivery follows). Requirements transfer is not necessary. Movement type **651** posts the returned goods receipt to blocked returns stock instead of the normal unrestricted stock.
+
+**Delivery block.** If a delivery block is configured in the schedule line category, the block is automatically set at schedule line level in the sales document whenever that category is determined.
+
+**Automatic purchase requisition.** A purchase requisition can be generated automatically from the sales document (for third-party or individual purchase order scenarios). To enable this, configure the purchase order type, item category, and account assignment categories in the purchase order Customizing.
+
+**Movement type range.** Many movement types relevant to sales are in the range 601-699. Inventory management is responsible for maintaining movement types; SAP delivers them pre-configured for all standard processes.
+
+**Two-step determination.** The system determines the schedule line category automatically:
+1. First: combination of item category + MRP type from the material master
+2. If no match: item category + no MRP type
+
+MRP type allows differentiation of logistics behavior for the same item category, depending on how the material is planned.
+
+**Schedule line category is always tied to an item category.** A schedule line category always needs an item category. However, a schedule line category can exist for items that are not physically delivered — for example, service items where no inventory movement occurs.
 
 ## Common Configuration Errors
 **Order item cannot be delivered**
--> Check whether schedule lines are allowed for the item category and whether the determined schedule line category is relevant for delivery.
+-> Check whether the item category allows schedule lines and whether the determined schedule line category has the relevant-for-delivery indicator active.
 
 **Requirements are not visible in planning**
--> Requirements transfer may be inactive in the schedule line category or incomplete in requirements-transfer Customizing.
+-> Requirements transfer may be inactive in the schedule line category, or requirements-transfer Customizing (requirements class assignment) may be incomplete.
 
 **Wrong inventory posting at goods issue or returns**
--> Review the movement type assigned in the schedule line category.
+-> Review the movement type assigned in the schedule line category (601 for standard GI, 651 for returns to blocked stock).
 
-**Unexpected delivery block appears**
--> A delivery block may be activated directly in the schedule line category.
+**Unexpected delivery block on schedule line**
+-> A delivery block may be configured directly in the schedule line category and set automatically.
+
+**No automatic purchase requisition generated**
+-> Verify purchase order type, item category, and account assignment category are configured in the purchase order settings for the schedule line category.
 
 ## Cross-References
 - Prior step: configuration-sales-item-category-control-001

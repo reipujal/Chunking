@@ -51,18 +51,23 @@ The source describes Customizing for sales documents but does not provide a tran
 | Field or setting | Description | Typical Values |
 |---|---|---|
 | *Sales document category* | Classifies the broad behavior of the document | Inquiry, quotation, order, contract-like categories |
+| *Number assignment* | Controls internal or external document numbering | Number range assigned |
 | *Delivery block* | Proposed block that can prevent or delay delivery processing | Blank or configured block reason |
 | *Billing block* | Proposed block that can prevent billing | Blank or configured block reason |
-| *Default delivery type* | Follow-on delivery document type proposed for the process | Course examples include delivery types in later units |
-| *Default billing type* | Follow-on billing type proposed for the process | Depends on business process |
+| *Default delivery type* | Follow-on delivery document type proposed for the process | LF (standard), BV (cash sale), DF (rush) |
+| *Default billing type* | Follow-on billing type proposed for the process | F2 (standard), BV (cash), CS (cash billing) |
 | *Requested delivery date default* | Proposed date when creating the document | Customizing-defined default |
 | *Checks* | Optional messages and validations | Open quotation, outline agreement, customer-material info record, credit limit |
 | *Sales area assignment* | Defines where the document type is valid | Sales organization, distribution channel, division |
 
 ## Configuration Impact
-The sales document type is not complete by itself. The course emphasizes that a sales document is not fully configured until all required basic functions have also been processed. For example, pricing requires configuration of both the sales document type and pricing procedure, followed by assignment of the procedure to the sales document type. Output works similarly through assignment of an output determination procedure.
+The sales document type is not complete by itself. The course emphasizes that a sales document is not fully configured until all required basic functions have also been processed. For example, pricing requires configuration of the sales document type AND the pricing procedure separately, then assignment of the procedure to the document type. Output determination works similarly — assign the output determination procedure to the sales document type in output Customizing.
 
-Adding a new sales document type has broad impact because many Customizing entries depend on it. SAP recommends copying an existing, tested document type with similar functions, then adapting it. Copying transfers fields and dependent entries and generates a log that can be saved for documentation.
+Different functions apply for different sales document types. For example, pricing but not inventory updates are needed for an inquiry; pricing and inventory management are both needed for a standard order.
+
+**Restricting sales document types to a sales area.** In Customizing, you define which sales document types are valid in which sales organizations, distribution channels, and divisions. This limits the availability of a document type to a specific sales area.
+
+Adding a new sales document type has broad impact because many Customizing entries depend on it. SAP recommends copying an existing, tested document type with similar functions (both fields and dependent entries are copied), then adapting it. The system generates a log that can be saved for documentation. Do not create document types from scratch — copy first.
 
 ## Common Configuration Errors
 **Document type works in one sales area but not another**
@@ -77,7 +82,6 @@ Adding a new sales document type has broad impact because many Customizing entri
 ## Cross-References
 - Prior step: order-management-sales-order-special-features-001
 - Next step: configuration-sales-item-category-control-001
-- See also: configuration-sales-item-category-control-001
 - See also: configuration-schedule-line-category-control-001
 - See also: configuration-sales-incompletion-check-001
 - See also: configuration-sales-copying-control-001

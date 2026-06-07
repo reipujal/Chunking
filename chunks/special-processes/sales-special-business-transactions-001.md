@@ -20,6 +20,9 @@ aliases:
   - consignacion
   - entrega gratuita
   - diferencia entre cash sales y rush order
+  - orden tipo KB KE KA KR consignacion
+  - delivery free of charge SDF FD SD
+  - entrega gratuita siguiente entrega gratuita
 level: functional
 status: draft
 quality: high
@@ -30,52 +33,68 @@ last_updated: 2026-06-07
 # Rush Orders, Cash Sales, Consignment, and Free-of-Charge Deliveries
 
 ## Operational Summary
-SAP SD includes special business transactions for immediate pickup, immediate payment, customer consignment stock, and free deliveries. The course compares *rush orders* and *cash sales*, then describes consignment fill-up, issue, pick-up, and return, plus delivery free-of-charge and subsequent delivery free-of-charge. These scenarios use specific sales document types and follow-on behavior to reflect whether goods are billed, whether ownership transfers, and whether delivery is created automatically.
+SAP SD includes special business transactions for immediate pickup, immediate payment, customer consignment stock, and free deliveries. *Rush orders* and *cash sales* both create a delivery automatically when saved, but differ in billing, financial posting, and whether an immediate invoice is printed. Consignment processing uses four document types (KB, KE, KA, KR) to manage goods at a customer location that remain company property until consumed. Free-of-charge deliveries use document type FD or SDF, require a delivery block until reviewed, and are controlled at item level by item category KLN.
 
 ## Questions This Chunk Answers
 - What is the difference between a rush order and a cash sale?
 - When does SAP automatically create a delivery for immediate sales processes?
-- How does consignment fill-up differ from consignment issue?
+- Which document types are used in consignment processing?
 - Which consignment processes are billing-relevant?
+- What delivery types are configured for rush orders and cash sales?
+- How does the financial posting differ between cash sales and standard orders?
 - Why should free-of-charge deliveries often be blocked for review?
 
 ## When It Applies and Context
-Use these scenarios when a standard sales order does not fit the business process. *Rush orders* and *cash sales* apply when the customer picks up goods immediately. *Consignment processing* applies when goods are physically placed at the customer but remain company property until the customer consumes them. *Free-of-charge delivery* applies to samples or complaint-related replacement deliveries.
+Use these scenarios when a standard sales order does not fit the business process. Rush orders and cash sales apply when the customer picks up goods immediately from the plant or warehouse. Consignment processing applies when goods are physically placed at the customer but remain company property until consumed. Free-of-charge delivery applies to samples or complaint-related replacement deliveries.
 
 ## Process Flow
+
 ### Rush Order
-1. The user creates a rush order for immediate pickup from the plant or warehouse.
-2. The sales document type has the immediate delivery switch and a configured delivery type.
-3. When the rush order is saved, the system automatically creates a delivery.
-4. After goods are withdrawn, picking and goods issue can begin.
-5. Billing documents are created later, for example through collective processing, and invoices are sent to the customer.
+1. The user creates a rush order. The sales document type has the *immediate delivery* switch and delivery type **DF** configured.
+2. When the rush order is saved, the system automatically creates a delivery of type **LF**.
+3. Once goods are withdrawn from the warehouse, picking and posting goods issue begin.
+4. Billing documents are created later, for example through collective processing, and invoices are sent to the customer. **No document is printed at order creation** — the customer receives the invoice only at billing time.
 
 ### Cash Sale
-1. The user creates a cash sale.
-2. The sales document type has immediate delivery behavior and a cash-sale delivery type.
-3. When saved, SAP automatically creates the delivery and prints a document that can be given to the customer as an invoice.
-4. Goods are withdrawn, picked, and goods issue is posted.
-5. Billing is order-related through the billing due list, but the invoice is not printed again during billing.
-6. The billed amount posts directly to a cash account, so customer receivables do not arise as they do for rush or standard orders.
+1. The user creates a cash sale. The sales document type has the immediate delivery switch and delivery type **BV** configured.
+2. When saved, SAP automatically creates a delivery of type **BV** and prints a cash invoice document that can be handed immediately to the customer.
+3. An order-related billing index is generated automatically, which updates the billing due list.
+4. Once goods are withdrawn, picking and goods issue are posted. **SAP recommends posting goods issue in the background using a program.**
+5. Billing type **BV** is created while processing the billing due list. The system does not print an invoice during billing — the receipt was already printed at order creation.
+6. The financial posting goes directly to a cash account — **no open customer receivable** arises, unlike rush or standard orders. The sales order number is used as the reference for the accounting document in Financial Accounting.
 
 ### Consignment
-1. Consignment fill-up delivers goods to customer consignment stock without billing.
-2. Consignment issue reduces both customer special stock and delivering plant stock and is billing-relevant.
-3. Consignment pick-up represents customer return of consignment goods and is not billing-relevant.
-4. Consignment return reverses a consignment issue and results in a credit memo.
 
-## Conditions and Restrictions
-Free-of-charge subsequent delivery requires a preceding document according to the course example. Copying controls must exist for each allowed preceding document. SAP can use delivery blocks in the sales document type so that free-of-charge deliveries are not released until reviewed. If the responsible employee rejects the free delivery, a reason for rejection can be maintained.
+Four document types manage the consignment lifecycle:
+
+| Process | Order type | Effect | Billing |
+|---|---|---|---|
+| Fill-up | **KB** | Delivers goods to customer consignment stock; goods remain in delivering plant's valuated stocks | Not billing-relevant |
+| Issue | **KE** | Reduces customer special stock AND delivering plant stock | Billing-relevant |
+| Pick-up | **KA** | Customer returns consignment goods; credits special customer stock at goods issue | Not billing-relevant |
+| Return | **KR** | Reverses a consignment issue; goods receipt re-establishes special stock at customer | Credit memo generated |
+
+### Free-of-Charge Delivery and Subsequent Delivery Free-of-Charge
+- *Delivery free-of-charge* (FD): used to send a sample or other item at no charge.
+- *Subsequent delivery free-of-charge* (SDF): used when material must be delivered due to a complaint. Requires a preceding document (configurable in Customizing for SDF). Copying controls must exist for all allowed preceding documents, e.g., SDF from RE (returns order).
+
+A *delivery block* is activated in the sales document type to ensure these transactions are reviewed before release. If the reviewer decides against delivery, a reason for rejection is entered. At item level, item category **KLN** marks items in FD and SD document types as free-of-charge; pricing and billing behavior is controlled in the item category Customizing.
 
 ## Common Errors
-**Cash sale expected to create receivables**
--> The course states that receivables do not occur for the customer because the invoice amount is posted directly to a cash account.
-
 **Rush order expected to print an immediate invoice receipt**
--> The learning assessment clarifies that the customer receives such a document in cash sales, not in rush orders.
+-> Rush orders do NOT print a document for the customer at creation. Only the cash sales process prints an immediate cash invoice. The learning assessment in the source confirms this distinction explicitly.
+
+**Cash sale expected to create receivables**
+-> The invoice amount posts directly to a cash account; no open customer receivable arises.
 
 **Consignment fill-up is billed**
--> Fill-up is not billed because the consignment stock remains company property.
+-> Fill-up (KB) is not billing-relevant because the consignment stock remains company property.
+
+**Free-of-charge delivery released without review**
+-> Activate the delivery block in the sales document type to ensure the relevant employee checks the transaction before it is released.
+
+**Preceding document not found for SDF**
+-> Customizing for SDF requires a preceding document; copying controls must exist for all allowed document types that may serve as the reference.
 
 ## Cross-References
 - Prior step: configuration-sales-copying-control-001
