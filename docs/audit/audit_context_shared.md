@@ -41,6 +41,7 @@ print(f'Quality dist: {quals}')
 | S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf | S4615 | ~18 | Claude | processed/ |
 | S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf | S4610 | ~11 | Claude | processed/ |
 | S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf | S4605 | ~18 | Codex + Claude re-read | processed/ |
+| S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf | S4620 | 10 | Claude | pending move to processed/ |
 
 ---
 

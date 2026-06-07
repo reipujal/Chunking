@@ -46,7 +46,7 @@ The appendix is a technical reference for table structures in Sales and Distribu
 Functional SD work often starts with document behavior: header, item, schedule line, partner, contract, and document flow. Technical analysis, reporting, integration mapping, and troubleshooting require knowing which table family holds those objects. The appendix connects the earlier process lessons to their technical storage structures.
 
 ## Structure and Variants
-The source separates the technical information into header and item tables.
+Technical information is organized into header and item tables.
 
 | Table | Source description | Level indicated by source |
 |---|---|---|

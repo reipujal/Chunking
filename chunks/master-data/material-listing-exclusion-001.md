@@ -40,7 +40,7 @@ last_updated: 2026-06-07
 - Where is the check activated for a sales document?
 
 ## What This Configuration Controls
-Material listing controls permitted materials. The course example uses master records with a key for customer and material numbers and notes that this key is delivered in the standard system. The access sequence for the condition type searches for valid master records for both the sold-to party and the payer. If listing is in place, the business intent is that the customer receives only specific materials.
+Material listing controls permitted materials. Master records use a key for customer and material numbers — this key combination is delivered in the standard system. The access sequence for the condition type searches for valid master records for both the sold-to party and the payer. If listing is in place, the business intent is that the customer receives only specific materials.
 
 Material exclusion controls prohibited materials. It ensures that the customer does not receive specific materials. Like listing, exclusion is controlled with the condition technique.
 
@@ -61,7 +61,7 @@ Material listing is a positive list: only listed materials may be ordered. If th
 
 Material exclusion works as a negative list. It prevents the customer from receiving certain materials, while other non-excluded materials remain possible. Exclusion does not create substitute sub-items — it simply blocks the listed materials. Use material determination/product selection for substitution.
 
-Because both functions use condition technique, the search key is flexible. The source names customer group/material and customer/product hierarchy as examples of custom keys beyond the delivered customer/material key.
+Because both functions use condition technique, the search key is flexible. Custom key examples beyond the delivered customer/material key include customer group/material and customer/product hierarchy.
 
 ## Common Configuration Errors
 **Customer can order a material that should be restricted**

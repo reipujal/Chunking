@@ -15,16 +15,16 @@ sources:
 transactions: []
 tables: []
 aliases:
-  - billing document
-  - factura
+  - billing document cascade updates SAP
+  - efectos en cascada al crear factura SD
   - billing integration
-  - integración de facturación
-  - SD FI integration billing
   - integración SD FI facturación
-  - order-to-cash final step
-  - último paso order-to-cash
-  - billing downstream effects
-  - efectos de la facturación
+  - SD FI integration billing
+  - qué actualiza SAP al crear un documento de factura
+  - order-to-cash final step billing
+  - último paso order-to-cash facturación
+  - billing downstream effects SAP SD
+  - efectos de la facturación en FI CO-PA
 level: functional
 status: draft
 quality: high

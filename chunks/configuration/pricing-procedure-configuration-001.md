@@ -8,7 +8,7 @@ chunk_type: configuration
 sap_release: S/4HANA 2020
 sources:
   - file: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
-    relative_path: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
     pages: "25-39"
     source_type: A
     role: primary

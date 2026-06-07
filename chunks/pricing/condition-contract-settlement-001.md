@@ -8,7 +8,7 @@ chunk_type: process
 sap_release: S/4HANA 2020
 sources:
   - file: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
-    relative_path: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
     pages: "107-114"
     source_type: A
     role: primary
@@ -94,6 +94,8 @@ When multiple eligible partners (plants, customers) are listed in the condition 
 The settlement document flow provides a complete overview of the entire lifecycle:
 - Delta accruals settlements → partial settlement documents → final settlement document
 - After the final settlement, the process ends. The document flow shows each step, allowing full audit traceability.
+
+The settlement run can be started periodically — daily or monthly — for one or more business partners and one or more condition contracts in a single execution. This flexibility allows organizations to align the settlement cadence with their finance close calendar.
 
 ## Common Errors
 **Settlement document does not include all expected business volume**

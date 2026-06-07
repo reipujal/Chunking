@@ -8,12 +8,12 @@ chunk_type: concept
 sap_release: S/4HANA 2020
 sources:
   - file: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
-    relative_path: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
     pages: "63-75"
     source_type: A
     role: primary
 transactions: []
-tables: []
+tables: [T001R]
 aliases:
   - HM00 manual order value SAP
   - PN00 net price SAP
@@ -92,7 +92,7 @@ Rounding rules are maintained in table T001R per company code and currency. If t
 ## Classification Summary
 
 Which of the above condition types are group conditions distributed among all items by value?
-- **Yes:** AMIW (minimum order value) and HM00 (manual order value)
+- **Yes:** AMIW (minimum order value), HM00 (manual order value), and **DIFF** (rounding)
 - **No:** PN00, PMIN — these are item-level conditions
 
 Price or rebate agreements in customer hierarchies are assigned to a **high-level node**, not a low-level one — agreements at a high node apply automatically to all subordinate customers. Within the hierarchy, SAP initiates the discount at the **lowest applicable level** of the hierarchy path, meaning the most specific node that has a condition record is used first.

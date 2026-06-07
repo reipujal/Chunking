@@ -33,7 +33,7 @@ last_updated: 2026-06-07
 # Scheduling Agreements and Quantity Contracts in SAP SD
 
 ## Operational Summary
-Outline agreements formalize agreed goods or services, conditions, and validity periods between business partners. The course identifies two main outline agreement types: *scheduling agreements* and *contracts*. Scheduling agreements contain fixed delivery dates and quantities directly in schedule lines. Quantity contracts do not contain schedule lines, delivery quantities, or delivery dates; they are fulfilled by release orders that reference the contract and update released quantities or values.
+Outline agreements formalize agreed goods or services, conditions, and validity periods between business partners. Two main outline agreement types exist: *scheduling agreements* and *contracts*. Scheduling agreements contain fixed delivery dates and quantities directly in schedule lines. Quantity contracts do not contain schedule lines, delivery quantities, or delivery dates; they are fulfilled by release orders that reference the contract and update released quantities or values.
 
 ## Questions This Chunk Answers
 - What is an outline agreement in SAP SD?

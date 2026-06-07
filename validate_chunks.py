@@ -254,6 +254,14 @@ def validate_chunk(path: pathlib.Path, all_ids: set[str]) -> ChunkResult:
                 f"this chunk has {wpp:.0f} w/p ({body_words}w / {total_cited_pages}p). "
                 "Downgrade to quality:medium or expand content to >=100 w/p."
             )
+        # quality:high is also inconsistent with density 80-99 w/p — CLAUDE.md rule:
+        # "80-99 w/p → quality:medium, no exceptions"
+        elif 80 <= wpp < 100 and meta.get("quality") == "high":
+            r.error(
+                f"[DENSITY+QUALITY] quality:high requires >=100 w/p; "
+                f"this chunk has {wpp:.0f} w/p ({body_words}w / {total_cited_pages}p). "
+                "Downgrade to quality:medium or expand content to >=100 w/p."
+            )
 
     # ── Mandatory sections per chunk_type ─────────────────────────────────────
     ctype = meta.get("chunk_type", "")

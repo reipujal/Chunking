@@ -30,7 +30,7 @@ last_updated: 2026-06-07
 # Sales Document Type Control in SAP SD
 
 ## Operational Summary
-The *sales document type* is the header-level control object for sales processes. Together with item categories and schedule line categories, it determines how a sales document behaves and how data is passed to later documents. The source highlights that sales processes are controlled through Customizing at header, item, and schedule line level, and that the sales document type influences categories, default values, blocks, follow-on document types, checks, and permitted sales areas.
+The *sales document type* is the header-level control object for sales processes. Together with item categories and schedule line categories, it determines how a sales document behaves and how data is passed to later documents. Sales processes are controlled through Customizing at header, item, and schedule line level; the sales document type influences categories, default values, blocks, follow-on document types, checks, and permitted sales areas.
 
 ## Questions This Chunk Answers
 - What does the sales document type control in SAP SD?
@@ -77,7 +77,7 @@ Adding a new sales document type has broad impact because many Customizing entri
 -> Review the default subsequent document types and related copying control settings.
 
 **Performance degrades after activating many checks**
--> The source warns that activating checks such as open quotations, outline agreements, customer-material info records, or credit limit checks can affect system performance.
+-> Activating checks such as open quotations, outline agreements, customer-material info records, or credit limit checks can affect system performance.
 
 ## Cross-References
 - Prior step: order-management-sales-order-special-features-001

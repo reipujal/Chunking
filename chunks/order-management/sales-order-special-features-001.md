@@ -30,7 +30,7 @@ last_updated: 2026-06-07
 # Special Features When Processing Sales Orders
 
 ## Operational Summary
-SAP sales order processing includes special functions for changing document data, blocking follow-on steps, rejecting items, and handling cases where the sold-to party is entered late or changed. The source emphasizes fast changes, mass changes, delivery and billing blocks, reasons for rejection, and the controlled replacement of a default sold-to party. These functions allow users to manage order exceptions without deleting business evidence from the document.
+SAP sales order processing includes special functions for changing document data, blocking follow-on steps, rejecting items, and handling cases where the sold-to party is entered late or changed. Key functions covered: fast changes, mass changes, delivery and billing blocks, reasons for rejection, and the controlled replacement of a default sold-to party. These functions allow users to manage order exceptions without deleting business evidence from the document.
 
 ## Questions This Chunk Answers
 - How can several sales order items be changed at the same time?

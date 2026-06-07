@@ -8,7 +8,7 @@ chunk_type: concept
 sap_release: S/4HANA 2020
 sources:
   - file: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
-    relative_path: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
+    relative_path: "processed/S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
     pages: "8-24"
     source_type: A
     role: primary
@@ -61,14 +61,13 @@ A new *condition maintenance interface* provides mass maintenance based on chara
 ### Condition Types
 The *condition type* determines the category of a condition and controls how it is used. For each condition type, the *scale base type* and *calculation type* are defined in Customizing:
 
-| Scale Base Type | Calculation Type |
-|---|---|
-| Value | Percentage of an initial value |
-| Quantity | Fixed amount |
-| Weight | Amount by unit of measure |
-| Volume | Amount per unit of weight |
-| Period | Amount per unit of volume |
-| | Quantity per unit of time |
+The source lists these as two **independent** sets of options — not one-to-one pairings:
+
+**Possible scale base types:** Value, Quantity, Weight, Volume, Period
+
+**Possible calculation types:** Percentage of an initial value, Fixed amount, Amount by unit of measure, Amount per unit of weight, Amount per unit of volume, Quantity per unit of time
+
+Any scale base type can be combined with any calculation type in Customizing for the condition type.
 
 ### Condition Table
 A *condition table* is a combination of fields that forms the key for a condition record. Condition tables 501-999 are reserved for customer-defined tables. Key fields must appear at the top of the table. A field can be placed in the header or item part of the condition record's fast entry screen.

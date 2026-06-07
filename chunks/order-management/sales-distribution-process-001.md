@@ -30,7 +30,7 @@ last_updated: 2026-06-07
 # Sales and Distribution Process Documents in SAP S/4HANA
 
 ## Operational Summary
-In SAP S/4HANA Sales, every sales activity is represented by a *sales document*. The course describes the process chain through purpose-built document types in Sales, Shipping, and Billing: inquiries, quotations, and standard orders on the sales side; outbound and returns deliveries on the logistics side; and invoices, credit memos, and debit memos in billing. Each document has its own number, search support through matchcodes, and an overall status that summarizes the detailed processing statuses of the business activity.
+In SAP S/4HANA Sales, every sales activity is represented by a *sales document*. The process chain uses purpose-built document types in Sales, Shipping, and Billing: inquiries, quotations, and standard orders on the sales side; outbound and returns deliveries on the logistics side; and invoices, credit memos, and debit memos in billing. Each document has its own number, search support through matchcodes, and an overall status that summarizes the detailed processing statuses of the business activity.
 
 ## Questions This Chunk Answers
 - What kind of document records a sales activity in SAP S/4HANA Sales?
@@ -48,7 +48,7 @@ The purpose of the document structure is to let SAP model an order-to-cash proce
 The document status summarizes where the business process stands. A sales order, delivery, or billing document receives an overall status, and that status is built from more specific statuses for individual steps. This allows a consultant or user to understand whether a document is open, partially processed, completed, blocked, or awaiting a later SD activity without reading every field manually.
 
 ## Structure and Variants
-The source names three SD document families:
+SAP SD uses three document families:
 
 | Family | Examples from the course | Business meaning |
 |---|---|---|

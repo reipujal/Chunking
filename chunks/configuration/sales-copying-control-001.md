@@ -30,7 +30,7 @@ last_updated: 2026-06-07
 # Copying Control for Sales Documents
 
 ## Operational Summary
-*Copying control* determines which document types can be copied into other document types and how the copy behaves at header, item, and schedule line level. The source covers sales-to-sales, billing-to-sales, sales-to-delivery, sales-to-billing, delivery-to-billing, and billing-to-billing relationships. It also explains that copying control contains data transfer routines, copying requirements, and switches that govern field transfer, eligibility checks, and transaction-specific behavior.
+*Copying control* determines which document types can be copied into other document types and how the copy behaves at header, item, and schedule line level. Coverage includes sales-to-sales, billing-to-sales, sales-to-delivery, sales-to-billing, delivery-to-billing, and billing-to-billing relationships. Copying control contains data transfer routines, copying requirements, and switches that govern field transfer, eligibility checks, and transaction-specific behavior.
 
 ## Questions This Chunk Answers
 - What does copying control determine in SAP SD?
@@ -86,7 +86,7 @@ Copying requirements enforce process logic. Requirement 001 (header level) check
 -> Check schedule-line-level copying requirement.
 
 **Custom routine behaves unexpectedly**
--> Routines and requirements are ABAP code. The course recommends checking whether standard objects are suitable and copying them before adjusting.
+-> Routines and requirements are ABAP code. Check whether standard objects are suitable before modifying; copy first, then adjust.
 
 ## Cross-References
 - Prior step: order-management-sales-document-data-flow-001
