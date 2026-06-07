@@ -48,7 +48,7 @@ The incompletion configuration controls which data fields are mandatory for the 
 All employees can list all the incomplete sales documents they have entered. They can also display documents that have been blocked for a specific processing step — for example, a list of all documents blocked for shipping due to incompleteness. Incomplete documents can be opened and corrected from the list; after completing the required data, the system automatically returns to the list of incomplete documents.
 
 ## SPRO Path or Direct T-code
-The course describes Customizing for incompletion procedures and sales document types but does not provide a direct transaction code. No T-code is listed in the frontmatter.
+Not stated in source.
 
 ## Key Parameters
 

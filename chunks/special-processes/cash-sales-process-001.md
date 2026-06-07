@@ -54,10 +54,11 @@ Cash sales apply to counter or walk-in sales where the customer pays immediately
 1. **Order and Delivery in One Step**: When the cash sale order (type *CS*) is saved, the system automatically creates the outbound delivery at the same time. No separate delivery creation step is needed.
 2. **Instant Cash Receipt**: The process uses order-related billing logic. Output type *RD03* prints an immediate cash receipt (invoice) directly from the order at the time of creation. Prices are fixed at this point.
 3. **Postponed Goods Issue**: Because the customer picks up goods immediately, picking is typically not required. The goods issue posting is deferred and usually executed by a background program.
-4. **Billing Update (CS)**: After goods issue is posted, a billing document is created using billing type *CS* to formally update the system. Note: the invoice is *not* printed again at this stage — only the billing status is updated.
+4. **Billing Update (BV)**: After goods issue is posted, a billing document is created using billing type *BV* to formally update the system. Note: the invoice is *not* printed again at this stage — only the billing status is updated.
 5. **Financial Posting**: The posting goes to a *cash settlement account* (a G/L account defined specifically for cash sales), not to the customer's open receivables account.
 
 For cancellations, use billing type *SV*.
+
 
 ## Conditions and Restrictions
 - A G/L account for cash settlement must be configured in account determination; without it the cash sale posting fails.

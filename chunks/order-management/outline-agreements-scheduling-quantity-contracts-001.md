@@ -16,6 +16,9 @@ transactions: []
 tables: []
 aliases:
   - outline agreement
+  - acuerdo marco de entregas
+  - contrato de cantidad SAP
+  - acuerdo de calendario de entregas
   - acuerdo marco
   - contrato por cantidad
   - scheduling agreement release order

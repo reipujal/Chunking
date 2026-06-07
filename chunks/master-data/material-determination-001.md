@@ -25,7 +25,7 @@ aliases:
   - partial confirmation product selection shortfall
 level: functional
 status: draft
-quality: high
+quality: medium
 created: 2026-06-07
 last_updated: 2026-06-07
 ---
@@ -107,4 +107,4 @@ Master records for material determination are maintained in the SD master data m
 ## Cross-References
 - Prior step: order-management-value-contracts-001
 - Next step: master-data-material-listing-exclusion-001
-- See also: special-processes-sales-workshop-scenarios-001
+- See also: special-processes-sales-special-business-transactions-001

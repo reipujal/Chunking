@@ -58,7 +58,7 @@ Copying control controls document creation with reference. It determines the per
 **Document flow information.** The document flow contains information on what was copied from the source document to the target document. At item level, it shows the quantities and values that were transferred.
 
 ## SPRO Path or Direct T-code
-The source describes copying control in Sales and Distribution Customizing and mentions that routines and requirements can be processed under the menu option *System Modifications*. It does not provide a direct transaction code in the extracted text.
+No direct T-code stated in source. Routines and requirements are edited under *System Modifications* in the SD Customizing menu.
 
 ## Key Parameters
 | Field or setting | Description | Typical Values |
@@ -73,7 +73,7 @@ The source describes copying control in Sales and Distribution Customizing and m
 ## Configuration Impact
 Copying control mirrors the sales document structure. At header, item, and schedule line level, a consultant can configure routines for data transfer, copying requirements, and switches. If a target value is invalid or missing at item or schedule line level, SAP determines the target from the assignment of item or schedule line categories. Any value entered must exist in the relevant assignment as an alternative.
 
-Copying requirements enforce process logic. The source names requirement 001 at header level, which checks whether sold-to party and sales area in source and target are the same. It names requirement 301 at item level, which checks whether the item used as a copy has a reason for rejection or completed status. It names requirement 501 at schedule line level, which ensures that only schedule lines with open quantity greater than zero are copied.
+Copying requirements enforce process logic. Requirement 001 (header level) checks whether sold-to party and sales area in source and target are the same. Requirement 301 (item level) checks whether the item used as a copy has a reason for rejection or completed status. Requirement 501 (schedule line level) ensures that only schedule lines with open quantity greater than zero are copied.
 
 ## Common Configuration Errors
 **Document cannot be created with reference**

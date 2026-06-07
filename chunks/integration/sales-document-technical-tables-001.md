@@ -70,7 +70,7 @@ These tables correspond directly to concepts covered earlier in S4605. VBAK and 
 This chunk is intentionally technical but bounded by the appendix. It does not infer additional tables or newer data models outside the source pages.
 
 ## Cross-References
-- Prior step: special-processes-sales-workshop-scenarios-001
+- Prior step: pricing-free-goods-001
 - See also: order-management-sales-distribution-process-001
 - See also: order-management-sales-document-data-flow-001
 - See also: configuration-sales-incompletion-check-001

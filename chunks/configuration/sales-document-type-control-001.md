@@ -42,10 +42,10 @@ The *sales document type* is the header-level control object for sales processes
 ## What This Configuration Controls
 The *sales document type* controls the overall business process represented by the sales document. It works with the *item category* and *schedule line category* to control the document structure. At header level, it can influence the sales document category, delivery and billing blocks, document types for subsequent deliveries and billing documents, number assignment, default values, and activation of checks.
 
-The source also names basic functions that must be configured for sales documents: *partner determination*, *pricing*, *message determination*, *text determination*, *material determination*, *credit management*, *incompleteness*, and *delivery scheduling*. These functions can be fine tuned at the different levels of the sales document.
+Basic functions that must be configured for sales documents: *partner determination*, *pricing*, *message determination*, *text determination*, *material determination*, *credit management*, *incompleteness*, and *delivery scheduling*. These functions can be fine tuned at the different levels of the sales document.
 
 ## SPRO Path or Direct T-code
-The source describes Customizing for sales documents but does not provide a transaction code. Use the IMG sales document type configuration area in the project system; no T-code is listed in the extraction field because the course page does not literally name one.
+Not stated in source. Navigate via IMG: Sales and Distribution → Sales → Sales Documents → Sales Document Header → Define Sales Document Types.
 
 ## Key Parameters
 | Field or setting | Description | Typical Values |
@@ -61,7 +61,7 @@ The source describes Customizing for sales documents but does not provide a tran
 | *Sales area assignment* | Defines where the document type is valid | Sales organization, distribution channel, division |
 
 ## Configuration Impact
-The sales document type is not complete by itself. The course emphasizes that a sales document is not fully configured until all required basic functions have also been processed. For example, pricing requires configuration of the sales document type AND the pricing procedure separately, then assignment of the procedure to the document type. Output determination works similarly — assign the output determination procedure to the sales document type in output Customizing.
+The sales document type is not complete by itself. A sales document is not fully configured until all required basic functions have also been processed. For example, pricing requires configuration of the sales document type AND the pricing procedure separately, then assignment of the procedure to the document type. Output determination works similarly — assign the output determination procedure to the sales document type in output Customizing.
 
 Different functions apply for different sales document types. For example, pricing but not inventory updates are needed for an inquiry; pricing and inventory management are both needed for a standard order.
 

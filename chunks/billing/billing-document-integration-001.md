@@ -29,7 +29,7 @@ level: functional
 status: draft
 quality: high
 created: 2026-06-05
-last_updated: 2026-06-05
+last_updated: 2026-06-07
 ---
 
 # Integration of Billing Documents in the SAP SD Process
@@ -70,6 +70,13 @@ Creating a billing document has the following effects:
 | Billing status | Reference documents (order/delivery) updated to *fully billed* or *partially billed* |
 | Sales Information System | SIS statistics updated |
 | CO-PA | Data forwarded to Profitability Analysis |
+
+## Goods Issue Dependency
+Whether goods issue is required before billing depends on the *billing relevance* setting in the item category:
+- **Order-related billing**: the billing document can be created directly from the sales order without a goods issue. Billing quantity is based on the order quantity.
+- **Delivery-related billing**: goods issue must be posted before billing is possible. Billing quantity is based on the delivered (goods-issued) quantity.
+
+This distinction is fundamental: a consultant checking why billing is blocked must first identify whether the item category requires delivery-related billing.
 
 ## Cross-References
 - See also: billing-billing-document-structure-001

@@ -80,6 +80,20 @@ Four document types manage the consignment lifecycle:
 
 A *delivery block* is activated in the sales document type to ensure these transactions are reviewed before release. If the reviewer decides against delivery, a reason for rejection is entered. At item level, item category **KLN** marks items in FD and SD document types as free-of-charge; pricing and billing behavior is controlled in the item category Customizing.
 
+### Employee Sales
+Employees purchase goods at reduced prices from a dedicated internal shop. Because employees can only buy goods that are in the shop, availability check and transfer of requirements are not necessary.
+
+1. Orders are created using a **collective one-time customer master record** — no individual customer master per employee is maintained.
+2. Orders must always have a net value to prevent documents without items or free items from being created.
+3. Employees generally receive a **15% discount** off the material price; some materials may carry higher discounts.
+4. When the order is saved, **SAP creates the delivery automatically**. Picking is not required because employees take only goods available in the shop.
+5. Goods issue can be posted manually for a single delivery, or automatically in the background at day end.
+6. Because goods are delivered as soon as the order is saved, order quantity always equals goods issue quantity → **order-related billing**.
+7. Billing documents are created automatically in a collective run (e.g., billing list during night processing).
+8. The financial posting goes to a **special cash sales account** — no open customer receivable is created.
+
+Configuration objects required for employee sales: dedicated sales document type, new item category, incompleteness procedure controlling essential fields, one-time customer master, pricing extension for employee discounts.
+
 ## Common Errors
 **Rush order expected to print an immediate invoice receipt**
 -> Rush orders do NOT print a document for the customer at creation. Only the cash sales process prints an immediate cash invoice. The learning assessment in the source confirms this distinction explicitly.

@@ -59,7 +59,7 @@ This applies when a user creates a new SD document from a preceding document, su
 Create with reference is supported for inquiries, quotations, sales orders, contracts, scheduling agreements, and billing documents.
 
 ## Conditions and Restrictions
-Create with reference is allowed only for logical business processes configured in copying control. The source gives a positive example (free-of-charge subsequent delivery based on a sales order) and a negative example (order based on a free-of-charge subsequent delivery) — only the first is appropriate.
+Create with reference is allowed only for logical business processes configured in copying control. Positive example: free-of-charge subsequent delivery based on a sales order. Negative example (not allowed): order based on a free-of-charge subsequent delivery.
 
 To track referred quantities or values in the preceding document, the *Document flow update* field must be active at item level in copying control. If reference should be limited — for example, only until the full quantity has been referenced — the appropriate *completion rule* must be set in the item category. Each item's status in the preceding document is updated independently.
 

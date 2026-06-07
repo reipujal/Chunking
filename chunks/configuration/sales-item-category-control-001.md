@@ -64,7 +64,7 @@ The essential characteristics of an item category:
 - *Delivery relevance* (for items without schedule lines, e.g., letting a text item be copied from the order into the delivery)
 
 ## SPRO Path or Direct T-code
-The source describes item category Customizing but does not provide a direct transaction code.
+Not stated in source.
 
 ## Key Parameters
 
@@ -118,4 +118,4 @@ The assignment to sales document types also defines *alternative item categories
 - Prior step: configuration-sales-document-type-control-001
 - Next step: configuration-schedule-line-category-control-001
 - See also: pricing-free-goods-001
-- See also: special-processes-sales-workshop-scenarios-001
+- See also: special-processes-sales-special-business-transactions-001

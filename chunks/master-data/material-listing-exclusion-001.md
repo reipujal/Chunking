@@ -22,7 +22,7 @@ aliases:
   - como limitar materiales que puede comprar un cliente
 level: functional
 status: draft
-quality: high
+quality: medium
 created: 2026-06-07
 last_updated: 2026-06-07
 ---
@@ -45,7 +45,7 @@ Material listing controls permitted materials. The course example uses master re
 Material exclusion controls prohibited materials. It ensures that the customer does not receive specific materials. Like listing, exclusion is controlled with the condition technique.
 
 ## SPRO Path or Direct T-code
-The source describes condition-technique configuration and sales document type activation but does not name a direct transaction code. No T-code is entered in the frontmatter.
+Not stated in source.
 
 ## Key Parameters
 | Field or setting | Description | Typical Values |
@@ -57,9 +57,9 @@ The source describes condition-technique configuration and sales document type a
 | *Master record validity* | Determines when the listing or exclusion applies | Date range |
 
 ## Configuration Impact
-The course explicitly says that material listing is used when the customer should receive only specific materials. This means a listing works as a positive list. If the requested material is not on the valid list, the process should prevent the customer from receiving it.
+Material listing is a positive list: only listed materials may be ordered. If the requested material is not on the valid list, the order should be prevented.
 
-Material exclusion works as a negative list. It prevents the customer from receiving certain materials, while other non-excluded materials remain possible. The learning assessment reinforces the difference: exclusion does not create substitute sub-items and does not behave like product selection. It simply prevents materials listed for exclusion.
+Material exclusion works as a negative list. It prevents the customer from receiving certain materials, while other non-excluded materials remain possible. Exclusion does not create substitute sub-items — it simply blocks the listed materials. Use material determination/product selection for substitution.
 
 Because both functions use condition technique, the search key is flexible. The source names customer group/material and customer/product hierarchy as examples of custom keys beyond the delivered customer/material key.
 

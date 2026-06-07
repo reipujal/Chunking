@@ -25,7 +25,7 @@ aliases:
   - regla calculo mercancias gratuitas prorrateado
 level: functional
 status: draft
-quality: high
+quality: medium
 created: 2026-06-07
 last_updated: 2026-06-07
 ---
@@ -100,4 +100,4 @@ Free goods master records can be maintained at different levels: material, custo
 ## Cross-References
 - Prior step: master-data-material-listing-exclusion-001
 - See also: special-processes-sales-special-business-transactions-001
-- Next step: special-processes-sales-workshop-scenarios-001
+- Next step: integration-sales-document-technical-tables-001

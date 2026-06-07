@@ -15,25 +15,19 @@ sources:
 transactions: []
 tables: []
 aliases:
-  - warehouse number
-  - número de almacén
-  - storage type
-  - tipo de almacenamiento
-  - storage section
-  - sección de almacenamiento
-  - storage bin
-  - ubicación
-  - activity area
-  - área de actividad
-  - quant
-  - plant
-  - centro
-  - storage location
-  - almacén
-  - company code
-  - sociedad
+  - warehouse number EWM
+  - número de almacén EWM
+  - storage type EWM
+  - tipo de almacenamiento EWM
+  - storage section EWM
+  - sección de almacenamiento EWM
+  - storage bin ubicación EWM
+  - activity area EWM
+  - quant EWM
   - EWM organizational units
   - unidades organizativas EWM
+  - EWM warehouse structure
+  - estructura organizativa almacén extendido
 level: functional
 status: draft
 quality: high

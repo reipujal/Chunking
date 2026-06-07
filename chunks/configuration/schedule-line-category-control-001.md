@@ -65,7 +65,7 @@ The schedule line category is defined with a two-character key with a specific n
 These standard keys can be kept or replaced with custom abbreviations that reference your specific sales document types.
 
 ## SPRO Path or Direct T-code
-The source describes schedule line category Customizing but does not provide a direct transaction code.
+Not stated in source.
 
 ## Key Parameters
 
