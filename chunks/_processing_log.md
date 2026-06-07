@@ -153,3 +153,40 @@
 - Non-obvious decisions: "001" is FI Customizing table ID, not an ABAP dictionary table — excluded from tables field
 - Status: completed
 
+## 2026-06-07 — S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf
+- Relative path: S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf
+- Type: A (official SAP course; Producer PDFKit)
+- Total pages: 168 (physical)
+- Page offset: printed label N = physical N+8 (printed 1 = physical 9). All citations below use PHYSICAL pages.
+- Processed range: p. 11-168 (complete lesson content from Unit 2 through appendix; cover/TOC/overview pages read for classification but not chunked)
+- Appendix / reference tables: p. 166-168 mined and chunked as integration-sales-document-technical-tables-001. Tables verified in source: VBAK, VBKD, VEDA, VBPA, VBUV, VBFA, STXH, STXL, VBAP, VBEP, VBBE.
+- Next pending page: none — completed
+- Extractable text: high
+- Encoding issues: none
+- Chunks created: 19
+  - order-management-sales-distribution-process-001 -> chunks/order-management/sales-distribution-process-001.md
+  - enterprise-structure-sales-distribution-enterprise-structure-001 -> chunks/enterprise-structure/sales-distribution-enterprise-structure-001.md
+  - order-management-sales-order-source-of-data-001 -> chunks/order-management/sales-order-source-of-data-001.md
+  - order-management-sales-order-special-features-001 -> chunks/order-management/sales-order-special-features-001.md
+  - configuration-sales-document-type-control-001 -> chunks/configuration/sales-document-type-control-001.md
+  - configuration-sales-item-category-control-001 -> chunks/configuration/sales-item-category-control-001.md
+  - configuration-schedule-line-category-control-001 -> chunks/configuration/schedule-line-category-control-001.md
+  - order-management-sales-document-data-flow-001 -> chunks/order-management/sales-document-data-flow-001.md
+  - configuration-sales-copying-control-001 -> chunks/configuration/sales-copying-control-001.md
+  - special-processes-sales-special-business-transactions-001 -> chunks/special-processes/sales-special-business-transactions-001.md
+  - configuration-sales-incompletion-check-001 -> chunks/configuration/sales-incompletion-check-001.md
+  - master-data-sd-partner-functions-001 -> chunks/master-data/sd-partner-functions-001.md
+  - order-management-outline-agreements-scheduling-quantity-contracts-001 -> chunks/order-management/outline-agreements-scheduling-quantity-contracts-001.md
+  - order-management-value-contracts-001 -> chunks/order-management/value-contracts-001.md
+  - master-data-material-determination-001 -> chunks/master-data/material-determination-001.md
+  - master-data-material-listing-exclusion-001 -> chunks/master-data/material-listing-exclusion-001.md
+  - pricing-free-goods-001 -> chunks/pricing/free-goods-001.md
+  - special-processes-sales-workshop-scenarios-001 -> chunks/special-processes/sales-workshop-scenarios-001.md
+  - integration-sales-document-technical-tables-001 -> chunks/integration/sales-document-technical-tables-001.md
+- Chunks updated: none
+- Duplicates found: none requiring skip or merge. Related existing chunks were linked where appropriate (delivery, billing, returns, billing plans).
+- Omitted content: Course cover/copyright/typographic convention pages, unit objective separators, and learning assessment pages. Lesson content, workshop content, and appendix tables were processed.
+- Non-obvious decisions: transactions remain empty except pricing-free-goods-001 where VOFM appears literally on p. 147 physical; appendix table names were kept only in integration-sales-document-technical-tables-001 to avoid over-extraction into functional chunks.
+- Validation: 19/19 chunks pass with 0 ERRORs. Remaining warnings are advisory density warnings on long figure-heavy ranges and area-level isolated-node warnings; source ranges were read and appendix provenance was verified.
+- Status: completed
+
