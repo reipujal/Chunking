@@ -190,3 +190,32 @@
 - Validation: 19/19 chunks pass with 0 ERRORs. Remaining warnings are advisory density warnings on long figure-heavy ranges and area-level isolated-node warnings; source ranges were read and appendix provenance was verified.
 - Status: completed
 
+
+## 2026-06-07 — S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf
+- Relative path: S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf
+- Type: A
+- Total pages: ~128 physical (printed pages 1-122 + 6 page offset)
+- Page offset: physical = printed + 6
+- Processed range: p. 8-114 (Units 1-7)
+- Back matter: Unit 9 Appendix (phys 119-128) — mined for T-codes (VK11-14, VK31-34), IMG paths, SAP Notes. Not chunked separately.
+- Unprocessed: Unit 8 (phys 115-118) — exercises-only workshop, content absorbed into existing chunks; Unit 9 (phys 119-128) — appendix only.
+- Extractable text: medium (course is figure-heavy; many pages have short text paragraphs alongside diagrams)
+- Encoding issues: none
+- Chunks created: 10
+  - pricing-condition-technique-overview-001 → chunks/pricing/condition-technique-overview-001.md
+  - configuration-pricing-procedure-configuration-001 → chunks/configuration/pricing-procedure-configuration-001.md
+  - pricing-condition-records-001 → chunks/pricing/condition-records-001.md
+  - pricing-special-pricing-functions-001 → chunks/pricing/special-pricing-functions-001.md
+  - pricing-special-condition-types-001 → chunks/pricing/special-condition-types-001.md
+  - pricing-statistical-condition-types-001 → chunks/pricing/statistical-condition-types-001.md
+  - pricing-pricing-agreements-001 → chunks/pricing/pricing-agreements-001.md
+  - pricing-condition-contract-management-concept-001 → chunks/pricing/condition-contract-management-concept-001.md
+  - pricing-condition-contract-maintenance-001 → chunks/pricing/condition-contract-maintenance-001.md
+  - pricing-condition-contract-settlement-001 → chunks/pricing/condition-contract-settlement-001.md
+- Non-obvious decisions:
+  - Chunks 1,3,5,6 have quality:medium (pages are diagram-heavy; density 77-80 w/p after expansion)
+  - Secondary source removed from condition-records: appendix T-codes VK14/31-34 not in primary page range (40-53)
+  - Unit 8 workshop skipped per CLAUDE.md rule (exercises only)
+  - Condition technique and pricing procedure split into 2 chunks (conceptual vs. Customizing)
+  - CCM split into 3 chunks: concept overview, maintenance, settlement
+- Status: completed — next pending page: none
