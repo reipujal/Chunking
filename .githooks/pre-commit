@@ -1,0 +1,18 @@
+#!/bin/sh
+# pre-commit: validate SAP SD chunk corpus before every commit.
+# Errors block the commit; warnings are advisory (AGENTS.md contract).
+if   command -v python3 >/dev/null 2>&1; then PY=python3
+elif command -v python  >/dev/null 2>&1; then PY=python
+elif command -v py      >/dev/null 2>&1; then PY="py -3"
+else
+  echo "pre-commit: Python not found — install Python 3 and retry" >&2
+  exit 1
+fi
+echo "pre-commit: running chunk validator (errors block, warnings do not)..."
+$PY validate_chunks.py
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+  echo "pre-commit: BLOCKED — fix ERRORs reported above before committing." >&2
+  echo "pre-commit: To bypass locally (CI will still catch it): git commit --no-verify" >&2
+fi
+exit $STATUS

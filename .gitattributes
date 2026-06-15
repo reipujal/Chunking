@@ -1,0 +1,2 @@
+# Force LF for hook scripts so sh can execute them on any OS
+.githooks/** text eol=lf

@@ -27,6 +27,27 @@ python3 validate_chunks.py chunks/<area>/<slug>-<NNN>.md
 
 Zero ERRORs required before updating the index. Warnings are advisory.
 
+## Enforcement / setup
+
+The chunk validator (`validate_chunks.py`) is wired as a **blocking gate** in two layers:
+
+| Layer | Mechanism | Bypasses |
+|---|---|---|
+| Local pre-commit hook | `.githooks/pre-commit` | `git commit --no-verify` (logs bypass, CI still catches it) |
+| GitHub Actions CI | `.github/workflows/validate.yml` — runs on every push and PR | None (machine-independent backstop) |
+
+**Bootstrap (one-time per clone):**
+
+```bash
+git config core.hooksPath .githooks
+```
+
+`core.hooksPath` is local git config — not versioned. Every new clone must run this once. CI does not require it (the workflow calls `python validate_chunks.py` directly).
+
+**Contract:** errors → exit 1 → commit blocked. Warnings → advisory only (AGENTS.md contract unchanged).
+
+---
+
 ## Five rules you must not skip
 
 1. **Provenance**: `transactions` and `tables` fields only contain identifiers that appear literally in the source text or are legibly visible in a rasterized figure. Never add from training knowledge.
