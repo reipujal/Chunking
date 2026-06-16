@@ -12,6 +12,11 @@ sources:
     pages: "16-28"
     source_type: A
     role: primary
+  - file: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+    relative_path: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+    pages: "18-22"
+    source_type: A
+    role: secondary
 transactions: []
 tables: []
 aliases:
@@ -27,7 +32,7 @@ level: functional
 status: draft
 quality: medium
 created: 2026-06-07
-last_updated: 2026-06-07
+last_updated: 2026-06-16
 ---
 
 # Enterprise Structure for Sales and Distribution in SAP

@@ -33,7 +33,7 @@ level: functional
 status: draft
 quality: high
 created: 2026-06-05
-last_updated: 2026-06-05
+last_updated: 2026-06-16
 ---
 
 # Automatic Field Determination for Outbound Deliveries — Plant, Shipping Conditions, Shipping Point, Route

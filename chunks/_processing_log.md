@@ -232,3 +232,30 @@
 - **Decisions:**
   - No new chunks created: BOM scenario (phys 157-160) merges into item-category-control (mechanics already there, added functional context ~150w + step sequence); employee sales (phys 154-156) and material determination (phys 161-165) content already present, source citation added.
   - sales-item-category-control quality remains high (expanded from 95 to 115 w/p after adding step sequence).
+
+## 2026-06-16 — S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf
+- Relative path: processed/S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf
+- Type: A (SAP official, S/4HANA 2020, ~134 w/p)
+- Physical pages: 163 | Offset: 8 (footer 1 = phys 9) | Page count method: pdftotext binary search
+- Next pending page: none — document completed
+- Status: completed
+- Chunks created (8 new):
+  - order-management/availability-check-atp-001 — ATP concept, scope of check, material availability date, transfer of requirements, partial/complete delivery (U6 L1, phys 97-103)
+  - order-management/backorder-processing-001 — 4 ATP scenarios, BOP segments/variants/runs (U6 L2, phys 104-112)
+  - order-management/collective-processing-001 — Worklists, split criteria, collective delivery/picking/billing (U7, phys 117-124)
+  - master-data/business-partner-master-data-001 — BP approach, structure, roles, mandatory partner functions (U4 L1, phys 58-63)
+  - master-data/material-master-sd-001 — Material master views for SD + CMiR concept and priority (U4 L2+L3, phys 64-68)
+  - order-management/sales-monitoring-analytics-001 — Sales Order Fulfillment App, SAP Smart Business, sales plans, CDS analytics (U10, phys 149-161)
+  - configuration/sap-fiori-launchpad-001 — Fiori UX paradigm, launchpad, app types (U1, phys 10-15)
+  - order-management/presales-additional-processes-001 — Inquiries, quotations, MTO, service products DIEN/LEIS (U8, phys 127-134)
+- Secondary source updates (3):
+  - billing/returns-process-001 — added returns stock category + subsequent free-of-charge delivery alternative (U9 L3, phys 144-145)
+  - billing/credit-debit-memo-process-001 — added secondary source citation (U9 L1, phys 139-141; content already covered by S4615 primary)
+  - enterprise-structure/sales-distribution-enterprise-structure-001 — added secondary source citation (U2, phys 18-22; content confirmed by S4605 primary)
+- Skipped (justification):
+  - U3 Overview: subsumed by existing chunks from S4605/S4610/S4615/S4620
+  - U5 (plant/shipping point/route determination, scheduling): S4610 covers same topics at greater depth — S4600 secondary source would dilute density without adding content; skipped
+  - U9 L2 Cancellation: identical to billing-document-cancellation-001
+  - U4 L4/L5 Condition Master + Output/BRFplus: S4620/S4615 more complete; added as secondary source to enterprise-structure only
+  - U2 EWM: warehouse-org-units-ewm-001 from S4610 more complete; not updated
+- Validator: 82 OK / 0 errors / 4 warnings (max-page advisory; density warnings on 2 pre-existing chunks)

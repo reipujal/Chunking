@@ -71,3 +71,4 @@ The *sales document* initiates or records the commercial step, while later *deli
 - Next step: enterprise-structure-sales-distribution-enterprise-structure-001
 - See also: order-management-sales-document-data-flow-001
 - See also: integration-sales-document-technical-tables-001
+- See also: order-management-presales-additional-processes-001 (presales documents, make-to-order, service products)
