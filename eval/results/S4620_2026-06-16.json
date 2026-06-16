@@ -1,0 +1,369 @@
+{
+  "total_questions": 28,
+  "excluded": 1,
+  "mappable": 26,
+  "not_mappable": 1,
+  "global": {
+    "recall": {
+      "1": 0.6153846153846154,
+      "3": 0.8846153846153846,
+      "5": 0.9615384615384616,
+      "10": 1.0
+    },
+    "mrr": 0.7554945054945055
+  },
+  "by_area": {
+    "pricing": {
+      "count": 18,
+      "recall": {
+        "1": 0.7222222222222222,
+        "3": 0.8888888888888888,
+        "5": 0.9444444444444444,
+        "10": 1.0
+      },
+      "mrr": 0.8273809523809523
+    },
+    "configuration": {
+      "count": 8,
+      "recall": {
+        "1": 0.375,
+        "3": 0.875,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr": 0.59375
+    }
+  },
+  "by_chunk_type": {
+    "concept": {
+      "count": 10,
+      "recall": {
+        "1": 0.5,
+        "3": 0.8,
+        "5": 0.9,
+        "10": 1.0
+      },
+      "mrr": 0.6892857142857143
+    },
+    "configuration": {
+      "count": 8,
+      "recall": {
+        "1": 0.375,
+        "3": 0.875,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr": 0.59375
+    },
+    "process": {
+      "count": 8,
+      "recall": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr": 1.0
+    }
+  },
+  "per_question_summary": [
+    {
+      "id": "S4620-LA-U1-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-condition-technique-overview-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U1-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-condition-technique-overview-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4620-LA-U1-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-condition-technique-overview-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.14285714285714285
+    },
+    {
+      "id": "S4620-LA-U1-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-condition-technique-overview-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4620-LA-U2-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-pricing-procedure-configuration-001",
+        "pricing-condition-technique-overview-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U2-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-pricing-procedure-configuration-001",
+        "pricing-condition-technique-overview-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U2-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-pricing-procedure-configuration-001",
+        "pricing-condition-technique-overview-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.3333333333333333
+    },
+    {
+      "id": "S4620-LA-U2-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-pricing-procedure-configuration-001",
+        "pricing-condition-technique-overview-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U3-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-pricing-procedure-configuration-001",
+        "pricing-condition-records-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    },
+    {
+      "id": "S4620-LA-U3-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-pricing-procedure-configuration-001",
+        "pricing-condition-records-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.3333333333333333
+    },
+    {
+      "id": "S4620-LA-U3-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-pricing-procedure-configuration-001",
+        "pricing-condition-records-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.3333333333333333
+    },
+    {
+      "id": "S4620-LA-U3-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-pricing-procedure-configuration-001",
+        "pricing-condition-records-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4620-LA-U4-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-condition-records-001",
+        "pricing-special-pricing-functions-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U4-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-condition-records-001",
+        "pricing-special-pricing-functions-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U4-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-condition-records-001",
+        "pricing-special-pricing-functions-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U5-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-special-condition-types-001",
+        "pricing-statistical-condition-types-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4620-LA-U5-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-special-condition-types-001",
+        "pricing-statistical-condition-types-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U5-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-special-condition-types-001",
+        "pricing-statistical-condition-types-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U5-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-special-condition-types-001",
+        "pricing-statistical-condition-types-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    },
+    {
+      "id": "S4620-LA-U5-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-special-condition-types-001",
+        "pricing-statistical-condition-types-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U5-Q6",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-special-condition-types-001",
+        "pricing-statistical-condition-types-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U6-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-pricing-agreements-001",
+        "pricing-statistical-condition-types-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U7-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-condition-contract-maintenance-001",
+        "pricing-condition-contract-management-concept-001",
+        "pricing-condition-contract-settlement-001",
+        "pricing-pricing-agreements-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U7-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-condition-contract-maintenance-001",
+        "pricing-condition-contract-management-concept-001",
+        "pricing-condition-contract-settlement-001",
+        "pricing-pricing-agreements-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U7-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-condition-contract-maintenance-001",
+        "pricing-condition-contract-management-concept-001",
+        "pricing-condition-contract-settlement-001",
+        "pricing-pricing-agreements-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U7-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-condition-contract-maintenance-001",
+        "pricing-condition-contract-management-concept-001",
+        "pricing-condition-contract-settlement-001",
+        "pricing-pricing-agreements-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4620-LA-U9-Q1",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    }
+  ]
+}

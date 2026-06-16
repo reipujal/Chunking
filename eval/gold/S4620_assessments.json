@@ -1,0 +1,561 @@
+{
+  "doc": "S4620",
+  "pdf_relative_path": "processed/S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf",
+  "offset": 6,
+  "generated_at": "2026-06-16",
+  "total_physical_pages": 129,
+  "questions": [
+    {
+      "id": "S4620-LA-U1-Q1",
+      "unit": "Unit 1: Condition Technique in Pricing",
+      "question": "You can limit a pricing agreement to a certain period.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "You can limit a pricing agreement to a certain period.",
+      "gold_page_span": [
+        7,
+        21
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U1-Q2",
+      "unit": "Unit 1: Condition Technique in Pricing",
+      "question": "What is controlled by the condition type?",
+      "options": {
+        "A": "Calculation Type",
+        "B": "Period",
+        "C": "Amount"
+      },
+      "question_type": "mcq",
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "Calculation type is controlled by condition type.",
+      "gold_page_span": [
+        7,
+        21
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U1-Q3",
+      "unit": "Unit 1: Condition Technique in Pricing",
+      "question": "The header conditions are distributed manually among the items based on the net value.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "False",
+      "answer_key_found": true,
+      "answer_explanation": "The header conditions are automatically distributed among the items based on the net value.",
+      "gold_page_span": [
+        7,
+        21
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U1-Q4",
+      "unit": "Unit 1: Condition Technique in Pricing",
+      "question": "A condition table is a combination of fields that form the key for a condition record.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "A condition table is a combination of fields that form the key for a condition record.",
+      "gold_page_span": [
+        7,
+        21
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U2-Q1",
+      "unit": "Unit 2: Pricing Configuration",
+      "question": "Which of the following provides a method to modify the standard pricing logic to meet unique user requirements?",
+      "options": {
+        "A": "Requirement routines",
+        "B": "Condition types",
+        "C": "Pricing procedures"
+      },
+      "question_type": "mcq",
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "Requirement routines and formulas provide a method for modifying the standard pricing logic to meet unique user requirements.",
+      "gold_page_span": [
+        24,
+        35
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U2-Q2",
+      "unit": "Unit 2: Pricing Configuration",
+      "question": "An access sequence only consists of one condition table.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "False",
+      "answer_key_found": true,
+      "answer_explanation": "An access sequence can have more than one condition table.",
+      "gold_page_span": [
+        24,
+        35
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U2-Q3",
+      "unit": "Unit 2: Pricing Configuration",
+      "question": "Which of the following elements contains keys that are used to create dependent condition records?",
+      "options": {
+        "A": "Condition types",
+        "B": "Access sequences",
+        "C": "Requirement routines",
+        "D": "Condition tables"
+      },
+      "question_type": "mcq",
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "A condition table contains keys used to create dependent condition records. Unit 2:",
+      "gold_page_span": [
+        24,
+        35
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U2-Q4",
+      "unit": "Unit 2: Pricing Configuration",
+      "question": "New fields can be added to the pricing field catalog.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "New fields can be added to the pricing field catalog. This allows you to use the new field to define condition tables.",
+      "gold_page_span": [
+        24,
+        35
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U3-Q1",
+      "unit": "Unit 3: Condition Records",
+      "question": "What can you do for or with a condition record?",
+      "options": {
+        "A": "You can define a pricing procedure.",
+        "B": "You can define a release procedure.",
+        "C": "You can copy condition records from one customer to another.",
+        "D": "You copy condition records with the help of the button: Update pricing ."
+      },
+      "question_type": "mcq",
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "With a condition record, you can define a release procedure and copy condition records from one customer to another.",
+      "gold_page_span": [
+        39,
+        49
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U3-Q2",
+      "unit": "Unit 3: Condition Records",
+      "question": "You can create new pricing condition records today for next year.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "You can create new pricing condition records today for next year.",
+      "gold_page_span": [
+        39,
+        49
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U3-Q3",
+      "unit": "Unit 3: Condition Records",
+      "question": "What options do you have for the condition record maintenance besides the condition type based maintenance (transaction code VK11, VK12, VK13) ?",
+      "options": {
+        "A": "You can create condition records with a condition formula to meet user-specific requirements.",
+        "B": "You can only maintain condition records which are configured as condition determined manually in the pricing procedure.",
+        "C": "You can create your own price lists for maintenance of condition records.",
+        "D": "You can maintain condition records with manage-price sales app."
+      },
+      "question_type": "mcq",
+      "correct": "D",
+      "answer_key_found": true,
+      "answer_explanation": "You can maintain condition records based on your own price lists and you can use the manage-price sales app. Unit 3:",
+      "gold_page_span": [
+        39,
+        49
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U3-Q4",
+      "unit": "Unit 3: Condition Records",
+      "question": "You can export and import condition record with the help of the manage-price sales app?",
+      "options": {},
+      "question_type": "tf",
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "You can export and import condition record with the help of the manage-price sales app.",
+      "gold_page_span": [
+        39,
+        49
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U4-Q1",
+      "unit": "Unit 4: Special Functions",
+      "question": "For group conditions, the item quantities are always accumulated to determine scale values.",
+      "options": {},
+      "question_type": "tf",
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Group conditions can be based on different things, such as gross weight or quantities. It depends on the setup of the condition type.",
+      "gold_page_span": [
+        53,
+        59
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U4-Q2",
+      "unit": "Unit 4: Special Functions",
+      "question": "When values are accumulated in condition records, you can set only a minimum condition value.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "When values are accumulated in condition records, you can set a maximum condition value, condition base value, or number of orders for a condition.",
+      "gold_page_span": [
+        53,
+        59
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U4-Q3",
+      "unit": "Unit 4: Special Functions",
+      "question": "Multiple conditions cannot be grouped in a condition supplement procedure.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "False",
+      "answer_key_found": true,
+      "answer_explanation": "Several conditions can be grouped in a condition supplement procedure.",
+      "gold_page_span": [
+        53,
+        59
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U5-Q1",
+      "unit": "Unit 5: Condition Types",
+      "question": "Which of the following condition types are group conditions and are divided among all the items in an order according to value?",
+      "options": {
+        "A": "PN00 (Net Price)",
+        "B": "AMIW (Minimum Order Values)",
+        "C": "PMIN (Minimum Price)",
+        "D": "HM00 (Manual Order Value)"
+      },
+      "question_type": "mcq",
+      "correct": "D",
+      "answer_key_found": true,
+      "answer_explanation": "Condition types AMIW and HM00 are group conditions and are divided among all the items in an order according to value.",
+      "gold_page_span": [
+        62,
+        79
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U5-Q2",
+      "unit": "Unit 5: Condition Types",
+      "question": "In customer hierarchies, you can assign price or rebate agreements only to a low-level node.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "In customer hierarchies, you can assign price or rebate agreements to a high- level node.",
+      "gold_page_span": [
+        62,
+        79
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U5-Q3",
+      "unit": "Unit 5: Condition Types",
+      "question": "A pallet discount like (KP00) offers a discount for whole units of measure only. This behavior is controlled by a basic formula in the pricing procedure.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The pallet discount like (KP00) offers a discount for whole units of measure only. This behavior is controlled by a basic formula in the pricing procedure. Unit 5:",
+      "gold_page_span": [
+        62,
+        79
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U5-Q4",
+      "unit": "Unit 5: Condition Types",
+      "question": "Which condition types are statistical?",
+      "options": {
+        "A": "PR02 (Interval Price)",
+        "B": "DIFF (Rounding Off)",
+        "C": "VPRS (Cost (price)",
+        "D": "SKTO (Cash Discount) Unit 5:"
+      },
+      "question_type": "mcq",
+      "correct": "C",
+      "answer_key_found": true,
+      "answer_explanation": "VPRS (Cost price) and SKTO (Cash Discount) are the condition types that are statistical.",
+      "gold_page_span": [
+        62,
+        79
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U5-Q5",
+      "unit": "Unit 5: Condition Types",
+      "question": "Which of the following factors are considered when determining tax rates?",
+      "options": {
+        "A": "The tax liability of the ship-to party",
+        "B": "The tax liability of the material",
+        "C": "The tax procedure",
+        "D": "The business transaction ­ domestic or export and import"
+      },
+      "question_type": "mcq",
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "The factors that are considered in determining tax rates are the business transactions (domestic, export, or import), the tax liability of the ship-to party, and the tax liability of the material.",
+      "gold_page_span": [
+        62,
+        79
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U5-Q6",
+      "unit": "Unit 5: Condition Types",
+      "question": "The tax procedure is assigned according to country in the basic settings of the Financial Accounting (FI) component.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The tax procedure is assigned according to a country in the basic settings of the Financial Accounting (FI) component. For example, for the United States, you have the following tax procedures: TAXUS, TAXUSJ, and TAXUSX.",
+      "gold_page_span": [
+        62,
+        79
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U6-Q1",
+      "unit": "Unit 6: Pricing Agreements",
+      "question": "Which document displays the sales deal and promotion information?",
+      "options": {
+        "A": "Sales Order",
+        "B": "Delivery",
+        "C": "Billing Document",
+        "D": "Accounting Document"
+      },
+      "question_type": "mcq",
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "The detail screen of a billing item displays the sales deal number and promotion number fields",
+      "gold_page_span": [
+        84,
+        88
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U7-Q1",
+      "unit": "Unit 7: Introduction to Condition Contract Management",
+      "question": "Condition contract settlements are basically customer-based settlements such as sales- related rebates.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Condition Contract Settlement can be supplier-based such as purchase-related rebates or customer-based settlements such as sales-related rebates.",
+      "gold_page_span": [
+        91,
+        110
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U7-Q2",
+      "unit": "Unit 7: Introduction to Condition Contract Management",
+      "question": "Which of the following step is performed in the configuration of condition contract management?",
+      "options": {
+        "A": "Defining pricing conditions relevant for the calculation of the settlement amount",
+        "B": "Defining dependencies to meet customer requirements",
+        "C": "Determining how pricing procedure is linked to condition types",
+        "D": "Creating targeted conditions over a specified range of material numbers"
+      },
+      "question_type": "mcq",
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "The configuration of condition contract management comprises three main steps: Configuring pricing including condition contract conditions, configuring condition contract maintenance and configuring condition contract settlement. Unit 7:",
+      "gold_page_span": [
+        91,
+        110
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U7-Q3",
+      "unit": "Unit 7: Introduction to Condition Contract Management",
+      "question": "In which order should the specified steps be executed when configuring pricing including condition contract conditions? Arrange these steps into the correct sequence. 0 Specify contract condition relevant for condition types 0 Define pricing procedures 0 Check condition tables 0 Assign condition type to condition type group",
+      "options": {},
+      "question_type": "unknown",
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The order in which the specified steps can be executed when configuring pricing including condition contract conditions is : Check condition tables, Specify contract condition relevant for condition types, Assign condition type to condition type group, Define pricing procedures .",
+      "gold_page_span": [
+        91,
+        110
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U7-Q4",
+      "unit": "Unit 7: Introduction to Condition Contract Management",
+      "question": "Subsequent corrections can alter the business volume base of a time interval for which there is already a final settlement. So, a delta accruals settlement is used to settle the subsequent changes and to correct the final settlement.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Subsequent corrections can alter the business volume base of a time interval for which there is already a final settlement. So, a delta settlement can be used to settle the subsequent changes and to correct the final settlement.",
+      "gold_page_span": [
+        91,
+        110
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U7-Q5",
+      "unit": "Unit 7: Introduction to Condition Contract Management",
+      "question": "The settlement reports can start periodically, can run for one or more business partners, and can settle one or more condition contracts.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The settlement reports can start periodically, can run for one or more business partners, and can settle one or more condition contracts.",
+      "gold_page_span": [
+        91,
+        110
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4620-LA-U9-Q1",
+      "unit": "Unit 9: Appendix",
+      "question": "Condition Record for Pricing in Sales - Replicate is a synchronous inbound service that enables you to update and delete condition records for pricing that are used in Sales.",
+      "options": {},
+      "question_type": "tf",
+      "correct": "False",
+      "answer_key_found": true,
+      "answer_explanation": "Condition Record for Pricing in Sales - Replicate is an asynchronous outbound service that enables you to replicate condition records for pricing that are used in Sales to external systems",
+      "gold_page_span": [
+        119,
+        126
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    }
+  ]
+}
