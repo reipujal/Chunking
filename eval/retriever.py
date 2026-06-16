@@ -279,6 +279,319 @@ class SemanticRetriever:
 
 
 # ---------------------------------------------------------------------------
+# Long-context whole-chunk retriever — jinaai/jina-embeddings-v2-base-en
+# ---------------------------------------------------------------------------
+
+class LongContextRetriever:
+    """Dense retriever with 8192-token context (no truncation for SAP chunks).
+
+    Model: BAAI/bge-m3
+      - Context:   8192 tokens
+      - Embedding: 1024-dim
+      - Prefix:    none (symmetric; same text for queries and passages)
+      - trust_remote_code: not required
+
+    Cache: eval/index/bge-m3/
+    """
+
+    MODEL_NAME = "BAAI/bge-m3"
+    MAX_TOKENS = 8192
+
+    def __init__(self, chunks: dict[str, dict], model_name: str = MODEL_NAME):
+        self._chunks = chunks
+        self._model_name = model_name
+        slug = model_name.split("/")[-1]
+        self._cache_path = INDEX_DIR / slug
+        self._chunk_ids: list[str] = []
+        self._embeddings = None
+        self._model = None
+        self.max_tokens_found: int = 0
+        self.truncated_count: int = 0
+        self._build()
+
+    def _cache_valid(self) -> bool:
+        emb_p = self._cache_path / "embeddings.npy"
+        ids_p = self._cache_path / "chunk_ids.json"
+        if not (emb_p.exists() and ids_p.exists()):
+            return False
+        cached_ids = json.loads(ids_p.read_text(encoding="utf-8"))
+        return sorted(cached_ids) == sorted(self._chunks.keys())
+
+    def _load_model(self):
+        from sentence_transformers import SentenceTransformer
+        self._model = SentenceTransformer(self._model_name)
+
+    def _build(self):
+        import numpy as np
+        emb_p = self._cache_path / "embeddings.npy"
+        ids_p = self._cache_path / "chunk_ids.json"
+        meta_p = self._cache_path / "meta.json"
+
+        if self._cache_valid():
+            self._chunk_ids = json.loads(ids_p.read_text(encoding="utf-8"))
+            self._embeddings = np.load(str(emb_p))
+            meta = json.loads(meta_p.read_text(encoding="utf-8")) if meta_p.exists() else {}
+            self.max_tokens_found = meta.get("max_tokens_found", -1)
+            self.truncated_count = meta.get("truncated", 0)
+            print(
+                f"  [long-ctx] Cache loaded: {len(self._chunk_ids)} chunks, "
+                f"max_tokens={self.max_tokens_found}, {self.truncated_count} truncated"
+                f" — {self._cache_path}"
+            )
+            return
+
+        print(f"  [long-ctx] Building index ({len(self._chunks)} chunks, model={self._model_name})...")
+        self._load_model()
+
+        self._chunk_ids = list(self._chunks.keys())
+        texts = [self._chunks[cid]["body"] for cid in self._chunk_ids]
+
+        tokenizer = self._model.tokenizer
+        token_counts = []
+        for t in texts:
+            toks = tokenizer(t, truncation=False)["input_ids"]
+            token_counts.append(len(toks))
+        self.max_tokens_found = max(token_counts)
+        self.truncated_count = sum(1 for c in token_counts if c > self.MAX_TOKENS)
+        print(
+            f"  [long-ctx] Token counts: max={self.max_tokens_found}, "
+            f"limit={self.MAX_TOKENS}, truncated={self.truncated_count}/{len(texts)}"
+        )
+
+        # Jina-v2: no prefix for passages
+        embeddings = self._model.encode(
+            texts,
+            normalize_embeddings=True,
+            show_progress_bar=True,
+            batch_size=16,
+        )
+        self._embeddings = np.array(embeddings, dtype=np.float32)
+
+        self._cache_path.mkdir(parents=True, exist_ok=True)
+        np.save(str(emb_p), self._embeddings)
+        ids_p.write_text(json.dumps(self._chunk_ids), encoding="utf-8")
+        meta_p.write_text(json.dumps({
+            "model": self._model_name,
+            "n_chunks": len(self._chunk_ids),
+            "max_tokens_found": self.max_tokens_found,
+            "truncated": self.truncated_count,
+            "generated_at": _date.today().isoformat(),
+        }, indent=2), encoding="utf-8")
+        print(f"  [long-ctx] Index saved: {self._cache_path}")
+
+    def retrieve(self, query: str, k: int = 10) -> list[str]:
+        import numpy as np
+        if self._model is None:
+            self._load_model()
+        # Jina-v2: no query prefix
+        q_emb = self._model.encode([query], normalize_embeddings=True)[0]
+        scores = self._embeddings @ q_emb
+        top_idx = np.argsort(-scores)[:k]
+        return [self._chunk_ids[i] for i in top_idx]
+
+    def smoke_test(self, chunks: dict[str, dict]) -> tuple[bool, str]:
+        if not chunks:
+            return False, "no chunks"
+        target_id = next(iter(chunks))
+        body = chunks[target_id]["body"]
+        title_match = re.search(r"^#\s+(.+)$", body, re.MULTILINE)
+        if not title_match:
+            return False, f"no H1 title in {target_id}"
+        title = title_match.group(1).strip()
+        top1 = self.retrieve(title, k=1)
+        passed = bool(top1 and top1[0] == target_id)
+        msg = (
+            f"query='{title[:60]}' -> rank-1={top1[0] if top1 else 'none'} "
+            f"(expected {target_id})"
+        )
+        return passed, msg
+
+
+# ---------------------------------------------------------------------------
+# Window-pooled retriever — same model as LongContextRetriever
+# B vs C: model identical, only granularity differs
+# ---------------------------------------------------------------------------
+
+class WindowPooledRetriever:
+    """Window-pooled dense retriever. SAME model as LongContextRetriever.
+
+    Each chunk body is split into overlapping windows of <=WINDOW_TOKENS model
+    tokens with STRIDE_TOKENS stride (~25% overlap). Each window is encoded
+    independently. At retrieval time:
+      score(chunk) = max(sim(query_emb, window_emb)) over all chunk windows.
+
+    This is the P3 granularity probe: B=whole-chunk vs C=window-pooled.
+    Model is identical so the only variable is indexing granularity.
+
+    Cache: eval/index/jina-embeddings-v2-base-en-window/
+    """
+
+    MODEL_NAME = LongContextRetriever.MODEL_NAME   # SAME model as B — do not change
+    WINDOW_TOKENS = 400    # target window size (model tokens, without special)
+    STRIDE_TOKENS = 300    # 100-token overlap per step = ~25% of window
+    MAX_WINDOW_TOKENS = 512  # hard cap for verification
+
+    def __init__(self, chunks: dict[str, dict], model_name: str = MODEL_NAME):
+        self._chunks = chunks
+        self._model_name = model_name
+        slug = model_name.split("/")[-1] + "-window"
+        self._cache_path = INDEX_DIR / slug
+        self._chunk_ids: list[str] = list(chunks.keys())
+        self._window_embeddings = None   # np.ndarray (total_windows, dim)
+        self._window_index: list[dict] = []
+        self._windows_per_chunk: dict[str, list[int]] = {}  # chunk_id -> [global_idx, ...]
+        self._model = None
+        self.stats: dict = {}
+        self._build()
+
+    def _cache_valid(self) -> bool:
+        emb_p = self._cache_path / "window_embeddings.npy"
+        idx_p = self._cache_path / "window_index.json"
+        if not (emb_p.exists() and idx_p.exists()):
+            return False
+        idx = json.loads(idx_p.read_text(encoding="utf-8"))
+        cached_ids = sorted(set(w["chunk_id"] for w in idx))
+        return cached_ids == sorted(self._chunks.keys())
+
+    def _load_model(self):
+        from sentence_transformers import SentenceTransformer
+        self._model = SentenceTransformer(self._model_name)
+
+    def _make_windows(self, text: str) -> list[str]:
+        """Split text into overlapping windows using model tokenizer."""
+        tokenizer = self._model.tokenizer
+        token_ids = tokenizer(text, add_special_tokens=False, truncation=False)["input_ids"]
+        windows = []
+        start = 0
+        while start < len(token_ids):
+            end = min(start + self.WINDOW_TOKENS, len(token_ids))
+            window_ids = token_ids[start:end]
+            window_text = tokenizer.decode(window_ids, skip_special_tokens=True)
+            windows.append(window_text)
+            if end >= len(token_ids):
+                break
+            start += self.STRIDE_TOKENS
+        return windows if windows else [text]
+
+    def _build(self):
+        import numpy as np
+        emb_p = self._cache_path / "window_embeddings.npy"
+        idx_p = self._cache_path / "window_index.json"
+        meta_p = self._cache_path / "meta.json"
+
+        if self._cache_valid():
+            self._window_embeddings = np.load(str(emb_p))
+            self._window_index = json.loads(idx_p.read_text(encoding="utf-8"))
+            self._windows_per_chunk = {}
+            for i, w in enumerate(self._window_index):
+                self._windows_per_chunk.setdefault(w["chunk_id"], []).append(i)
+            meta = json.loads(meta_p.read_text(encoding="utf-8")) if meta_p.exists() else {}
+            self.stats = meta
+            print(
+                f"  [window] Cache loaded: {self._window_embeddings.shape[0]} windows "
+                f"from {len(self._windows_per_chunk)} chunks — {self._cache_path}"
+            )
+            return
+
+        print(f"  [window] Building window index ({len(self._chunks)} chunks, model={self._model_name})...")
+        self._load_model()
+
+        all_window_texts: list[str] = []
+        self._window_index = []
+        self._windows_per_chunk = {}
+        windows_counts: list[int] = []
+        max_window_tokens_seen = 0
+        tokenizer = self._model.tokenizer
+
+        for cid in self._chunk_ids:
+            body = self._chunks[cid]["body"]
+            windows = self._make_windows(body)
+            windows_counts.append(len(windows))
+            for wnum, wtext in enumerate(windows):
+                # Verify window token count including special tokens
+                w_toks = tokenizer(wtext, truncation=False)["input_ids"]
+                max_window_tokens_seen = max(max_window_tokens_seen, len(w_toks))
+                widx = len(all_window_texts)
+                all_window_texts.append(wtext)
+                self._window_index.append({"chunk_id": cid, "window_num": wnum})
+                self._windows_per_chunk.setdefault(cid, []).append(widx)
+
+        total_windows = len(all_window_texts)
+        avg_windows = sum(windows_counts) / len(windows_counts) if windows_counts else 0
+        print(
+            f"  [window] Total windows: {total_windows} | "
+            f"per chunk: min={min(windows_counts)}, max={max(windows_counts)}, "
+            f"avg={avg_windows:.1f}"
+        )
+        print(
+            f"  [window] Max window tokens (incl special): {max_window_tokens_seen} "
+            f"(limit={self.MAX_WINDOW_TOKENS})"
+        )
+        if max_window_tokens_seen > self.MAX_WINDOW_TOKENS:
+            print(f"  [window] WARNING: {max_window_tokens_seen} > {self.MAX_WINDOW_TOKENS} — check stride/window size")
+
+        # Jina-v2: no prefix for passages
+        self._window_embeddings = np.array(
+            self._model.encode(
+                all_window_texts,
+                normalize_embeddings=True,
+                show_progress_bar=True,
+                batch_size=32,
+            ),
+            dtype=np.float32,
+        )
+
+        self._cache_path.mkdir(parents=True, exist_ok=True)
+        np.save(str(emb_p), self._window_embeddings)
+        idx_p.write_text(json.dumps(self._window_index), encoding="utf-8")
+        self.stats = {
+            "model": self._model_name,
+            "n_chunks": len(self._chunks),
+            "total_windows": total_windows,
+            "windows_min": min(windows_counts),
+            "windows_max": max(windows_counts),
+            "windows_avg": round(avg_windows, 1),
+            "max_window_tokens": max_window_tokens_seen,
+            "window_size_tokens": self.WINDOW_TOKENS,
+            "stride_tokens": self.STRIDE_TOKENS,
+            "generated_at": _date.today().isoformat(),
+        }
+        meta_p.write_text(json.dumps(self.stats, indent=2), encoding="utf-8")
+        print(f"  [window] Index saved: {self._cache_path}")
+
+    def retrieve(self, query: str, k: int = 10) -> list[str]:
+        import numpy as np
+        if self._model is None:
+            self._load_model()
+        # Jina-v2: no query prefix
+        q_emb = self._model.encode([query], normalize_embeddings=True)[0]
+        # Score each window; aggregate to chunk via max-pool
+        window_scores = self._window_embeddings @ q_emb
+        chunk_scores: dict[str, float] = {}
+        for cid, widx_list in self._windows_per_chunk.items():
+            chunk_scores[cid] = float(np.max(window_scores[widx_list]))
+        ranked = sorted(chunk_scores.items(), key=lambda x: -x[1])
+        return [cid for cid, _ in ranked[:k]]
+
+    def smoke_test(self, chunks: dict[str, dict]) -> tuple[bool, str]:
+        if not chunks:
+            return False, "no chunks"
+        target_id = next(iter(chunks))
+        body = chunks[target_id]["body"]
+        title_match = re.search(r"^#\s+(.+)$", body, re.MULTILINE)
+        if not title_match:
+            return False, f"no H1 title in {target_id}"
+        title = title_match.group(1).strip()
+        top1 = self.retrieve(title, k=1)
+        passed = bool(top1 and top1[0] == target_id)
+        msg = (
+            f"query='{title[:60]}' -> rank-1={top1[0] if top1 else 'none'} "
+            f"(expected {target_id})"
+        )
+        return passed, msg
+
+
+# ---------------------------------------------------------------------------
 # Reciprocal Rank Fusion
 # ---------------------------------------------------------------------------
 
@@ -299,9 +612,16 @@ def rrf_fuse(rankings: list[list[str]], rrf_k: int = 60) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def make_retriever(kind: str, chunks: dict[str, dict]):
-    """Return a retriever instance for *kind* in {'lexical','semantic'}."""
+    """Return a retriever instance for *kind*.
+
+    Kinds: 'lexical', 'semantic', 'semantic_long', 'semantic_window'
+    """
     if kind == "semantic":
         return SemanticRetriever(chunks)
+    if kind == "semantic_long":
+        return LongContextRetriever(chunks)
+    if kind == "semantic_window":
+        return WindowPooledRetriever(chunks)
     return TFIDFRetriever(chunks)
 
 

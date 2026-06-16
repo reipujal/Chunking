@@ -27,7 +27,8 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from eval.retriever import (
-    load_chunks, TFIDFRetriever, SemanticRetriever, rrf_fuse, CHUNKS_DIR,
+    load_chunks, TFIDFRetriever, SemanticRetriever,
+    rrf_fuse, make_retriever, CHUNKS_DIR,
 )
 
 GOLD_DIR = Path("eval/gold")
@@ -324,7 +325,7 @@ def main():
     parser.add_argument("--gold", help="Path to gold JSON (optional)")
     parser.add_argument(
         "--retriever",
-        choices=["lexical", "semantic", "hybrid"],
+        choices=["lexical", "semantic", "hybrid", "semantic_long", "semantic_window"],
         default="lexical",
         help="Retriever backend (default: lexical)",
     )
@@ -345,20 +346,17 @@ def main():
 
     # Build retriever(s)
     retriever_name = args.retriever
-    if retriever_name == "semantic":
-        r = SemanticRetriever(chunks)
-        retriever_fn = r.retrieve
-    elif retriever_name == "hybrid":
+    if retriever_name == "hybrid":
         lex = TFIDFRetriever(chunks)
         sem = SemanticRetriever(chunks)
-        K = max(50, 10)  # fetch more candidates for RRF
+        K = max(50, 10)
 
         def retriever_fn(query: str, k: int) -> list[str]:
             lex_rank = lex.retrieve(query, K)
             sem_rank = sem.retrieve(query, K)
             return rrf_fuse([lex_rank, sem_rank])[:k]
-    else:  # lexical
-        r = TFIDFRetriever(chunks)
+    else:
+        r = make_retriever(retriever_name, chunks)
         retriever_fn = r.retrieve
 
     print(f"Scoring {len(gold['questions'])} questions [{retriever_name}]...")
