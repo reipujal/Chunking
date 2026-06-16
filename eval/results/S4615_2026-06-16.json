@@ -1,0 +1,496 @@
+{
+  "total_questions": 35,
+  "excluded": 0,
+  "mappable": 30,
+  "not_mappable": 5,
+  "global": {
+    "recall": {
+      "1": 0.7,
+      "3": 0.8,
+      "5": 0.8333333333333334,
+      "10": 0.9
+    },
+    "mrr": 0.7617063492063492
+  },
+  "by_area": {
+    "enterprise-structure": {
+      "count": 2,
+      "recall": {
+        "1": 0.0,
+        "3": 0.0,
+        "5": 0.0,
+        "10": 0.0
+      },
+      "mrr": 0.0
+    },
+    "billing": {
+      "count": 23,
+      "recall": {
+        "1": 0.8260869565217391,
+        "3": 0.9130434782608695,
+        "5": 0.9130434782608695,
+        "10": 1.0
+      },
+      "mrr": 0.8812111801242236
+    },
+    "configuration": {
+      "count": 5,
+      "recall": {
+        "1": 0.4,
+        "3": 0.6,
+        "5": 0.8,
+        "10": 0.8
+      },
+      "mrr": 0.5166666666666667
+    }
+  },
+  "by_chunk_type": {
+    "concept": {
+      "count": 17,
+      "recall": {
+        "1": 0.8235294117647058,
+        "3": 0.8235294117647058,
+        "5": 0.8235294117647058,
+        "10": 0.8823529411764706
+      },
+      "mrr": 0.8308823529411765
+    },
+    "process": {
+      "count": 8,
+      "recall": {
+        "1": 0.625,
+        "3": 0.875,
+        "5": 0.875,
+        "10": 1.0
+      },
+      "mrr": 0.7678571428571429
+    },
+    "configuration": {
+      "count": 5,
+      "recall": {
+        "1": 0.4,
+        "3": 0.6,
+        "5": 0.8,
+        "10": 0.8
+      },
+      "mrr": 0.5166666666666667
+    }
+  },
+  "per_question_summary": [
+    {
+      "id": "S4615-LA-U1-Q1",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4615-LA-U1-Q2",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4615-LA-U2-Q1",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4615-LA-U2-Q2",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4615-LA-U2-Q3",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4615-LA-U3-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "enterprise-structure-billing-organizational-assignment-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "S4615-LA-U3-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "enterprise-structure-billing-organizational-assignment-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "S4615-LA-U4-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-document-cancellation-001",
+        "billing-credit-debit-memo-process-001",
+        "billing-invoice-correction-request-process-001",
+        "billing-pro-forma-invoice-001",
+        "configuration-billing-relevance-item-category-001",
+        "configuration-billing-types-sap-s4hana-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U4-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-document-cancellation-001",
+        "billing-credit-debit-memo-process-001",
+        "billing-invoice-correction-request-process-001",
+        "billing-pro-forma-invoice-001",
+        "configuration-billing-relevance-item-category-001",
+        "configuration-billing-types-sap-s4hana-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4615-LA-U4-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-document-cancellation-001",
+        "billing-credit-debit-memo-process-001",
+        "billing-invoice-correction-request-process-001",
+        "billing-pro-forma-invoice-001",
+        "configuration-billing-relevance-item-category-001",
+        "configuration-billing-types-sap-s4hana-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U4-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-document-cancellation-001",
+        "billing-credit-debit-memo-process-001",
+        "billing-invoice-correction-request-process-001",
+        "billing-pro-forma-invoice-001",
+        "configuration-billing-relevance-item-category-001",
+        "configuration-billing-types-sap-s4hana-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U4-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-document-cancellation-001",
+        "billing-credit-debit-memo-process-001",
+        "billing-invoice-correction-request-process-001",
+        "billing-pro-forma-invoice-001",
+        "configuration-billing-relevance-item-category-001",
+        "configuration-billing-types-sap-s4hana-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U4-Q6",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-document-cancellation-001",
+        "billing-credit-debit-memo-process-001",
+        "billing-invoice-correction-request-process-001",
+        "billing-pro-forma-invoice-001",
+        "configuration-billing-relevance-item-category-001",
+        "configuration-billing-types-sap-s4hana-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U5-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-billing-copying-control-001",
+        "configuration-billing-data-flow-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "S4615-LA-U5-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-billing-copying-control-001",
+        "configuration-billing-data-flow-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    },
+    {
+      "id": "S4615-LA-U5-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-billing-copying-control-001",
+        "configuration-billing-data-flow-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.3333333333333333
+    },
+    {
+      "id": "S4615-LA-U6-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-document-creation-methods-001",
+        "billing-create-billing-documents-fiori-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.14285714285714285
+    },
+    {
+      "id": "S4615-LA-U6-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-document-creation-methods-001",
+        "billing-create-billing-documents-fiori-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4615-LA-U7-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "billing-invoice-combination-and-split-001",
+        "billing-invoice-list-001",
+        "billing-omnichannel-convergent-billing-001",
+        "billing-preliminary-billing-documents-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U7-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "billing-invoice-combination-and-split-001",
+        "billing-invoice-list-001",
+        "billing-omnichannel-convergent-billing-001",
+        "billing-preliminary-billing-documents-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U7-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "billing-invoice-combination-and-split-001",
+        "billing-invoice-list-001",
+        "billing-omnichannel-convergent-billing-001",
+        "billing-preliminary-billing-documents-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U7-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "billing-invoice-combination-and-split-001",
+        "billing-invoice-list-001",
+        "billing-omnichannel-convergent-billing-001",
+        "billing-preliminary-billing-documents-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U7-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "billing-invoice-combination-and-split-001",
+        "billing-invoice-list-001",
+        "billing-omnichannel-convergent-billing-001",
+        "billing-preliminary-billing-documents-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U8-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-plans-concept-001",
+        "billing-down-payment-processing-001",
+        "billing-installment-payments-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U8-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-plans-concept-001",
+        "billing-down-payment-processing-001",
+        "billing-installment-payments-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U8-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-plans-concept-001",
+        "billing-down-payment-processing-001",
+        "billing-installment-payments-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U8-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-plans-concept-001",
+        "billing-down-payment-processing-001",
+        "billing-installment-payments-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U8-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-plans-concept-001",
+        "billing-down-payment-processing-001",
+        "billing-installment-payments-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U8-Q6",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-plans-concept-001",
+        "billing-down-payment-processing-001",
+        "billing-installment-payments-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U8-Q7",
+      "mappable": true,
+      "gold_ids": [
+        "billing-billing-plans-concept-001",
+        "billing-down-payment-processing-001",
+        "billing-installment-payments-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U9-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-billing-account-determination-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U9-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-billing-account-determination-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U10-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "billing-value-dated-credit-memos-001",
+        "configuration-billing-fi-interface-controls-001",
+        "configuration-billing-negative-postings-001",
+        "enterprise-structure-head-office-branch-billing-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.125
+    },
+    {
+      "id": "S4615-LA-U10-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "billing-value-dated-credit-memos-001",
+        "configuration-billing-fi-interface-controls-001",
+        "configuration-billing-negative-postings-001",
+        "enterprise-structure-head-office-branch-billing-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4615-LA-U11-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "billing-document-table-structure-001",
+        "billing-returns-process-001",
+        "configuration-billing-output-management-brfplus-001",
+        "configuration-flexible-billing-document-numbering-001",
+        "integration-general-billing-interface-001",
+        "special-processes-cash-sales-process-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    }
+  ]
+}

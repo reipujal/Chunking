@@ -1,0 +1,446 @@
+{
+  "total_questions": 42,
+  "excluded": 11,
+  "mappable": 31,
+  "not_mappable": 0,
+  "global": {
+    "recall": {
+      "1": 0.6129032258064516,
+      "3": 0.8064516129032258,
+      "5": 0.9354838709677419,
+      "10": 0.967741935483871
+    },
+    "mrr": 0.7473118279569892
+  },
+  "by_area": {
+    "order-management": {
+      "count": 10,
+      "recall": {
+        "1": 0.4,
+        "3": 0.7,
+        "5": 0.9,
+        "10": 1.0
+      },
+      "mrr": 0.6166666666666667
+    },
+    "enterprise-structure": {
+      "count": 1,
+      "recall": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr": 1.0
+    },
+    "configuration": {
+      "count": 10,
+      "recall": {
+        "1": 0.5,
+        "3": 0.7,
+        "5": 0.9,
+        "10": 0.9
+      },
+      "mrr": 0.65
+    },
+    "special-processes": {
+      "count": 2,
+      "recall": {
+        "1": 0.5,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr": 0.75
+    },
+    "master-data": {
+      "count": 6,
+      "recall": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr": 1.0
+    },
+    "pricing": {
+      "count": 2,
+      "recall": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr": 1.0
+    }
+  },
+  "by_chunk_type": {
+    "concept": {
+      "count": 4,
+      "recall": {
+        "1": 0.75,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr": 0.875
+    },
+    "process": {
+      "count": 11,
+      "recall": {
+        "1": 0.45454545454545453,
+        "3": 0.7272727272727273,
+        "5": 0.9090909090909091,
+        "10": 1.0
+      },
+      "mrr": 0.6515151515151515
+    },
+    "configuration": {
+      "count": 16,
+      "recall": {
+        "1": 0.6875,
+        "3": 0.8125,
+        "5": 0.9375,
+        "10": 0.9375
+      },
+      "mrr": 0.78125
+    }
+  },
+  "per_question_summary": [
+    {
+      "id": "S4605-LA-U2-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-sales-distribution-process-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4605-LA-U3-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "enterprise-structure-sales-distribution-enterprise-structure-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U4-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-sales-order-source-of-data-001",
+        "order-management-sales-order-special-features-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U4-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-sales-order-source-of-data-001",
+        "order-management-sales-order-special-features-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    },
+    {
+      "id": "S4605-LA-U4-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-sales-order-source-of-data-001",
+        "order-management-sales-order-special-features-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    },
+    {
+      "id": "S4605-LA-U4-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-sales-order-source-of-data-001",
+        "order-management-sales-order-special-features-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.16666666666666666
+    },
+    {
+      "id": "S4605-LA-U4-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-sales-order-source-of-data-001",
+        "order-management-sales-order-special-features-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U5-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-sales-document-type-control-001",
+        "configuration-sales-item-category-control-001",
+        "configuration-schedule-line-category-control-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "S4605-LA-U5-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-sales-document-type-control-001",
+        "configuration-sales-item-category-control-001",
+        "configuration-schedule-line-category-control-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4605-LA-U5-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-sales-document-type-control-001",
+        "configuration-sales-item-category-control-001",
+        "configuration-schedule-line-category-control-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4605-LA-U5-Q7",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-sales-document-type-control-001",
+        "configuration-sales-item-category-control-001",
+        "configuration-schedule-line-category-control-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U5-Q8",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-sales-document-type-control-001",
+        "configuration-sales-item-category-control-001",
+        "configuration-schedule-line-category-control-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U6-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-sales-copying-control-001",
+        "order-management-sales-document-data-flow-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    },
+    {
+      "id": "S4605-LA-U6-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-sales-copying-control-001",
+        "order-management-sales-document-data-flow-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U7-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-sales-special-business-transactions-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4605-LA-U7-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-sales-special-business-transactions-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U8-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-sales-incompletion-check-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U8-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-sales-incompletion-check-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U8-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-sales-incompletion-check-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    },
+    {
+      "id": "S4605-LA-U9-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "master-data-sd-partner-functions-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U9-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "master-data-sd-partner-functions-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U10-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-outline-agreements-scheduling-quantity-contracts-001",
+        "order-management-value-contracts-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4605-LA-U10-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-outline-agreements-scheduling-quantity-contracts-001",
+        "order-management-value-contracts-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U10-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-outline-agreements-scheduling-quantity-contracts-001",
+        "order-management-value-contracts-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U10-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-outline-agreements-scheduling-quantity-contracts-001",
+        "order-management-value-contracts-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4605-LA-U11-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "master-data-material-determination-001",
+        "master-data-material-listing-exclusion-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U11-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "master-data-material-determination-001",
+        "master-data-material-listing-exclusion-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U11-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "master-data-material-determination-001",
+        "master-data-material-listing-exclusion-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U11-Q6",
+      "mappable": true,
+      "gold_ids": [
+        "master-data-material-determination-001",
+        "master-data-material-listing-exclusion-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U12-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-free-goods-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4605-LA-U12-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "pricing-free-goods-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    }
+  ]
+}

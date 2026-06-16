@@ -1,0 +1,406 @@
+{
+  "total_questions": 36,
+  "excluded": 2,
+  "mappable": 21,
+  "not_mappable": 13,
+  "global": {
+    "recall": {
+      "1": 0.5714285714285714,
+      "3": 0.8095238095238095,
+      "5": 0.8571428571428571,
+      "10": 0.9523809523809523
+    },
+    "mrr": 0.7182539682539683
+  },
+  "by_area": {
+    "configuration": {
+      "count": 2,
+      "recall": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr": 1.0
+    },
+    "master-data": {
+      "count": 6,
+      "recall": {
+        "1": 0.5,
+        "3": 0.6666666666666666,
+        "5": 0.8333333333333334,
+        "10": 1.0
+      },
+      "mrr": 0.6527777777777778
+    },
+    "order-management": {
+      "count": 10,
+      "recall": {
+        "1": 0.5,
+        "3": 0.9,
+        "5": 0.9,
+        "10": 1.0
+      },
+      "mrr": 0.7166666666666667
+    },
+    "billing": {
+      "count": 3,
+      "recall": {
+        "1": 0.6666666666666666,
+        "3": 0.6666666666666666,
+        "5": 0.6666666666666666,
+        "10": 0.6666666666666666
+      },
+      "mrr": 0.6666666666666666
+    }
+  },
+  "by_chunk_type": {
+    "concept": {
+      "count": 10,
+      "recall": {
+        "1": 0.7,
+        "3": 0.8,
+        "5": 0.9,
+        "10": 1.0
+      },
+      "mrr": 0.7916666666666667
+    },
+    "process": {
+      "count": 11,
+      "recall": {
+        "1": 0.45454545454545453,
+        "3": 0.8181818181818182,
+        "5": 0.8181818181818182,
+        "10": 0.9090909090909091
+      },
+      "mrr": 0.6515151515151515
+    }
+  },
+  "per_question_summary": [
+    {
+      "id": "S4600-LA-U1-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-sap-fiori-launchpad-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4600-LA-U1-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-sap-fiori-launchpad-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4600-LA-U2-Q1",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U2-Q2",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U3-Q1",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U3-Q2",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U3-Q3",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U3-Q4",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U3-Q5",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U3-Q6",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U3-Q7",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U4-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "master-data-business-partner-master-data-001",
+        "master-data-material-master-sd-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4600-LA-U4-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "master-data-business-partner-master-data-001",
+        "master-data-material-master-sd-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4600-LA-U4-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "master-data-business-partner-master-data-001",
+        "master-data-material-master-sd-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    },
+    {
+      "id": "S4600-LA-U4-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "master-data-business-partner-master-data-001",
+        "master-data-material-master-sd-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4600-LA-U4-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "master-data-business-partner-master-data-001",
+        "master-data-material-master-sd-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.16666666666666666
+    },
+    {
+      "id": "S4600-LA-U4-Q6",
+      "mappable": true,
+      "gold_ids": [
+        "master-data-business-partner-master-data-001",
+        "master-data-material-master-sd-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4600-LA-U5-Q1",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U5-Q2",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U5-Q3",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U5-Q4",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4600-LA-U6-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-availability-check-atp-001",
+        "order-management-backorder-processing-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4600-LA-U6-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-availability-check-atp-001",
+        "order-management-backorder-processing-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4600-LA-U7-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-collective-processing-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4600-LA-U7-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-collective-processing-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.16666666666666666
+    },
+    {
+      "id": "S4600-LA-U7-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-collective-processing-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4600-LA-U8-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-presales-additional-processes-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4600-LA-U8-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-presales-additional-processes-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4600-LA-U9-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "billing-credit-debit-memo-process-001",
+        "billing-returns-process-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4600-LA-U9-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "billing-credit-debit-memo-process-001",
+        "billing-returns-process-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "S4600-LA-U9-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "billing-credit-debit-memo-process-001",
+        "billing-returns-process-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4600-LA-U10-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-sales-monitoring-analytics-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4600-LA-U10-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-sales-monitoring-analytics-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4600-LA-U10-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "order-management-sales-monitoring-analytics-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    }
+  ]
+}

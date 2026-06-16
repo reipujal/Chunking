@@ -96,15 +96,26 @@ Agregación: global + por área + por chunk_type.
 
 ---
 
-## Resultados Stage 0 — S4620 (TF-IDF baseline, 2026-06-16)
+## Resultados — TF-IDF baseline (2026-06-16)
 
-| recall@1 | recall@3 | recall@5 | recall@10 | MRR |
-|----------|----------|----------|-----------|-----|
-| 61.5% | 88.5% | 96.2% | 100.0% | 0.755 |
+| Documento | Q | Mapeables | recall@1 | recall@5 | recall@10 | MRR |
+|-----------|---|-----------|----------|----------|-----------|-----|
+| S4620 | 28 | 26 | 61.5% | 96.2% | 100.0% | 0.755 |
+| S4600 | 36 | 21 | 57.1% | 85.7% | 95.2% | 0.718 |
+| S4605 | 42 | 31 | 61.3% | 93.5% | 96.8% | 0.747 |
+| S4610 | 26 | 26 | 61.5% | 92.3% | 92.3% | 0.727 |
+| S4615 | 35 | 30 | 70.0% | 83.3% | 90.0% | 0.762 |
 
-- 28 preguntas extraídas · 1 excluida (ordering, sin opciones) · 1 no mapeada (Unit 9 Appendix — API integration no chunkeada)
-- El baseline léxico ya alcanza 100% recall@10 — confirma que el corpus cubre bien el material
-- Área débil: `configuration` recall@1=37.5% (mejor a @5=100%) — las queries de config son menos específicas léxicamente
+**Notas por documento:**
+- S4620: 1 no mapeada (Unit 9 Appendix — API integration intencionalmente no chunkeada)
+- S4600: 13 no mapeadas — Units 2, 3, 5 delegadas a S4605/S4610 (esperado)
+- S4605: 11 excluidas (preguntas abiertas sin opciones T/F/MCQ) · 0 no mapeadas
+- S4610: formato "That's correct." (vs "Correct.") — corregido en extractor 2026-06-16 · 0 no mapeadas
+- S4615: 5 no mapeadas — Units 1-2 phys 9-17 (intro, no chunkeadas)
+
+**Patrón general:** recall@1 estable en ~60-70%; recall@5 > 85%; recall@10 > 90%.
+El baseline léxico es robusto para el corpus SD con su léxico SAP especializado.
+Área débil estructural: `configuration` (recall@1 ~37-50%) — queries de customizing son menos específicas léxicamente.
 
 ---
 
@@ -127,11 +138,14 @@ Agregación: global + por área + por chunk_type.
    incluso en preguntas "choose the correct answers" (plural). Afecta solo a la futura
    accuracy — no al retrieval.
 
+6. **Preguntas abiertas (S4605 et al.)**: preguntas sin opciones T/F ni MCQ se excluyen
+   automáticamente — son correctas pero no evaluables con el heurístico actual.
+
 ---
 
 ## Próximos pasos (Stage 1+)
 
 - [ ] Afinar gold a nivel de lección (sub-span dentro de la unidad)
-- [ ] Añadir más documentos: `python eval/extract_assessments.py --src S4615`
+- [ ] Extender a S4650/S4680 cuando se procesen
 - [ ] Swapear retriever por embeddings y comparar con el baseline TF-IDF
 - [ ] MCQ-accuracy (Stage 2): `answer(question, context) -> letter` con LLM reader

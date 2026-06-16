@@ -1,0 +1,522 @@
+{
+  "doc": "S4610",
+  "pdf_relative_path": "processed/S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf",
+  "offset": 6,
+  "generated_at": "2026-06-16",
+  "total_physical_pages": 89,
+  "questions": [
+    {
+      "id": "S4610-LA-U1-Q1",
+      "unit": "Unit 1: Idea and Function of the Delivery Document",
+      "question": "Which delivery document refers to a sales document?",
+      "options": {
+        "A": "Inbound delivery",
+        "B": "Outbound delivery",
+        "C": "Transfer delivery",
+        "D": "Posting change"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "Outbound delivery document refers to a sales document.",
+      "gold_page_span": [
+        7,
+        14
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U1-Q2",
+      "unit": "Unit 1: Idea and Function of the Delivery Document",
+      "question": "At item level, the detailed screen displays tabstrips with information about the items.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "At item level, the detailed screen displays tabstrips with information about the items.",
+      "gold_page_span": [
+        7,
+        14
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U1-Q3",
+      "unit": "Unit 1: Idea and Function of the Delivery Document",
+      "question": "As of SAP S/4HANA 1709, SAP Transportation Management is included in the core.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "As of SAP S/4HANA 1709, SAP Transportation Management is included in the core.",
+      "gold_page_span": [
+        7,
+        14
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U2-Q1",
+      "unit": "Unit 2: Basic Organizational Units for the Delivery Process",
+      "question": "Several storage locations within a plant can refer to the same warehouse number.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Several storage locations within a plant can refer to the same warehouse number.",
+      "gold_page_span": [
+        17,
+        24
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U2-Q2",
+      "unit": "Unit 2: Basic Organizational Units for the Delivery Process",
+      "question": "A shipping point may also be set as a ________, which means it can also be used for inbound deliveries.",
+      "options": {
+        "A": "Goods receipt point",
+        "B": "Loading point",
+        "C": "Company code",
+        "D": "Plant"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "A shipping point may also be set as a goods receipt point, which means it can also be used for inbound deliveries.",
+      "gold_page_span": [
+        17,
+        24
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U2-Q3",
+      "unit": "Unit 2: Basic Organizational Units for the Delivery Process",
+      "question": "The storage bin identifies the exact location in the warehouse where goods are stored or can be stored.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The storage bin identifies the exact location in the warehouse where goods are stored or can be stored.",
+      "gold_page_span": [
+        17,
+        24
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U3-Q1",
+      "unit": "Unit 3: Controlling Deliveries",
+      "question": "Order items that are due for delivery and have the same delivery split criteria may be shipped together.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Order items that are due for delivery and have the same delivery split criteria may be shipped together.",
+      "gold_page_span": [
+        27,
+        38
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U3-Q2",
+      "unit": "Unit 3: Controlling Deliveries",
+      "question": "To determine the item category for an item added in the delivery, the system takes into account the delivery type and the item category group from the material master referenced in the item.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "To determine the item category, the system takes into account the delivery type and the item category group from the material master of the item concerned.",
+      "gold_page_span": [
+        27,
+        38
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U3-Q3",
+      "unit": "Unit 3: Controlling Deliveries",
+      "question": "When a delivery is created for a sales order, how does the system know which type of delivery to use?",
+      "options": {
+        "A": "A default delivery type is specified in the shipping point.",
+        "B": "The delivery type is specified in the sales document type.",
+        "C": "The delivery type is specified in the sales item category."
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "The type of delivery to be used is specified in the sales document type.",
+      "gold_page_span": [
+        27,
+        38
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U4-Q1",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "question": "If the system finds a customer-material information record which contains a plant, this plant takes highest priority when determining the delivering plant for the order item.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "If the system finds a customer-material information master record and finds a delivering plant there, it proposes this plant with the highest priority for the order item.",
+      "gold_page_span": [
+        41,
+        62
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U4-Q2",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "question": "You can issue an outbound delivery from two different shipping points.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "An outbound delivery is always issued from one shipping point only.",
+      "gold_page_span": [
+        41,
+        62
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U4-Q3",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "question": "Deliveries that have already been posted for goods issue can form the basis for creating a billing worklist.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Deliveries that have already been posted for goods issue can form the basis for creating a billing worklist.",
+      "gold_page_span": [
+        41,
+        62
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U4-Q4",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "question": "Transit time is the time that the system requires for organizing the transportation.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Transportation lead time is the time that the system requires for organizing the transportation. Unit 4:",
+      "gold_page_span": [
+        41,
+        62
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U4-Q5",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "question": "In precise scheduling, the system uses days, hours, and minutes for calculation, but only displays the resulting date.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "In precise scheduling, the system calculates and displays the results of scheduling to the minute.",
+      "gold_page_span": [
+        41,
+        62
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U4-Q6",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "question": "The working hours of a shipping point consist of a calendar (which must agree with the factory calendar stored for the shipping point) and a shift sequence.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The working hours of a shipping point consist of a calendar (which must agree with the factory calendar stored for the shipping point) and a shift sequence.",
+      "gold_page_span": [
+        41,
+        62
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U4-Q7",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "question": "The route schedule contains the following:",
+      "options": {
+        "A": "A route",
+        "B": "A weekday as the arrival date, along with an arrival time",
+        "C": "A list of ship-to parties",
+        "D": "An itinerary (optional)"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The route schedule contains a route, a list of ship-to-parties, and an itinerary (optional).",
+      "gold_page_span": [
+        41,
+        62
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4610-LA-U4-Q8",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "question": "If you create an outbound delivery manually, with or without reference to a particular order, you can also deliver purchase orders or other requests.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "If you create an outbound delivery manually, with or without reference to a particular order, you cannot also deliver purchase orders or other requests. Unit 4:",
+      "gold_page_span": [
+        41,
+        62
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U4-Q9",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "question": "The delivery due list is a worklist of all operations requiring deliveries.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The delivery due list is a worklist of all operations requiring deliveries.",
+      "gold_page_span": [
+        41,
+        62
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U4-Q10",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "question": "As per the RETA rule, the system determines the picking location based on the shipping point, the delivering plant, and the material's storage conditions defined in the material master.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "As per the MALA rule, the system determines the picking location based on the shipping point, the delivering plant, and the material's storage conditions defined in the material master.",
+      "gold_page_span": [
+        41,
+        62
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U4-Q11",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "question": "The outbound delivery monitor can display all deliveries that the system has processed.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The outbound delivery monitor can display all deliveries that the system has processed.",
+      "gold_page_span": [
+        41,
+        62
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U4-Q12",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "question": "You can use the outbound delivery monitor to monitor and execute inbound delivery activities.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "You cannot use the outbound delivery monitor to monitor and execute inbound delivery activities.",
+      "gold_page_span": [
+        41,
+        62
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U5-Q1",
+      "unit": "Unit 5: Processes and Functions based on the Delivery with Embedded",
+      "question": "For sales order items which need to be processed in an SAP EWM warehouse, an LE outbound delivery is created with reference to the sales order.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "For sales order items which need to be processed in an SAP EWM warehouse, an LE outbound delivery is created with reference to the sales order.",
+      "gold_page_span": [
+        69,
+        85
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U5-Q2",
+      "unit": "Unit 5: Processes and Functions based on the Delivery with Embedded",
+      "question": "The goods issue posting cannot be triggered automatically when the materials are at the staging area or when the truck with the materials leaves the warehouse.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "False",
+      "answer_key_found": true,
+      "answer_explanation": "The goods issue posting can be triggered manually from the outbound delivery order, but it can also be triggered automatically when the materials are at the staging area or when the truck with the materials leaves the warehouse.",
+      "gold_page_span": [
+        69,
+        85
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U5-Q3",
+      "unit": "Unit 5: Processes and Functions based on the Delivery with Embedded",
+      "question": "When no information is received from the vendor, it is possible to create the inbound delivery directly in SAP EWM.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "When no information is received from the vendor, it is possible to create the inbound delivery directly in SAP EWM. Unit 5:",
+      "gold_page_span": [
+        69,
+        85
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U5-Q4",
+      "unit": "Unit 5: Processes and Functions based on the Delivery with Embedded",
+      "question": "Posting a goods issue requires the picking quantity to equal the delivery quantity .",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Posting a goods issue requires the picking quantity to equal the delivery quantity .",
+      "gold_page_span": [
+        69,
+        85
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4610-LA-U5-Q5",
+      "unit": "Unit 5: Processes and Functions based on the Delivery with Embedded",
+      "question": "It is possible to calculate freight or shipping costs in a sales document and transfer these to an outbound delivery.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "It is not possible to calculate freight or shipping costs in a sales document and transfer these to an outbound delivery.",
+      "gold_page_span": [
+        69,
+        85
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    }
+  ]
+}

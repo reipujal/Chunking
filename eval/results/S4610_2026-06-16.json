@@ -1,0 +1,397 @@
+{
+  "total_questions": 26,
+  "excluded": 0,
+  "mappable": 26,
+  "not_mappable": 0,
+  "global": {
+    "recall": {
+      "1": 0.6153846153846154,
+      "3": 0.7692307692307693,
+      "5": 0.9230769230769231,
+      "10": 0.9230769230769231
+    },
+    "mrr": 0.7269230769230769
+  },
+  "by_area": {
+    "enterprise-structure": {
+      "count": 6,
+      "recall": {
+        "1": 0.3333333333333333,
+        "3": 0.5,
+        "5": 0.8333333333333334,
+        "10": 0.8333333333333334
+      },
+      "mrr": 0.4916666666666667
+    },
+    "configuration": {
+      "count": 15,
+      "recall": {
+        "1": 0.6666666666666666,
+        "3": 0.8666666666666667,
+        "5": 0.9333333333333333,
+        "10": 0.9333333333333333
+      },
+      "mrr": 0.7833333333333333
+    },
+    "shipping": {
+      "count": 5,
+      "recall": {
+        "1": 0.8,
+        "3": 0.8,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr": 0.8400000000000001
+    }
+  },
+  "by_chunk_type": {
+    "concept": {
+      "count": 11,
+      "recall": {
+        "1": 0.5454545454545454,
+        "3": 0.6363636363636364,
+        "5": 0.9090909090909091,
+        "10": 0.9090909090909091
+      },
+      "mrr": 0.65
+    },
+    "configuration": {
+      "count": 15,
+      "recall": {
+        "1": 0.6666666666666666,
+        "3": 0.8666666666666667,
+        "5": 0.9333333333333333,
+        "10": 0.9333333333333333
+      },
+      "mrr": 0.7833333333333333
+    }
+  },
+  "per_question_summary": [
+    {
+      "id": "S4610-LA-U1-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "enterprise-structure-shipping-point-loading-point-001",
+        "enterprise-structure-warehouse-org-units-ewm-001",
+        "shipping-delivery-document-concept-001",
+        "shipping-delivery-document-structure-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    },
+    {
+      "id": "S4610-LA-U1-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "enterprise-structure-shipping-point-loading-point-001",
+        "enterprise-structure-warehouse-org-units-ewm-001",
+        "shipping-delivery-document-concept-001",
+        "shipping-delivery-document-structure-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4610-LA-U1-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "enterprise-structure-shipping-point-loading-point-001",
+        "enterprise-structure-warehouse-org-units-ewm-001",
+        "shipping-delivery-document-concept-001",
+        "shipping-delivery-document-structure-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.2
+    },
+    {
+      "id": "S4610-LA-U2-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "enterprise-structure-warehouse-org-units-ewm-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U2-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "enterprise-structure-warehouse-org-units-ewm-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "S4610-LA-U2-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "enterprise-structure-warehouse-org-units-ewm-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U3-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-item-category-001",
+        "configuration-delivery-process-customizing-001",
+        "configuration-delivery-type-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U3-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-item-category-001",
+        "configuration-delivery-process-customizing-001",
+        "configuration-delivery-type-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U3-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-item-category-001",
+        "configuration-delivery-process-customizing-001",
+        "configuration-delivery-type-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U4-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-field-determination-001",
+        "configuration-delivery-scheduling-001",
+        "shipping-outbound-delivery-creation-process-001",
+        "shipping-outbound-delivery-monitor-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U4-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-field-determination-001",
+        "configuration-delivery-scheduling-001",
+        "shipping-outbound-delivery-creation-process-001",
+        "shipping-outbound-delivery-monitor-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4610-LA-U4-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-field-determination-001",
+        "configuration-delivery-scheduling-001",
+        "shipping-outbound-delivery-creation-process-001",
+        "shipping-outbound-delivery-monitor-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "S4610-LA-U4-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-field-determination-001",
+        "configuration-delivery-scheduling-001",
+        "shipping-outbound-delivery-creation-process-001",
+        "shipping-outbound-delivery-monitor-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U4-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-field-determination-001",
+        "configuration-delivery-scheduling-001",
+        "shipping-outbound-delivery-creation-process-001",
+        "shipping-outbound-delivery-monitor-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U4-Q6",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-field-determination-001",
+        "configuration-delivery-scheduling-001",
+        "shipping-outbound-delivery-creation-process-001",
+        "shipping-outbound-delivery-monitor-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4610-LA-U4-Q7",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-field-determination-001",
+        "configuration-delivery-scheduling-001",
+        "shipping-outbound-delivery-creation-process-001",
+        "shipping-outbound-delivery-monitor-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U4-Q8",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-field-determination-001",
+        "configuration-delivery-scheduling-001",
+        "shipping-outbound-delivery-creation-process-001",
+        "shipping-outbound-delivery-monitor-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    },
+    {
+      "id": "S4610-LA-U4-Q9",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-field-determination-001",
+        "configuration-delivery-scheduling-001",
+        "shipping-outbound-delivery-creation-process-001",
+        "shipping-outbound-delivery-monitor-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U4-Q10",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-field-determination-001",
+        "configuration-delivery-scheduling-001",
+        "shipping-outbound-delivery-creation-process-001",
+        "shipping-outbound-delivery-monitor-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4610-LA-U4-Q11",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-field-determination-001",
+        "configuration-delivery-scheduling-001",
+        "shipping-outbound-delivery-creation-process-001",
+        "shipping-outbound-delivery-monitor-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U4-Q12",
+      "mappable": true,
+      "gold_ids": [
+        "configuration-delivery-field-determination-001",
+        "configuration-delivery-scheduling-001",
+        "shipping-outbound-delivery-creation-process-001",
+        "shipping-outbound-delivery-monitor-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U5-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "shipping-delivery-special-functions-001",
+        "shipping-ewm-picking-process-001",
+        "shipping-goods-issue-ewm-001",
+        "shipping-inbound-delivery-ewm-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U5-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "shipping-delivery-special-functions-001",
+        "shipping-ewm-picking-process-001",
+        "shipping-goods-issue-ewm-001",
+        "shipping-inbound-delivery-ewm-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U5-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "shipping-delivery-special-functions-001",
+        "shipping-ewm-picking-process-001",
+        "shipping-goods-issue-ewm-001",
+        "shipping-inbound-delivery-ewm-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U5-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "shipping-delivery-special-functions-001",
+        "shipping-ewm-picking-process-001",
+        "shipping-goods-issue-ewm-001",
+        "shipping-inbound-delivery-ewm-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4610-LA-U5-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "shipping-delivery-special-functions-001",
+        "shipping-ewm-picking-process-001",
+        "shipping-goods-issue-ewm-001",
+        "shipping-inbound-delivery-ewm-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.2
+    }
+  ]
+}

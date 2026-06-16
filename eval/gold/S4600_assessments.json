@@ -1,0 +1,743 @@
+{
+  "doc": "S4600",
+  "pdf_relative_path": "processed/S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf",
+  "offset": 8,
+  "generated_at": "2026-06-16",
+  "total_physical_pages": 164,
+  "questions": [
+    {
+      "id": "S4600-LA-U1-Q1",
+      "unit": "Unit 1: Navigation with SAP Fiori",
+      "question": "Which of the following apps gives you a visual overview of complex topics for monitoring or tracking purposes?",
+      "options": {
+        "A": "Transaction apps",
+        "B": "Analytical apps",
+        "C": "Factsheets"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "Analytical apps give you a visual overview of complex topics for monitoring or tracking purposes.",
+      "gold_page_span": [
+        9,
+        15
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U1-Q2",
+      "unit": "Unit 1: Navigation with SAP Fiori",
+      "question": "A user can personalize the home page in SAP Fiori launchpad by default.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The ability to personalize the home page must be enabled in the launchpad configuration.",
+      "gold_page_span": [
+        9,
+        15
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U2-Q1",
+      "unit": "Unit 2: Enterprise Structures",
+      "question": "A company code is the smallest organizational unit of Financial Accounting.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "A company code is the smallest organizational unit of Financial Accounting for which a complete, self-contained set of accounts can be drawn up for purposes of external accounting.",
+      "gold_page_span": [
+        18,
+        28
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U2-Q2",
+      "unit": "Unit 2: Enterprise Structures",
+      "question": "Each sales document can be assigned to multiple sales areas.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Each sales document is assigned to exactly one sales area. This assignment cannot be changed.",
+      "gold_page_span": [
+        18,
+        28
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U3-Q1",
+      "unit": "Unit 3: Overview of Sales Processes",
+      "question": "Which of the following steps is the first step of the shipping process in SAP S/4HANA?",
+      "options": {
+        "A": "Picking and confirming via warehouse management functions",
+        "B": "Packing",
+        "C": "Billing",
+        "D": "Creation of outbound deliveries"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "D",
+      "answer_key_found": true,
+      "answer_explanation": "In SAP S/4HANA, the creation of outbound deliveries is the first step of the shipping process.",
+      "gold_page_span": [
+        31,
+        52
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U3-Q2",
+      "unit": "Unit 3: Overview of Sales Processes",
+      "question": "Which of the following levels contains delivery quantities and delivery dates in the sales document structure?",
+      "options": {
+        "A": "Header level",
+        "B": "Item level",
+        "C": "Schedule line level"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "Schedule lines contain delivery quantities and delivery dates belonging to an item.",
+      "gold_page_span": [
+        31,
+        52
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U3-Q3",
+      "unit": "Unit 3: Overview of Sales Processes",
+      "question": "You can create only one outbound delivery with reference to a single order.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "You can create one or more outbound deliveries with reference to a single order. Unit 3:",
+      "gold_page_span": [
+        31,
+        52
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U3-Q4",
+      "unit": "Unit 3: Overview of Sales Processes",
+      "question": "Each schedule line in the sales document can become an item in the delivery document.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Unlike sales documents, delivery documents do not contain schedule lines. Each schedule line in the sales document can become an item in the delivery document.",
+      "gold_page_span": [
+        31,
+        52
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U3-Q5",
+      "unit": "Unit 3: Overview of Sales Processes",
+      "question": "Which of the following documents forms the basis for the execution of picking activities in SAP EWM?",
+      "options": {
+        "A": "Outbound delivery order",
+        "B": "Goods issue document",
+        "C": "Warehouse tasks",
+        "D": "Warehouse order"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "An outbound delivery order contains all the data that is required for triggering and monitoring the complete outbound delivery process. In other words, the outbound delivery order is the basis for the execution of picking activities.",
+      "gold_page_span": [
+        31,
+        52
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U3-Q6",
+      "unit": "Unit 3: Overview of Sales Processes",
+      "question": "Warehouse tasks are bundled into warehouse resources.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Warehouse tasks are bundled into warehouse orders. Warehouse orders are used to control the workload of the warehouse resources.",
+      "gold_page_span": [
+        31,
+        52
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U3-Q7",
+      "unit": "Unit 3: Overview of Sales Processes",
+      "question": "When you save the billing document, all the required documents for accounting are generated.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "When you save the billing document, the system automatically generates all the required documents for accounting.",
+      "gold_page_span": [
+        31,
+        52
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U4-Q1",
+      "unit": "Unit 4: Master Data",
+      "question": "The master data of customers and vendors is managed in SAP S/4HANA by using business partner master data.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The master data of customers and vendors is managed in SAP S/4HANA by using business partner master data.",
+      "gold_page_span": [
+        57,
+        78
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U4-Q2",
+      "unit": "Unit 4: Master Data",
+      "question": "Which one of the following partner functions is applicable for a customer who receives the invoice?",
+      "options": {
+        "A": "Sold-to party",
+        "B": "Ship-to party",
+        "C": "Bill-to party",
+        "D": "Payer"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "C",
+      "answer_key_found": true,
+      "answer_explanation": "Bill-to party is the applicable partner function for a customer who receives the invoice.",
+      "gold_page_span": [
+        57,
+        78
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U4-Q3",
+      "unit": "Unit 4: Master Data",
+      "question": "The Customizing of sales document types includes some parameters that can be used to choose between division-specific and cross-division sales processing.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The Customizing of sales document types includes some parameters that can be used to choose between division-specific and cross-division sales processing. Unit 4:",
+      "gold_page_span": [
+        57,
+        78
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U4-Q4",
+      "unit": "Unit 4: Master Data",
+      "question": "If a customer-material info record has been defined for a customer and a material, the corresponding default values are used instead of the corresponding values in the customer or material master record when a document is created.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "If a customer-material info record has been defined for a customer and a material, the corresponding default values (for example, the delivering plant) are used instead of the corresponding values in the customer or material master record when a document (such as a sales order) is created.",
+      "gold_page_span": [
+        57,
+        78
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U4-Q5",
+      "unit": "Unit 4: Master Data",
+      "question": "Which of the following options are included in the condition master data?",
+      "options": {
+        "A": "Prices",
+        "B": "Surcharges",
+        "C": "Distribution channel",
+        "D": "Freight charges X E Taxes X F Discounts"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The condition master data includes master data for prices, surcharges and discounts, freights, and taxes.",
+      "gold_page_span": [
+        57,
+        78
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4600-LA-U4-Q6",
+      "unit": "Unit 4: Master Data",
+      "question": "If you do not need the master data to be differentiated according to divisions, you have to create master data for the various divisions.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "If you do not need the master data (customer or condition master data) to be differentiated according to divisions, you may set up a representative division. The master data in the representative division applies to all divisions for which you have set up this reference.",
+      "gold_page_span": [
+        57,
+        78
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U5-Q1",
+      "unit": "Unit 5: Automatic Data Determination and Scheduling",
+      "question": "The plants used in sales and distribution processes are often called delivering plants.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The plants used in sales and distribution processes are often called delivering plants because they represent the distribution center from which the material is delivered to the customer.",
+      "gold_page_span": [
+        83,
+        92
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U5-Q2",
+      "unit": "Unit 5: Automatic Data Determination and Scheduling",
+      "question": "Which of the following functions are dependent on shipping points?",
+      "options": {
+        "A": "Delivery scheduling",
+        "B": "Route determination",
+        "C": "Delivery creation"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "All the functions stated here are dependent on shipping points.",
+      "gold_page_span": [
+        83,
+        92
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4600-LA-U5-Q3",
+      "unit": "Unit 5: Automatic Data Determination and Scheduling",
+      "question": "In backward scheduling, the requested delivery date from the customer is assumed to be the relevant delivery date.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "In backward scheduling, the requested delivery date from the customer is assumed to be the relevant delivery date. In forward scheduling, the delivery date is calculated. Unit 5:",
+      "gold_page_span": [
+        83,
+        92
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U5-Q4",
+      "unit": "Unit 5: Automatic Data Determination and Scheduling",
+      "question": "The transportation planning lead time used in delivery scheduling is taken from the shipping point.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The transportation planning lead time is taken from the route.",
+      "gold_page_span": [
+        83,
+        92
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U6-Q1",
+      "unit": "Unit 6: Availability Check",
+      "question": "Identify the correct sequence used by the system to access master data when searching for the default delivering plant in a sales order. Arrange these steps into the correct sequence. 0 Material master record 0 Customer-material info record 0 Ship-to party customer master record",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "During automatic determination, the system looks for a valid default value for the plant in the relevant master data using the following sequence: 1. Customer-material info record 2. Ship-to party customer master record 3. Material master record",
+      "gold_page_span": [
+        96,
+        112
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U6-Q2",
+      "unit": "Unit 6: Availability Check",
+      "question": "Which of the following factors can be taken into account by the scope of check used to evaluate stock availability during sales order entry?",
+      "options": {
+        "A": "Existing sales orders",
+        "B": "The customer's delivery priority",
+        "C": "Purchase orders",
+        "D": "The material type X E Material reservations"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "When evaluating stock availability, the scope of check can take into account existing sales orders for the material, purchase orders planned to replenish the material, and material reservations. Other potential factors include production orders (for materials produced internally), delivery documents, different categories of on-hand stock, and whether the replenishment lead time should be excluded. Unit 6:",
+      "gold_page_span": [
+        96,
+        112
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4600-LA-U6-Q3",
+      "unit": "Unit 6: Availability Check",
+      "question": "Which of the following options contains a collection of settings that defines which requirements are checked and how they are handled before the backorder processing (BOP)?",
+      "options": {
+        "A": "BOP Segment",
+        "B": "BOP Variant",
+        "C": "BOP Run"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "A BOP variant contains a collection of settings that defines which requirements are checked (BOP Segments) and how they are handled (confirmation strategies). Each BOP run is based on a BOP variant.",
+      "gold_page_span": [
+        96,
+        112
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U7-Q1",
+      "unit": "Unit 7: Collective Processing",
+      "question": "When you want to create follow-up documents of sales orders, you can often do this via collective processing. For this, select all the documents for which you want to create the corresponding follow-up documents, and then create the subsequent documents.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "When you want to create follow-up documents of sales orders you can often do this via collective processing. The procedure is very similar, irrespective of which type of document you want to create: First, select all the documents for which you want to create the corresponding follow-up documents. Second, create the subsequent documents.",
+      "gold_page_span": [
+        116,
+        123
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U7-Q2",
+      "unit": "Unit 7: Collective Processing",
+      "question": "To speed up the process of creating billing documents, you can create multiple billing documents simultaneously by collective processing.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "To speed up the process of creating billing documents, you can create multiple billing documents simultaneously by collective processing.",
+      "gold_page_span": [
+        116,
+        123
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U7-Q3",
+      "unit": "Unit 7: Collective Processing",
+      "question": "Apart from efficiency and speed, an additional advantage of collective processing is that it automatically determines whether multiple reference documents should result in in fewer (or more) subsequent documents.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "For example, collective creation of deliveries enables the consolidation of multiple sales orders into a single outbound delivery, providing the customer has requested this and providing that key delivery information (delivery date, shipping point, ship-to party and so on) is consistent. Alternatively, if multiple items in a sales order have, for example, different delivery addresses (ship-to parties), collective delivery creation will automatically split this order into multiple outbound deliveries.",
+      "gold_page_span": [
+        116,
+        123
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U8-Q1",
+      "unit": "Unit 8: Additional Processes in Sales",
+      "question": "With regards to presales documents in SAP S/4HANA, the use of inquiries and quotations is mandatory for the sales process.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The use of inquiries and quotations is not mandatory for the sales process.",
+      "gold_page_span": [
+        126,
+        134
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U8-Q2",
+      "unit": "Unit 8: Additional Processes in Sales",
+      "question": "Identify the correct sequence for make-to-order process flow, from the sales order to the production order. Arrange these steps into the correct sequence. 0 Material requirements planning (MRP) generates a planned order for the material automatically. 0 An individual customer requirement is generated from the sales order. 0 A production order is created for the final product by converting the planned order. 0 An individual customer requirement is transferred to materials planning. 0 The system transfers the confirmed quantity and material availability date from the production order to the sales order.",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The correct sequence is: 1. An individual customer requirement is generated from the sales order. 2. An individual customer requirement is transferred to materials planning. 3. Material requirements planning (MRP) generates a planned order for the material automatically. 4. Create a production order for the final product by converting the planned order. 5. The system transfers the confirmed quantity and material availability date from the production order to the sales order. Unit 8:",
+      "gold_page_span": [
+        126,
+        134
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U8-Q3",
+      "unit": "Unit 8: Additional Processes in Sales",
+      "question": "The material type DIEN is the appropriate choice for service products and simplifies the data maintenance.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The material type DIEN is the appropriate choice for service products and simplifies the data maintenance. It includes, among other things, the item category group LEIS.",
+      "gold_page_span": [
+        126,
+        134
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U9-Q1",
+      "unit": "Unit 9: Complaints Processing",
+      "question": "When you create a credit/debit memo request, the document is billed automatically and immediately.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "When you create a credit/debit memo request, the document automatically contains a billing block. This block prevents the document from being billed immediately.",
+      "gold_page_span": [
+        138,
+        145
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U9-Q2",
+      "unit": "Unit 9: Complaints Processing",
+      "question": "When a billing document is cancelled, a separate billing document and a new accounting document are generated.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "When a billing document is cancelled, a separate billing document (cancellation billing document) and a new accounting document are generated.",
+      "gold_page_span": [
+        138,
+        145
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U9-Q3",
+      "unit": "Unit 9: Complaints Processing",
+      "question": "When you create the returns document, the system asks you to maintain a credit memo.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "When you create the returns document, the system asks you to maintain an order reason (for example, Damaged in Transit) for evaluation purposes. In addition, the document automatically contains a billing block to prevent a credit memo from being created immediately.",
+      "gold_page_span": [
+        138,
+        145
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U10-Q1",
+      "unit": "Unit 10: Monitoring and Sales Analytics",
+      "question": "With SAP Smart Business, you can jump directly from a data point in the chart to the relevant transaction to resolve the issue.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "SAP Smart Business offers a new exception-based working model that combines analytics with action; you can jump directly from a data point in the chart to the relevant transaction to solve the issue.",
+      "gold_page_span": [
+        148,
+        161
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U10-Q2",
+      "unit": "Unit 10: Monitoring and Sales Analytics",
+      "question": "Which one of the following options offers a hybrid view for sales orders in which you can effectively visualize the difference between plan and actual data?",
+      "options": {
+        "A": "Manage Sales Plans",
+        "B": "Sales Performance -- Plan/Actual",
+        "C": "Change Sales Order",
+        "D": "SAP Sales Order Fulfillment App"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "The app Sales Performance -- Plan/Actual offers a hybrid view in which you can effectively visualize the difference between plan and actual data in a chart while display the details in a table.",
+      "gold_page_span": [
+        148,
+        161
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4600-LA-U10-Q3",
+      "unit": "Unit 10: Monitoring and Sales Analytics",
+      "question": "Which of the following is used in SAP S/4HANA to blend transactions and analytics allowing operational reporting on live transactional data or real-time operational reporting ?",
+      "options": {
+        "A": "SAP ERP",
+        "B": "SAP Core Data Services (CDS)",
+        "C": "ABAP layer"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "SAP S/4HANA blends transactions and analytics allowing operational reporting on live transactional data. With SAP S/4HANA this concept is supported using SAP Core Data Services (CDS) for real-time operational reporting.",
+      "gold_page_span": [
+        148,
+        161
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    }
+  ]
+}

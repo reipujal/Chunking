@@ -110,7 +110,7 @@ def find_la_blocks(pages: list[str], units: dict[int, dict] | None = None) -> li
         if "Learning Assessment" not in page:
             continue
         phys = i + 1
-        is_answer = "Answers" in page or bool(re.search(r"\bCorrect\.\s", page))
+        is_answer = "Answers" in page or bool(re.search(r"(?:That's c|C)orrect\.\s", page))
 
         # Priority 1: explicit "Unit N" header on the page
         u: int | None = get_unit_from_page(page) if "Unit" in page else None
@@ -241,7 +241,7 @@ def parse_answer_explanations(text: str) -> dict[int, str]:
             continue
         q_num = int(m.group(1))
         body = m.group(2)
-        cm = re.search(r"Correct\.\s+(.*)", body, re.DOTALL)
+        cm = re.search(r"(?:That's c|C)orrect\.\s+(.*)", body, re.DOTALL)
         if cm:
             explanation = re.sub(r"\s+", " ", cm.group(1)).strip()
             explanation = re.sub(r"©\s*Copyright.*", "", explanation).strip()

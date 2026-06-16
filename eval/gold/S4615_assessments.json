@@ -1,0 +1,771 @@
+{
+  "doc": "S4615",
+  "pdf_relative_path": "processed/S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf",
+  "offset": 8,
+  "generated_at": "2026-06-16",
+  "total_physical_pages": 132,
+  "questions": [
+    {
+      "id": "S4615-LA-U1-Q1",
+      "unit": "Unit 1: Billing Documents in Sales and Distribution Processes",
+      "question": "Which of the following elements make up a billing document structure?",
+      "options": {
+        "A": "Header",
+        "B": "Schedule line",
+        "C": "Overview",
+        "D": "Item"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "A billing document structure is made of Header and Item.",
+      "gold_page_span": [
+        9,
+        11
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4615-LA-U1-Q2",
+      "unit": "Unit 1: Billing Documents in Sales and Distribution Processes",
+      "question": "Which information can be found in the billing document header level?",
+      "options": {
+        "A": "Payer",
+        "B": "Billing quantity",
+        "C": "Billing date",
+        "D": "Ship-to-party"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The payer and the billing date can be found in the header level.",
+      "gold_page_span": [
+        9,
+        11
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4615-LA-U2-Q1",
+      "unit": "Unit 2: Organizational Units",
+      "question": "A sales organization can be assigned to more than one company code.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "A sales organization is uniquely assigned to only one company code.",
+      "gold_page_span": [
+        14,
+        17
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U2-Q2",
+      "unit": "Unit 2: Organizational Units",
+      "question": "A company code can be assigned to more than one chart of accounts.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "A company code is uniquely assigned to only one chart of accounts.",
+      "gold_page_span": [
+        14,
+        17
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U2-Q3",
+      "unit": "Unit 2: Organizational Units",
+      "question": "A company code can be used be more than one sales organization.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "A company code can be used by several sales organization.",
+      "gold_page_span": [
+        14,
+        17
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U3-Q1",
+      "unit": "Unit 3: The Billing Process",
+      "question": "Can you create a billing document which refers simultaneously to an order and a delivery?",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "You can create a billing document which refers simultaneously to an order and a delivery",
+      "gold_page_span": [
+        20,
+        25
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U3-Q2",
+      "unit": "Unit 3: The Billing Process",
+      "question": "With reference to which of the following elements will you create an invoice to ensure that goods have already been shipped before you create the billing document?",
+      "options": {
+        "A": "Sales order",
+        "B": "Purchase order",
+        "C": "Delivery",
+        "D": "Shipping instructions"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "C",
+      "answer_key_found": true,
+      "answer_explanation": "When you create an invoice with respect to a Delivery, only shipped goods are billed.",
+      "gold_page_span": [
+        20,
+        25
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U4-Q1",
+      "unit": "Unit 4: Special Billing Types",
+      "question": "Which of the following steps must you perform to cancel a billing document?",
+      "options": {
+        "A": "Create a cancellation document.",
+        "B": "Delete the sales order.",
+        "C": "Delete the billing document.",
+        "D": "Create a credit note."
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "To cancel a billing document you create a cancellation document.",
+      "gold_page_span": [
+        28,
+        35
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U4-Q2",
+      "unit": "Unit 4: Special Billing Types",
+      "question": "In which of the following ways can you create credit memo requests?",
+      "options": {
+        "A": "Without any reference to a document.",
+        "B": "With reference to a sales order.",
+        "C": "With reference to a delivery document.",
+        "D": "With reference to a Purchase requisition."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "You can create credit and debit memo requests with reference to an order or without any reference to a document.",
+      "gold_page_span": [
+        28,
+        35
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4615-LA-U4-Q3",
+      "unit": "Unit 4: Special Billing Types",
+      "question": "With reference to which of the following can you create an invoice correction request?",
+      "options": {
+        "A": "Billing document",
+        "B": "Sales order",
+        "C": "Purchase order",
+        "D": "Purchase requisition Unit 4:"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "You create an invoice correction request with reference to a billing document. Unit 4:",
+      "gold_page_span": [
+        28,
+        35
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U4-Q4",
+      "unit": "Unit 4: Special Billing Types",
+      "question": "Which of the following is true regarding invoice correction requests?",
+      "options": {
+        "A": "The items are automatically duplicated and the resulting item categories have opposite + and values.",
+        "B": "Both the credit memo and debit memo items can be modified.",
+        "C": "In the document only the remainder is listed and posted.",
+        "D": "The credit and debit memos can be deleted in pairs and unchanged pairs of items can be deleted all at once."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The items are automatically duplicated and the resulting item categories have opposite + and values. In addition, the credit and debit memos can be deleted in pairs and unchanged pairs of items can be deleted all at once.",
+      "gold_page_span": [
+        28,
+        35
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4615-LA-U4-Q5",
+      "unit": "Unit 4: Special Billing Types",
+      "question": "Does a pro forma invoice billing document get automatically transferred to Accounting?",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "A pro forma invoice billing document does not get automatically transferred to Accounting.",
+      "gold_page_span": [
+        28,
+        35
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U4-Q6",
+      "unit": "Unit 4: Special Billing Types",
+      "question": "Do you need to post the goods issue before creating a delivery-related pro forma invoice?",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "It is not necessary to post the goods issue before creating a delivery-related pro forma invoice.",
+      "gold_page_span": [
+        28,
+        35
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U5-Q1",
+      "unit": "Unit 5: Data Flow",
+      "question": "How can you create a billing document?",
+      "options": {
+        "A": "You cannot create a billing document without an existing reference document.",
+        "B": "You can create a billing document without an existing reference document.",
+        "C": "You can use any reference document for any billing document any time, just like creating a sales order.",
+        "D": "You can only use a reference document for a billing document for which the corresponding copy control entry exists."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "You cannot create a billing document without an existing reference document, and you can only use a reference document for a billing document for which the corresponding copy control entry exists.",
+      "gold_page_span": [
+        40,
+        48
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4615-LA-U5-Q2",
+      "unit": "Unit 5: Data Flow",
+      "question": "Which of the following copying control options are available at the item level?",
+      "options": {
+        "A": "Billing quantity",
+        "B": "Pricing",
+        "C": "Item number assignment",
+        "D": "Allocation number"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Billing quantity and pricing are available at the item level.",
+      "gold_page_span": [
+        40,
+        48
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4615-LA-U5-Q3",
+      "unit": "Unit 5: Data Flow",
+      "question": "Which master data information can be updated during the billing process?",
+      "options": {
+        "A": "Pricing",
+        "B": "Order quantity",
+        "C": "Billing date",
+        "D": "Payer"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "The pricing information can be updated during the billing process.",
+      "gold_page_span": [
+        40,
+        48
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U6-Q1",
+      "unit": "Unit 6: Billing Document Creation",
+      "question": "You want to create an invoice. What options are available?",
+      "options": {
+        "A": "For creating an invoice, you can use the billing due list.",
+        "B": "For creating an invoice, you have to use the \"General Billing Interface\".",
+        "C": "You can only manually create single billing documents.",
+        "D": "You have to use the Background Processing."
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "For creating an invoice, you can use the billing due list.",
+      "gold_page_span": [
+        51,
+        58
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U6-Q2",
+      "unit": "Unit 6: Billing Document Creation",
+      "question": "You want to create billing documents regularly on specific dates. How do you achieve this?",
+      "options": {
+        "A": "Use the billing due list on specific dates.",
+        "B": "Use the \"General Billing Interface\".",
+        "C": "Use a factory calendar and assign it to the customer master record of the payer .",
+        "D": "Use the Background Processing only on Mondays."
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "C",
+      "answer_key_found": true,
+      "answer_explanation": "You achieve when you use a factory calendar and assign it to the customer master record of the payer .",
+      "gold_page_span": [
+        51,
+        58
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U7-Q1",
+      "unit": "Unit 7: Types of Settlement",
+      "question": "Which of the following is a split criteria and cause an automatic invoice split?",
+      "options": {
+        "A": "Material",
+        "B": "Order quantity",
+        "C": "Material group",
+        "D": "Terms of payment"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "D",
+      "answer_key_found": true,
+      "answer_explanation": "Terms of payment are split criteria an cause an automatic invoice split.",
+      "gold_page_span": [
+        61,
+        70
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U7-Q2",
+      "unit": "Unit 7: Types of Settlement",
+      "question": "Can you configure an item-dependent invoice split?",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "You can configure a item-dependent invoice split.",
+      "gold_page_span": [
+        61,
+        70
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U7-Q3",
+      "unit": "Unit 7: Types of Settlement",
+      "question": "What do you need to set up for an invoice list?",
+      "options": {
+        "A": "You need to define a factory calendar that specifies when invoice lists are to be created.",
+        "B": "You need to set up a company calendar that specifies when the invoice lists get forwarded to profitability analysis",
+        "C": "You need assign a documents which defines the organizational structure.",
+        "D": "You need to assign a factory calendar in the Invoicing List Dates field of the relevant payer. Unit 7:"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "You need to define a factory calendar that specifies when invoice lists are to be created and assign it to the Invoicing List Dates field of the relevant payer. Unit 7:",
+      "gold_page_span": [
+        61,
+        70
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4615-LA-U7-Q4",
+      "unit": "Unit 7: Types of Settlement",
+      "question": "Which statements on the Omnichannel convergent billing and the External Billing Document Requests (EBRS) are correct?",
+      "options": {
+        "A": "With this billing method you can converge the internal and external billing data into a combined customer invoices.",
+        "B": "External Billing Document Requests (EBRS) must be uploaded with the help of the User Exit: General Billing Interface.",
+        "C": "You can use a Excel file to upload the external billing data.",
+        "D": "The External Billing Document Requests (EBRS) are processed in an separate billing due list (VF06)."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "With this billing method you can converge the internal and external billing data into a combined customer invoices, and you can use a Excel file to upload the external billing data.",
+      "gold_page_span": [
+        61,
+        70
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4615-LA-U7-Q5",
+      "unit": "Unit 7: Types of Settlement",
+      "question": "How do you bill an External Billing Document Requests (EBRS)?",
+      "options": {
+        "A": "You use the transaction VF01.",
+        "B": "You use General Billing Interface.",
+        "C": "You use the Create Billing Documents -- Billing Due List Items app."
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "C",
+      "answer_key_found": true,
+      "answer_explanation": "You use the Create Billing Documents -- Billing Due List Items app.",
+      "gold_page_span": [
+        61,
+        70
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U8-Q1",
+      "unit": "Unit 8: Special Business Processes",
+      "question": "When do you use periodic billing?",
+      "options": {
+        "A": "You use it for a rental are service agreement when you want to bill the same amount each month.",
+        "B": "You use it when you want to spread the billing of the full amount over several dates."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "You use it for a rental are service agreement when you want to bill the same amount each month.",
+      "gold_page_span": [
+        75,
+        90
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4615-LA-U8-Q2",
+      "unit": "Unit 8: Special Business Processes",
+      "question": "Is it mandatory to specify an end date in order to execute a periodic billing plan?",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "It is not mandatory to specify an end date in order to execute a periodic billing plan.",
+      "gold_page_span": [
+        75,
+        90
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U8-Q3",
+      "unit": "Unit 8: Special Business Processes",
+      "question": "Which of the following is true with regard to milestone and periodic billing?",
+      "options": {
+        "A": "You maintain the date proposal for periodic billing.",
+        "B": "You maintain the date proposal for milestone billing.",
+        "C": "Dates that have already been billed can be changed in the billing plan.",
+        "D": "You can enter as many dates per billing plan as you require."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "You can control whether the billing date should be updated with the actual date of the milestone, and you can enter as many dates per billing plan as you require. Unit 8:",
+      "gold_page_span": [
+        75,
+        90
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4615-LA-U8-Q4",
+      "unit": "Unit 8: Special Business Processes",
+      "question": "In Customizing, the billing plan type is determined from the item category by the field relevance for billing.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "In Customizing, the billing plan type is determined from the item category by the field relevance for billing.",
+      "gold_page_span": [
+        75,
+        90
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U8-Q5",
+      "unit": "Unit 8: Special Business Processes",
+      "question": "Does the down payment request in Sales gets automatically posted to Financial Accounting as a down payment request?",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The down payment request in Sales is automatically posted to Financial Accounting as a down payment request.",
+      "gold_page_span": [
+        75,
+        90
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U8-Q6",
+      "unit": "Unit 8: Special Business Processes",
+      "question": "Can you change the amount of the down payment to be cleared during partial invoicing?",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "During partial invoicing, you can change the amount of the down payment to be cleared.",
+      "gold_page_span": [
+        75,
+        90
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U8-Q7",
+      "unit": "Unit 8: Special Business Processes",
+      "question": "In an installment plan, only one billing document is created for all of the installment payments.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "In an installment plan, only one billing document is created for all of the installment payments.",
+      "gold_page_span": [
+        75,
+        90
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U9-Q1",
+      "unit": "Unit 9: Account Determination",
+      "question": "You can set different criteria for the account determination of the relevant accounts.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        95,
+        99
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U9-Q2",
+      "unit": "Unit 9: Account Determination",
+      "question": "Which of the following criteria for account determination is defined in the standard system?",
+      "options": {
+        "A": "Chart of accounts",
+        "B": "Business area",
+        "C": "Account assignment group for price category",
+        "D": "Account assignment group for customer in the payer master record"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Chart of accounts and account assignment group for customer in the payer master record are criteria for account determination defined in the standard system.",
+      "gold_page_span": [
+        95,
+        99
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4615-LA-U10-Q1",
+      "unit": "Unit 10: Interface Between Sales and Distribution and Financial",
+      "question": "After the billing document has been released to finical accounting, you cannot change its data.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "After the billing document has been released to finical accounting, you cannot change its data.",
+      "gold_page_span": [
+        102,
+        109
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4615-LA-U10-Q2",
+      "unit": "Unit 10: Interface Between Sales and Distribution and Financial",
+      "question": "When you set up the reference and allocation number in Customizing, what do you need to consider?",
+      "options": {
+        "A": "Whether it is a header field and therefore a split criteria.",
+        "B": "Whether it is an item field and therefore you have to set up data routine VBRK/ VBRP.",
+        "C": "Whether it is a field which needs to be set up in the billing document type.",
+        "D": "Whether it is a field which needs to be set up in the copying control."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "When you set up the reference and allocation number in Customizing, you consider whether it is a header field and therefore a split criteria, and you consider whether it is a field which needs to be set up in the copying control.",
+      "gold_page_span": [
+        102,
+        109
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4615-LA-U11-Q1",
+      "unit": "Unit 11: Appendix",
+      "question": "SAP S/4HANA is based on Business Rule Framework Plus, and it includes cloud qualities such as extensibility enablement and modification-free configuration.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "SAP S/4HANA is based on Business Rule Framework Plus, and it includes cloud qualities such as extensibility enablement and modification-free configuration.",
+      "gold_page_span": [
+        112,
+        129
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,836 @@
+{
+  "doc": "S4605",
+  "pdf_relative_path": "processed/S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf",
+  "offset": 8,
+  "generated_at": "2026-06-16",
+  "total_physical_pages": 169,
+  "questions": [
+    {
+      "id": "S4605-LA-U2-Q1",
+      "unit": "Unit 2: Introduction",
+      "question": "Every sales activity that you undertake in the SAP system is recorded with a sales document.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Every sales activity that you undertake in the SAP system is recorded with a sales document.",
+      "gold_page_span": [
+        11,
+        13
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U2-Q2",
+      "unit": "Unit 2: Introduction",
+      "question": "How many levels does a sales document consist of?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        11,
+        13
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U2-Q3",
+      "unit": "Unit 2: Introduction",
+      "question": "How are the levels of a sales document structured?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        11,
+        13
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U3-Q1",
+      "unit": "Unit 3: Enterprise Structures in Sales and Distribution",
+      "question": "Which of the following are elements of a sales area.",
+      "options": {
+        "A": "Sales Organization",
+        "B": "Distribution Channel",
+        "C": "Division"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "All the listed options are the elements of a sales area.",
+      "gold_page_span": [
+        16,
+        26
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4605-LA-U3-Q2",
+      "unit": "Unit 3: Enterprise Structures in Sales and Distribution",
+      "question": "How many company codes can one sales organization be assigned to?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        16,
+        26
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U4-Q1",
+      "unit": "Unit 4: Sales Order Processing",
+      "question": "The Incoterms of a customer are derived from the ship-to party.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The Incoterms of a customer are derived from the sold-to party.",
+      "gold_page_span": [
+        29,
+        43
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U4-Q2",
+      "unit": "Unit 4: Sales Order Processing",
+      "question": "An SAP Business Partner is uniquely assigned to one business role.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "An SAP Business Partner can be assigned to multiple roles.",
+      "gold_page_span": [
+        29,
+        43
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U4-Q3",
+      "unit": "Unit 4: Sales Order Processing",
+      "question": "An SAP Business Partner is uniquely assigned to one business category.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "An SAP Business Partner is uniquely assigned to one business category.",
+      "gold_page_span": [
+        29,
+        43
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U4-Q4",
+      "unit": "Unit 4: Sales Order Processing",
+      "question": "In order to cancel an order, you assign an order reason.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "In order to reject an order, you need to enter a reason for rejection. Unit 4:",
+      "gold_page_span": [
+        29,
+        43
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U4-Q5",
+      "unit": "Unit 4: Sales Order Processing",
+      "question": "You can always change the sold-to party in an order.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Once there are subsequent documents, you cannot change the sold-to party in an order.",
+      "gold_page_span": [
+        29,
+        43
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U5-Q1",
+      "unit": "Unit 5: Controlling Sales Documents",
+      "question": "What does a sales document type control?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        47,
+        63
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U5-Q2",
+      "unit": "Unit 5: Controlling Sales Documents",
+      "question": "The requested delivery date of an order has to be set manually.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "You can propose the delivery date by the sales document type.",
+      "gold_page_span": [
+        47,
+        63
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U5-Q3",
+      "unit": "Unit 5: Controlling Sales Documents",
+      "question": "The item category determines if you can change the default incoterms on item level.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The item category controls the separate business data.",
+      "gold_page_span": [
+        47,
+        63
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U5-Q4",
+      "unit": "Unit 5: Controlling Sales Documents",
+      "question": "The item category controls whether pricing can be carried out or not.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The item category controls whether pricing can be carried out or not.",
+      "gold_page_span": [
+        47,
+        63
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U5-Q5",
+      "unit": "Unit 5: Controlling Sales Documents",
+      "question": "Which elements can be used to determine an item category?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        47,
+        63
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U5-Q6",
+      "unit": "Unit 5: Controlling Sales Documents",
+      "question": "Which elements can be used to determine schedule line category? Unit 5:",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        47,
+        63
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U5-Q7",
+      "unit": "Unit 5: Controlling Sales Documents",
+      "question": "A schedule line category can be used even if you do not deliver goods.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "A schedule line category can be used even if you do not deliver goods, just like for any service item.",
+      "gold_page_span": [
+        47,
+        63
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U5-Q8",
+      "unit": "Unit 5: Controlling Sales Documents",
+      "question": "A schedule line category does always \"need\" an item category.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "A schedule line category does always need an item category.",
+      "gold_page_span": [
+        47,
+        63
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U6-Q1",
+      "unit": "Unit 6: Data Flow",
+      "question": "Any sales document can be created with reference to any other existing sales document.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "A sales document can be created with reference to any other existing sales document only if copying control is set up for it.",
+      "gold_page_span": [
+        68,
+        78
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U6-Q2",
+      "unit": "Unit 6: Data Flow",
+      "question": "What information can you obtain from the document flow?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        68,
+        78
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U6-Q3",
+      "unit": "Unit 6: Data Flow",
+      "question": "What can you maintain in the copying control?",
+      "options": {
+        "A": "Copying requirements",
+        "B": "Customer master data",
+        "C": "Item category determination"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "You can maintain copying requirements in copying control.",
+      "gold_page_span": [
+        68,
+        78
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U7-Q1",
+      "unit": "Unit 7: Special Business Transactions",
+      "question": "When you save the rush order, the system automatically creates a delivery and prints a document that can be given to the customer as an invoice.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "You do not give the customer an invoice when processing the rush order. You only do this in the cash sales process.",
+      "gold_page_span": [
+        81,
+        85
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U7-Q2",
+      "unit": "Unit 7: Special Business Transactions",
+      "question": "Which statement is true in the consignment process?",
+      "options": {
+        "A": "You invoice a consignment fill-up to the customer.",
+        "B": "The material in a consignment warehouse stock is the property of the customer.",
+        "C": "In a consignment issue process, you create a delivery, post goods issue, and invoice the customer."
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "C",
+      "answer_key_found": true,
+      "answer_explanation": "In a consignment issue process, you create a delivery, post goods issue, and invoice the customer.",
+      "gold_page_span": [
+        81,
+        85
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U8-Q1",
+      "unit": "Unit 8: Incompletion",
+      "question": "In Customizing, you can configure the incompletion messages field which allows you to control whether incomplete sales documents can be saved or not.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "In Customizing for sales document types, the incompletion messages field allows you to control whether incomplete sales documents can be saved or not.",
+      "gold_page_span": [
+        88,
+        93
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U8-Q2",
+      "unit": "Unit 8: Incompletion",
+      "question": "You can set up the incompleteness procedure so the system goes directly from the incompletion log to various views, where you can then edit the incomplete data.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "You can set up the incompleteness procedure so the system goes directly from the incompleteness log to various views, where you can then edit the incomplete data. You can set up the screens/views in Customizing.",
+      "gold_page_span": [
+        88,
+        93
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U8-Q3",
+      "unit": "Unit 8: Incompletion",
+      "question": "The incompleteness procedure always contain the fields: customer reference, currency, and payment terms.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The incompleteness procedure can be set up with any field.",
+      "gold_page_span": [
+        88,
+        93
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U9-Q1",
+      "unit": "Unit 9: Partner Functions in SD",
+      "question": "In a partner function procedure, employees at your own company can assume partner functions of partner type \"Personnel\".",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "In a partner function procedure, employees at your own company can assume partner functions of partner type \"Personnel\".",
+      "gold_page_span": [
+        96,
+        105
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U9-Q2",
+      "unit": "Unit 9: Partner Functions in SD",
+      "question": "Which of the following statements is true for a partner function procedure?",
+      "options": {
+        "A": "You can determine which partner functions have to be entered (mandatory functions).",
+        "B": "You have to define partners at item level in the sales documents.",
+        "C": "In the partner determination procedure for the sales document type, you can only assign the four mandatory functions."
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "You can determine which partner functions have to be entered (mandatory functions).",
+      "gold_page_span": [
+        96,
+        105
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U10-Q1",
+      "unit": "Unit 10: Outline Agreements",
+      "question": "Which of the following statements on Scheduling agreement is correct?",
+      "options": {
+        "A": "The scheduling agreement contains fixed delivery dates and quantities.",
+        "B": "Scheduling agreement requires release order.",
+        "C": "In the scheduling agreement you can only see the target quantity and not the quantity already shipped."
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "The scheduling agreement contains fixed delivery dates and quantities.",
+      "gold_page_span": [
+        108,
+        122
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U10-Q2",
+      "unit": "Unit 10: Outline Agreements",
+      "question": "Which statement on Quantity contracts is correct?",
+      "options": {
+        "A": "The Quantity contract contains fixed delivery dates and quantities.",
+        "B": "The Quantity contract requires release order.",
+        "C": "The Quantity contract does not contain any schedule lines and delivery quantities."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The Quantity contract does not contain any schedule lines and delivery quantities.",
+      "gold_page_span": [
+        108,
+        122
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4605-LA-U10-Q3",
+      "unit": "Unit 10: Outline Agreements",
+      "question": "Which statement on the Value contract (sales document type WK1) is correct?",
+      "options": {
+        "A": "The Value contract contains fixed delivery dates and quantities.",
+        "B": "The Value contract specifies that your customer agrees to purchase a fixed value (target amount) of goods and services during a defined period.",
+        "C": "The Value contract requires release order.",
+        "D": "The value contract cannot be limited to certain products."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The Value contract specifies that your customer agrees to purchase a fixed value (target amount) of goods and services during a defined period. The Value contract requires release order. Unit 10:",
+      "gold_page_span": [
+        108,
+        122
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4605-LA-U10-Q4",
+      "unit": "Unit 10: Outline Agreements",
+      "question": "What options do you have to limit the list of products you can buy with a Value contract? Unit 10:",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        108,
+        122
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U10-Q5",
+      "unit": "Unit 10: Outline Agreements",
+      "question": "The item category determination for the General value contract (WK1) is done with the help the item category group (VCIT).",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "The item category determination for the General value contract (WK1) is done with the help the item usage (VCTR).",
+      "gold_page_span": [
+        108,
+        122
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U11-Q1",
+      "unit": "Unit 11: Material Determination, Listing and Exclusion",
+      "question": "How many substitution strategies are there for material determination?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        127,
+        138
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U11-Q2",
+      "unit": "Unit 11: Material Determination, Listing and Exclusion",
+      "question": "What technique is used for material determination?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        127,
+        138
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U11-Q3",
+      "unit": "Unit 11: Material Determination, Listing and Exclusion",
+      "question": "When you use product selection, the system create sub-items for the substitute material in the sales order.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "When using product selection, the system creates sub-items for the substitute material in the sales order.",
+      "gold_page_span": [
+        127,
+        138
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U11-Q4",
+      "unit": "Unit 11: Material Determination, Listing and Exclusion",
+      "question": "When you use material exclusion, the system create sub-items for the substitute material in the sales order.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "When you use material exclusion, the system does not create sub-items for the substitute material in the sales order.",
+      "gold_page_span": [
+        127,
+        138
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U11-Q5",
+      "unit": "Unit 11: Material Determination, Listing and Exclusion",
+      "question": "When you have listing in place, your customer can buy anything else which is not on the list for listing.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Material listing is used when you want to make sure that your customer receives only specific materials. Unit 11:",
+      "gold_page_span": [
+        127,
+        138
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U11-Q6",
+      "unit": "Unit 11: Material Determination, Listing and Exclusion",
+      "question": "When you have exclusion in place, your customer can buy anything else which is not on the list for exclusion.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Material exclusion is used when you want to ensure that the customer does not receive certain materials that are listed for exclusion.",
+      "gold_page_span": [
+        127,
+        138
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U12-Q1",
+      "unit": "Unit 12: Free Goods",
+      "question": "When you use free goods, the system create sub-items for the free goods material in the sales order.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "When you use free goods, the system creates sub-items for the free goods material in the sales order.",
+      "gold_page_span": [
+        143,
+        150
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U12-Q2",
+      "unit": "Unit 12: Free Goods",
+      "question": "In free goods, how can you grant the bonus quantity?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        143,
+        150
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4605-LA-U12-Q3",
+      "unit": "Unit 12: Free Goods",
+      "question": "When you use inclusive free goods scenario, your customer gets an extra product (good) that is free of charge.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "In the inclusive free goods scenario, the customer receives the same product as he/she ordered.",
+      "gold_page_span": [
+        143,
+        150
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    }
+  ]
+}

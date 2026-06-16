@@ -170,6 +170,7 @@ touch chunks/_index.md chunks/_processing_log.md chunks/_source_inventory.md
 | 5 — Write the chunk | **This file — see below** | Rules are in the nucleus |
 | 6+7 — Validate & Log | `docs/skills/5-validate-log.md` | After writing each chunk and before closing a document |
 | 8 — Coverage review (close) | `docs/skills/6-coverage-review.md` | After all chunks of a document are written, before marking it `completed` |
+| 9 — Retrieval eval (close) | `docs/skills/7-eval-harness.md` | After Skill 6 passes; before marking `completed`. Run from **Bash tool** (pdftotext not in PowerShell PATH). |
 | Examples | `docs/examples.md` | First chunk of a new session — read before writing |
 
 ---
