@@ -1,0 +1,403 @@
+# SD Topic Ontology — P2 v0
+# Built: 2026-06-16
+# Anchor: Standard Order-to-Cash process decomposition (SAP SD domain knowledge).
+# sap_reference fields are intentionally empty; fill from SAP Best Practices scope
+# items / Signavio hierarchy in a follow-up pass. A wrong code is worse than empty.
+# Hierarchy: namespace.process[.subprocess]
+# Namespaces: ent (enterprise setup), o2c (order-to-cash), price (pricing),
+#             ctrl (document control), xfunc (cross-functional), analytics, integration, platform
+
+topics:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # ENTERPRISE SETUP (ent)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - id: ent.org.sales
+    label: "Sales Organization Structure"
+    process_area: enterprise-structure
+    sap_reference: ""
+    notes: >
+      Sales organization, distribution channel, division, sales area, and their
+      interdependencies. Includes customer/material master data assignments to org units.
+      Authority is DISTRIBUTED: S4605 (general SD org), S4615 (billing org facets).
+      S4650 Unit 1 Lesson 1 is supplementary (same content, broader course context).
+
+  - id: ent.org.shipping
+    label: "Shipping Point and Loading Point"
+    process_area: enterprise-structure
+    sap_reference: ""
+    notes: >
+      Shipping point and loading point org units; assignment rules and automatic
+      determination. Primary source: S4610.
+
+  - id: ent.org.warehouse
+    label: "Warehouse Organizational Units (EWM/IM)"
+    process_area: enterprise-structure
+    sap_reference: ""
+    notes: >
+      Warehouse number, storage type, storage section in EWM and IM contexts.
+      Primary source: S4610.
+
+  - id: ent.org.cross_div
+    label: "Cross-Division Sales and Shared Master Data"
+    process_area: enterprise-structure
+    sap_reference: ""
+    notes: >
+      Cross-division sales scenarios, common distribution channels, shared master
+      data between org units. CURRENT GAP (0 chunks). S4650 Unit 1 Lesson 2 is the
+      prospective primary source.
+
+  - id: ent.master.bp
+    label: "Business Partner Master Data"
+    process_area: master-data
+    sap_reference: ""
+    notes: >
+      Customer master data in BP model (S/4HANA). Account groups, partner roles,
+      BP categories. Primary source: S4600.
+
+  - id: ent.master.material
+    label: "Material Master Data (SD Views) and CMiR"
+    process_area: master-data
+    sap_reference: ""
+    notes: >
+      Material master SD-relevant views (Sales, Sales Org, MRP); Customer-Material
+      Info Records. Primary source: S4600.
+
+  - id: ent.master.partner
+    label: "Partner Functions and Partner Determination"
+    process_area: master-data
+    sap_reference: ""
+    notes: >
+      SD partner functions (SP, SH, BP, PY), partner determination procedures,
+      configuration. Primary source: S4605.
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # ORDER-TO-CASH (o2c)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - id: o2c.presales
+    label: "Presales Documents (Inquiries and Quotations)"
+    process_area: order-management
+    sap_reference: ""
+    notes: >
+      Inquiry (VA11), Quotation (VA21), conversion to sales order. Also covers
+      make-to-order production and service products (bundled in primary chunk).
+      Primary source: S4600.
+
+  - id: o2c.order.basic
+    label: "Basic Sales Order Processing"
+    process_area: order-management
+    sap_reference: ""
+    notes: >
+      Sales order creation, source of data, document flow, create-with-reference,
+      technical tables (VBAK/VBAP). The foundational O2C step.
+      Primary source: S4605 (process), S4605 (technical tables).
+
+  - id: o2c.order.special
+    label: "Special Order Types (Cash Sale, Rush Order, Consignment, FoC, Returns)"
+    process_area: special-processes
+    sap_reference: ""
+    notes: >
+      Cash sale (CS/BV — conflict registered), rush order, consignment processing,
+      free-of-charge delivery, returns order. Authority S4605 (process config);
+      S4615 (billing types for cash sale). CS/BV conflict: see authority_registry.
+      Primary source: S4605.
+
+  - id: o2c.order.outline
+    label: "Outline Agreements (Scheduling Agreements, Quantity Contracts, Value Contracts)"
+    process_area: order-management
+    sap_reference: ""
+    notes: >
+      Long-term supply agreements: scheduling agreements, quantity contracts,
+      value contracts (with release orders). Primary source: S4605.
+
+  - id: o2c.order.atp
+    label: "Availability Check (ATP) and Backorder Processing"
+    process_area: order-management
+    sap_reference: ""
+    notes: >
+      ATP logic, checking rule, checking scope, backorder processing (BOP),
+      rescheduling. Primary source: S4600.
+
+  - id: o2c.order.collective
+    label: "Collective Processing (Delivery Due List, Picking Worklist, Billing Worklist)"
+    process_area: order-management
+    sap_reference: ""
+    notes: >
+      Mass processing of deliveries, picking, goods issue, billing. Outbound
+      delivery monitor as collective tool. Primary source: S4600.
+
+  - id: o2c.delivery.outbound
+    label: "Outbound Delivery Creation and Processing"
+    process_area: shipping
+    sap_reference: ""
+    notes: >
+      Outbound delivery creation (VL01N, VL10*), automatic field determination
+      (plant, shipping point, route), delivery scheduling. Primary source: S4610.
+
+  - id: o2c.delivery.picking
+    label: "Picking (EWM) and Goods Issue Posting"
+    process_area: shipping
+    sap_reference: ""
+    notes: >
+      EWM picking process, transfer orders, goods issue posting (VL02N/VL09),
+      delivery split on goods issue. Primary source: S4610.
+
+  - id: o2c.delivery.inbound
+    label: "Inbound Delivery and Goods Receipt (EWM)"
+    process_area: shipping
+    sap_reference: ""
+    notes: >
+      Inbound delivery creation in EWM, goods receipt posting. Primary source: S4610.
+
+  - id: o2c.delivery.special
+    label: "Special Delivery Functions"
+    process_area: shipping
+    sap_reference: ""
+    notes: >
+      Delivery-level pricing, SD-EWM interface controls, delivery incompletion check,
+      and other special delivery functions. Primary source: S4610.
+
+  - id: o2c.billing.standard
+    label: "Standard Billing Process"
+    process_area: billing
+    sap_reference: ""
+    notes: >
+      Billing document creation methods, structure, header/item tables, data flow
+      from delivery/order, Fiori billing apps. Primary source: S4615.
+
+  - id: o2c.billing.special
+    label: "Special Billing Types"
+    process_area: billing
+    sap_reference: ""
+    notes: >
+      Milestone billing plans, periodic billing plans, pro forma invoices,
+      preliminary billing documents (PBD), down payments, installment payments.
+      Primary source: S4615.
+
+  - id: o2c.billing.settlement
+    label: "Invoice Combination/Split, Invoice Lists, Convergent Billing"
+    process_area: billing
+    sap_reference: ""
+    notes: >
+      Invoice combination and split criteria, invoice lists, omnichannel convergent
+      billing (EBDR). Primary source: S4615.
+
+  - id: o2c.billing.complaints
+    label: "Complaints Billing (Credit/Debit Memo, Returns, Cancellation, Invoice Correction)"
+    process_area: billing
+    sap_reference: ""
+    notes: >
+      Credit memo requests, debit memo requests, returns process, billing document
+      cancellation (SV), invoice correction requests, value-dated credit memos.
+      Authority is UNIFORM (all S4615 primary). Confirm before splitting.
+
+  - id: o2c.billing.fi
+    label: "Billing–FI Integration"
+    process_area: billing
+    sap_reference: ""
+    notes: >
+      Account determination (VKOA), negative postings, FI interface controls,
+      G/L account assignment, reconciliation account determination. Primary: S4615.
+
+  - id: o2c.credit
+    label: "Credit Management"
+    process_area: credit-management
+    sap_reference: ""
+    notes: >
+      PRIORITY GAP — 0 chunks. Credit limit check, credit exposure calculation,
+      credit master data, risk categories, automatic credit control. S4650 or
+      S4680 are the prospective primary sources.
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PRICING & CONDITIONS (price)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - id: price.technique
+    label: "Condition Technique Overview"
+    process_area: pricing
+    sap_reference: ""
+    notes: >
+      Condition technique mechanics: condition tables, access sequences, condition
+      types, pricing procedures. The foundational pricing model. Primary: S4620.
+
+  - id: price.config
+    label: "Pricing Procedure Configuration"
+    process_area: pricing
+    sap_reference: ""
+    notes: >
+      Pricing procedure steps, requirements, alternative calculation types,
+      statistical conditions, pricing procedure determination. Primary: S4620.
+
+  - id: price.records
+    label: "Condition Records: Creation, Maintenance, and Reporting"
+    process_area: pricing
+    sap_reference: ""
+    notes: >
+      Creating/changing/deleting condition records, validity periods, condition
+      record key combinations, mass maintenance reports. Primary: S4620.
+
+  - id: price.special
+    label: "Special Condition Types and Pricing Functions"
+    process_area: pricing
+    sap_reference: ""
+    notes: >
+      Group conditions, condition exclusion, condition supplements, statistical
+      conditions, tax determination (TAXK/MWST). Primary: S4620.
+
+  - id: price.ccm
+    label: "Condition Contract Management (CCM)"
+    process_area: pricing
+    sap_reference: ""
+    notes: >
+      Condition contracts (rebates replacement), settlement runs, PRGN condition
+      contract concept, maintenance, and settlement document flow. Primary: S4620.
+
+  - id: price.agreements
+    label: "Pricing Agreements (Promotions and Sales Deals)"
+    process_area: pricing
+    sap_reference: ""
+    notes: >
+      Promotions and sales deals, validity periods, pricing agreement maintenance.
+      Primary: S4620.
+
+  - id: price.free_goods
+    label: "Free Goods Determination"
+    process_area: pricing
+    sap_reference: ""
+    notes: >
+      Automatic free goods determination (inclusive/exclusive), free goods condition
+      records, item category TANN. Primary: S4605.
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # DOCUMENT TYPE CONTROL (ctrl)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - id: ctrl.sales
+    label: "Sales Document Type, Item Category, and Schedule Line Category Control"
+    process_area: configuration
+    sap_reference: ""
+    notes: >
+      The three-level control hierarchy for sales documents: document type (VOV8),
+      item category (VOV7, VOV4), schedule line category (VOV6). Primary: S4605.
+
+  - id: ctrl.delivery
+    label: "Delivery Type and Delivery Item Category"
+    process_area: configuration
+    sap_reference: ""
+    notes: >
+      Delivery type configuration, delivery item category (VOV4 equivalent for
+      delivery), determination rules. Primary: S4610.
+
+  - id: ctrl.billing_type
+    label: "Billing Type Configuration"
+    process_area: configuration
+    sap_reference: ""
+    notes: >
+      Standard billing types (F2, G2, RE, IV…), billing type controls, billing
+      relevance at item category, flexible numbering. Primary: S4615.
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CROSS-FUNCTIONAL (xfunc)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - id: xfunc.copy
+    label: "Copy Control (Sales, Delivery, and Billing)"
+    process_area: configuration
+    sap_reference: ""
+    notes: >
+      Copying control configuration at header, item, and schedule line level across
+      all three document chains (sales→sales, sales→delivery, delivery→billing,
+      order→billing). Authority is DISTRIBUTED across 3 chunks (S4605 sales facet,
+      S4610 delivery facet, S4615 billing facet). S4650 Unit 2 is SUPPLEMENTARY —
+      it provides a unified view but does not supersede the domain-specific sources.
+      P2 FINDING: the current chunk structure fragments a single coherent concept
+      across 3 chunks. Consider a unified xfunc.copy chunk in a future pass if a
+      cross-chain summary is needed.
+
+  - id: xfunc.incompletion
+    label: "Incompletion Check and Incompletion Procedure"
+    process_area: configuration
+    sap_reference: ""
+    notes: >
+      Incompletion log, incompletion procedure, field groups, status management.
+      Primary: S4605.
+
+  - id: xfunc.material_det
+    label: "Material Determination, Material Listing, and Material Exclusion"
+    process_area: configuration
+    sap_reference: ""
+    notes: >
+      Material determination (product substitution), material listing (positive list),
+      material exclusion (negative list). Primary: S4605.
+
+  - id: xfunc.text
+    label: "Text Control"
+    process_area: configuration
+    sap_reference: ""
+    notes: >
+      GAP — 0 chunks. Text IDs, text schemas, text copy rules between documents,
+      text determination procedure. S4650 Unit 3 is the prospective primary source.
+
+  - id: xfunc.output
+    label: "Output Determination and Output Types"
+    process_area: configuration
+    sap_reference: ""
+    notes: >
+      Output determination procedure, output types, condition records for output,
+      new output management (S/4HANA). AUTHORITY INVERSION: S4650 Unit 4 is
+      PRIMARY (covers full output determination across all SD documents).
+      billing-output-management-brfplus-001 (S4615) is SUPPLEMENTARY — it covers
+      only the billing BRFplus facet and was written before S4650 was processed.
+      When S4650 Unit 4 is chunked, update the authority accordingly.
+
+  - id: xfunc.enhance
+    label: "Enhancements and Modifications"
+    process_area: configuration
+    sap_reference: ""
+    audience: technical
+    in_scope: deferred
+    notes: >
+      DEFERRED — TECHNICAL AUDIENCE. BAdI, Enhancement Framework, user exits,
+      field exits, field selection for material master, system modifications.
+      S4650 Unit 5 covers this but the corpus is FUNCTIONAL (audience: functional
+      consultant). Chunking Unit 5 requires explicit user decision on scope
+      extension to technical content. Do not treat this as a gap to fill with
+      functional chunks — the decision is whether to extend corpus scope at all.
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # ANALYTICS (analytics)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - id: analytics.sales
+    label: "Sales Monitoring, Fulfillment App, Sales Plans, and CDS Analytics"
+    process_area: order-management
+    sap_reference: ""
+    notes: >
+      SAP Smart Business fulfillment cockpit, sales order fulfillment app, sales
+      plans (SAP Sales Cloud), CDS-based analytical apps. Primary: S4600.
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # INTEGRATION (integration)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - id: integration.gbi
+    label: "General Billing Interface"
+    process_area: integration
+    sap_reference: ""
+    notes: >
+      GBI for external billing systems, billing request objects, interface structure.
+      Primary: S4615.
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PLATFORM (platform)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - id: platform.fiori
+    label: "SAP Fiori Launchpad and S/4HANA UX"
+    process_area: configuration
+    sap_reference: ""
+    notes: >
+      Fiori launchpad concepts, navigation paradigm (tiles, apps, workspaces),
+      SD-relevant Fiori app landscape. Primary: S4600. Cross-cutting; not SD-specific.

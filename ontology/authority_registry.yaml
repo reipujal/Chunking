@@ -1,0 +1,693 @@
+# SD Authority Registry — P2 v0
+# Built: 2026-06-16
+#
+# PURPOSE: make explicit which source is canonical for each SD topic.
+# This converts dedup from runtime judgment (Skill 6) to design-time lookup.
+#
+# GOVERNANCE: this is a PROPOSAL for user review.
+# Do NOT auto-apply to chunk dedup until the user validates this registry.
+# Do NOT mutate existing chunks based on this registry in this pass.
+#
+# FIELD SEMANTICS:
+#   authoritative_source(s):  PDF(s) whose content is primary for this topic.
+#   authoritative_chunks:     chunk IDs that carry the authoritative content.
+#   supplementary_sources:    PDFs that add depth/context but defer to the authority.
+#   supplementary_chunks:     chunk IDs that are supplementary for this topic.
+#   conflict: true            same topic has irreconcilable token differences across sources.
+#   resolution_note:          how the conflict was or should be resolved.
+#   notes:                    structural observations from P2 analysis.
+
+registry:
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # ENTERPRISE SETUP
+  # ─────────────────────────────────────────────────────────────────────────
+
+  - topic_id: ent.org.sales
+    label: "Sales Organization Structure"
+    authority_pattern: distributed
+    authoritative_sources:
+      - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+        facet: "General SD org structure (sales org, distribution channel, division, sales area)"
+      - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
+        facet: "Billing-specific org assignments (billing area, head-office/branch)"
+    authoritative_chunks:
+      - enterprise-structure-sales-distribution-enterprise-structure-001   # S4605 — general
+      - enterprise-structure-billing-organizational-assignment-001          # S4615 — billing facet
+    supplementary_sources:
+      - file: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+        reason: "Overview course; less depth than S4605 on org configuration."
+      - file: "S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf"
+        reason: "Unit 1 Lesson 1 covers org structure; S4605 is the deeper reference."
+    supplementary_chunks:
+      - enterprise-structure-head-office-branch-billing-001   # S4615, single-page, specialized scenario
+    conflict: false
+    notes: >
+      Authority is distributed by facet, not conflicted. Query 'sales organization' ->
+      S4605 chunk. Query 'billing area assignment' -> S4615 chunk. S4650 Unit 1 Lesson 1
+      is supplementary to S4605 (unified course context, less configuration depth).
+
+  - topic_id: ent.org.shipping
+    label: "Shipping Point and Loading Point"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf"
+        facet: "Shipping point and loading point org units"
+    authoritative_chunks:
+      - enterprise-structure-shipping-point-loading-point-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: ent.org.warehouse
+    label: "Warehouse Organizational Units (EWM/IM)"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf"
+        facet: "EWM/IM warehouse org structure"
+    authoritative_chunks:
+      - enterprise-structure-warehouse-org-units-ewm-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: ent.org.cross_div
+    label: "Cross-Division Sales and Shared Master Data"
+    authority_pattern: prospective
+    authoritative_sources:
+      - file: "S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf"
+        facet: "Unit 1 Lesson 2 — prospective primary (not yet chunked)"
+    authoritative_chunks: []   # 0 chunks — GAP
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+    notes: "CURRENT GAP. When S4650 Unit 1 Lesson 2 is chunked, it becomes the primary."
+
+  - topic_id: ent.master.bp
+    label: "Business Partner Master Data"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+        facet: "Customer master in BP model (phys 58-63)"
+    authoritative_chunks:
+      - master-data-business-partner-master-data-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: ent.master.material
+    label: "Material Master Data (SD Views) and CMiR"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+        facet: "Material master SD views + CMiR (phys 64-68)"
+    authoritative_chunks:
+      - master-data-material-master-sd-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: ent.master.partner
+    label: "Partner Functions and Partner Determination"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+        facet: "Partner functions and determination procedure (Unit 9)"
+    authoritative_chunks:
+      - master-data-sd-partner-functions-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # ORDER-TO-CASH
+  # ─────────────────────────────────────────────────────────────────────────
+
+  - topic_id: o2c.presales
+    label: "Presales Documents"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+        facet: "Inquiries, quotations, MTO, service products (phys 127-134)"
+    authoritative_chunks:
+      - order-management-presales-additional-processes-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+    notes: >
+      Chunk is a bundle (presales + MTO + service products). MTO also maps to
+      o2c.order.special at medium confidence. If a dedicated presales chunk is
+      created from a deeper source, retire this as supplementary.
+
+  - topic_id: o2c.order.basic
+    label: "Basic Sales Order Processing"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+        facet: "Sales order processing, source of data, document flow, technical tables"
+    authoritative_chunks:
+      - order-management-sales-distribution-process-001
+      - order-management-sales-order-source-of-data-001
+      - order-management-sales-order-special-features-001
+      - integration-sales-document-technical-tables-001   # technical tables — S4605 back-matter
+    supplementary_sources:
+      - file: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+        reason: "Overview course; S4605 is the configuration-depth reference."
+    supplementary_chunks:
+      - order-management-sales-document-data-flow-001   # medium confidence; also maps to xfunc.copy
+    conflict: false
+
+  - topic_id: o2c.order.special
+    label: "Special Order Types (Cash Sale, Rush Order, Consignment, FoC, Returns)"
+    authority_pattern: distributed
+    authoritative_sources:
+      - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+        facet: "Special business transactions — process and document type config"
+      - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
+        facet: "Billing types for special processes (CS billing type for cash sale)"
+    authoritative_chunks:
+      - special-processes-sales-special-business-transactions-001   # S4605 primary
+      - special-processes-cash-sales-process-001                     # S4615 primary
+    supplementary_sources: []
+    supplementary_chunks:
+      - order-management-presales-additional-processes-001   # covers MTO at medium confidence
+    conflict: true
+    conflict_details:
+      topic: "Cash sale document type tokens"
+      s4605_says: "Delivery type BV, billing type BV for cash sale"
+      s4615_says: "Order type CS, billing type CS for cash sale (cancellation: SV)"
+      resolution: >
+        NOT a factual contradiction: BV is the delivery document type; CS is both the
+        sales order type AND the billing document type. The two courses emphasize different
+        documents in the same process. Chunk special-processes-cash-sales-process-001
+        documents this in its 'Source and Version Notes' section. Resolution rule:
+        verify actual document type configuration in the target system before relying
+        on a specific token. Type A source (S4615) is more detailed for billing;
+        S4605 for sales/delivery. Do NOT alter either chunk — the note in the chunk body
+        is the correct artifact for this conflict.
+    notes: >
+      CS/BV conflict: formally registered. The resolution is system-specific;
+      the registry records the divergence and defers to the target system.
+
+  - topic_id: o2c.order.outline
+    label: "Outline Agreements"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+        facet: "Scheduling agreements, quantity contracts (Unit 10); value contracts (Unit 10)"
+    authoritative_chunks:
+      - order-management-outline-agreements-scheduling-quantity-contracts-001
+      - order-management-value-contracts-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: o2c.order.atp
+    label: "Availability Check (ATP) and Backorder Processing"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+        facet: "ATP concept, checking rule/scope, BOP scenarios (phys 97-112)"
+    authoritative_chunks:
+      - order-management-availability-check-atp-001
+      - order-management-backorder-processing-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: o2c.order.collective
+    label: "Collective Processing"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+        facet: "Collective delivery/picking/billing processing (phys 117-124)"
+    authoritative_chunks:
+      - order-management-collective-processing-001
+    supplementary_sources: []
+    supplementary_chunks:
+      - shipping-outbound-delivery-monitor-001   # monitor tool overlaps at medium confidence
+    conflict: false
+
+  - topic_id: o2c.delivery.outbound
+    label: "Outbound Delivery Creation and Processing"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf"
+        facet: "Delivery concept, structure, field determination, scheduling, creation process"
+    authoritative_chunks:
+      - shipping-delivery-document-concept-001
+      - shipping-delivery-document-structure-001
+      - shipping-outbound-delivery-creation-process-001
+      - configuration-delivery-field-determination-001
+      - configuration-delivery-scheduling-001
+    supplementary_sources:
+      - file: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+        reason: "Overview-level delivery steps; S4610 has the configuration depth."
+    supplementary_chunks:
+      - shipping-outbound-delivery-monitor-001   # medium confidence; monitor as collective tool
+    conflict: false
+
+  - topic_id: o2c.delivery.picking
+    label: "Picking (EWM) and Goods Issue Posting"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf"
+        facet: "EWM picking, transfer orders, GI posting, delivery split (Unit 5)"
+    authoritative_chunks:
+      - shipping-ewm-picking-process-001
+      - shipping-goods-issue-ewm-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: o2c.delivery.inbound
+    label: "Inbound Delivery and Goods Receipt (EWM)"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf"
+        facet: "Inbound delivery creation in EWM (Unit 5 Lesson 3)"
+    authoritative_chunks:
+      - shipping-inbound-delivery-ewm-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: o2c.delivery.special
+    label: "Special Delivery Functions"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf"
+        facet: "Delivery pricing, SD-EWM interface, incompletion (Unit 5 Lesson 4)"
+    authoritative_chunks:
+      - shipping-delivery-special-functions-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: o2c.billing.standard
+    label: "Standard Billing Process"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
+        facet: "Billing creation methods, structure, tables, data flow"
+    authoritative_chunks:
+      - billing-billing-document-creation-methods-001
+      - billing-billing-document-integration-001
+      - billing-billing-document-structure-001
+      - billing-create-billing-documents-fiori-001
+    supplementary_sources: []
+    supplementary_chunks:
+      - billing-document-table-structure-001       # medium: technical tables view
+      - configuration-billing-data-flow-001        # medium: copy-control angle on data flow
+    conflict: false
+
+  - topic_id: o2c.billing.special
+    label: "Special Billing Types"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
+        facet: "Milestone/periodic plans, pro forma, PBD, down payments, installments"
+    authoritative_chunks:
+      - billing-billing-plans-concept-001
+      - billing-down-payment-processing-001
+      - billing-installment-payments-001
+      - billing-preliminary-billing-documents-001
+      - billing-pro-forma-invoice-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: o2c.billing.settlement
+    label: "Invoice Combination/Split, Invoice Lists, Convergent Billing"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
+        facet: "Invoice combination/split, invoice lists, convergent billing (Unit 7)"
+    authoritative_chunks:
+      - billing-invoice-combination-and-split-001
+      - billing-invoice-list-001
+      - billing-omnichannel-convergent-billing-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: o2c.billing.complaints
+    label: "Complaints Billing"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
+        facet: "Credit/debit memo, returns, cancellation, invoice correction (Units 4, 8)"
+    authoritative_chunks:
+      - billing-billing-document-cancellation-001
+      - billing-credit-debit-memo-process-001
+      - billing-invoice-correction-request-process-001
+      - billing-returns-process-001
+      - billing-value-dated-credit-memos-001
+    supplementary_sources:
+      - file: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+        reason: "Secondary source on returns and credit/debit memo (phys 139-145); additive depth."
+    supplementary_chunks: []
+    conflict: false
+    notes: >
+      Authority is UNIFORM (all S4615 primary). No need to split sub-topics.
+      S4600 added as secondary source to returns-process-001 and
+      credit-debit-memo-process-001 during S4600 session.
+
+  - topic_id: o2c.billing.fi
+    label: "Billing–FI Integration"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
+        facet: "Account determination (VKOA), negative postings, FI interface controls (Units 9-10)"
+    authoritative_chunks:
+      - configuration-billing-account-determination-001
+      - configuration-billing-fi-interface-controls-001
+      - configuration-billing-negative-postings-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: o2c.credit
+    label: "Credit Management"
+    authority_pattern: prospective
+    authoritative_sources:
+      - file: "S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf"
+        facet: "Prospective — pending confirmation that S4650 covers credit management"
+      - file: "S4680 (not yet inspected)"
+        facet: "Prospective — S4680 may be the dedicated credit management course"
+    authoritative_chunks: []   # 0 chunks — PRIORITY GAP
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+    notes: >
+      PRIORITY GAP. Inspect S4650 and S4680 to determine which covers credit management
+      (credit limit check, credit exposure, risk categories, automatic credit control).
+      Assign primary source after inspection. This is the most critical missing topic.
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PRICING & CONDITIONS
+  # ─────────────────────────────────────────────────────────────────────────
+
+  - topic_id: price.technique
+    label: "Condition Technique Overview"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
+        facet: "Condition technique mechanics (Unit 1 Lesson 2)"
+    authoritative_chunks:
+      - pricing-condition-technique-overview-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: price.config
+    label: "Pricing Procedure Configuration"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
+        facet: "Pricing procedure steps and configuration (Unit 2)"
+    authoritative_chunks:
+      - configuration-pricing-procedure-configuration-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: price.records
+    label: "Condition Records"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
+        facet: "Condition record creation, maintenance, reporting (Unit 3)"
+    authoritative_chunks:
+      - pricing-condition-records-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: price.special
+    label: "Special Condition Types and Pricing Functions"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
+        facet: "Special/statistical condition types, group conditions, exclusion (Unit 5)"
+    authoritative_chunks:
+      - pricing-special-condition-types-001
+      - pricing-special-pricing-functions-001
+    supplementary_sources: []
+    supplementary_chunks:
+      - pricing-statistical-condition-types-001   # medium: overlaps price.config on tax determination
+    conflict: false
+
+  - topic_id: price.ccm
+    label: "Condition Contract Management (CCM)"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
+        facet: "CCM concept, contract maintenance, settlement (Unit 7)"
+    authoritative_chunks:
+      - pricing-condition-contract-management-concept-001
+      - pricing-condition-contract-maintenance-001
+      - pricing-condition-contract-settlement-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: price.agreements
+    label: "Pricing Agreements (Promotions and Sales Deals)"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf"
+        facet: "Promotions and sales deals (Unit 6)"
+    authoritative_chunks:
+      - pricing-pricing-agreements-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: price.free_goods
+    label: "Free Goods Determination"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+        facet: "Free goods determination (Unit 12)"
+    authoritative_chunks:
+      - pricing-free-goods-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # DOCUMENT TYPE CONTROL
+  # ─────────────────────────────────────────────────────────────────────────
+
+  - topic_id: ctrl.sales
+    label: "Sales Document Type, Item Category, and Schedule Line Category"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+        facet: "Three-level control hierarchy for sales documents (Unit 5)"
+    authoritative_chunks:
+      - configuration-sales-document-type-control-001
+      - configuration-sales-item-category-control-001
+      - configuration-schedule-line-category-control-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: ctrl.delivery
+    label: "Delivery Type and Delivery Item Category"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf"
+        facet: "Delivery type and delivery item category (Unit 3)"
+    authoritative_chunks:
+      - configuration-delivery-type-001
+      - configuration-delivery-item-category-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: ctrl.billing_type
+    label: "Billing Type Configuration"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
+        facet: "Billing types, billing relevance, flexible numbering (Units 3-6)"
+    authoritative_chunks:
+      - configuration-billing-types-sap-s4hana-001
+      - configuration-billing-relevance-item-category-001
+    supplementary_sources: []
+    supplementary_chunks:
+      - configuration-flexible-billing-document-numbering-001   # medium: sub-feature of billing type control
+    conflict: false
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # CROSS-FUNCTIONAL
+  # ─────────────────────────────────────────────────────────────────────────
+
+  - topic_id: xfunc.copy
+    label: "Copy Control (Sales, Delivery, and Billing)"
+    authority_pattern: distributed
+    authoritative_sources:
+      - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+        facet: "Sales-to-sales and sales-to-delivery copy control"
+      - file: "S4610_EN_Col17 Delivery Processing in SAP S4HANA.pdf"
+        facet: "Delivery copy control, split criteria, special scenarios"
+      - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
+        facet: "Delivery-to-billing and order-to-billing copy control"
+    authoritative_chunks:
+      - configuration-sales-copying-control-001        # S4605 — sales facet
+      - configuration-delivery-process-customizing-001 # S4610 — delivery facet
+      - configuration-billing-copying-control-001      # S4615 — billing facet
+    supplementary_sources:
+      - file: "S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf"
+        reason: >
+          Unit 2 (Modifying Copy Control) provides a UNIFIED VIEW across all three
+          document chains. Supplementary to the three authoritative facet chunks;
+          does not supersede them. When chunked: mark role=secondary, note=unified view.
+    supplementary_chunks:
+      - configuration-billing-data-flow-001           # medium: data flow via copy control
+      - order-management-sales-document-data-flow-001 # medium: user-facing document flow
+    conflict: false
+    notes: >
+      P2 STRUCTURAL FINDING: copy control is a single coherent concept that the current
+      chunk architecture has fragmented across 3 domain-specific chunks (sales/delivery/
+      billing areas). This is not an error — each chunk is correct in its domain — but a
+      consultant querying 'copy control' will get 3 partial answers instead of 1 unified one.
+      Consider adding a cross-reference note to each of the 3 chunks pointing to the others,
+      or creating a unified xfunc.copy overview chunk in a future pass.
+      S4650 Unit 2 can serve as the source for that unified chunk.
+
+  - topic_id: xfunc.incompletion
+    label: "Incompletion Check and Incompletion Procedure"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+        facet: "Incompletion check and configuration (Unit 8)"
+    authoritative_chunks:
+      - configuration-sales-incompletion-check-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  - topic_id: xfunc.material_det
+    label: "Material Determination, Listing, and Exclusion"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf"
+        facet: "Material determination and listing/exclusion (Unit 11)"
+    authoritative_chunks:
+      - master-data-material-determination-001
+      - master-data-material-listing-exclusion-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+    notes: "material-determination-001 has active density advisory warning (70 w/p)."
+
+  - topic_id: xfunc.text
+    label: "Text Control"
+    authority_pattern: prospective
+    authoritative_sources:
+      - file: "S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf"
+        facet: "Unit 3 (Text Control) — prospective primary (not yet chunked)"
+    authoritative_chunks: []   # 0 chunks — GAP
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+    notes: "GAP. S4650 Unit 3 (footer 26-42, phys 32-48) covers text IDs, schemas, copy rules."
+
+  - topic_id: xfunc.output
+    label: "Output Determination and Output Types"
+    authority_pattern: inversion_pending
+    authoritative_sources:
+      - file: "S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf"
+        facet: >
+          Unit 4 (Output) — PROSPECTIVE PRIMARY for full output determination
+          (output types, condition records, new output management across all SD docs).
+          Not yet chunked.
+    authoritative_chunks: []   # S4650 Unit 4 not yet chunked
+    supplementary_sources:
+      - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
+        reason: >
+          billing-output-management-brfplus-001 covers the billing BRFplus facet only.
+          This chunk was written before S4650 was processed and was the only coverage
+          for output. It becomes SUPPLEMENTARY once S4650 Unit 4 is chunked.
+    supplementary_chunks:
+      - configuration-billing-output-management-brfplus-001
+    conflict: false
+    notes: >
+      AUTHORITY INVERSION: an existing chunk (S4615 billing BRFplus) will become
+      supplementary to a new S4650 chunk that covers the full topic. This is the
+      pattern when a domain-specific course (S4615) covers a sub-facet first and a
+      cross-functional course (S4650) covers the full topic later. The existing chunk
+      does NOT become wrong — it remains accurate for its billing BRFplus facet.
+
+  - topic_id: xfunc.enhance
+    label: "Enhancements and Modifications"
+    authority_pattern: deferred
+    audience: technical
+    in_scope: deferred
+    authoritative_sources:
+      - file: "S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf"
+        facet: >
+          Unit 5 (Enhancements and Modifications) — BAdI, Enhancement Framework,
+          field exits, field selection for material master. Technical audience.
+    authoritative_chunks: []   # 0 chunks — DEFERRED (not a functional gap)
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+    notes: >
+      SCOPE DECISION REQUIRED. The corpus is functional (71+ of 82 chunks are process/
+      concept/configuration for functional consultants). Unit 5 of S4650 is technical
+      (BAdI, Enhancement Framework, Classic Enhancement Technology). Do NOT create
+      functional chunks from this unit by default. Chunking Unit 5 requires explicit
+      user confirmation to extend corpus scope to technical content.
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # ANALYTICS
+  # ─────────────────────────────────────────────────────────────────────────
+
+  - topic_id: analytics.sales
+    label: "Sales Monitoring, Fulfillment App, and CDS Analytics"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+        facet: "Fulfillment app, sales plans, CDS analytics (phys 149-161)"
+    authoritative_chunks:
+      - order-management-sales-monitoring-analytics-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # INTEGRATION
+  # ─────────────────────────────────────────────────────────────────────────
+
+  - topic_id: integration.gbi
+    label: "General Billing Interface"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4615_EN_Col17 Billing in SAP S4HANA Sales.pdf"
+        facet: "GBI for external billing (Unit 10 supplemental)"
+    authoritative_chunks:
+      - integration-general-billing-interface-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PLATFORM
+  # ─────────────────────────────────────────────────────────────────────────
+
+  - topic_id: platform.fiori
+    label: "SAP Fiori Launchpad and S/4HANA UX"
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4600_EN_Col17 Business Processes in SAP S4HANA Sales.pdf"
+        facet: "Fiori launchpad UX paradigm (phys 10-15)"
+    authoritative_chunks:
+      - configuration-sap-fiori-launchpad-001
+    supplementary_sources: []
+    supplementary_chunks:
+      - billing-create-billing-documents-fiori-001   # medium: Fiori billing apps, not UX paradigm
+    conflict: false
