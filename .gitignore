@@ -10,3 +10,6 @@ chunks/_tmp_*
 # Python cache
 __pycache__/
 *.pyc
+
+# Semantic embedding cache (generated; regenerate with compare.py)
+eval/index/

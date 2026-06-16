@@ -1,0 +1,16 @@
+# SAP SD Chunking — Python dependencies
+# Restore with: pip install -r requirements.txt
+
+# PDF processing
+# pdftotext / pdfinfo / pdffonts — from poppler-utils (system install, not pip)
+
+# YAML parsing (used by validator and eval harness)
+pyyaml>=6.0
+
+# Eval harness
+# eval/extract_assessments.py, eval/score.py, eval/retriever.py
+sentence-transformers>=3.0   # semantic retriever; pulls torch, numpy, transformers
+numpy>=1.20.0                # embedding cache (embeddings.npy)
+
+# Validation
+# validate_chunks.py uses only stdlib + pyyaml
