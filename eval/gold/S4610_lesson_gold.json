@@ -1,0 +1,142 @@
+{
+  "source": "S4610",
+  "offset": 6,
+  "gold_level": "lesson",
+  "built": "2026-06-16",
+  "assignment_method": "toc_structural",
+  "note": "Queries = lesson titles from TOC (structural, no content-overlap). Spans = TOC footer page ranges converted via confirmed per-doc offset. Excluded: Course Overview, Workshop, and Appendix units.",
+  "questions": [
+    {
+      "id": "S4610-LG-001",
+      "unit": "Unit 1: Idea and Function of the Delivery Document",
+      "lesson": "Explaining the Concept and Structure of the Delivery Document",
+      "gold_page_span": [
+        8,
+        16
+      ],
+      "question": "Explaining the Concept and Structure of the Delivery Document",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4610-LG-002",
+      "unit": "Unit 2: Basic Organizational Units for the Delivery Process",
+      "lesson": "Maintaining the Organizational Units for Delivery Processes",
+      "gold_page_span": [
+        18,
+        26
+      ],
+      "question": "Maintaining the Organizational Units for Delivery Processes",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4610-LG-003",
+      "unit": "Unit 3: Controlling Deliveries",
+      "lesson": "Controlling Delivery Documents",
+      "gold_page_span": [
+        28,
+        40
+      ],
+      "question": "Controlling Delivery Documents",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4610-LG-004",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "lesson": "Adjusting Automatic Determination of Relevant Fields for Outbound Delivery Creation",
+      "gold_page_span": [
+        42,
+        47
+      ],
+      "question": "Adjusting Automatic Determination of Relevant Fields for Outbound Delivery Creation",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4610-LG-005",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "lesson": "Adjusting Delivery and Transportation Scheduling",
+      "gold_page_span": [
+        48,
+        52
+      ],
+      "question": "Adjusting Delivery and Transportation Scheduling",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4610-LG-006",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "lesson": "Processing Outbound Deliveries",
+      "gold_page_span": [
+        53,
+        60
+      ],
+      "question": "Processing Outbound Deliveries",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4610-LG-007",
+      "unit": "Unit 4: The Goods Issue Process Based on the Delivery",
+      "lesson": "Using the Outbound Delivery Monitor",
+      "gold_page_span": [
+        61,
+        68
+      ],
+      "question": "Using the Outbound Delivery Monitor",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4610-LG-008",
+      "unit": "Unit 5: Processes and Functions based on the Delivery with Embedded EWM",
+      "lesson": "Picking Outbound Deliveries with EWM",
+      "gold_page_span": [
+        70,
+        75
+      ],
+      "question": "Picking Outbound Deliveries with EWM",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4610-LG-009",
+      "unit": "Unit 5: Processes and Functions based on the Delivery with Embedded EWM",
+      "lesson": "Posting Goods Issue",
+      "gold_page_span": [
+        76,
+        77
+      ],
+      "question": "Posting Goods Issue",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4610-LG-010",
+      "unit": "Unit 5: Processes and Functions based on the Delivery with Embedded EWM",
+      "lesson": "Creating Inbound Deliveries in EWM",
+      "gold_page_span": [
+        78,
+        81
+      ],
+      "question": "Creating Inbound Deliveries in EWM",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4610-LG-011",
+      "unit": "Unit 5: Processes and Functions based on the Delivery with Embedded EWM",
+      "lesson": "Using Special Functions in Deliveries",
+      "gold_page_span": [
+        82,
+        92
+      ],
+      "question": "Using Special Functions in Deliveries",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    }
+  ]
+}

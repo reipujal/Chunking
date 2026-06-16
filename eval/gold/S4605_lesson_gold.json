@@ -1,0 +1,226 @@
+{
+  "source": "S4605",
+  "offset": 8,
+  "gold_level": "lesson",
+  "built": "2026-06-16",
+  "assignment_method": "toc_structural",
+  "note": "Queries = lesson titles from TOC (structural, no content-overlap). Spans = TOC footer page ranges converted via confirmed per-doc offset. Excluded: Course Overview, Workshop, and Appendix units.",
+  "questions": [
+    {
+      "id": "S4605-LG-001",
+      "unit": "Unit 2: Introduction",
+      "lesson": "Introduction to the Sales and Distribution Process",
+      "gold_page_span": [
+        12,
+        15
+      ],
+      "question": "Introduction to the Sales and Distribution Process",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-002",
+      "unit": "Unit 3: Enterprise Structures in Sales and Distribution",
+      "lesson": "Enterprise Structures in Sales and Distribution",
+      "gold_page_span": [
+        17,
+        28
+      ],
+      "question": "Enterprise Structures in Sales and Distribution",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-003",
+      "unit": "Unit 4: Sales Order Processing",
+      "lesson": "Source of Data",
+      "gold_page_span": [
+        30,
+        39
+      ],
+      "question": "Source of Data",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-004",
+      "unit": "Unit 4: Sales Order Processing",
+      "lesson": "Order Processing - Special Features",
+      "gold_page_span": [
+        40,
+        46
+      ],
+      "question": "Order Processing - Special Features",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-005",
+      "unit": "Unit 5: Controlling Sales Documents",
+      "lesson": "Controlling Sales Documents - Sales Document Type",
+      "gold_page_span": [
+        48,
+        52
+      ],
+      "question": "Controlling Sales Documents - Sales Document Type",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-006",
+      "unit": "Unit 5: Controlling Sales Documents",
+      "lesson": "Controlling Sales Documents - Item Category",
+      "gold_page_span": [
+        53,
+        59
+      ],
+      "question": "Controlling Sales Documents - Item Category",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-007",
+      "unit": "Unit 5: Controlling Sales Documents",
+      "lesson": "Controlling Sales Documents - Schedule Line Categories",
+      "gold_page_span": [
+        60,
+        67
+      ],
+      "question": "Controlling Sales Documents - Schedule Line Categories",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-008",
+      "unit": "Unit 6: Data Flow",
+      "lesson": "Data Flow in the Application",
+      "gold_page_span": [
+        69,
+        74
+      ],
+      "question": "Data Flow in the Application",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-009",
+      "unit": "Unit 6: Data Flow",
+      "lesson": "Copying Control",
+      "gold_page_span": [
+        75,
+        80
+      ],
+      "question": "Copying Control",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-010",
+      "unit": "Unit 7: Special Business Transactions",
+      "lesson": "Special Business Transactions",
+      "gold_page_span": [
+        82,
+        87
+      ],
+      "question": "Special Business Transactions",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-011",
+      "unit": "Unit 8: Incompletion",
+      "lesson": "Incompletion Check and its Configuration",
+      "gold_page_span": [
+        89,
+        95
+      ],
+      "question": "Incompletion Check and its Configuration",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-012",
+      "unit": "Unit 9: Partner Functions in SD",
+      "lesson": "Function and Significance of Partner Functions",
+      "gold_page_span": [
+        97,
+        100
+      ],
+      "question": "Function and Significance of Partner Functions",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-013",
+      "unit": "Unit 9: Partner Functions in SD",
+      "lesson": "Configuration of Partner Functions and Partner Function Determination",
+      "gold_page_span": [
+        101,
+        107
+      ],
+      "question": "Configuration of Partner Functions and Partner Function Determination",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-014",
+      "unit": "Unit 10: Outline Agreements",
+      "lesson": "Scheduling Agreements and Quantity Contracts",
+      "gold_page_span": [
+        109,
+        113
+      ],
+      "question": "Scheduling Agreements and Quantity Contracts",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-015",
+      "unit": "Unit 10: Outline Agreements",
+      "lesson": "Value Contracts",
+      "gold_page_span": [
+        114,
+        126
+      ],
+      "question": "Value Contracts",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-016",
+      "unit": "Unit 11: Material Determination, Listing and Exclusion",
+      "lesson": "Material Determination",
+      "gold_page_span": [
+        128,
+        136
+      ],
+      "question": "Material Determination",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-017",
+      "unit": "Unit 11: Material Determination, Listing and Exclusion",
+      "lesson": "Material Listing and Exclusion",
+      "gold_page_span": [
+        137,
+        142
+      ],
+      "question": "Material Listing and Exclusion",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4605-LG-018",
+      "unit": "Unit 12: Free Goods",
+      "lesson": "Free Goods",
+      "gold_page_span": [
+        144,
+        152
+      ],
+      "question": "Free Goods",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    }
+  ]
+}

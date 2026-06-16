@@ -1,0 +1,166 @@
+{
+  "source": "S4615",
+  "offset": 8,
+  "gold_level": "lesson",
+  "built": "2026-06-16",
+  "assignment_method": "toc_structural",
+  "note": "Queries = lesson titles from TOC (structural, no content-overlap). Spans = TOC footer page ranges converted via confirmed per-doc offset. Excluded: Course Overview, Workshop, and Appendix units.",
+  "questions": [
+    {
+      "id": "S4615-LG-001",
+      "unit": "Unit 1: Billing Documents in Sales and Distribution Processes",
+      "lesson": "Integrating Billing Documents in the Sales and Distribution Process",
+      "gold_page_span": [
+        10,
+        13
+      ],
+      "question": "Integrating Billing Documents in the Sales and Distribution Process",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4615-LG-002",
+      "unit": "Unit 2: Organizational Units",
+      "lesson": "Setting Up Organizational Units",
+      "gold_page_span": [
+        15,
+        19
+      ],
+      "question": "Setting Up Organizational Units",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4615-LG-003",
+      "unit": "Unit 3: The Billing Process",
+      "lesson": "Controlling the Billing Process",
+      "gold_page_span": [
+        21,
+        27
+      ],
+      "question": "Controlling the Billing Process",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4615-LG-004",
+      "unit": "Unit 4: Special Billing Types",
+      "lesson": "Processing Special Billing Types",
+      "gold_page_span": [
+        29,
+        39
+      ],
+      "question": "Processing Special Billing Types",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4615-LG-005",
+      "unit": "Unit 5: Data Flow",
+      "lesson": "Setting Up the Data Flow for Billing Documents",
+      "gold_page_span": [
+        41,
+        50
+      ],
+      "question": "Setting Up the Data Flow for Billing Documents",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4615-LG-006",
+      "unit": "Unit 6: Billing Document Creation",
+      "lesson": "Creating Billing Documents in Different Ways",
+      "gold_page_span": [
+        52,
+        60
+      ],
+      "question": "Creating Billing Documents in Different Ways",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4615-LG-007",
+      "unit": "Unit 7: Types of Settlement",
+      "lesson": "Analyzing Invoice Combination and Invoice Split",
+      "gold_page_span": [
+        62,
+        64
+      ],
+      "question": "Analyzing Invoice Combination and Invoice Split",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4615-LG-008",
+      "unit": "Unit 7: Types of Settlement",
+      "lesson": "Understanding Special Types of Settlement",
+      "gold_page_span": [
+        65,
+        74
+      ],
+      "question": "Understanding Special Types of Settlement",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4615-LG-009",
+      "unit": "Unit 8: Special Business Processes",
+      "lesson": "Setting Up Billing Plans",
+      "gold_page_span": [
+        76,
+        82
+      ],
+      "question": "Setting Up Billing Plans",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4615-LG-010",
+      "unit": "Unit 8: Special Business Processes",
+      "lesson": "Processing Down Payments",
+      "gold_page_span": [
+        83,
+        88
+      ],
+      "question": "Processing Down Payments",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4615-LG-011",
+      "unit": "Unit 8: Special Business Processes",
+      "lesson": "Processing Installment Payments",
+      "gold_page_span": [
+        89,
+        94
+      ],
+      "question": "Processing Installment Payments",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4615-LG-012",
+      "unit": "Unit 9: Account Determination",
+      "lesson": "Setting Up the Account Determination",
+      "gold_page_span": [
+        96,
+        101
+      ],
+      "question": "Setting Up the Account Determination",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4615-LG-013",
+      "unit": "Unit 10: Interface Between Sales and Distribution and Financial Accounting",
+      "lesson": "Adjusting the Interface Between Sales and Distribution and Financial Accounting",
+      "gold_page_span": [
+        103,
+        111
+      ],
+      "question": "Adjusting the Interface Between Sales and Distribution and Financial Accounting",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    }
+  ]
+}

@@ -1,0 +1,322 @@
+{
+  "source": "S4600",
+  "offset": 8,
+  "gold_level": "lesson",
+  "built": "2026-06-16",
+  "assignment_method": "toc_structural",
+  "note": "Queries = lesson titles from TOC (structural, no content-overlap). Spans = TOC footer page ranges converted via confirmed per-doc offset. Excluded: Course Overview, Workshop, and Appendix units.",
+  "questions": [
+    {
+      "id": "S4600-LG-001",
+      "unit": "Unit 1: Navigation with SAP Fiori",
+      "lesson": "Identifying Key Features of SAP Fiori",
+      "gold_page_span": [
+        10,
+        17
+      ],
+      "question": "Identifying Key Features of SAP Fiori",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-002",
+      "unit": "Unit 2: Enterprise Structures",
+      "lesson": "Identifying Enterprise Structures in SAP S/4HANA Sales",
+      "gold_page_span": [
+        19,
+        30
+      ],
+      "question": "Identifying Enterprise Structures in SAP S/4HANA Sales",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-003",
+      "unit": "Unit 3: Overview of Sales Processes",
+      "lesson": "Executing SAP S/4HANA Sales Processes",
+      "gold_page_span": [
+        32,
+        38
+      ],
+      "question": "Executing SAP S/4HANA Sales Processes",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-004",
+      "unit": "Unit 3: Overview of Sales Processes",
+      "lesson": "Processing Sales Documents",
+      "gold_page_span": [
+        39,
+        41
+      ],
+      "question": "Processing Sales Documents",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-005",
+      "unit": "Unit 3: Overview of Sales Processes",
+      "lesson": "Processing Outbound Deliveries",
+      "gold_page_span": [
+        42,
+        44
+      ],
+      "question": "Processing Outbound Deliveries",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-006",
+      "unit": "Unit 3: Overview of Sales Processes",
+      "lesson": "Shipping Goods",
+      "gold_page_span": [
+        45,
+        47
+      ],
+      "question": "Shipping Goods",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-007",
+      "unit": "Unit 3: Overview of Sales Processes",
+      "lesson": "Processing Billing Documents",
+      "gold_page_span": [
+        48,
+        56
+      ],
+      "question": "Processing Billing Documents",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-008",
+      "unit": "Unit 4: Master Data",
+      "lesson": "Maintaining Business Partner Master Data",
+      "gold_page_span": [
+        58,
+        63
+      ],
+      "question": "Maintaining Business Partner Master Data",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-009",
+      "unit": "Unit 4: Master Data",
+      "lesson": "Maintaining Material Master Data",
+      "gold_page_span": [
+        64,
+        67
+      ],
+      "question": "Maintaining Material Master Data",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-010",
+      "unit": "Unit 4: Master Data",
+      "lesson": "Maintaining Customer-Material Info Records",
+      "gold_page_span": [
+        68,
+        69
+      ],
+      "question": "Maintaining Customer-Material Info Records",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-011",
+      "unit": "Unit 4: Master Data",
+      "lesson": "Maintaining Condition Master Data for Pricing",
+      "gold_page_span": [
+        70,
+        72
+      ],
+      "question": "Maintaining Condition Master Data for Pricing",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-012",
+      "unit": "Unit 4: Master Data",
+      "lesson": "Explaining Additional Master Data Topics",
+      "gold_page_span": [
+        73,
+        82
+      ],
+      "question": "Explaining Additional Master Data Topics",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-013",
+      "unit": "Unit 5: Automatic Data Determination and Scheduling",
+      "lesson": "Analyzing the Results of Automatic Data Determination",
+      "gold_page_span": [
+        84,
+        88
+      ],
+      "question": "Analyzing the Results of Automatic Data Determination",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-014",
+      "unit": "Unit 5: Automatic Data Determination and Scheduling",
+      "lesson": "Analyzing the Results of Delivery and Transportation Scheduling",
+      "gold_page_span": [
+        89,
+        95
+      ],
+      "question": "Analyzing the Results of Delivery and Transportation Scheduling",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-015",
+      "unit": "Unit 6: Availability Check",
+      "lesson": "Performing an Availability Check - Basics",
+      "gold_page_span": [
+        97,
+        103
+      ],
+      "question": "Performing an Availability Check - Basics",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-016",
+      "unit": "Unit 6: Availability Check",
+      "lesson": "Performing an Availability Check - Further Topics",
+      "gold_page_span": [
+        104,
+        115
+      ],
+      "question": "Performing an Availability Check - Further Topics",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-017",
+      "unit": "Unit 7: Collective Processing",
+      "lesson": "Executing Collective Processing",
+      "gold_page_span": [
+        117,
+        125
+      ],
+      "question": "Executing Collective Processing",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-018",
+      "unit": "Unit 8: Additional Processes in Sales",
+      "lesson": "Using Presales Documents",
+      "gold_page_span": [
+        127,
+        129
+      ],
+      "question": "Using Presales Documents",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-019",
+      "unit": "Unit 8: Additional Processes in Sales",
+      "lesson": "Executing Make-to-Order Production",
+      "gold_page_span": [
+        130,
+        132
+      ],
+      "question": "Executing Make-to-Order Production",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-020",
+      "unit": "Unit 8: Additional Processes in Sales",
+      "lesson": "Selling Service Products",
+      "gold_page_span": [
+        133,
+        137
+      ],
+      "question": "Selling Service Products",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-021",
+      "unit": "Unit 9: Complaints Processing",
+      "lesson": "Creating Credit Memo Requests",
+      "gold_page_span": [
+        139,
+        142
+      ],
+      "question": "Creating Credit Memo Requests",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-022",
+      "unit": "Unit 9: Complaints Processing",
+      "lesson": "Cancelling Billing Documents",
+      "gold_page_span": [
+        143,
+        143
+      ],
+      "question": "Cancelling Billing Documents",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-023",
+      "unit": "Unit 9: Complaints Processing",
+      "lesson": "Creating Returns",
+      "gold_page_span": [
+        144,
+        147
+      ],
+      "question": "Creating Returns",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-024",
+      "unit": "Unit 10: Monitoring and Sales Analytics",
+      "lesson": "Utilizing the Sales Order Fulfillment App",
+      "gold_page_span": [
+        149,
+        155
+      ],
+      "question": "Utilizing the Sales Order Fulfillment App",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-025",
+      "unit": "Unit 10: Monitoring and Sales Analytics",
+      "lesson": "Managing Sales Plans",
+      "gold_page_span": [
+        156,
+        157
+      ],
+      "question": "Managing Sales Plans",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4600-LG-026",
+      "unit": "Unit 10: Monitoring and Sales Analytics",
+      "lesson": "Using Analytical Apps",
+      "gold_page_span": [
+        158,
+        168
+      ],
+      "question": "Using Analytical Apps",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    }
+  ]
+}

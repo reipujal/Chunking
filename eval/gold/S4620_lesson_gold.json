@@ -1,0 +1,178 @@
+{
+  "source": "S4620",
+  "offset": 6,
+  "gold_level": "lesson",
+  "built": "2026-06-16",
+  "assignment_method": "toc_structural",
+  "note": "Queries = lesson titles from TOC (structural, no content-overlap). Spans = TOC footer page ranges converted via confirmed per-doc offset. Excluded: Course Overview, Workshop, and Appendix units.",
+  "questions": [
+    {
+      "id": "S4620-LG-001",
+      "unit": "Unit 1: Condition Technique in Pricing",
+      "lesson": "Introducing Pricing",
+      "gold_page_span": [
+        8,
+        11
+      ],
+      "question": "Introducing Pricing",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-002",
+      "unit": "Unit 1: Condition Technique in Pricing",
+      "lesson": "Introducing the Condition Technique",
+      "gold_page_span": [
+        12,
+        23
+      ],
+      "question": "Introducing the Condition Technique",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-003",
+      "unit": "Unit 2: Pricing Configuration",
+      "lesson": "Configuring Pricing",
+      "gold_page_span": [
+        25,
+        31
+      ],
+      "question": "Configuring Pricing",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-004",
+      "unit": "Unit 2: Pricing Configuration",
+      "lesson": "Further Options for Pricing Control",
+      "gold_page_span": [
+        32,
+        38
+      ],
+      "question": "Further Options for Pricing Control",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-005",
+      "unit": "Unit 3: Condition Records",
+      "lesson": "Working with Condition Records",
+      "gold_page_span": [
+        40,
+        43
+      ],
+      "question": "Working with Condition Records",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-006",
+      "unit": "Unit 3: Condition Records",
+      "lesson": "Reports for Condition Records",
+      "gold_page_span": [
+        44,
+        52
+      ],
+      "question": "Reports for Condition Records",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-007",
+      "unit": "Unit 4: Special Functions",
+      "lesson": "Applying Special Pricing Functions",
+      "gold_page_span": [
+        54,
+        61
+      ],
+      "question": "Applying Special Pricing Functions",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-008",
+      "unit": "Unit 5: Condition Types",
+      "lesson": "Using Special Condition Types",
+      "gold_page_span": [
+        63,
+        71
+      ],
+      "question": "Using Special Condition Types",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-009",
+      "unit": "Unit 5: Condition Types",
+      "lesson": "Using Statistical Condition Types",
+      "gold_page_span": [
+        72,
+        75
+      ],
+      "question": "Using Statistical Condition Types",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-010",
+      "unit": "Unit 5: Condition Types",
+      "lesson": "Analyzing the Determination of Taxes",
+      "gold_page_span": [
+        76,
+        83
+      ],
+      "question": "Analyzing the Determination of Taxes",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-011",
+      "unit": "Unit 6: Pricing Agreements",
+      "lesson": "Using Pricing Agreements",
+      "gold_page_span": [
+        85,
+        90
+      ],
+      "question": "Using Pricing Agreements",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-012",
+      "unit": "Unit 7: Introduction to Condition Contract Management",
+      "lesson": "Introducing Condition Contract Management",
+      "gold_page_span": [
+        92,
+        99
+      ],
+      "question": "Introducing Condition Contract Management",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-013",
+      "unit": "Unit 7: Introduction to Condition Contract Management",
+      "lesson": "Maintaining of Condition Contracts",
+      "gold_page_span": [
+        100,
+        106
+      ],
+      "question": "Maintaining of Condition Contracts",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    },
+    {
+      "id": "S4620-LG-014",
+      "unit": "Unit 7: Introduction to Condition Contract Management",
+      "lesson": "Processing of Condition Contract Settlement",
+      "gold_page_span": [
+        107,
+        118
+      ],
+      "question": "Processing of Condition Contract Settlement",
+      "lesson_assignment_method": "toc_structural",
+      "excluded": false
+    }
+  ]
+}
