@@ -14,7 +14,7 @@ Es el cierre del **objetivo 1** (chunks óptimos) por documento. Token-eficiente
 
 - `DOC` = ruta del PDF (p.ej. `docu sap/processed/S4610_…pdf`)
 - `SRC` = clave de fuente que aparece en `sources[].file` (p.ej. `S4610`)
-- Offset: S46xx → etiqueta impresa = física − 8. **Citar siempre páginas FÍSICAS.**
+- Offset: **varía por documento** — NO asumir −8 global. Valores verificados: S4600=+8, S4605=+8, S4610=+6, S4615=+8, S4620=+6. Auto-detectar con `pdftotext` binary search (ver processing log). **Citar siempre páginas FÍSICAS.**
 
 ## Step A — Cribado (coverage-map + extraction-ratio)
 

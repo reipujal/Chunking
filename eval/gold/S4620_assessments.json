@@ -11,6 +11,7 @@
       "question": "You can limit a pricing agreement to a certain period.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "True",
       "answer_key_found": true,
       "answer_explanation": "You can limit a pricing agreement to a certain period.",
@@ -33,6 +34,7 @@
         "C": "Amount"
       },
       "question_type": "mcq",
+      "multi_answer": false,
       "correct": "A",
       "answer_key_found": true,
       "answer_explanation": "Calculation type is controlled by condition type.",
@@ -51,6 +53,7 @@
       "question": "The header conditions are distributed manually among the items based on the net value.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "False",
       "answer_key_found": true,
       "answer_explanation": "The header conditions are automatically distributed among the items based on the net value.",
@@ -69,6 +72,7 @@
       "question": "A condition table is a combination of fields that form the key for a condition record.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "True",
       "answer_key_found": true,
       "answer_explanation": "A condition table is a combination of fields that form the key for a condition record.",
@@ -91,6 +95,7 @@
         "C": "Pricing procedures"
       },
       "question_type": "mcq",
+      "multi_answer": false,
       "correct": "A",
       "answer_key_found": true,
       "answer_explanation": "Requirement routines and formulas provide a method for modifying the standard pricing logic to meet unique user requirements.",
@@ -109,6 +114,7 @@
       "question": "An access sequence only consists of one condition table.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "False",
       "answer_key_found": true,
       "answer_explanation": "An access sequence can have more than one condition table.",
@@ -132,7 +138,8 @@
         "D": "Condition tables"
       },
       "question_type": "mcq",
-      "correct": "A",
+      "multi_answer": false,
+      "correct": null,
       "answer_key_found": true,
       "answer_explanation": "A condition table contains keys used to create dependent condition records. Unit 2:",
       "gold_page_span": [
@@ -150,6 +157,7 @@
       "question": "New fields can be added to the pricing field catalog.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "True",
       "answer_key_found": true,
       "answer_explanation": "New fields can be added to the pricing field catalog. This allows you to use the new field to define condition tables.",
@@ -173,7 +181,8 @@
         "D": "You copy condition records with the help of the button: Update pricing ."
       },
       "question_type": "mcq",
-      "correct": "B",
+      "multi_answer": true,
+      "correct": null,
       "answer_key_found": true,
       "answer_explanation": "With a condition record, you can define a release procedure and copy condition records from one customer to another.",
       "gold_page_span": [
@@ -183,7 +192,7 @@
       "mappable": true,
       "excluded": false,
       "exclude_reason": "",
-      "notes": ""
+      "notes": "multi-answer: correct inference not attempted"
     },
     {
       "id": "S4620-LA-U3-Q2",
@@ -191,6 +200,7 @@
       "question": "You can create new pricing condition records today for next year.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "True",
       "answer_key_found": true,
       "answer_explanation": "You can create new pricing condition records today for next year.",
@@ -214,7 +224,8 @@
         "D": "You can maintain condition records with manage-price sales app."
       },
       "question_type": "mcq",
-      "correct": "D",
+      "multi_answer": true,
+      "correct": null,
       "answer_key_found": true,
       "answer_explanation": "You can maintain condition records based on your own price lists and you can use the manage-price sales app. Unit 3:",
       "gold_page_span": [
@@ -224,7 +235,7 @@
       "mappable": true,
       "excluded": false,
       "exclude_reason": "",
-      "notes": ""
+      "notes": "multi-answer: correct inference not attempted"
     },
     {
       "id": "S4620-LA-U3-Q4",
@@ -232,6 +243,7 @@
       "question": "You can export and import condition record with the help of the manage-price sales app?",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "True",
       "answer_key_found": true,
       "answer_explanation": "You can export and import condition record with the help of the manage-price sales app.",
@@ -250,6 +262,7 @@
       "question": "For group conditions, the item quantities are always accumulated to determine scale values.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": null,
       "answer_key_found": true,
       "answer_explanation": "Group conditions can be based on different things, such as gross weight or quantities. It depends on the setup of the condition type.",
@@ -268,6 +281,7 @@
       "question": "When values are accumulated in condition records, you can set only a minimum condition value.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "True",
       "answer_key_found": true,
       "answer_explanation": "When values are accumulated in condition records, you can set a maximum condition value, condition base value, or number of orders for a condition.",
@@ -286,6 +300,7 @@
       "question": "Multiple conditions cannot be grouped in a condition supplement procedure.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "False",
       "answer_key_found": true,
       "answer_explanation": "Several conditions can be grouped in a condition supplement procedure.",
@@ -309,7 +324,8 @@
         "D": "HM00 (Manual Order Value)"
       },
       "question_type": "mcq",
-      "correct": "D",
+      "multi_answer": true,
+      "correct": null,
       "answer_key_found": true,
       "answer_explanation": "Condition types AMIW and HM00 are group conditions and are divided among all the items in an order according to value.",
       "gold_page_span": [
@@ -319,7 +335,7 @@
       "mappable": true,
       "excluded": false,
       "exclude_reason": "",
-      "notes": ""
+      "notes": "multi-answer: correct inference not attempted"
     },
     {
       "id": "S4620-LA-U5-Q2",
@@ -327,6 +343,7 @@
       "question": "In customer hierarchies, you can assign price or rebate agreements only to a low-level node.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "True",
       "answer_key_found": true,
       "answer_explanation": "In customer hierarchies, you can assign price or rebate agreements to a high- level node.",
@@ -345,6 +362,7 @@
       "question": "A pallet discount like (KP00) offers a discount for whole units of measure only. This behavior is controlled by a basic formula in the pricing procedure.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "True",
       "answer_key_found": true,
       "answer_explanation": "The pallet discount like (KP00) offers a discount for whole units of measure only. This behavior is controlled by a basic formula in the pricing procedure. Unit 5:",
@@ -368,7 +386,8 @@
         "D": "SKTO (Cash Discount) Unit 5:"
       },
       "question_type": "mcq",
-      "correct": "C",
+      "multi_answer": true,
+      "correct": null,
       "answer_key_found": true,
       "answer_explanation": "VPRS (Cost price) and SKTO (Cash Discount) are the condition types that are statistical.",
       "gold_page_span": [
@@ -378,7 +397,7 @@
       "mappable": true,
       "excluded": false,
       "exclude_reason": "",
-      "notes": ""
+      "notes": "multi-answer: correct inference not attempted"
     },
     {
       "id": "S4620-LA-U5-Q5",
@@ -391,7 +410,8 @@
         "D": "The business transaction ­ domestic or export and import"
       },
       "question_type": "mcq",
-      "correct": "A",
+      "multi_answer": true,
+      "correct": null,
       "answer_key_found": true,
       "answer_explanation": "The factors that are considered in determining tax rates are the business transactions (domestic, export, or import), the tax liability of the ship-to party, and the tax liability of the material.",
       "gold_page_span": [
@@ -401,7 +421,7 @@
       "mappable": true,
       "excluded": false,
       "exclude_reason": "",
-      "notes": ""
+      "notes": "multi-answer: correct inference not attempted"
     },
     {
       "id": "S4620-LA-U5-Q6",
@@ -409,6 +429,7 @@
       "question": "The tax procedure is assigned according to country in the basic settings of the Financial Accounting (FI) component.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "True",
       "answer_key_found": true,
       "answer_explanation": "The tax procedure is assigned according to a country in the basic settings of the Financial Accounting (FI) component. For example, for the United States, you have the following tax procedures: TAXUS, TAXUSJ, and TAXUSX.",
@@ -432,7 +453,8 @@
         "D": "Accounting Document"
       },
       "question_type": "mcq",
-      "correct": "A",
+      "multi_answer": false,
+      "correct": null,
       "answer_key_found": true,
       "answer_explanation": "The detail screen of a billing item displays the sales deal number and promotion number fields",
       "gold_page_span": [
@@ -450,6 +472,7 @@
       "question": "Condition contract settlements are basically customer-based settlements such as sales- related rebates.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "True",
       "answer_key_found": true,
       "answer_explanation": "Condition Contract Settlement can be supplier-based such as purchase-related rebates or customer-based settlements such as sales-related rebates.",
@@ -473,7 +496,8 @@
         "D": "Creating targeted conditions over a specified range of material numbers"
       },
       "question_type": "mcq",
-      "correct": "A",
+      "multi_answer": false,
+      "correct": null,
       "answer_key_found": true,
       "answer_explanation": "The configuration of condition contract management comprises three main steps: Configuring pricing including condition contract conditions, configuring condition contract maintenance and configuring condition contract settlement. Unit 7:",
       "gold_page_span": [
@@ -491,6 +515,7 @@
       "question": "In which order should the specified steps be executed when configuring pricing including condition contract conditions? Arrange these steps into the correct sequence. 0 Specify contract condition relevant for condition types 0 Define pricing procedures 0 Check condition tables 0 Assign condition type to condition type group",
       "options": {},
       "question_type": "unknown",
+      "multi_answer": false,
       "correct": null,
       "answer_key_found": true,
       "answer_explanation": "The order in which the specified steps can be executed when configuring pricing including condition contract conditions is : Check condition tables, Specify contract condition relevant for condition types, Assign condition type to condition type group, Define pricing procedures .",
@@ -509,6 +534,7 @@
       "question": "Subsequent corrections can alter the business volume base of a time interval for which there is already a final settlement. So, a delta accruals settlement is used to settle the subsequent changes and to correct the final settlement.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "True",
       "answer_key_found": true,
       "answer_explanation": "Subsequent corrections can alter the business volume base of a time interval for which there is already a final settlement. So, a delta settlement can be used to settle the subsequent changes and to correct the final settlement.",
@@ -527,6 +553,7 @@
       "question": "The settlement reports can start periodically, can run for one or more business partners, and can settle one or more condition contracts.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "True",
       "answer_key_found": true,
       "answer_explanation": "The settlement reports can start periodically, can run for one or more business partners, and can settle one or more condition contracts.",
@@ -545,6 +572,7 @@
       "question": "Condition Record for Pricing in Sales - Replicate is a synchronous inbound service that enables you to update and delete condition records for pricing that are used in Sales.",
       "options": {},
       "question_type": "tf",
+      "multi_answer": false,
       "correct": "False",
       "answer_key_found": true,
       "answer_explanation": "Condition Record for Pricing in Sales - Replicate is an asynchronous outbound service that enables you to replicate condition records for pricing that are used in Sales to external systems",

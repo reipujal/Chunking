@@ -209,11 +209,17 @@ def parse_questions_from_text(text: str) -> list[dict]:
             "", q_text, flags=re.IGNORECASE,
         ).strip()
 
+        # Detect multi-answer MCQ (instruction says "answers" plural)
+        multi_answer = q_type == "mcq" and bool(
+            re.search(r"Choose the correct answers\b", part, re.IGNORECASE)
+        )
+
         questions.append({
             "num": q_num,
             "text": q_text,
             "type": q_type,
             "options": options,
+            "multi_answer": multi_answer,
         })
 
     return questions
@@ -285,23 +291,33 @@ def determine_correct(q: dict, explanation: str) -> str | None:
         return None  # uncertain
 
     elif q["type"] == "mcq":
+        # Multi-answer questions: cannot reliably infer all correct letters from
+        # a word-overlap heuristic — return None rather than a partial/wrong answer.
+        if q.get("multi_answer"):
+            return None
+
         expl = explanation.lower()
         stopwords = {"the", "a", "an", "is", "are", "in", "of", "to", "and",
                      "or", "for", "can", "you", "it", "this", "that", "be",
                      "has", "have", "by", "with", "at", "on", "as", "from",
                      "which", "that", "these", "those"}
-        best_letter = None
-        best_score = 0.0
+        scores: dict[str, float] = {}
+        expl_words = set(re.findall(r"\b\w+\b", expl)) - stopwords
         for letter, opt_text in q["options"].items():
             opt_words = set(re.findall(r"\b\w+\b", opt_text.lower())) - stopwords
             if not opt_words:
+                scores[letter] = 0.0
                 continue
-            expl_words = set(re.findall(r"\b\w+\b", expl)) - stopwords
-            score = len(opt_words & expl_words) / len(opt_words)
-            if score > best_score:
-                best_score = score
-                best_letter = letter
-        if best_score >= 0.35:
+            scores[letter] = len(opt_words & expl_words) / len(opt_words)
+
+        if not scores:
+            return None
+        sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+        best_letter, best_score = sorted_scores[0]
+        runner_up = sorted_scores[1][1] if len(sorted_scores) > 1 else 0.0
+
+        # Require: score above threshold AND clearly better than runner-up
+        if best_score >= 0.5 and best_score >= runner_up * 1.5:
             return best_letter
         return None
 
@@ -363,12 +379,16 @@ def build_gold_questions(
 
         q_id = f"{src}-LA-U{unit_num}-Q{q['num']}"
 
+        multi = q.get("multi_answer", False)
+        notes = "multi-answer: correct inference not attempted" if multi and correct is None else ""
+
         record = {
             "id": q_id,
             "unit": f"Unit {unit_num}: {unit_name}",
             "question": q["text"],
             "options": q["options"] if q["type"] == "mcq" else {},
             "question_type": q["type"],
+            "multi_answer": multi,
             "correct": correct,
             "answer_key_found": answer_key_found,
             "answer_explanation": explanation if answer_key_found else "",
@@ -376,7 +396,7 @@ def build_gold_questions(
             "mappable": True,  # will be updated in score.py
             "excluded": exclude_reason is not None,
             "exclude_reason": exclude_reason or "",
-            "notes": "",
+            "notes": notes,
         }
         results.append(record)
 
