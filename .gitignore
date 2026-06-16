@@ -6,3 +6,7 @@ chunks/_tmp_*
 
 # Claude Code settings (local, not project-specific)
 .claude/
+
+# Python cache
+__pycache__/
+*.pyc
