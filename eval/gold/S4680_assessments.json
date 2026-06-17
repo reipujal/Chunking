@@ -1,0 +1,1238 @@
+{
+  "doc": "S4680",
+  "pdf_relative_path": "processed/S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf",
+  "offset": 6,
+  "generated_at": "2026-06-17",
+  "total_physical_pages": 191,
+  "questions": [
+    {
+      "id": "S4680-LA-U1-Q1",
+      "unit": "Unit 1: Third-Party Order Processing",
+      "question": "Which of the following are influencing factors used during item category determination in a sales order in the SAP S/4HANA system?",
+      "options": {
+        "A": "The sales document type",
+        "B": "The schedule line category",
+        "C": "The item category group from the material master record",
+        "D": "The MRP type from the material master record"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The sales document type and the item category group from the material master record are influencing factors used during item category determination in a sales order in the SAP S/4HANA system. You can read more about this topic in lesson 1.1 of this course.",
+      "gold_page_span": [
+        7,
+        38
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U1-Q2",
+      "unit": "Unit 1: Third-Party Order Processing",
+      "question": "Which are relevant settings for third-party order processing in the configuration of schedule line category CS?",
+      "options": {
+        "A": "Order type for the purchase requisition",
+        "B": "Order type for the purchase order",
+        "C": "Account assignment category to be used",
+        "D": "Purchasing item category to be used X E Sales item category to be used X F Movement type for the goods issue posting"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The order type for the purchase requisition, the account assignment category to be used and the purchasing item category to be used, are relevant settings for third-party order processing in the configuration of schedule line category CS. You can read more about this topic in lesson 1.1 of this course. Unit 1:",
+      "gold_page_span": [
+        7,
+        38
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U1-Q3",
+      "unit": "Unit 1: Third-Party Order Processing",
+      "question": "Which time elements are used during purchase order scheduling in a third-party order processing scenario?",
+      "options": {
+        "A": "Goods receipt processing time from the material master record",
+        "B": "Planned delivery time",
+        "C": "Purchasing department processing time",
+        "D": "Goods issue processing time Unit 1:"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The planned delivery time and the purchasing department processing time are used during purchase order scheduling in a third-party order processing scenario. You can read more about this topic in lesson 1.1 of this course.",
+      "gold_page_span": [
+        7,
+        38
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U1-Q4",
+      "unit": "Unit 1: Third-Party Order Processing",
+      "question": "What are valid master records that the SAP S/4HANA system uses during automatic source determination for a purchase requisition?",
+      "options": {
+        "A": "Customer-material info record",
+        "B": "Purchasing info record",
+        "C": "Business partner master record",
+        "D": "Quota arrangement X E Source list"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        7,
+        38
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U1-Q5",
+      "unit": "Unit 1: Third-Party Order Processing",
+      "question": "Describe the difference between standard sales item category TAS and sales item category ALES.",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        7,
+        38
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U1-Q6",
+      "unit": "Unit 1: Third-Party Order Processing",
+      "question": "Will the goods receipt posting for the third-party purchase order item lead to an accounting document being created in your SAP S/4HANA system?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        7,
+        38
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U1-Q7",
+      "unit": "Unit 1: Third-Party Order Processing",
+      "question": "What are some of the effects in the SAP S/4HANA system of posting a goods receipt for a third-party purchase order item?",
+      "options": {
+        "A": "The consumption quantity in the material master record is updated",
+        "B": "The stock quantity is increased with the quantity received",
+        "C": "The open purchase order quantity decreases with the quantity received",
+        "D": "The quantity in special stock type Third-party stock increases with the goods receipt quantity"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The consumption quantity in the material master record is updated and the open purchase order quantity decreases with the quantity received. You can read more about this topic in lesson 1.2 of this course.",
+      "gold_page_span": [
+        7,
+        38
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U1-Q8",
+      "unit": "Unit 1: Third-Party Order Processing",
+      "question": "What is the result of setting the flag GR-Bsd IV(goods receipt-based invoice verification) in a purchase order item? Unit 1:",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        7,
+        38
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U1-Q9",
+      "unit": "Unit 1: Third-Party Order Processing",
+      "question": "Which of the following updates happen in the SAP S/4HANA system when a supplier invoice is posted with reference to a third-party purchase order item?",
+      "options": {
+        "A": "Any deviations to what was posted during goods receipt are posted to the stock account.",
+        "B": "Any deviations to what was posted during goods receipt are posted to the same expense account as used during goods receipt.",
+        "C": "The status of the outbound delivery for your sales order is updated.",
+        "D": "The purchase order history is updated."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Any deviations to what was posted during goods receipt are posted to the same expense account as used during goods receipt, and the purchase order history is updated. You can read more about this topic in lesson 1.3 of this course.",
+      "gold_page_span": [
+        7,
+        38
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U1-Q10",
+      "unit": "Unit 1: Third-Party Order Processing",
+      "question": "What is the main difference between options F and B for the field Billing Relevance in sales item category TAS?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        7,
+        38
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U1-Q11",
+      "unit": "Unit 1: Third-Party Order Processing",
+      "question": "What is the name of the field in copying control that the SAP S/4HANA system uses to calculate the quantity that needs to be billed to the customer?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        7,
+        38
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U1-Q12",
+      "unit": "Unit 1: Third-Party Order Processing",
+      "question": "What documents are visible directly in the document flow of a sales order with a third- party item in it?",
+      "options": {
+        "A": "Third-party purchase order",
+        "B": "Third-party purchase requisition",
+        "C": "Material document for the goods receipt",
+        "D": "Supplier Invoice X E Billing document sent to the customer"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "A third-party purchase order and the billing document sent to the customer are visible in the document flow of a sales order with a third-party item in it. You can read more about this topic in lesson 1.3 of this course.",
+      "gold_page_span": [
+        7,
+        38
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U2-Q1",
+      "unit": "Unit 2: The Cross-Company Code Sales Process",
+      "question": "Is the invoice for the end customer posted in the selling or in the delivering company code?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        46,
+        68
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U2-Q2",
+      "unit": "Unit 2: The Cross-Company Code Sales Process",
+      "question": "Is the internal invoice created in the selling or in the delivering company code?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        46,
+        68
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U2-Q3",
+      "unit": "Unit 2: The Cross-Company Code Sales Process",
+      "question": "To what combination of organizational structure elements is an allowed delivering plant assigned?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        46,
+        68
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U2-Q4",
+      "unit": "Unit 2: The Cross-Company Code Sales Process",
+      "question": "Can you assign an allowed delivering plant to more than one combination of organizational elements?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        46,
+        68
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U2-Q5",
+      "unit": "Unit 2: The Cross-Company Code Sales Process",
+      "question": "Can one plant be assigned to multiple company codes?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        46,
+        68
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U2-Q6",
+      "unit": "Unit 2: The Cross-Company Code Sales Process",
+      "question": "Can you assign a sales organization to more than one company code? Unit 2:",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        46,
+        68
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U2-Q7",
+      "unit": "Unit 2: The Cross-Company Code Sales Process",
+      "question": "What condition type represents the gross price that is billed to the (end) customer in a cross-company code sales process?",
+      "options": {
+        "A": "PI01",
+        "B": "PR00",
+        "C": "IV01"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "PR00 represents the gross price billed to the end customer in a cross-company code sales process. You can read more about this topic in lesson 2.1 of this course.",
+      "gold_page_span": [
+        46,
+        68
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U2-Q8",
+      "unit": "Unit 2: The Cross-Company Code Sales Process",
+      "question": "What are possible solutions you can use in your SAP S/4HANA system to support your warehouse management (e.g. picking) requirements for a cross-company code sales process?",
+      "options": {
+        "A": "(embedded) SAP Extended Warehouse Management",
+        "B": "Quality Management",
+        "C": "Stock Room Management",
+        "D": "SAP S/4HANA Procurement"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Possible warehouse management solution in SAP S/4HANA are (embedded) SAP Extended Warehouse Management and Stock Room Management. You can read more about this topic in lesson 2.2 of this course.",
+      "gold_page_span": [
+        46,
+        68
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U2-Q9",
+      "unit": "Unit 2: The Cross-Company Code Sales Process",
+      "question": "Is the customer billing document in a cross-company code sales process posted in the company code that sold the materials to the customer or in the company code to which the delivering plant belongs?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        46,
+        68
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U2-Q10",
+      "unit": "Unit 2: The Cross-Company Code Sales Process",
+      "question": "Why is there a need for two condition types representing the internal price ( PI01 and IV01)? Unit 2:",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        46,
+        68
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U2-Q11",
+      "unit": "Unit 2: The Cross-Company Code Sales Process",
+      "question": "To what elements is the pricing procedure assigned that is used in the internal invoice?",
+      "options": {
+        "A": "The document pricing procedure from the configuration of the IV billing type",
+        "B": "The document pricing procedure from the configuration of the OR sales document type",
+        "C": "The document pricing procedure from the configuration of the F2 or F1billing type",
+        "D": "The customer pricing procedure from the business partner master record of the payer X E The IV sales area X F The sales area in which the sales order was created"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The pricing procedure is assigned to the document pricing procedure from the configuration of the IV billing type, the customer pricing procedure from the business partner master record of the payer and the IV sales area. You can read more about this topic in lesson 2.3 of this course.",
+      "gold_page_span": [
+        46,
+        68
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U2-Q12",
+      "unit": "Unit 2: The Cross-Company Code Sales Process",
+      "question": "What is the target architecture for output in SAP S/4HANA based on BRF+?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        46,
+        68
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U3-Q1",
+      "unit": "Unit 3: The Intra-Company Code Stock Transfer Process",
+      "question": "Which of the following stock transfer processes will create at least one accounting document in your SAP S/4HANA system (assuming that the valuation level is Plant and the material is valuated)?",
+      "options": {
+        "A": "Transfer posting from one storage location to another storage location within one plant",
+        "B": "Transfer posting from a storage location in one plant to a storage location in another plant",
+        "C": "A process using a stock transport order between plants within one company code",
+        "D": "A process using a stock transport order between plants belonging to different company codes"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "As soon as more than one plant is involved in the process, at least one accounting document is created. All options involving more than one plant are correct here. You can read more about this topic in lesson 3.1 of this course.",
+      "gold_page_span": [
+        75,
+        94
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U3-Q2",
+      "unit": "Unit 3: The Intra-Company Code Stock Transfer Process",
+      "question": "What could be a reason why a customer would choose a one-step procedure for posting the goods movements for a stock transport order over a two-step procedure?",
+      "options": {
+        "A": "Stock in transit is non-valuated stock and this might not be relevant for the customer",
+        "B": "The two plants involved are physically located far away from one another",
+        "C": "The two plants involved are physically located close to one another"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "If the two plants involved are physically located close to one another, using the one-step procedure could be a valid option. You can read more about this topic in lesson 3.1 of this course.",
+      "gold_page_span": [
+        75,
+        94
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U3-Q3",
+      "unit": "Unit 3: The Intra-Company Code Stock Transfer Process",
+      "question": "What movement type is used for posting the goods issue in a two-step procedure for posting the goods movements for a purchase order where no outbound delivery is used?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        75,
+        94
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U3-Q4",
+      "unit": "Unit 3: The Intra-Company Code Stock Transfer Process",
+      "question": "What is the standard document type that is used in the SAP S/4HANA system for an automatically generated purchase requisition for a stock transfer process? Unit 3:",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        75,
+        94
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U3-Q5",
+      "unit": "Unit 3: The Intra-Company Code Stock Transfer Process",
+      "question": "What is the standard document type that is used in the SAP S/4HANA system for an intra- company code stock transport order?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        75,
+        94
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U3-Q6",
+      "unit": "Unit 3: The Intra-Company Code Stock Transfer Process",
+      "question": "Both the purchase requisition and the stock transport order that are used in an intra- company code stock transfer process use a special item category. What item category is this?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        75,
+        94
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U3-Q7",
+      "unit": "Unit 3: The Intra-Company Code Stock Transfer Process",
+      "question": "Which elements are used to determine the item category for the NLoutbound delivery?",
+      "options": {
+        "A": "Delivery type NL",
+        "B": "The document type of the sales order",
+        "C": "The item category group from the material master",
+        "D": "The item category of the higher-level item"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Delivery type NL, the item category group from the material master and the item category of the higher-level item are used to determine the item category for the NL outbound delivery. You can read more about this topic in lesson 3.2 of this course. Unit 3:",
+      "gold_page_span": [
+        75,
+        94
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U3-Q8",
+      "unit": "Unit 3: The Intra-Company Code Stock Transfer Process",
+      "question": "To which elements is the schedule line category assigned that the system uses to determine the movement type for the goods issue posting for an NLoutbound delivery?",
+      "options": {
+        "A": "Delivery type NL",
+        "B": "Item category NLN",
+        "C": "The MRP type stored in the material master record",
+        "D": "The business partner master record of the goods recipient"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "A schedule category is assigned to a combination of an item category and the MRP type stored in the material master record. You can read more about this topic in lesson 3.2 of this course.",
+      "gold_page_span": [
+        75,
+        94
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U4-Q1",
+      "unit": "Unit 4: The Cross-Company Code Stock Transfer Process",
+      "question": "In case of a cross-company code stock transfer process, what document type do you select when creating the stock transport order?",
+      "options": {
+        "A": "NB (Standard PO)",
+        "B": "UB (Stock Transp. Order)",
+        "C": "NLCC (Replen.Cross-Company)"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "A",
+      "answer_key_found": true,
+      "answer_explanation": "The stock transport order is created as a normal NB (Standard PO) purchase order. You can read more about this topic in lesson 4.1 of this course.",
+      "gold_page_span": [
+        100,
+        117
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U4-Q2",
+      "unit": "Unit 4: The Cross-Company Code Stock Transfer Process",
+      "question": "A purchase order requires a supplier to be specified. Where do you maintain the link between this supplier and your supplying plant?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        100,
+        117
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U4-Q3",
+      "unit": "Unit 4: The Cross-Company Code Stock Transfer Process",
+      "question": "How does the system know for which sales area to create the internal invoice?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        100,
+        117
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U4-Q4",
+      "unit": "Unit 4: The Cross-Company Code Stock Transfer Process",
+      "question": "The internal invoice is created based on the replenishment delivery for the cross-company code stock transport order. What is the standard delivery type available in the SAP S/ 4HANA system for this replenishment delivery?",
+      "options": {
+        "A": "Delivery type DL",
+        "B": "Delivery type NLCC",
+        "C": "Delivery type NL Unit 4:"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Delivery type NLCCis available for this scenario. You can read more about this topic in lesson 4.2 of this course. Unit 4:",
+      "gold_page_span": [
+        100,
+        117
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U4-Q5",
+      "unit": "Unit 4: The Cross-Company Code Stock Transfer Process",
+      "question": "In what ways can the internal invoice be posted in the company code to which the receiving plant is assigned (i.e. as an incoming invoice)?",
+      "options": {
+        "A": "The internal invoice can be posted manually in the company code to which the receiving plant is assigned",
+        "B": "The internal invoice can be posted as an incoming invoice automatically as soon as the replenishment delivery is saved. This is based on EDI configuration settings.",
+        "C": "The internal invoice can be posted automatically in the company code to which the receiving plant is assigned using BRF+ output logic for 'printing' the cross-company code stock transport order.",
+        "D": "The internal invoice can be posted as an incoming invoice automatically as soon as the intercompany billing document (i.e. the internal invoice) is saved. This is based on EDI configuration settings."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The internal invoice can be posted manually in the company code to which the receiving plant is assigned and it can be posted as an incoming invoice automatically as soon as the intercompany billing document (i.e. the internal invoice) is saved. You can read more about this topic in lesson 4.2 of this course.",
+      "gold_page_span": [
+        100,
+        117
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U4-Q6",
+      "unit": "Unit 4: The Cross-Company Code Stock Transfer Process",
+      "question": "What happens if you post the incoming invoice in the receiving company code before the goods receipt for the cross-company code stock transport order is posted?",
+      "options": {
+        "A": "It is not possible to post the invoice receipt before the goods receipt is posted.",
+        "B": "The incoming invoice receives a payment block which can be (automatically) removed once the goods receipt for the cross-company code stock transport order is posted.",
+        "C": "Nothing special. You can simply pay the invoice and post the goods receipt for the cross-company code stock transport order at a later point in time."
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "The incoming invoice receives a payment block which can be (automatically) removed once the goods receipt for the cross-company code stock transport order is posted. You can read more about this topic in lesson 4.3 of this course.",
+      "gold_page_span": [
+        100,
+        117
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U4-Q7",
+      "unit": "Unit 4: The Cross-Company Code Stock Transfer Process",
+      "question": "What is Purchase Account Management ?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        100,
+        117
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U5-Q1",
+      "unit": "Unit 5: Subcontracting",
+      "question": "You often create subcontract orders for a certain material. You do not want to have to manually specify the components that need to be sent to the subcontractor every time you create an order. How do you proceed?",
+      "options": {
+        "A": "Yo create a dummy order, enter all components in the dummy order and send this order to the subcontractor every time you require the material.",
+        "B": "You create a bill of material (BOM) for your subcontracted material and specify all components in this bill of material.",
+        "C": "You specify the components in the material master of the subcontracted material and for each component you use the material provision indicator (MPI) to indicate what kind of component it is."
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "You create a bill of material (BOM) for your subcontracted material and specify all components in this bill of material. You can read more about this topic in lesson 5.1 of this course.",
+      "gold_page_span": [
+        122,
+        148
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U5-Q2",
+      "unit": "Unit 5: Subcontracting",
+      "question": "Can you convert a purchase requisition item WITHOUT the item category for subcontracting into a purchase order item WITH the item category for subcontracting?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        122,
+        148
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U5-Q3",
+      "unit": "Unit 5: Subcontracting",
+      "question": "Subcontracting for MRO (Maintenance, Repair and Overhaul) supports various subcontracting scenario's using the Subcontracting type . What are some of the available scenario's?",
+      "options": {
+        "A": "Refurbishment with unchanged material number",
+        "B": "Overhaul with component substitution",
+        "C": "Replacement",
+        "D": "Rotables returns"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Refurbishment with unchanged material number and Replacement are two of the available scenario's. You can read more about this topic in lesson 5.1 of this course. Unit 5:",
+      "gold_page_span": [
+        122,
+        148
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U5-Q4",
+      "unit": "Unit 5: Subcontracting",
+      "question": "Where can you specify the material provision indicator (MPI) that tells the system for example that a refurbishment material is returned by the subcontractor using the same material number? Unit 5:",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        122,
+        148
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U5-Q5",
+      "unit": "Unit 5: Subcontracting",
+      "question": "What are some of the characteristics of special stock type O (Subcontracting Stock) ?",
+      "options": {
+        "A": "It can only contain quantities in stock types Unrestricted-Use stock and Quality Inspection stock. Stock type Blocked is not available for special stock type O (Subcontracting Stock) .",
+        "B": "Special stock type O (Subcontracting Stock) is always non-valuated since it is not physically located in your plant anymore.",
+        "C": "Special stock type O (Subcontracting Stock) is still part of your total valuated stock and is available for material requirements planning (MRP).",
+        "D": "You cannot carry out a physical inventory of the stock of material that was provided to the supplier."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "It can only contain quantities in stock types Unrestricted-Use stock and Quality Inspection stock. Stock type Blocked is not available for special stock type O (Subcontracting Stock) . Also: special stock type O (Subcontracting Stock) is still part of your total valuated stock and is available for material requirements planning (MRP). You can read more about this topic in lesson 5.2 of this course.",
+      "gold_page_span": [
+        122,
+        148
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U5-Q6",
+      "unit": "Unit 5: Subcontracting",
+      "question": "You want to order a component from another supplier that should then deliver this component to your subcontractor. How would you proceed?",
+      "options": {
+        "A": "In your purchase order being sent to the subcontractor, for your component you flag the SC Supp indicator and you enter the business partner (supplier) number of the other supplier in the details.",
+        "B": "In your purchase order being sent to the other supplier, for your component you flag the SC Supp indicator and you enter the business partner (supplier) number of the subcontractor where the component should be delivered.",
+        "C": "You have the other supplier first send the component to your plant and then from there you can post it into special stock type O (Subcontracting Stock) ."
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "In your purchase order being sent to the other supplier, for your component you flag the SC Supp indicator and you enter the business partner (supplier) number of the subcontractor where the component should be delivered. You can read more about this topic in lesson 5.2 of this course. Unit 5:",
+      "gold_page_span": [
+        122,
+        148
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U5-Q7",
+      "unit": "Unit 5: Subcontracting",
+      "question": "What are some of the prerequisites for being able to deliver the components to the subcontractor using an outbound delivery?",
+      "options": {
+        "A": "A sales organization, a distribution channel, and a division need to be assigned to the plant from which you are sending the components to your supplier.",
+        "B": "A sales organization, a distribution channel, and a division need to be assigned to the subcontractor that should receive the components.",
+        "C": "You must configure shipping point determination for the outbound delivery.",
+        "D": "You must configure route determination for the outbound delivery. Unit 5:"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "A sales organization, a distribution channel, and a division need to be assigned to the plant from which you are sending the components to your supplier. And you must configure shipping point determination for the outbound delivery. You can read more about this topic in lesson 5.2 of this course.",
+      "gold_page_span": [
+        122,
+        148
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U5-Q8",
+      "unit": "Unit 5: Subcontracting",
+      "question": "What could be a reason why you would need to enter a subsequent adjustment for a subcontract order?",
+      "options": {
+        "A": "A required change to the delivery date of the subcontract order.",
+        "B": "The subcontractor informs you of a component under-consumption after you have already posted the goods receipt for the subcontract order.",
+        "C": "A required change to the quantity ordered in the subcontract order."
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "A reason could be that the subcontractor informs you of a component under- consumption after you have already posted the goods receipt for the subcontract order. You can read more about this topic in lesson 5.3 of this course.",
+      "gold_page_span": [
+        122,
+        148
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U5-Q9",
+      "unit": "Unit 5: Subcontracting",
+      "question": "The postings in SAP S/4HANA Finance during goods receipt and invoice receipt for a subcontract order are influenced by the way that a subcontracted material is valuated (standard price or moving average price). Where do you choose the way you want to valuate a subcontracted material?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        122,
+        148
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U6-Q1",
+      "unit": "Unit 6: Advanced Returns Management in SAP S/4HANA",
+      "question": "Which of the following are standard customer returns scenarios that Advanced Returns Management offers?",
+      "options": {
+        "A": "Inspection at Customer",
+        "B": "Inspection at Supplier",
+        "C": "Advanced Notice",
+        "D": "Notice After The Fact"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Inspection at Customer and Advanced Notice are standard customer returns scenarios available in Advanced Returns Management. You can read more about this topic in lesson 6.1 of this course.",
+      "gold_page_span": [
+        155,
+        176
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U6-Q2",
+      "unit": "Unit 6: Advanced Returns Management in SAP S/4HANA",
+      "question": "What are some of the important control fields available on the Returns tab of an advanced returns order?",
+      "options": {
+        "A": "Follow-Up Activity",
+        "B": "The Material Received flag",
+        "C": "Refund Plan",
+        "D": "Refund Code X E The Delivery to Supplier flag"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The Follow-Up Activity , the Material Received flag and the Refund Code can all be found on the Returns tab in an advanced returns order. You can read more about this topic in lesson 6.1 of this course. Unit 6:",
+      "gold_page_span": [
+        155,
+        176
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U6-Q3",
+      "unit": "Unit 6: Advanced Returns Management in SAP S/4HANA",
+      "question": "What document type would you choose if you wanted to create an advanced returns order in a standard SAP S/4HANA system?",
+      "options": {
+        "A": "OR",
+        "B": "RE2",
+        "C": "RE",
+        "D": "LB Unit 6:"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "The standard document type for an advanced returns order is RE2 (Advanced Returns) . You can read more about this topic in lesson 6.1 of this course.",
+      "gold_page_span": [
+        155,
+        176
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U6-Q4",
+      "unit": "Unit 6: Advanced Returns Management in SAP S/4HANA",
+      "question": "What are standard scenarios available in SAP S/4HANA for supplier returns using ARM?",
+      "options": {
+        "A": "Intra-Company Code Returns",
+        "B": "Material Still Unknown",
+        "C": "Vendor Returns",
+        "D": "Cross-Company Code Returns"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Vendor Returns , Intra-Company Code Returns and Cross-Company Code Returns are standard scenarios available in SAP S/4HANA for supplier returns using ARM. You can read more about this topic in lesson 6.2 of this course.",
+      "gold_page_span": [
+        155,
+        176
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U6-Q5",
+      "unit": "Unit 6: Advanced Returns Management in SAP S/4HANA",
+      "question": "What is the standard document type available in SAP S/4HANA for an advanced returns purchase order?",
+      "options": {
+        "A": "RE2",
+        "B": "NB2",
+        "C": "NB"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": "B",
+      "answer_key_found": true,
+      "answer_explanation": "Purchase order document type NB2 (Enh. Rets to Vendor) is available in SAP S/4HANA for creating an advanced returns purchase order. You can read more about this topic in lesson 6.2 of this course. Unit 6:",
+      "gold_page_span": [
+        155,
+        176
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U6-Q6",
+      "unit": "Unit 6: Advanced Returns Management in SAP S/4HANA",
+      "question": "What are some examples of fields available on the Returns tab in an advanced returns purchase order with which you can set-up your required supplier returns scenario?",
+      "options": {
+        "A": "Inspection Code",
+        "B": "Material Received flag",
+        "C": "Follow-Up Activity",
+        "D": "Rejection Reason"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The fields Inspection Code, Follow-Up Activity and Rejection Reason are example fields with which you can set-up your required supplier returns scenario. You can read more about this topic in lesson 6.2 of this course.",
+      "gold_page_span": [
+        155,
+        176
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U6-Q7",
+      "unit": "Unit 6: Advanced Returns Management in SAP S/4HANA",
+      "question": "Why would a customer use Best Practices content when implementing SAP S/4HANA? Unit 6:",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        155,
+        176
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    },
+    {
+      "id": "S4680-LA-U6-Q8",
+      "unit": "Unit 6: Advanced Returns Management in SAP S/4HANA",
+      "question": "Which of the following are scope items available for SAP S/4HANA On Premise?",
+      "options": {
+        "A": "BDD: Customer Returns",
+        "B": "2F4: Intercompany Process for Customer Returns",
+        "C": "3QD: Accelerated Third-Party Returns from Seller to Supplier",
+        "D": "3TE: Return Order Processing for Non-Stock Material X E BMK: Return to Supplier"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "BDD: Customer Returns , 3TE: Return Order Processing for Non-Stock Material and BMK: Return to Supplier are currently available for SAP S/4HANA On Premise. You can read more about this topic in lesson 6.3 of this course.",
+      "gold_page_span": [
+        155,
+        176
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4680-LA-U7-Q1",
+      "unit": "Unit 7: Appendix",
+      "question": "What is the basic principle behind the concept of double-entry bookkeeping?",
+      "options": {},
+      "question_type": "unknown",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        183,
+        188
+      ],
+      "mappable": true,
+      "excluded": true,
+      "exclude_reason": "unparseable: no options detected",
+      "notes": ""
+    }
+  ]
+}

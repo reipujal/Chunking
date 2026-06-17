@@ -323,3 +323,76 @@
 | phys 68-73 | U4 Learning Assessment | Included in source page range; body content informed by assessment answers |
 | phys 74-113 | U5 Enhancements | DEFERRED — technical scope (see above) |
 | phys 114 | End matter / copyright | Not chunked |
+
+## 2026-06-17 — S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf
+
+- Relative path: processed/S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf
+- Type: A (SAP official course material, S/4HANA 2020)
+- Total pages: 190 (physical)
+- Physical page offset: **+6** (footer label + 6 = physical page; confirmed at 2 independent points: phys 10 = L1 content, phys 52 = intercompany lesson header)
+- Processed range: see chunks below
+- Next pending page: N/A — all in-scope units processed
+
+### Chunks created:
+| ID | Path | Pages (physical) | Words | Density |
+|---|---|---|---|---|
+| special-processes-third-party-order-processing-001 | chunks/special-processes/third-party-order-processing-001.md | 8-21, 33-38 (20p) | ~2100 | ~105 w/p |
+| special-processes-intercompany-sales-process-001 | chunks/special-processes/intercompany-sales-process-001.md | 46-68 (23p) | ~1575 | 68 w/p — quality:medium (below 80 w/p; expansion without rasterization would fabricate content) |
+| integration-stock-transfer-order-intra-company-001 | chunks/integration/stock-transfer-order-intra-company-001.md | 76-92 (17p) | ~1750 | ~103 w/p |
+| integration-stock-transfer-order-cross-company-001 | chunks/integration/stock-transfer-order-cross-company-001.md | 100-117 (18p) | ~1950 | ~108 w/p |
+| special-processes-advanced-returns-management-001 | chunks/special-processes/advanced-returns-management-001.md | 155-163, 173-176 (13p) | ~1400 | ~108 w/p |
+
+### Scope decisions:
+| Unit | Content | Decision | Reason |
+|---|---|---|---|
+| U1 L1 | Third-party order processing (SD sales + MM purchase) | IN SCOPE | SD/SD↔MM integration — core SD process |
+| U1 L2 | Individual purchase order (pure MM, no sales order) | DEFERRED | MM pure — no SD delivery, no customer billing |
+| U1 L3 | Automatic third-party processing (ALES, SD config) | IN SCOPE | SD configuration variant — merged into U1 L1 chunk |
+| U2 | Cross-company code sales (intercompany billing) | IN SCOPE | Core SD process — intercompany sales invoice (IV) |
+| U3 | Intra-company STO with SD delivery | IN SCOPE (confirmed by user) | SD delivery type NL, BP master config — SD consultant scope |
+| U4 | Cross-company STO with intercompany billing | IN SCOPE | SD delivery type NLCC + billing type IV — SD consultant scope |
+| U5 | Subcontracting | DEFERRED | MM pure — no customer-facing SD process |
+| U6 L1 | ARM overview + customer returns (RE2, refund codes) | IN SCOPE (confirmed by user) | Core SD returns process in S/4HANA |
+| U6 L2 | ARM supplier returns | DEFERRED (mentioned in body) | MM pure core; intercompany variant noted in ARM chunk body without citation |
+| U6 L3 | BKP/BDD variants | IN SCOPE | SD returns variants — merged into U6 L1 chunk |
+
+### Dedup / registry notes:
+All S4680 topics were UNREGISTERED in the P2 authority registry at the start of this session (registry was built before S4680 was inspected → intentional completeness test). Fallback judgment applied throughout:
+- No existing chunk covered any of these 5 in-scope topics.
+- Registry fix: `o2c.credit` entry was incorrectly listing S4680 as a prospective source. Corrected to S4F30 + BD6 (FSCM credit management). See ontology/authority_registry.yaml correction note.
+
+### Quality notes:
+- intercompany-sales-process-001: quality:medium (68 w/p). Pages 46-68 include significant diagram coverage (pricing procedure determination diagrams, document flow diagrams, account assignment overview). Rasterization not run; downgrade to medium is the correct call. To upgrade: rasterize phys 46-68 and extract diagram content.
+- All other chunks: quality:high (≥100 w/p after expansion).
+
+### Coverage (pages not chunked — justified):
+| Range | Content | Decision |
+|---|---|---|
+| phys 7 | Cover page | Not chunked |
+| phys 8-9 | Course Overview / TOC | Not chunked |
+| phys 22-32 | U1 L2 individual PO processing | DEFERRED (MM pure) |
+| phys 39-45 | U1 Learning Assessment + unit divider | Not chunked |
+| phys 69-75 | U2 Learning Assessment + unit divider | Not chunked |
+| phys 93-99 | U3 Learning Assessment + unit divider | Not chunked |
+| phys 118-154 | U5 Subcontracting (entire unit) | DEFERRED (MM pure) |
+| phys 164-172 | U6 L2 ARM supplier returns | DEFERRED (MM pure); brief context in ARM chunk body |
+| phys 177-190 | U6 Learning Assessment + Appendix | Not chunked |
+
+### Status: completed
+
+## S4680 — Eval harness (2026-06-17)
+
+| Retriever | Mapeables | @1 | @3 | @5 | @10 | MRR |
+|---|---|---|---|---|---|---|
+| lexical | 25/31 | 20.0% | — | 84.0% | 92.0% | 0.488 |
+| semantic_long (bge-m3) | 25/31 | 60.0% | 76.0% | 76.0% | 96.0% | 0.700 |
+
+Not-mappable: 6/31 available questions (U5 subcontracting = DEFERRED, U6 L2 ARM supplier returns = DEFERRED; assessment questions from those units).
+
+Observation: lexical @1 (20%) is the lowest in the corpus by a large margin; semantic @1 (60%) is healthy. The delta (@1 +40 pp) is the largest semantic uplift seen across all documents. This is expected for new chunks with specialized vocabulary that the lexical scorer underweights. The new chunks' aliases and body vocabulary are correctly calibrated for semantic retrieval but not dominant in TF-IDF.
+
+Extraction ratios (Skill 6): all 5 chunks show ratio <0.5 (range 0.30-0.45). Consistent with SAP course material where diagrams, exercises, and objectives pages constitute ~50-60% of page content. Accepted as normal for this source type; not a gap.
+
+Coverage table: all uncovered page clusters (≥3p, ≥100w) are either learning assessment pages or DEFERRED MM pure units. Coverage gate: PASS.
+
+Ontology completeness report: docs/audit/ontology_completeness_report_S4680.md

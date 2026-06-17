@@ -1,0 +1,349 @@
+{
+  "total_questions": 57,
+  "excluded": 26,
+  "mappable": 25,
+  "not_mappable": 6,
+  "global": {
+    "recall": {
+      "1": 0.2,
+      "3": 0.72,
+      "5": 0.84,
+      "10": 0.92
+    },
+    "mrr": 0.4877777777777778
+  },
+  "by_area": {
+    "special-processes": {
+      "count": 17,
+      "recall": {
+        "1": 0.17647058823529413,
+        "3": 0.7647058823529411,
+        "5": 0.8823529411764706,
+        "10": 1.0
+      },
+      "mrr": 0.5065359477124183
+    },
+    "integration": {
+      "count": 8,
+      "recall": {
+        "1": 0.25,
+        "3": 0.625,
+        "5": 0.75,
+        "10": 0.75
+      },
+      "mrr": 0.4479166666666667
+    }
+  },
+  "by_chunk_type": {
+    "process": {
+      "count": 25,
+      "recall": {
+        "1": 0.2,
+        "3": 0.72,
+        "5": 0.84,
+        "10": 0.92
+      },
+      "mrr": 0.4877777777777778
+    }
+  },
+  "per_question_summary": [
+    {
+      "id": "S4680-LA-U1-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-third-party-order-processing-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.16666666666666666
+    },
+    {
+      "id": "S4680-LA-U1-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-third-party-order-processing-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.3333333333333333
+    },
+    {
+      "id": "S4680-LA-U1-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-third-party-order-processing-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4680-LA-U1-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-third-party-order-processing-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4680-LA-U1-Q7",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-third-party-order-processing-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4680-LA-U1-Q9",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-third-party-order-processing-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4680-LA-U1-Q12",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-third-party-order-processing-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.1111111111111111
+    },
+    {
+      "id": "S4680-LA-U2-Q7",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-intercompany-sales-process-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4680-LA-U2-Q8",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-intercompany-sales-process-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    },
+    {
+      "id": "S4680-LA-U2-Q11",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-intercompany-sales-process-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4680-LA-U3-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "integration-stock-transfer-order-intra-company-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4680-LA-U3-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "integration-stock-transfer-order-intra-company-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4680-LA-U3-Q7",
+      "mappable": true,
+      "gold_ids": [
+        "integration-stock-transfer-order-intra-company-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "S4680-LA-U3-Q8",
+      "mappable": true,
+      "gold_ids": [
+        "integration-stock-transfer-order-intra-company-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "S4680-LA-U4-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "integration-stock-transfer-order-cross-company-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4680-LA-U4-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "integration-stock-transfer-order-cross-company-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    },
+    {
+      "id": "S4680-LA-U4-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "integration-stock-transfer-order-cross-company-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.3333333333333333
+    },
+    {
+      "id": "S4680-LA-U4-Q6",
+      "mappable": true,
+      "gold_ids": [
+        "integration-stock-transfer-order-cross-company-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4680-LA-U5-Q1",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4680-LA-U5-Q3",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4680-LA-U5-Q5",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4680-LA-U5-Q6",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4680-LA-U5-Q7",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4680-LA-U5-Q8",
+      "mappable": false,
+      "gold_ids": [],
+      "recall_at_1": null,
+      "recall_at_5": null,
+      "mrr": null
+    },
+    {
+      "id": "S4680-LA-U6-Q1",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-advanced-returns-management-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4680-LA-U6-Q2",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-advanced-returns-management-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4680-LA-U6-Q3",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-advanced-returns-management-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4680-LA-U6-Q4",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-advanced-returns-management-001"
+      ],
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "S4680-LA-U6-Q5",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-advanced-returns-management-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4680-LA-U6-Q6",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-advanced-returns-management-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.5
+    },
+    {
+      "id": "S4680-LA-U6-Q8",
+      "mappable": true,
+      "gold_ids": [
+        "special-processes-advanced-returns-management-001"
+      ],
+      "recall_at_1": 0.0,
+      "recall_at_5": 1.0,
+      "mrr": 0.25
+    }
+  ]
+}

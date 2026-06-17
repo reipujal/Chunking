@@ -371,18 +371,21 @@ registry:
     label: "Credit Management"
     authority_pattern: prospective
     authoritative_sources:
-      - file: "S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf"
-        facet: "Prospective — pending confirmation that S4650 covers credit management"
-      - file: "S4680 (not yet inspected)"
-        facet: "Prospective — S4680 may be the dedicated credit management course"
+      - file: "S4F30 (not yet in corpus)"
+        facet: "Prospective — S4F30 is the FSCM credit management course (Credit Management in SAP S/4HANA)"
+      - file: "BD6 (not yet in corpus)"
+        facet: "Prospective — BD6 covers FSCM credit risk management and automatic credit control"
     authoritative_chunks: []   # 0 chunks — PRIORITY GAP
     supplementary_sources: []
     supplementary_chunks: []
     conflict: false
     notes: >
-      PRIORITY GAP. Inspect S4650 and S4680 to determine which covers credit management
-      (credit limit check, credit exposure, risk categories, automatic credit control).
-      Assign primary source after inspection. This is the most critical missing topic.
+      PRIORITY GAP. Credit management (credit limit check, credit exposure, risk categories,
+      automatic credit control) is FSCM domain — NOT S4680. S4680 is SD-MM cross-application
+      (third-party, intercompany, STO, subcontracting, ARM). S4650 was inspected (2026-06-17)
+      and does not cover credit management. Authoritative sources are S4F30 and BD6, neither
+      yet in the corpus.
+      CORRECTED 2026-06-17: removed incorrect S4680 prospective entry.
 
   # ─────────────────────────────────────────────────────────────────────────
   # PRICING & CONDITIONS
@@ -691,3 +694,103 @@ registry:
     supplementary_chunks:
       - billing-create-billing-documents-fiori-001   # medium: Fiori billing apps, not UX paradigm
     conflict: false
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PROPOSALS — S4680 (2026-06-17) — NOT GOVERNING
+  # ─────────────────────────────────────────────────────────────────────────
+
+  # PROPOSAL: o2c.third_party
+  - topic_id: o2c.third_party
+    label: "Third-Party Order Processing"
+    proposal: true
+    proposal_status: pending_review
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf"
+        facet: "Unit 1 L1+L3 (phys 8-21, 33-38)"
+    authoritative_chunks:
+      - special-processes-third-party-order-processing-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+    notes: >
+      PROPOSAL — first authoritative source for this topic is S4680.
+      S4601 and S4605 may add supplementary coverage.
+      NOT GOVERNING until reviewed.
+
+  # PROPOSAL: o2c.intercompany
+  - topic_id: o2c.intercompany
+    label: "Cross-Company Code Sales and Intercompany Billing"
+    proposal: true
+    proposal_status: pending_review
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf"
+        facet: "Unit 2 (phys 46-68)"
+    authoritative_chunks:
+      - special-processes-intercompany-sales-process-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+    notes: >
+      PROPOSAL — first authoritative source for this topic is S4680.
+      NOT GOVERNING until reviewed.
+
+  # PROPOSAL: integration.sto
+  - topic_id: integration.sto
+    label: "Stock Transport Orders with SD Delivery"
+    proposal: true
+    proposal_status: pending_review
+    authority_pattern: faceted
+    authoritative_sources:
+      - file: "S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf"
+        facet: "Unit 3 intra-company (phys 76-92)"
+      - file: "S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf"
+        facet: "Unit 4 cross-company (phys 100-117)"
+    authoritative_chunks:
+      - integration-stock-transfer-order-intra-company-001
+      - integration-stock-transfer-order-cross-company-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+    notes: >
+      PROPOSAL — S4680 is the primary source; two chunks for two STO variants.
+      NOT GOVERNING until reviewed.
+
+  # PROPOSAL: o2c.returns.arm
+  - topic_id: o2c.returns.arm
+    label: "Advanced Returns Management (ARM) — Customer Returns"
+    proposal: true
+    proposal_status: pending_review
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf"
+        facet: "Unit 6 L1+L3 (phys 155-163, 173-176)"
+    authoritative_chunks:
+      - special-processes-advanced-returns-management-001
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+    notes: >
+      PROPOSAL — S4680 is the primary source for ARM customer returns.
+      BD6 (BKP) and BDD process diagrams provide supplementary visual context.
+      NOT GOVERNING until reviewed.
+
+  # PROPOSAL: mm.subcontracting (DEFERRED — no chunk created)
+  - topic_id: mm.subcontracting
+    label: "Subcontracting"
+    proposal: true
+    proposal_status: pending_review
+    in_scope: deferred
+    authority_pattern: single
+    authoritative_sources:
+      - file: "S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf"
+        facet: "Unit 5 (phys 118-154) — MM pure, not chunked"
+    authoritative_chunks: []
+    supplementary_sources: []
+    supplementary_chunks: []
+    conflict: false
+    notes: >
+      PROPOSAL — S4680 Unit 5 covers subcontracting but scope is MM pure.
+      No chunk created. Entry point if corpus scope extends to MM integration.
+      NOT GOVERNING until reviewed.

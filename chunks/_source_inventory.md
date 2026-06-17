@@ -1,5 +1,5 @@
 # Source Inventory — SAP SD Knowledge Base
-Last updated: 2026-06-17
+Last updated: 2026-06-17 (S4680 completed)
 
 | File | Relative Path | Type | Priority | Pages | Words/Page | Status | Notes |
 |---|---|---|---|---|---|---|---|
@@ -10,4 +10,4 @@ Last updated: 2026-06-17
 | S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf | processed/S4605_EN_Col17 Sales Processes in SAP S4HANA Sales.pdf | A | high | 168 | ~202 | completed | 19 chunks. Physical pages (printed+8 offset). Appendix p.166-168 chunked/mined for SD tables. |
 | S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf | processed/S4620_EN_Col17 Pricing in SAP S4HANA Sales.pdf | A | high | 129 | — | completed | 10 chunks. **Offset=+6** (phys=printed+6; footer 1=phys 7). Verified: phys 8=Lesson 1 Pricing, phys 25=Lesson 1 Config. Coverage 106/129. Eval harness gold set: eval/gold/S4620_assessments.json. |
 | S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf | processed/S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf | A | high | 114 | 101-167 | completed | 5 chunks nuevos (2026-06-17). **Offset=+6** (footer 1=phys 7). Dedup governed by P2 authority registry. U5 Enhancements DEFERRED (technical scope). Eval harness gold set: eval/gold/S4650_assessments.json (pending). |
-| S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf | S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf | A | high | — | — | not started | High priority. SD-MM integration processes. Next recommended document (covers o2c.credit gap). |
+| S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf | processed/S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf | A | high | 190 | 68-102 | completed | 5 chunks (2026-06-17). **Offset=+6** (footer 1=phys 7; confirmed at 2 independent points). SD/SD↔MM in scope: U1 third-party, U2 intercompany sales, U3 intra-company STO, U4 cross-company STO, U6 L1+L3 ARM. MM pure (U5 subcontracting, U6 L2 ARM supplier returns) DEFERRED. Ontology extension proposals added to ontology/. P2 authority registry test: all S4680 topics were unregistered → fallback judgment applied throughout. |
