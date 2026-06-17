@@ -24,7 +24,7 @@ level: functional
 status: draft
 quality: high
 created: 2026-06-07
-last_updated: 2026-06-07
+last_updated: 2026-06-17
 ---
 
 # Copying Control for Sales Documents
@@ -90,5 +90,7 @@ Copying requirements enforce process logic. Requirement 001 (header level) check
 
 ## Cross-References
 - Prior step: order-management-sales-document-data-flow-001
-- See also: configuration-billing-copying-control-001
+- See also: configuration-delivery-process-customizing-001 (delivery facet of copy control)
+- See also: configuration-billing-copying-control-001 (billing facet of copy control)
+- Supplementary: S4650 Unit 2 (phys 20-31) — unified cross-chain view of copy control across all three facets; S4650 is supplementary to these three authoritative chunks (density guardrail: not added as secondary source)
 - Next step: special-processes-sales-special-business-transactions-001

@@ -27,7 +27,7 @@ level: functional
 status: draft
 quality: medium
 created: 2026-06-07
-last_updated: 2026-06-07
+last_updated: 2026-06-17
 ---
 
 # Enterprise Structure for Sales and Distribution in SAP
@@ -81,5 +81,7 @@ The SAP enterprise structure separates financial units from operational and sale
 ## Cross-References
 - Prior step: order-management-sales-distribution-process-001
 - Next step: order-management-sales-order-source-of-data-001
+- See also: enterprise-structure-shared-master-data-cross-division-001 (shared master data + cross-division sales — S4650 U1 L2, new primary)
+- Supplementary: S4650 Unit 1 L1 (phys 8-13) — overview of SD org elements; S4650 adds no new depth over S4605 (density guardrail: not added as secondary source)
 - See also: configuration-delivery-field-determination-001
 - See also: master-data-sd-partner-functions-001

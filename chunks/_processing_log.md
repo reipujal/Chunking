@@ -259,3 +259,67 @@
   - U4 L4/L5 Condition Master + Output/BRFplus: S4620/S4615 more complete; added as secondary source to enterprise-structure only
   - U2 EWM: warehouse-org-units-ewm-001 from S4610 more complete; not updated
 - Validator: 82 OK / 0 errors / 4 warnings (max-page advisory; density warnings on 2 pre-existing chunks)
+
+## 2026-06-17 — S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf
+- Relative path: processed/S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf
+- Type: A (SAP official, S/4HANA 2020)
+- Physical pages: 114 | Offset: +6 (footer 1 = phys 7) | Page count: 114 phys pages (footer 1–107 + front-matter/TOC)
+- Processing governed by: ontology/authority_registry.yaml (P2 registry-first dedup — PROSPECTIVE VALIDATION)
+- Next pending page: none — document completed (Units 1-5)
+- Status: completed
+
+### Dedup decisions from registry (registry-first, no re-judgment):
+
+| Unit | Registry decision | Outcome |
+|---|---|---|
+| U1 L1 (phys 8-13) | ent.org.sales → SECONDARY | Cross-reference only (density guardrail: 1041w / (13+6)p = 54.8 w/p < 80) |
+| U1 L2 (phys 14-19) | ent.org.cross_div → PRIMARY (gap) | NEW chunk: enterprise-structure/shared-master-data-cross-division-001 |
+| U2 (phys 20-31) | xfunc.copy → SECONDARY (unified view) | Cross-references to 3 authoritative facet chunks only (density guardrail: all 3 would drop to ~40-47 w/p) |
+| U3 L1 (phys 32-35) | xfunc.text → PRIMARY (gap) | NEW chunk: configuration/text-sources-sd-001 |
+| U3 L2 (phys 36-48) | xfunc.text → PRIMARY (gap) | NEW chunk: configuration/text-control-determination-001 |
+| U4 L1+L2 (phys 49-64) | xfunc.output → PRIMARY (authority inversion) | NEW chunk: configuration/output-determination-sd-001 |
+| U4 L3 (phys 65-73) | xfunc.output → PRIMARY (new output mgmt, no prior chunk) | NEW chunk: configuration/output-management-s4hana-001 |
+| U5 (phys 74-113) | xfunc.enhance → DEFERRED (technical audience) | NOT chunked; decision registered below |
+
+### U5 DEFERRED — Enhancements and Modifications (phys 74-113)
+- Topics: BAdI, Enhancement Framework, field exits, user exits — technical ABAP content
+- Registry decision: xfunc.enhance → in_scope: deferred, audience: technical
+- Reason: this corpus targets functional SD consultants; U5 content (BAdI implementations, Enhancement Framework, field exits) requires ABAP development knowledge and is out of scope for a functional RAG corpus.
+- Action required to chunk U5: user must explicitly confirm that the corpus scope extends to technical/ABAP content.
+- This is NOT a functional gap — it is a deliberate scope decision. Do not treat as a gap to fill with functional content.
+
+### Chunks created (5 new):
+- enterprise-structure/shared-master-data-cross-division-001 (U1 L2, phys 14-19, 828w, 138 w/p, quality:high)
+- configuration/text-sources-sd-001 (U3 L1, phys 32-35, 669w, 167 w/p, quality:high)
+- configuration/text-control-determination-001 (U3 L2, phys 36-48, 1352w, 104 w/p, quality:high)
+- configuration/output-determination-sd-001 (U4 L1+L2, phys 49-64, 1623w, 101 w/p, quality:high)
+- configuration/output-management-s4hana-001 (U4 L3, phys 65-73, 1009w, 112 w/p, quality:high)
+
+### Secondary updates (cross-references only — density guardrail applied):
+- configuration/sales-copying-control-001: added cross-refs to delivery + billing facet chunks + S4650 U2 note
+- configuration/delivery-process-customizing-001: added cross-refs to sales + billing facet chunks + S4650 U2 note
+- configuration/billing-copying-control-001: added cross-refs to sales + delivery facet chunks + S4650 U2 note
+- enterprise-structure/sales-distribution-enterprise-structure-001: added cross-ref to new shared-master-data chunk + S4650 U1 L1 note
+
+### Authority inversion (U4 — mutación mínima):
+- configuration/billing-output-management-brfplus-001: added Cross-References pointing to configuration-output-determination-sd-001 and configuration-output-management-s4hana-001 as the primary scope. Billing BRFplus chunk remains accurate for its billing facet.
+
+### P2 registry prospective validation findings:
+1. Registry-first dedup produced correct decisions without re-judgment in 5/5 cases.
+2. S4650 touched no topics absent from the registry — registry coverage was complete for this document.
+3. No registry decision was found incorrect on application. Copy control density guardrail (U2) was the only runtime constraint, but this is a guardrail, not a registry error.
+4. Secondary updates (U1 L1, U2): 2/2 were Cross-Reference-only due to density guardrail. Registry correctly identified these as secondary; density guardrail prevented regression.
+
+### Coverage (pages not chunked — justified):
+| Range | Content | Decision |
+|---|---|---|
+| phys 7-13 | Unit 1 TOC + L1 org elements overview | U1 L1 secondary (S4605 primary); cross-ref only per density guardrail |
+| phys 18-19 | U1 Learning Assessment | Assessment pages — not chunked |
+| phys 20-31 | U2 Copy Control | Secondary/unified view; cross-ref only per density guardrail |
+| phys 22-25 | U2 Learning Assessment | Assessment pages — not chunked |
+| phys 32 | U3 Unit TOC | Included in text-sources chunk page range |
+| phys 39-48 | U3 Learning Assessment | Included in source page range; answers informing body written |
+| phys 49 | U4 Unit TOC | Included in output-determination chunk page range |
+| phys 68-73 | U4 Learning Assessment | Included in source page range; body content informed by assessment answers |
+| phys 74-113 | U5 Enhancements | DEFERRED — technical scope (see above) |
+| phys 114 | End matter / copyright | Not chunked |

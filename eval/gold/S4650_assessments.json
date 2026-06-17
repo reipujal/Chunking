@@ -1,0 +1,607 @@
+{
+  "doc": "S4650",
+  "pdf_relative_path": "processed/S4650_EN_Col17 Cross-Functional Topics in SAP S4HANA Sales.pdf",
+  "offset": 6,
+  "generated_at": "2026-06-17",
+  "total_physical_pages": 114,
+  "questions": [
+    {
+      "id": "S4650-LA-U1-Q1",
+      "unit": "Unit 1: Impact of Organizational Structures",
+      "question": "Which of the organizational elements are mandatory in Sales and Distribution (SD)?",
+      "options": {
+        "A": "Sales organization",
+        "B": "Sales area",
+        "C": "Sales office",
+        "D": "Sales group X E Salespersons"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Sales organization and Sales area are mandatory in Sales and Distribution (SD).",
+      "gold_page_span": [
+        7,
+        17
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U1-Q2",
+      "unit": "Unit 1: Impact of Organizational Structures",
+      "question": "Shared master data minimizes the effort required to create and maintain master data.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "Shared master data minimizes the effort required to create and maintain master data.",
+      "gold_page_span": [
+        7,
+        17
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4650-LA-U2-Q1",
+      "unit": "Unit 2: Copy Control",
+      "question": "Which of the following levels are used in copying control for sales documents?",
+      "options": {
+        "A": "Header",
+        "B": "Item",
+        "C": "Organizational level",
+        "D": "Schedule line"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        20,
+        27
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U2-Q2",
+      "unit": "Unit 2: Copy Control",
+      "question": "Which of the following options can be customized in the copying control at the item level?",
+      "options": {
+        "A": "Copying requirements",
+        "B": "Data transfer routines",
+        "C": "Availability check control"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        20,
+        27
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U2-Q3",
+      "unit": "Unit 2: Copy Control",
+      "question": "Which of the following options do you have in the details of the header level copy control screen?",
+      "options": {
+        "A": "Copying requirements",
+        "B": "Complete reference checkbox",
+        "C": "Pricing type field",
+        "D": "Proposed schedule line category Unit 2:"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        20,
+        27
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U2-Q4",
+      "unit": "Unit 2: Copy Control",
+      "question": "Which of the following options do you have in the details of the schedule line level copy control screen?",
+      "options": {
+        "A": "Copying requirements",
+        "B": "Complete reference checkbox",
+        "C": "Pricing type field",
+        "D": "Proposed schedule line category"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        20,
+        27
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U3-Q1",
+      "unit": "Unit 3: Text Control",
+      "question": "Which of the following statements are true?",
+      "options": {
+        "A": "You can store texts in the master data and copy them into sales and distribution (SD) documents.",
+        "B": "You can specify the conditions under which texts are to be copied.",
+        "C": "You can copy texts in a single language only.",
+        "D": "You can copy a standard text into a sales document."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        32,
+        44
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U3-Q2",
+      "unit": "Unit 3: Text Control",
+      "question": "Which of the following text sources can you access in the material master?",
+      "options": {
+        "A": "Marketing notes",
+        "B": "Delivery text",
+        "C": "Sales text",
+        "D": "Purchase order text"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        32,
+        44
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U3-Q3",
+      "unit": "Unit 3: Text Control",
+      "question": "Which of the following features can you specify for document text determination procedures used for text control?",
+      "options": {
+        "A": "Whether a text needs to be copied or referenced",
+        "B": "Whether a text needs to be determined automatically",
+        "C": "Whether a text is created automatically based on the document type"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        32,
+        44
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U3-Q4",
+      "unit": "Unit 3: Text Control",
+      "question": "Copying texts requires more memory than referencing and should only be used if really necessary.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        32,
+        44
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4650-LA-U3-Q5",
+      "unit": "Unit 3: Text Control",
+      "question": "You use an access sequence to make the system search for the appropriate text determination procedure.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        32,
+        44
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4650-LA-U4-Q1",
+      "unit": "Unit 4: Output",
+      "question": "When using condition-based output, which of the following functions can be used to check which output types were determined and based on which selection criteria?",
+      "options": {
+        "A": "Analysis",
+        "B": "Condition record",
+        "C": "Create",
+        "D": "Change"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        49,
+        68
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4650-LA-U4-Q2",
+      "unit": "Unit 4: Output",
+      "question": "A communication strategy can be used for external communication.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        49,
+        68
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4650-LA-U4-Q3",
+      "unit": "Unit 4: Output",
+      "question": "In condition-based output determination, an access sequence represents a search strategy to find valid condition records, which is always set up to look for the most specific record last.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        49,
+        68
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4650-LA-U4-Q4",
+      "unit": "Unit 4: Output",
+      "question": "Changes that do not need document preparation logic or new fields in the communication structure can be processed using which of the following structures?",
+      "options": {
+        "A": "PDF Form",
+        "B": "INCLUDES",
+        "C": "Printer settings Unit 4:"
+      },
+      "question_type": "mcq",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        49,
+        68
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4650-LA-U4-Q5",
+      "unit": "Unit 4: Output",
+      "question": "Which of the following are prerequisites of a simple form modification?",
+      "options": {
+        "A": "A field exists in the communication structure.",
+        "B": "A field can be integrated into the form in an existing format.",
+        "C": "A field is added to the existing communication structure."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        49,
+        68
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U4-Q6",
+      "unit": "Unit 4: Output",
+      "question": "Which of the following correctly describes how a BRFplus output decision table is processed?",
+      "options": {
+        "A": "Every row in the table is processed in sequence.",
+        "B": "For each row, every condition column cell is processed from right to left.",
+        "C": "Table rows can be arranged so that the most specific sets of conditions are evaluated first."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        49,
+        68
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U4-Q7",
+      "unit": "Unit 4: Output",
+      "question": "SAP S/4HANA Output Management is the output determination that uses the condition technique and based on the NAST table.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "SAP S/4HANA Output Management is a completely different configuration based on Business Rule Framework Plus (BRFplus).",
+      "gold_page_span": [
+        49,
+        68
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4650-LA-U5-Q1",
+      "unit": "Unit 5: Enhancements and Modifications",
+      "question": "Which of the following objects belong to enhancement technology?",
+      "options": {
+        "A": "Transactional data",
+        "B": "Customer development",
+        "C": "Modification",
+        "D": "Master data"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        74,
+        107
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U5-Q2",
+      "unit": "Unit 5: Enhancements and Modifications",
+      "question": "A BAdI (Business Add-In) is a defined section in source code that SAP provides to be replaced by customer-specific coding.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        74,
+        107
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4650-LA-U5-Q3",
+      "unit": "Unit 5: Enhancements and Modifications",
+      "question": "Which of the following functions in Sales and Distribution use the condition technique for system modification?",
+      "options": {
+        "A": "Pricing",
+        "B": "Output control",
+        "C": "Account determination",
+        "D": "Availability check"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        74,
+        107
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U5-Q4",
+      "unit": "Unit 5: Enhancements and Modifications",
+      "question": "You can find reserve fields in the master data objects of the customer master and material master.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        74,
+        107
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4650-LA-U5-Q5",
+      "unit": "Unit 5: Enhancements and Modifications",
+      "question": "In material master field selection, which are valid statuses that can be set for a field selection group?",
+      "options": {
+        "A": "Hidden",
+        "B": "Optional",
+        "C": "Highlighted",
+        "D": "Display"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        74,
+        107
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U5-Q6",
+      "unit": "Unit 5: Enhancements and Modifications",
+      "question": "Which factors can influence the status of fields in field selection in material master records?",
+      "options": {
+        "A": "Material type",
+        "B": "Sales organization",
+        "C": "Plant",
+        "D": "Industry sector"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": false,
+      "answer_explanation": "",
+      "gold_page_span": [
+        74,
+        107
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U5-Q7",
+      "unit": "Unit 5: Enhancements and Modifications",
+      "question": "For which of the following functions can you create and process routines using the transaction VOFM?",
+      "options": {
+        "A": "Copying requirements",
+        "B": "Data transfers",
+        "C": "Document flow",
+        "D": "Requirements and formulae"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "The VOFM transaction can be used to create routines for copying requirements, data transfer requirements and requirements and formulae in pricing. VOFM is not used to create routines that influence document flow.",
+      "gold_page_span": [
+        74,
+        107
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    },
+    {
+      "id": "S4650-LA-U5-Q8",
+      "unit": "Unit 5: Enhancements and Modifications",
+      "question": "An SAP enhancement can be reused several times in one and the same customer enhancement project.",
+      "options": {},
+      "question_type": "tf",
+      "multi_answer": false,
+      "correct": "True",
+      "answer_key_found": true,
+      "answer_explanation": "SAP enhancements cannot be reused several times in one and the same customer enhancement project.",
+      "gold_page_span": [
+        74,
+        107
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": ""
+    },
+    {
+      "id": "S4650-LA-U5-Q9",
+      "unit": "Unit 5: Enhancements and Modifications",
+      "question": "Which of the following statements are true about Business Transaction Events (BTEs)?",
+      "options": {
+        "A": "Additional components can be attached to the SAP system.",
+        "B": "Predefined interfaces allow customer access.",
+        "C": "Additional logic is always defined by SAP.",
+        "D": "Two implementations can coexist without impeding each other."
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": null,
+      "answer_key_found": true,
+      "answer_explanation": "Business Transaction Events (BTEs) are components that can be used in the system and they provide a predefined interface for customer access. They also allow two implementations to coexist without conflict. BTE logic is not defined by SAP; that logic is defined by the customer.",
+      "gold_page_span": [
+        74,
+        107
+      ],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "multi-answer: correct inference not attempted"
+    }
+  ]
+}

@@ -32,7 +32,7 @@ level: functional
 status: draft
 quality: medium
 created: 2026-06-05
-last_updated: 2026-06-05
+last_updated: 2026-06-17
 ---
 
 # Copying Control in SAP SD Billing
@@ -102,6 +102,9 @@ Incorrect copying control is the most common root cause of billing errors: wrong
 → A copying requirement mandating GI (routine 101 or equivalent) is configured for this source-to-target combination. Post GI before billing or adjust the requirement.
 
 ## Cross-References
+- See also: configuration-sales-copying-control-001 (sales facet of copy control)
+- See also: configuration-delivery-process-customizing-001 (delivery facet of copy control)
+- Supplementary: S4650 Unit 2 (phys 20-31) — unified cross-chain view of copy control across all three facets; S4650 is supplementary to these three authoritative chunks (density guardrail: not added as secondary source)
 - See also: configuration-billing-data-flow-001
 - See also: configuration-billing-types-sap-s4hana-001
 - See also: billing-invoice-combination-and-split-001

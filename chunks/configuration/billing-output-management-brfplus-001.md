@@ -30,7 +30,7 @@ level: functional
 status: draft
 quality: medium
 created: 2026-06-05
-last_updated: 2026-06-05
+last_updated: 2026-06-17
 ---
 
 # Output Management for Billing Using BRFplus
@@ -97,5 +97,7 @@ If BRFplus output management is active but Decision Tables are not configured fo
 → The form template referenced in the Decision Table is not configured for PDF attachment. Verify the output parameter for the e-mail channel in BRFplus.
 
 ## Cross-References
+- Authority inversion (P2): this chunk covers the billing BRFplus facet only. For the full SD output determination scope (all document types, condition technique approach) see: configuration-output-determination-sd-001
+- For the SAP S/4HANA New Output Management framework overview see: configuration-output-management-s4hana-001
 - See also: billing-billing-document-creation-methods-001
 - See also: configuration-billing-types-sap-s4hana-001

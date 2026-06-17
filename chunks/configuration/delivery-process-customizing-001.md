@@ -31,7 +31,7 @@ level: functional
 status: draft
 quality: high
 created: 2026-06-05
-last_updated: 2026-06-05
+last_updated: 2026-06-17
 ---
 
 # Delivery Process Customizing — Copying Control, Split Criteria, and Special Scenarios
@@ -108,6 +108,9 @@ Required Customizing steps:
 - Movement type missing from delivery item category ELN → GR posting fails for inbound deliveries.
 
 ## Cross-References
+- See also: configuration-sales-copying-control-001 (sales facet of copy control)
+- See also: configuration-billing-copying-control-001 (billing facet of copy control)
+- Supplementary: S4650 Unit 2 (phys 20-31) — unified cross-chain view of copy control across all three facets; S4650 is supplementary to these three authoritative chunks (density guardrail: not added as secondary source)
 - Delivery type concept: configuration-delivery-type-001
 - Delivery item category: configuration-delivery-item-category-001
 - Shipping point and loading point: enterprise-structure-shipping-point-loading-point-001
