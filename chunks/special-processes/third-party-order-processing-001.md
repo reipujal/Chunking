@@ -12,7 +12,7 @@ sources:
     pages: "8-21, 33-38"
     source_type: A
     role: primary
-transactions: [VA01, ME21N, MIGO, MIRO, VF01, VF04]
+transactions: [VA01, ME21N, MIGO, VF01, VF04]
 tables: []
 aliases:
   - third-party order processing
@@ -26,7 +26,7 @@ aliases:
   - item category group BANS
 level: functional
 status: draft
-quality: high
+quality: medium
 created: 2026-06-17
 last_updated: 2026-06-17
 ---
@@ -68,9 +68,11 @@ The process requires aligned master data: material master with the correct item 
 
 4. **Purchase order creation (ME21N):** The buyer converts the purchase requisition into a purchase order with purchasing item category *S* (*Third-party*). The PO can be created via ME21N or the *Manage Purchase Requisitions* Fiori app. The delivery address on the PO item shows the customer ship-to address and cannot be changed in the PO itself (only in the sales order). The purchase order number appears in the document flow of the sales order. An automated variant uses item category *ALES*: when the *Create PO Automatic.* indicator is set in the item category, saving the sales order triggers both the requisition and its immediate conversion to a PO, provided a unique source exists and ALE data is configured in the sales organization.
 
-5. **Goods receipt (MIGO — optional):** Since the supplier delivers directly to the customer, no physical goods movement occurs in the company's warehouse. A pseudo goods receipt can be posted in MIGO when the supplier reports that delivery has taken place. This GR does not change inventory stock; the quantity is posted directly as consumption, with accounting entries to a consumption account (sales order item as the cost object) and a GR/IR clearing account. The *Goods receipt* checkbox in the purchase order item must be set to enable this step. The *GR-Bsd IV* (goods-receipt-based invoice verification) flag, when set in the PO item, blocks payment of the supplier invoice until the GR is posted.
+5. **Goods receipt (MIGO — optional):** Since the supplier delivers directly to the customer, no physical goods movement occurs in the company's warehouse. A pseudo goods receipt can be posted in MIGO when the supplier reports that delivery has taken place. This GR does not change inventory stock; the quantity is posted as consumption without a physical warehouse movement. The *Goods receipt* checkbox in the purchase order item must be set to enable this step. When set, receipt confirmation is required before the supplier invoice can be settled.
+<!-- L2 content removed: GR/IR clearing account and GR-Bsd IV flag mechanics are MM/FI detail from S4680 U1 L2 (Individual PO, pages 22-32, deferred as MM-pure). SD-visible effect preserved: GR required before invoice settlement. -->
 
-6. **Supplier invoice posting (MIRO):** The incoming supplier invoice is entered via MIRO or the *Create Supplier Invoice* Fiori app. The system proposes a quantity based on what is configured: if a GR was posted, the GR quantity is proposed; if no GR is expected, the ordered quantity is proposed. Automatic payment blocks arise from: quantity variance (GR expected but not yet posted) or price variance (invoice price deviates significantly from the PO price). Price variances affect the profit margin visible on the sales order item via the VPRS condition type. When the invoice is posted, the GR/IR clearing account is released, the purchase order history is updated, and an open item is posted to the supplier account in accounts payable.
+6. **Supplier invoice posting:** When the supplier invoice is received and posted in procurement, the event triggers the billing due list update for the sales order (Billing Relevance F). Price differences between the purchase order price and the incoming invoice price affect the profit margin visible on the sales order item via the VPRS condition type.
+<!-- L2 content removed: MIRO quantity-proposal logic, payment-block mechanics (quantity/price variance), and GR/IR clearing + AP open-item chain are MM/FI detail from S4680 U1 L2 (deferred as MM-pure). SD-visible effects preserved: billing trigger (invoice posted → due list updated) and VPRS impact. MIRO removed from transactions field for same reason. -->
 
 7. **Customer billing document (VF04 / VF01):** The customer is billed with reference to the sales order, not a delivery (no delivery exists). The billing timing and quantity are controlled by the *Billing Relevance* field in item category TAS and the *Billing Quantity* field in copying control:
 
@@ -104,7 +106,7 @@ The process requires aligned master data: material master with the correct item 
 | Symptom | Cause | Solution |
 |---|---|---|
 | No purchase requisition created on save | Schedule line category CS misconfigured or unique source not assignable | Check CS config (item category, purchasing doc type); verify source list or info record |
-| Invoice blocked for payment — Quantity Variance | GR required per PO item but not yet posted | Post the GR via MIGO, or deactivate the GR flag in the PO item if GR is not needed |
+| Invoice blocked for payment — Quantity Variance | GR required per PO item but not yet posted | Post the GR via MIGO once the supplier confirms delivery |
 | Sales order not appearing in billing due list | Billing Relevance = F and supplier invoice not posted | Post incoming invoice via MIRO; the order appears automatically afterward |
 | Billing quantity differs from expected | Wrong Billing Quantity field (E vs F) in copying control | Correct the Billing Quantity setting in SPRO copying control for billing type F2 / OR / TAS |
 | Ship-to address change not reflected in PO | Change made after output messages issued | Change the address only in the sales order before output is issued; afterwards it cannot be updated |

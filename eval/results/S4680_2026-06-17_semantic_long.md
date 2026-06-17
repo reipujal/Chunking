@@ -12,32 +12,32 @@ Retriever: semantic_long
 ## Global Metrics (mappable questions only)
 | recall@1 | recall@3 | recall@5 | recall@10 | MRR |
 | --- | --- | --- | --- | --- |
-| 60.0% | 76.0% | 76.0% | 96.0% | 0.700 |
+| 56.0% | 72.0% | 80.0% | 96.0% | 0.676 |
 
 ## By Area
 | Area | N | recall@1 | recall@5 | MRR |
 | --- | --- | --- | --- | --- |
 | integration | 8 | 37.5% | 75.0% | 0.576 |
-| special-processes | 17 | 70.6% | 76.5% | 0.758 |
+| special-processes | 17 | 64.7% | 82.4% | 0.723 |
 
 ## By Chunk Type
 | Type | N | recall@1 | recall@5 | MRR |
 | --- | --- | --- | --- | --- |
-| process | 25 | 60.0% | 76.0% | 0.700 |
+| process | 25 | 56.0% | 80.0% | 0.676 |
 
 ## Per-Question Results
 | ID | Mappable | Gold chunks | recall@1 | recall@5 | MRR | Top-1 retrieved |
 | --- | --- | --- | --- | --- | --- | --- |
-| S4680-LA-U1-Q1 | YES | 1 | 0.0% | 0.0% | 0.111 | configuration-delivery-field-determination-001 |
+| S4680-LA-U1-Q1 | YES | 1 | 0.0% | 0.0% | 0.143 | configuration-delivery-field-determination-001 |
 | S4680-LA-U1-Q2 | YES | 1 | 100.0% | 100.0% | 1.000 | special-processes-third-party-order-processing-001 |
 | S4680-LA-U1-Q3 | YES | 1 | 100.0% | 100.0% | 1.000 | special-processes-third-party-order-processing-001 |
-| S4680-LA-U1-Q4 | YES | 1 | 0.0% | 0.0% | 0.167 | master-data-business-partner-master-data-001 |
+| S4680-LA-U1-Q4 | YES | 1 | 0.0% | 0.0% | 0.111 | master-data-business-partner-master-data-001 |
 | S4680-LA-U1-Q7 | YES | 1 | 100.0% | 100.0% | 1.000 | special-processes-third-party-order-processing-001 |
 | S4680-LA-U1-Q9 | YES | 1 | 100.0% | 100.0% | 1.000 | special-processes-third-party-order-processing-001 |
 | S4680-LA-U1-Q12 | YES | 1 | 100.0% | 100.0% | 1.000 | special-processes-third-party-order-processing-001 |
 | S4680-LA-U2-Q7 | YES | 1 | 100.0% | 100.0% | 1.000 | special-processes-intercompany-sales-process-001 |
-| S4680-LA-U2-Q8 | YES | 1 | 0.0% | 0.0% | 0.125 | order-management-sales-monitoring-analytics-001 |
-| S4680-LA-U2-Q11 | YES | 1 | 100.0% | 100.0% | 1.000 | special-processes-intercompany-sales-process-001 |
+| S4680-LA-U2-Q8 | YES | 1 | 0.0% | 100.0% | 0.200 | order-management-sales-monitoring-analytics-001 |
+| S4680-LA-U2-Q11 | YES | 1 | 0.0% | 100.0% | 0.500 | integration-stock-transfer-order-cross-company-001 |
 | S4680-LA-U3-Q1 | YES | 1 | 100.0% | 100.0% | 1.000 | integration-stock-transfer-order-intra-company-001 |
 | S4680-LA-U3-Q2 | YES | 1 | 0.0% | 100.0% | 0.500 | integration-stock-transfer-order-cross-company-001 |
 | S4680-LA-U3-Q7 | YES | 1 | 0.0% | 0.0% | 0.000 | configuration-delivery-item-category-001 |
@@ -57,7 +57,7 @@ Retriever: semantic_long
 | S4680-LA-U6-Q3 | YES | 1 | 100.0% | 100.0% | 1.000 | special-processes-advanced-returns-management-001 |
 | S4680-LA-U6-Q4 | YES | 1 | 100.0% | 100.0% | 1.000 | special-processes-advanced-returns-management-001 |
 | S4680-LA-U6-Q5 | YES | 1 | 100.0% | 100.0% | 1.000 | special-processes-advanced-returns-management-001 |
-| S4680-LA-U6-Q6 | YES | 1 | 0.0% | 100.0% | 0.333 | configuration-delivery-field-determination-001 |
+| S4680-LA-U6-Q6 | YES | 1 | 0.0% | 100.0% | 0.200 | configuration-delivery-field-determination-001 |
 | S4680-LA-U6-Q8 | YES | 1 | 0.0% | 0.0% | 0.143 | order-management-sales-monitoring-analytics-001 |
 
 ## Coverage Notes

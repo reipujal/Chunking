@@ -54,11 +54,13 @@ A cross-company code sales process is triggered when the delivering plant of a s
 
 The scenario requires careful setup of organizational assignments and business partner master data. The selling company code posts revenue to its general ledger from the customer invoice; the delivering company code posts revenue from the internal invoice and records costs from the goods issue. The intercompany price establishes the transfer price between the two company codes, which feeds profitability analysis (CO-PA) for both.
 
+Since each plant is assigned to exactly one company code and each sales organization is assigned to exactly one company code, the cross-company code condition is detected automatically from the enterprise-structure assignments — no special flag in the sales order item is required. The system recognises the cross-company scenario as soon as the delivering plant's company code differs from the sales organization's company code.
+
 ## Process Flow
 
 1. **Sales order creation (VA01):** A standard sales order is entered in the selling sales organization (e.g., French organization 90FR). The delivering plant is determined from the customer-material info record, the ship-to party business partner master, or the material master — in that priority order. The system checks whether the combination of sales organization and determined plant is present in the *Allowed Delivering Plants* Customizing table. If the plant belongs to a different company code than the sales organization, the system recognizes this as a cross-company code sales item.
 
-   Two prices are visible in the sales order: condition type PR00 represents the gross price for the end customer; condition type PI01 (*Inter-company Price*) represents the internal transfer price agreed between the two company codes. PI01 is *statistical* in the sales order and in the customer invoice — it influences profitability analysis for the selling company code but does not affect the net price billed to the customer.
+   Two prices are visible in the sales order: condition type PR00 represents the gross price for the end customer; condition type PI01 (*Inter-company Price*) represents the internal transfer price agreed between the two company codes. PI01 is *statistical* in the sales order and in the customer invoice — it influences profitability analysis for the selling company code but does not affect the net price billed to the customer. A second intercompany condition type, PI02 (*Inter-company %*), expresses the intercompany price as a percentage of the net invoice amount rather than as a quantity-based value. Condition records for PI01 or PI02 are created for the selling sales organization, the delivering plant, and optionally the material.
 
 2. **Outbound delivery and goods issue:** When the delivery creation date is reached, the cross-company code sales order appears automatically in the delivery due list for the shipping point assigned to the delivering plant. An outbound delivery is created and processed in the delivering plant. Standard shipping activities (picking, packing, goods issue) are executed. The goods issue posts a decrease in stock and an accounting document in the delivering company code; it does not affect the selling company code at this point.
 
@@ -66,15 +68,15 @@ The scenario requires careful setup of organizational assignments and business p
 
 4. **Internal invoice — intercompany billing (IV billing type):** When the customer invoice is created in the selling company code, the outbound delivery simultaneously enters the billing due list of the sales organization responsible for intercompany billing in the delivering company code. This sales organization is assigned to the delivering plant in Customizing (*Cust.Inter-Co.Bill.* field). The internal invoice is created using billing type IV and uses the intercompany billing sales area (IV sales area) assigned to the delivering plant.
 
-   In VF04 (Maintain Billing Due List), the *Intercompany Billing* flag must be set when selecting documents for the internal invoice — it is not included in a standard billing run without this flag. The standard billing sequence is: customer invoice first, intercompany invoice second (see SAP Note 38501 for reversing this sequence).
+   In VF04 (Maintain Billing Due List), the *Intercompany Billing* flag must be set when selecting documents for the internal invoice — it is not included in a standard billing run without this flag. The standard billing sequence is: customer invoice first, intercompany invoice second (see SAP Note 38501 for reversing this sequence). Billing type IV is proposed automatically in the internal invoice based on a Customizing setting in the sales order document type (OR); this link between the sales order document type and the intercompany billing type eliminates the need for manual entry.
 
 5. **Pricing in the internal invoice:** The internal invoice uses a separate pricing procedure (determined from the IV billing type's document pricing procedure, the IV sales area, and the customer pricing procedure in the payer's business partner master record). In this procedure, condition type IV01 (*Inter-company Price*) replaces PI01. IV01 references PI01 so no separate condition records are needed for IV01 — its value is taken directly from PI01. Unlike PI01, IV01 is *not statistical* in the internal invoice: it represents actual revenue for the delivering company code. Condition type PR00 (the customer price) is inactive in the internal invoice. The two condition types serve separate CO-PA purposes: PI01 transfers costs to the selling company code, IV01 transfers revenue to the delivering company code.
 
-6. **Payer for the internal invoice:** The payer of the intercompany billing document is the selling company code (represented by a business partner master record with role FI Customer, created in the delivering company code). This business partner must be assigned to the IV sales area. The company code in which the internal invoice is posted is the delivering company code.
+6. **Payer for the internal invoice:** The payer of the intercompany billing document is the selling company code (represented by a business partner master record created in the delivering company code). Two roles in this business partner record serve distinct purposes: role *FI Customer* provides company code data, including the reconciliation account in the delivering company code; role *Customer* provides sales area data, including the currency in which intercompany billing is carried out. This business partner must be assigned to the IV sales area. The company code in which the internal invoice is posted is the delivering company code. For the corresponding open item to be posted in the selling company code, the delivering company code must also be set up as a supplier (creditor) in the selling company code's accounts payable.
 
 7. **Incoming invoice in the selling company code:** The selling company code must post the internal invoice as an incoming invoice in its accounts payable. Two approaches:
    - *Manual posting*: the selling company code receives the internal invoice and posts it manually.
-   - *Automatic posting via EDI/IDOC*: the creation of the intercompany billing document triggers an automatic credit-side posting in the selling company code via EDI configuration. The logical address for the EDI partner profile is constructed from the invoicing company code and the payer's business partner number. For BRF+-based output, a dedicated output type (assigned to billing type IV) controls the automatic IDOC dispatch. For traditional Output Determination, output type RD04 triggers the automatic posting; output type RD00 delivers the invoice document to the payer.
+   - *Automatic posting via EDI/IDOC*: the creation of the intercompany billing document triggers an automatic credit-side posting in the selling company code via EDI configuration. The logical address for the EDI partner profile is constructed from the invoicing company code key concatenated with the payer's business partner number; the total must be exactly 14 characters — if the business partner number is numerical, leading zeros must be added to pad it to the correct length. For BRF+-based output, a dedicated output type (assigned to billing type IV) controls the automatic IDOC dispatch. For traditional Output Determination, output type RD04 triggers the automatic posting; output type RD00 delivers the invoice document to the payer. The EDI message category is INVOIC (FI variant), exchanged between the delivering company code (sender) and the selling company code (receiver).
 
 ## Account Postings
 
@@ -109,3 +111,15 @@ See also: special-processes-third-party-order-processing-001 (related SD-MM cros
 See also: integration-stock-transfer-order-cross-company-001 (shares the IV billing type and IV sales area concept for cross-company STOs)
 See also: configuration-billing-types-sap-s4hana-001 (billing type IV configuration)
 See also: order-management-sales-distribution-process-001 (standard O2C baseline)
+
+<!-- Rasterization audit (2026-06-17): Phys pages 46-68 rasterized at 150 dpi.
+Pages are MIXED (diagrams ~40%, prose ~60%) — NOT diagram-only.
+Original density 68 w/p; after extracting uncaptured prose (PI02 condition type,
+condition record key fields, structural plant/sales-org uniqueness invariant,
+IV billing type from OR document type, BP master role FI Customer vs Customer,
+logical address 14-char format + leading zeros, creditor in selling CC for AP),
+density raised to ~81 w/p. Quality: medium retained (diagram content — org-structure,
+process-flow, pricing-example, shipping-activities, IDOC-config screenshots —
+is not recoverable in the current text-only retrieval system.
+Multimodal gap: logged; not resolved here. Future improvement: multimodal embeddings
+would allow the diagram content to contribute to retrieval.) -->

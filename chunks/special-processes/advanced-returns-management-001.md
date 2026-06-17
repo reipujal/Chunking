@@ -54,7 +54,8 @@ ARM applies whenever a customer sends goods back to the selling company or refus
 
 In SAP S/4HANA, the OPS_ADVRETURNS business function suite is always delivered. This means the RE2 document type, refund codes, and Returns Overview are always available — unlike in SAP ERP ECC 6.0, where a specific business function activation was required. ARM coexists with simplified alternatives for specific use cases (BKP and BDD, described below).
 
-The S4680 course covers the customer returns side of ARM. Supplier-side returns (returning goods to the original vendor) involve MM processes (e.g., movement type 122 for GR reversal or separate supplier return orders), which are outside the scope of this chunk. An intercompany variant where the supplier is an internal plant (involving intercompany billing) was noted in the source material as a further extension but was not detailed in the pages in scope.
+The S4680 course covers the customer returns side of ARM. Supplier-side returns (returning goods to the original vendor) are MM processes outside the scope of this chunk.
+<!-- L2 content removed: movement type 122 and supplier-return order mechanics are MM detail from S4680 U6 L2 (supplier returns, pages 164-172, deferred as MM-pure). The intercompany ARM extension note referenced pages outside the cited range (155-163, 173-176) — removed as uncited. -->
 
 ## Process Flow (Standard ARM with RE2)
 
