@@ -108,7 +108,7 @@ The process requires aligned master data: material master with the correct item 
 | No purchase requisition created on save | Schedule line category CS misconfigured or unique source not assignable | Check CS config (item category, purchasing doc type); verify source list or info record |
 | Invoice blocked for payment — Quantity Variance | GR required per PO item but not yet posted | Post the GR via MIGO once the supplier confirms delivery |
 | Sales order not appearing in billing due list | Billing Relevance = F and supplier invoice not posted | Post incoming invoice via MIRO; the order appears automatically afterward |
-| Billing quantity differs from expected | Wrong Billing Quantity field (E vs F) in copying control | Correct the Billing Quantity setting in SPRO copying control for billing type F2 / OR / TAS |
+| Billing quantity differs from expected | Wrong Billing Quantity field (E vs F) in copying control | Correct the Billing Quantity setting in Customizing (copying control) for billing type F2 / OR / TAS |
 | Ship-to address change not reflected in PO | Change made after output messages issued | Change the address only in the sales order before output is issued; afterwards it cannot be updated |
 
 <!-- Integration section removed (2026-06-17, 2nd provenance pass): three sub-paragraphs excised.

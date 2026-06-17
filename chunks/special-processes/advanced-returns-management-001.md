@@ -67,7 +67,7 @@ The S4680 course covers the customer returns side of ARM. Supplier-side returns 
    - Whether the goods can be returned to unrestricted stock, moved to blocked stock, or scrapped.
    - The sequence and dependency of follow-up activities.
 
-   Example: a refund code configured for *credit memo after inspection* will create a credit memo request but place it on a billing block; the block is removed only after the inspection result confirms the goods are defective. A refund code for *immediate credit* creates a credit memo request without requiring prior inspection.
+   Example: a refund code configured for *credit memo after inspection* creates a credit memo request that is held pending inspection — the credit memo is issued only after the inspection result confirms the goods are defective. A refund code for *immediate credit* creates a credit memo request without requiring prior inspection.
 
 3. **Returns delivery (inbound delivery):** When the customer ships the goods back, an inbound delivery is created with reference to the advanced returns order. This delivery records the physical arrival of goods at the company's warehouse. A goods receipt (GI reversal) is posted when the goods are received, which updates the stock and creates a financial accounting document. The destination storage location is determined by the returns delivery configuration and the refund code settings.
 
@@ -79,7 +79,7 @@ The S4680 course covers the customer returns side of ARM. Supplier-side returns 
 
 5. **Returns Overview:** The Returns Overview (accessible via the *Returns Overview* Fiori app) is the monitoring cockpit for open returns. It shows all advanced returns orders, their status, the status of each follow-up activity, and any blocking conditions. The customer service representative or returns manager uses the Returns Overview to identify which returns are awaiting inspection, which credit memos are blocked, and which replacement deliveries are pending. This consolidated view replaces the need to navigate multiple transactions to track a single return.
 
-6. **Credit memo posting:** When all required conditions are met (inspection complete if required, goods received if required), the credit memo request is released from its billing block and a credit memo is created via standard SD billing. The credit memo posts a credit to the customer account in financial accounting. The customer's account is balanced, and the returns cycle is complete from the SD perspective.
+6. **Credit memo posting:** When all required conditions are met (inspection complete if required, goods received if required), the credit memo request is released and a credit memo is created via standard SD billing. The credit memo posts a credit to the customer account in financial accounting. The customer's account is balanced, and the returns cycle is complete from the SD perspective.
 
 ## ARM Variants
 
