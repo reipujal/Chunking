@@ -30,7 +30,7 @@ level: functional
 status: draft
 quality: high
 created: 2026-06-17
-last_updated: 2026-06-17
+last_updated: 2026-06-18
 ---
 
 # Advanced Returns Management (ARM): Customer Returns in SAP S/4HANA
@@ -59,7 +59,7 @@ The S4680 course covers the customer returns side of ARM. Supplier-side returns 
 
 ## Process Flow (Standard ARM with RE2)
 
-1. **Advanced returns order creation (RE2):** The customer service representative creates an advanced returns order using sales document type RE2. The order captures the return reason, material, quantity, and the *refund code*. The refund code is a key control element: it determines which follow-up activities are automatically proposed or created by the system. Unlike ECC returns (document type RE), the RE2 order is not confirmed with a billing block that must be manually removed — the process follows the refund code configuration.
+1. **Advanced returns order creation (RE2):** The customer service representative creates an advanced returns order using sales document type RE2. The order captures the return reason, material, quantity, and the *refund code*. The refund code is a key control element: it determines which follow-up activities are automatically proposed or created by the system. Unlike document type RE, RE2 provides automated follow-up activities, refund codes, and automatic credit memo request creation — none of these options are available with the traditional RE document type.
 
 2. **Refund code determination:** The refund code is entered on the advanced returns order item. It controls:
    - Whether a credit memo is created (and if so, immediately or after inspection).
@@ -96,7 +96,7 @@ BDD is the process for companies that do not use the advanced returns capabiliti
 | Dimension | ECC Returns (RE) | ARM Returns (RE2) |
 |---|---|---|
 | Sales document type | RE | RE2 |
-| Refund control | Manual billing block + credit memo | Refund code drives follow-up activities |
+| Refund control | Manual credit memo — no refund codes, no automatic follow-up activities | Refund code drives follow-up activities |
 | Follow-up automation | Manual creation | System-proposed follow-ups from refund code |
 | Status monitoring | No dedicated cockpit | Returns Overview app |
 | Business function | Separate activation required | Always-on in S/4HANA |

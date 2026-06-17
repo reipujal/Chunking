@@ -28,7 +28,7 @@ level: functional
 status: draft
 quality: medium
 created: 2026-06-17
-last_updated: 2026-06-17
+last_updated: 2026-06-18
 ---
 
 # Third-Party Order Processing
@@ -78,19 +78,19 @@ The process requires aligned master data: material master with the correct item 
 
    - **Billing Relevance F** (default for TAS): the sales order enters the billing due list only after the incoming supplier invoice is posted. For each supplier invoice received, one customer billing document is created. *Billing Quantity* = F (*Invoice receipt quantity minus invoiced quantity*) in copying control from sales documents to billing documents.
    - **Billing Relevance B**: the sales order enters the billing due list immediately after saving, without waiting for GR or invoice receipt.
-   - **Billing Quantity E** (alternative when using Relevance F): the GR quantity is used as the billing reference instead of the invoice quantity. Configured in SPRO copying control for billing type F2 + sales document type OR, item TAS.
+   - **Billing Quantity E** (alternative when using Relevance F): the GR quantity is used as the billing reference instead of the invoice quantity. Configured in Customizing (copying control) for billing type F2 + sales document type OR, item TAS.
 
 ## SD Configuration
 
-**Item category TAS:** Key settings — no delivery relevance, no movement type, *Billing Relevance* = F (default). SPRO path: *Sales and Distribution → Sales → Sales Documents → Sales Document Item → Define Item Categories*.
+**Item category TAS:** Key settings — no delivery relevance, no movement type, *Billing Relevance* = F (default). Customizing path: *Sales and Distribution → Sales → Sales Documents → Sales Document Item → Define Item Categories*.
 
 **Item category group BANS:** Maintained in the material master *Sales Org. 2* view. Drives automatic determination of TAS in the order. Materials without BANS use TAS only via manual override.
 
-**Schedule line category CS:** Assigned to item category TAS. Contains the document type for the purchase requisition, purchasing item category S, and account assignment category X. No movement type; no delivery relevance. SPRO: *Sales and Distribution → Sales → Sales Documents → Schedule Lines → Define Schedule Line Categories*.
+**Schedule line category CS:** Assigned to item category TAS. Contains the document type for the purchase requisition, purchasing item category S, and account assignment category X. No movement type; no delivery relevance. Customizing: *Sales and Distribution → Sales → Sales Documents → Schedule Lines → Define Schedule Line Categories*.
 
 **Automatic PO creation (ALES):** The *Create PO Automatic.* indicator must be set in the item category. A unique source of supply must exist. ALE data (purchase order document type and related settings) must be maintained in the sales organization configuration (*Enterprise Structure → Definition → Sales and Distribution → Define Sales Organization*, ALE data section).
 
-**Copying control for billing quantity:** In copying control from sales documents to billing documents (billing type F2, sales document type OR, item TAS), the *Billing Quantity* field must be F or E. SPRO: *Sales and Distribution → Billing → Billing Documents → Maintain Copying Control For Billing Documents*.
+**Copying control for billing quantity:** In copying control from sales documents to billing documents (billing type F2, sales document type OR, item TAS), the *Billing Quantity* field must be F or E. Customizing: *Sales and Distribution → Billing → Billing Documents → Maintain Copying Control For Billing Documents*.
 
 ## Conditions and Restrictions
 
@@ -111,13 +111,10 @@ The process requires aligned master data: material master with the correct item 
 | Billing quantity differs from expected | Wrong Billing Quantity field (E vs F) in copying control | Correct the Billing Quantity setting in SPRO copying control for billing type F2 / OR / TAS |
 | Ship-to address change not reflected in PO | Change made after output messages issued | Change the address only in the sales order before output is issued; afterwards it cannot be updated |
 
-## Integration with Other SAP Processes
-
-**Third-party and intercompany combined:** When the supplying vendor is not an external company but an internal plant belonging to a different company code, the third-party process combines with the cross-company code sales process. The purchase order is directed at the internal supplier; the intercompany billing type IV is then used to settle between the two company codes in addition to the standard customer invoice. This is a more complex scenario covered by dedicated integration configuration.
-
-**Third-party returns (scope item 1Z3):** When a customer returns goods from a third-party order, the standard return process requires coordination between the returns delivery (from customer back to company or directly to supplier) and the supplier credit. SAP S/4HANA scope item 1Z3 (*Third-Party Returns with Advanced Returns Management*) provides a framework for this. The refund code in the Advanced Returns Order (RE2) controls whether a supplier return is triggered in addition to the customer credit memo.
-
-**Consignment stock interaction:** Third-party order processing is not applicable to consignment stock scenarios, where goods are already at the customer's location and billing is triggered by goods issue from consignment stock. Third-party processing requires the goods to flow from supplier directly to customer — not via previously consigned stock.
+<!-- Integration section removed (2026-06-17, 2nd provenance pass): three sub-paragraphs excised.
+  (a) Third-party + intercompany combined: billing type IV is U2 content (phys pp 46-68); not in U1 pages 8-21 / 33-38. Cross-reference to special-processes-intercompany-sales-process-001 preserved below.
+  (b) Third-party returns scope item 1Z3: 1Z3 appears at phys p 174 only; not in U1 cited range. Cross-reference to special-processes-advanced-returns-management-001 preserved below.
+  (c) Consignment stock interaction: no occurrence in source (0 hits across 190 pages). Entirely unsourced. Deleted with no cross-reference replacement (no consignment chunk in corpus). -->
 
 ## Cross-References
 

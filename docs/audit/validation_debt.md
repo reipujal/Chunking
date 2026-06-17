@@ -69,9 +69,60 @@ Both passages were removed from the body. The remaining scope boundary statement
 
 ---
 
+### DEB-003 — S4680 U1 + U6: 2nd Provenance Audit (status: resolved)
+
+| Field | Value |
+|---|---|
+| **id** | DEB-003 |
+| **document** | S4680_EN_Col17 Cross-Application Processes in SAP S4HANA Sales and Procurement.pdf |
+| **units audited** | U1 (third-party, phys pp 8-21 / 33-38) and U6 L1 (ARM customer returns, phys pp 155-163) |
+| **chunks audited** | special-processes-third-party-order-processing-001, special-processes-advanced-returns-management-001 |
+| **decision type** | provenance audit — verification pass |
+| **decided by** | agent-judgment + pdftotext extraction against cited page ranges |
+| **status** | resolved |
+
+**Audit method:** pdftotext extraction of exact cited page ranges; grep for target tokens. Cross-checked 190 physical pages for "consignment", "SPRO" (0 hits each). Checked U1 pp 8-21/33-38 for "intercompany", "billing type IV", "1Z3", "billing block" (0 hits each). Checked U6 pp 155-163 for "billing block" (0 hits).
+
+**Findings and fixes applied (2026-06-18):**
+
+**Type A — Cross-unit citations (U1 body stated facts from other units):**
+- *Intercompany billing type IV*: present in U2 (pp 46-68), not U1. Body paragraph removed. Cross-reference to special-processes-intercompany-sales-process-001 preserved.
+- *Scope item 1Z3*: present at phys p 174 only, not U1 cited range. Body paragraph removed. Cross-reference to special-processes-advanced-returns-management-001 preserved.
+- The entire `## Integration with Other SAP Processes` section was deleted; an HTML comment documents the excision and reasons.
+
+**Type B — Inserted terms/concepts absent from source:**
+- *Consignment*: 0 occurrences across 190 pages. "Consignment stock interaction" paragraph deleted. No replacement cross-reference (no consignment chunk exists; MM/SD consignment is out of S4680 scope).
+- *"SPRO"*: source consistently uses "Customizing" and "SAP Customizing Implementation Guide". The term "SPRO" never appears. All 4 occurrences in U1 relabeled: "SPRO path:" → "Customizing path:"; "SPRO:" → "Customizing:"; "in SPRO copying control" → "in Customizing (copying control)".
+- *"billing block"* (U6): source (p 150) describes ECC RE returns as having no refund codes, no automatic follow-up activities, no automatic credit memo request creation — the term "billing block" does not appear. Two occurrences replaced with paraphrase from source: process-flow sentence updated; comparison table cell "Manual billing block + credit memo" → "Manual credit memo — no refund codes, no automatic follow-up activities".
+
+**Density impact:**
+- U1 (third-party): 83 w/p → 87.1 w/p after removals (Integration section excised ~180 words; body was already below the removed content's weight). Band: 80-99 w/p. `quality: medium` confirmed correct.
+- U6 (ARM): substitutions only; density unchanged.
+
+**Conclusion:** No fabrication found. Two categories of insertion error: cross-unit citation (IV/1Z3 from other units) and absent-term insertion (consignment, SPRO, billing block). All corrected. Validator: 0 errors (92 OK).
+
+---
+
 ## Summary
 
 | Entry | Document | Unit | Type | Decision | Status |
 |---|---|---|---|---|---|
 | DEB-001 | S4680 | U3 Intra-Company STO | scope | In-scope as SD integration | needs-review |
 | DEB-002 | S4680 | U6 L2 ARM Supplier Returns | scope + provenance | Deferred (MM pure); provenance fix applied | needs-review |
+| DEB-003 | S4680 | U1 + U6 (2nd audit) | provenance audit | Cross-unit citations + absent terms corrected | resolved |
+
+---
+
+## Process Backlog
+
+### P4 — Validator entity-in-cited-range check (not implemented)
+
+**Item:** Extend the validator to flag body-level named entities (T-codes, document types, scope item IDs, movement types, SAP-specific terms) that do not appear in the pdftotext extraction of the chunk's cited page ranges.
+
+**Motivation:** The consignment paragraph and the cross-unit IV/1Z3 facts in the U1 third-party chunk would have been caught automatically by this check — none of those tokens appear in the pdftotext output of pages 8-21/33-38. Similarly, "SPRO" and "billing block" would have been flagged on first write.
+
+**Current gap:** The validator checks structure, density, and cross-reference targets — not whether body tokens trace to cited pages.
+
+**Implementation sketch:** For each chunk, extract body noun phrases matching known SAP entity patterns (T-codes: uppercase 2-6 chars; doc types: 2-4 char uppercase; scope items: digit+Z+digit format; movement types: 3-digit). For each, check presence in pdftotext of cited pages. Flag as WARN if absent. Requires a pre-built pdftotext cache per document.
+
+**Why not implemented now:** Would require changing validate_chunks.py (outside current session scope per user instruction). Logged here for future sprint.
