@@ -1,0 +1,403 @@
+{
+  "generated_at": "2026-06-18",
+  "generator_model": "gpt-4.1",
+  "judge_model": "gpt-4.1",
+  "top_k": 5,
+  "n_chunks_in_corpus": 95,
+  "positive_metrics": {
+    "n": 5,
+    "mean_grounded_fraction": 0.833,
+    "pct_with_any_unsupported": 0.0,
+    "release_mixing_incidents": 0,
+    "citation_validity_rate": 100.0,
+    "gold_in_top_k_rate": 60.0,
+    "n_retrieval_misses": 2,
+    "pct_miss_abstained": 0.0
+  },
+  "abstention_metrics": {
+    "n": 3,
+    "pct_correct_abstention": 33.3,
+    "pct_hallucinated": 66.7
+  },
+  "positive_results": [
+    {
+      "id": "S4600-LA-U1-Q1",
+      "question": "Which of the following apps gives you a visual overview of complex topics for monitoring or tracking purposes?",
+      "src": "S4600",
+      "mode": "positive",
+      "gold_chunk_ids": [
+        "configuration-sap-fiori-launchpad-001"
+      ],
+      "top_k_ids": [
+        "order-management-sales-monitoring-analytics-001",
+        "configuration-sap-fiori-launchpad-001",
+        "billing-create-billing-documents-fiori-001",
+        "shipping-outbound-delivery-monitor-001",
+        "special-processes-advanced-returns-management-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "The SAP Fiori analytical apps provide a visual overview of complex topics for monitoring or tracking purposes. These apps are specifically designed for monitoring and analytics, offering dashboards and KPI-driven exception management with drill-down capabilities for real-time insights.\n\nFuentes: configuration-sap-fiori-launchpad-001, order-management-sales-monitoring-analytics-001",
+      "judgment": {
+        "claims": [
+          {
+            "text": "The SAP Fiori analytical apps provide a visual overview of complex topics for monitoring or tracking purposes.",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "These apps are specifically designed for monitoring and analytics, offering dashboards and KPI-driven exception management with drill-down capabilities for real-time insights.",
+            "label": "PARTIAL"
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 0.5
+      },
+      "citation_check": {
+        "has_citation_line": true,
+        "cited_ids": [
+          "configuration-sap-fiori-launchpad-001",
+          "order-management-sales-monitoring-analytics-001"
+        ],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": false
+    },
+    {
+      "id": "S4600-LA-U1-Q2",
+      "question": "A user can personalize the home page in SAP Fiori launchpad by default.",
+      "src": "S4600",
+      "mode": "positive",
+      "gold_chunk_ids": [
+        "configuration-sap-fiori-launchpad-001"
+      ],
+      "top_k_ids": [
+        "configuration-sap-fiori-launchpad-001",
+        "billing-create-billing-documents-fiori-001",
+        "pricing-condition-records-001",
+        "master-data-sd-partner-functions-001",
+        "integration-general-billing-interface-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "Sí, por defecto un usuario puede personalizar la página de inicio en SAP Fiori Launchpad. El Launchpad proporciona funciones de personalización para los usuarios, permitiéndoles adaptar su experiencia según sus necesidades y preferencias.\n\nFuentes: configuration-sap-fiori-launchpad-001",
+      "judgment": {
+        "claims": [
+          {
+            "text": "por defecto un usuario puede personalizar la página de inicio en SAP Fiori Launchpad",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "El Launchpad proporciona funciones de personalización para los usuarios",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "permitiéndoles adaptar su experiencia según sus necesidades y preferencias",
+            "label": "SUPPORTED"
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 1.0
+      },
+      "citation_check": {
+        "has_citation_line": true,
+        "cited_ids": [
+          "configuration-sap-fiori-launchpad-001"
+        ],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": false
+    },
+    {
+      "id": "S4600-LA-U4-Q1",
+      "question": "The master data of customers and vendors is managed in SAP S/4HANA by using business partner master data.",
+      "src": "S4600",
+      "mode": "positive",
+      "gold_chunk_ids": [
+        "master-data-business-partner-master-data-001",
+        "master-data-material-master-sd-001"
+      ],
+      "top_k_ids": [
+        "master-data-business-partner-master-data-001",
+        "enterprise-structure-shared-master-data-cross-division-001",
+        "order-management-sales-monitoring-analytics-001",
+        "credit-management-credit-master-data-001",
+        "order-management-sales-order-source-of-data-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "Sí, en SAP S/4HANA la gestión de los datos maestros de clientes y proveedores se realiza mediante el concepto unificado de Business Partner (BP). Esto reemplaza los registros maestros separados de cliente y proveedor que se usaban en SAP ECC. Un único registro de Business Partner puede representar tanto a un cliente como a un proveedor, y se le asignan roles específicos (por ejemplo, Customer, FI Customer, Vendor) que activan los campos de datos relevantes para cada contexto de negocio. Así se centraliza el mantenimiento de datos maestros y se evita la redundancia de datos en los módulos de Ventas, Compras y Finanzas.\n\nFuentes: master-data-business-partner-master-data-001, order-management-sales-order-source-of-data-001",
+      "judgment": {
+        "claims": [
+          {
+            "text": "En SAP S/4HANA la gestión de los datos maestros de clientes y proveedores se realiza mediante el concepto unificado de Business Partner (BP).",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "Esto reemplaza los registros maestros separados de cliente y proveedor que se usaban en SAP ECC.",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "Un único registro de Business Partner puede representar tanto a un cliente como a un proveedor, y se le asignan roles específicos (por ejemplo, Customer, FI Customer, Vendor) que activan los campos de datos relevantes para cada contexto de negocio.",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "Así se centraliza el mantenimiento de datos maestros y se evita la redundancia de datos en los módulos de Ventas, Compras y Finanzas.",
+            "label": "SUPPORTED"
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 1.0
+      },
+      "citation_check": {
+        "has_citation_line": true,
+        "cited_ids": [
+          "master-data-business-partner-master-data-001",
+          "order-management-sales-order-source-of-data-001"
+        ],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": false
+    },
+    {
+      "id": "S4600-LA-U4-Q2",
+      "question": "Which one of the following partner functions is applicable for a customer who receives the invoice?",
+      "src": "S4600",
+      "mode": "positive",
+      "gold_chunk_ids": [
+        "master-data-business-partner-master-data-001",
+        "master-data-material-master-sd-001"
+      ],
+      "top_k_ids": [
+        "special-processes-intercompany-sales-process-001",
+        "billing-invoice-list-001",
+        "master-data-sd-partner-functions-001",
+        "enterprise-structure-head-office-branch-billing-001",
+        "shipping-delivery-special-functions-001"
+      ],
+      "gold_in_top_k": false,
+      "response": "The applicable partner function for a customer who receives the invoice is the \"bill-to party\" partner function. In SAP SD, the bill-to party is the business partner who receives the invoice in a sales transaction. This is distinct from other partner functions such as sold-to party, ship-to party, and payer.\n\nFuentes: master-data-sd-partner-functions-001",
+      "judgment": {
+        "claims": [
+          {
+            "text": "The applicable partner function for a customer who receives the invoice is the 'bill-to party' partner function.",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "In SAP SD, the bill-to party is the business partner who receives the invoice in a sales transaction.",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "This is distinct from other partner functions such as sold-to party, ship-to party, and payer.",
+            "label": "SUPPORTED"
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 1.0
+      },
+      "citation_check": {
+        "has_citation_line": true,
+        "cited_ids": [
+          "master-data-sd-partner-functions-001"
+        ],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": false
+    },
+    {
+      "id": "S4600-LA-U4-Q3",
+      "question": "The Customizing of sales document types includes some parameters that can be used to choose between division-specific and cross-division sales processing.",
+      "src": "S4600",
+      "mode": "positive",
+      "gold_chunk_ids": [
+        "master-data-business-partner-master-data-001",
+        "master-data-material-master-sd-001"
+      ],
+      "top_k_ids": [
+        "configuration-sales-document-type-control-001",
+        "enterprise-structure-shared-master-data-cross-division-001",
+        "configuration-sales-copying-control-001",
+        "configuration-delivery-process-customizing-001",
+        "order-management-sales-order-special-features-001"
+      ],
+      "gold_in_top_k": false,
+      "response": "Sí, en la Customizing del tipo de documento de ventas puedes controlar si el procesamiento de ventas es específico de división o cruzado entre divisiones. Esto se gestiona mediante el parámetro de \"asignación de área de ventas\" (*sales area assignment*), que define en qué organización de ventas, canal de distribución y división es válido el tipo de documento de ventas. Así, puedes restringir el tipo de documento a una división específica o permitir su uso en varias divisiones, habilitando el procesamiento cruzado de divisiones según la configuración elegida.\n\nFuentes: configuration-sales-document-type-control-001",
+      "judgment": {
+        "claims": [
+          {
+            "text": "En la Customizing del tipo de documento de ventas puedes controlar si el procesamiento de ventas es específico de división o cruzado entre divisiones.",
+            "label": "PARTIAL"
+          },
+          {
+            "text": "Esto se gestiona mediante el parámetro de 'asignación de área de ventas' (sales area assignment), que define en qué organización de ventas, canal de distribución y división es válido el tipo de documento de ventas.",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "Puedes restringir el tipo de documento a una división específica o permitir su uso en varias divisiones, habilitando el procesamiento cruzado de divisiones según la configuración elegida.",
+            "label": "PARTIAL"
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 0.666
+      },
+      "citation_check": {
+        "has_citation_line": true,
+        "cited_ids": [
+          "configuration-sales-document-type-control-001"
+        ],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": false
+    }
+  ],
+  "abstention_results": [
+    {
+      "id": "S4600-LA-U1-Q1",
+      "question": "Which of the following apps gives you a visual overview of complex topics for monitoring or tracking purposes?",
+      "src": "S4600",
+      "mode": "abstention",
+      "gold_chunk_ids": [
+        "configuration-sap-fiori-launchpad-001"
+      ],
+      "top_k_ids": [
+        "order-management-sales-monitoring-analytics-001",
+        "billing-create-billing-documents-fiori-001",
+        "shipping-outbound-delivery-monitor-001",
+        "special-processes-advanced-returns-management-001",
+        "credit-management-credit-master-data-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "The app that gives you a visual overview of complex topics for monitoring or tracking purposes is the *Sales Order Fulfillment* app, which provides a unified view of the current fulfillment situation and highlights orders that cannot be fulfilled. Additionally, *SAP Smart Business* provides KPI-driven dashboards for exception management and tracking. These tools are designed for monitoring and analytics in SAP S/4HANA Sales.\n\nFuentes: order-management-sales-monitoring-analytics-001",
+      "judgment": {
+        "claims": [
+          {
+            "text": "The app that gives you a visual overview of complex topics for monitoring or tracking purposes is the Sales Order Fulfillment app, which provides a unified view of the current fulfillment situation and highlights orders that cannot be fulfilled.",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "Additionally, SAP Smart Business provides KPI-driven dashboards for exception management and tracking.",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "These tools are designed for monitoring and analytics in SAP S/4HANA Sales.",
+            "label": "SUPPORTED"
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 1.0
+      },
+      "citation_check": {
+        "has_citation_line": true,
+        "cited_ids": [
+          "order-management-sales-monitoring-analytics-001"
+        ],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": false
+    },
+    {
+      "id": "S4600-LA-U1-Q2",
+      "question": "A user can personalize the home page in SAP Fiori launchpad by default.",
+      "src": "S4600",
+      "mode": "abstention",
+      "gold_chunk_ids": [
+        "configuration-sap-fiori-launchpad-001"
+      ],
+      "top_k_ids": [
+        "billing-create-billing-documents-fiori-001",
+        "pricing-condition-records-001",
+        "master-data-sd-partner-functions-001",
+        "integration-general-billing-interface-001",
+        "configuration-flexible-billing-document-numbering-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "No puedo responder con la documentación proporcionada.",
+      "judgment": {
+        "claims": [
+          {
+            "text": "No puedo responder con la documentación proporcionada.",
+            "label": "SUPPORTED"
+          }
+        ],
+        "is_abstention": true,
+        "release_mixing": false,
+        "grounded_fraction": 1.0
+      },
+      "citation_check": {
+        "has_citation_line": false,
+        "cited_ids": [],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": true
+    },
+    {
+      "id": "S4600-LA-U4-Q1",
+      "question": "The master data of customers and vendors is managed in SAP S/4HANA by using business partner master data.",
+      "src": "S4600",
+      "mode": "abstention",
+      "gold_chunk_ids": [
+        "master-data-business-partner-master-data-001",
+        "master-data-material-master-sd-001"
+      ],
+      "top_k_ids": [
+        "enterprise-structure-shared-master-data-cross-division-001",
+        "order-management-sales-monitoring-analytics-001",
+        "credit-management-credit-master-data-001",
+        "order-management-sales-order-source-of-data-001",
+        "configuration-text-sources-sd-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "Sí, en SAP S/4HANA 2020, los datos maestros de clientes y proveedores se gestionan utilizando el modelo de Business Partner (BP). El modelo de Business Partner es el punto de entrada central para crear, editar y visualizar los datos maestros de clientes y proveedores. Un Business Partner puede crearse en uno o más roles de BP, y los datos centrales como nombre, dirección y datos bancarios solo necesitan ingresarse una vez. Esto simplifica la gestión y evita la duplicidad de datos maestros para clientes y proveedores.\n\nFuentes: order-management-sales-order-source-of-data-001",
+      "judgment": {
+        "claims": [
+          {
+            "text": "En SAP S/4HANA 2020, los datos maestros de clientes y proveedores se gestionan utilizando el modelo de Business Partner (BP).",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "El modelo de Business Partner es el punto de entrada central para crear, editar y visualizar los datos maestros de clientes y proveedores.",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "Un Business Partner puede crearse en uno o más roles de BP.",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "Los datos centrales como nombre, dirección y datos bancarios solo necesitan ingresarse una vez.",
+            "label": "SUPPORTED"
+          },
+          {
+            "text": "Esto simplifica la gestión y evita la duplicidad de datos maestros para clientes y proveedores.",
+            "label": "PARTIAL"
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 0.8
+      },
+      "citation_check": {
+        "has_citation_line": true,
+        "cited_ids": [
+          "order-management-sales-order-source-of-data-001"
+        ],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": false
+    }
+  ],
+  "limitations": [
+    "Same model family for generator and judge — self-bias risk.",
+    "LÍMITE 2: Learning Assessment questions, easy single-lesson scope.",
+    "parse_page_range does not handle comma-separated specs (e.g. '23, 30-38')."
+  ]
+}
