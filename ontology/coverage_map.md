@@ -46,7 +46,7 @@ Topics: 42 total | **4 with 0 chunks** | 5 with 1 chunk
 | o2c.billing.settlement | Invoice List / Split | 3 | single | S4615 |
 | o2c.billing.complaints | Complaints Billing | 5 | single | S4615 (uniform) |
 | o2c.billing.fi | Billing–FI Integration | 3 | single | S4615 |
-| **o2c.credit** ★ | **Credit Management** | **0** | prospective | S4650 or S4680 (to inspect) — **PRIORITY GAP** |
+| o2c.credit | Credit Management | 3 | single | S4F30 (Col12, 2019) primary + BD6 scope item (sap_reference) |
 
 ---
 
@@ -119,7 +119,7 @@ Topics: 42 total | **4 with 0 chunks** | 5 with 1 chunk
 
 | Gap type | Topic | Priority | Action |
 |---|---|---|---|
-| ★ Priority gap | `o2c.credit` | HIGH | Inspect S4650 / S4680; chunk credit management content |
+| ✓ Filled | `o2c.credit` | — | 3 chunks created from S4F30 (2019) + BD6; DEB-004 in ledger (high-risk: pending provenance audit + expert review) |
 | ★ Gap | `ent.org.cross_div` | MEDIUM | Chunk S4650 Unit 1 Lesson 2 (phys 14-19) |
 | ★ Gap | `xfunc.text` | MEDIUM | Chunk S4650 Unit 3 (phys 32-48) |
 | ★ Gap (near) | `xfunc.output` | MEDIUM | Chunk S4650 Unit 4 (phys 49-73); update authority |
@@ -139,7 +139,7 @@ Topics: 42 total | **4 with 0 chunks** | 5 with 1 chunk
 
 ## Trust Gate Check
 
-- **Ontology not induced from corpus:** 4 topics have 0 chunks (ent.org.cross_div, o2c.credit, xfunc.text, xfunc.enhance). ✓
+- **Ontology not induced from corpus:** 3 topics have 0 chunks (ent.org.cross_div, xfunc.text, xfunc.enhance); o2c.credit filled 2026-06-18. ✓
 - **CS/BV conflict registered:** o2c.order.special — conflict: true with resolution note. ✓
 - **Inversion pattern documented:** xfunc.output — S4650 Unit 4 will supersede existing S4615 chunk as primary. ✓
 - **Technical scope clearly flagged:** xfunc.enhance — audience: technical, in_scope: deferred. ✓

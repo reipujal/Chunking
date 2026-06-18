@@ -1,0 +1,158 @@
+{
+  "doc": "S4F30",
+  "pdf_relative_path": "S4F30_EN_Col12 Order to Cash Optimizations with SAP Receivables Management in SAP S4 HANA.pdf",
+  "offset": 6,
+  "generated_at": "2026-06-18",
+  "total_physical_pages": 132,
+  "questions": [
+    {
+      "id": "S4F30-LA-U1-Q1",
+      "unit": "Unit 1: SAP Receivables Management",
+      "question": "Which of the listed applications belong to the core of SAP Receivables Management?",
+      "options": {
+        "A": "SAP S/4HANA Cash Management",
+        "B": "SAP Credit Management",
+        "C": "SAP Collections Management",
+        "D": "SAP S/4HANA Treasury and Risk Management",
+        "E": "SAP Dispute Management"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": ["B", "C", "E"],
+      "answer_key_found": true,
+      "answer_explanation": "SAP Receivables Management contains SAP Credit Management, SAP Collections Management, and SAP Dispute Management — not SAP S/4HANA Cash Management or Treasury and Risk Management.",
+      "gold_page_span": [8, 17],
+      "mappable": false,
+      "excluded": true,
+      "exclude_reason": "Unit 1 (phys 8-17) not chunked — suite overview, no standalone chunk created; content too thin for a functional chunk",
+      "notes": ""
+    },
+    {
+      "id": "S4F30-LA-U2-Q1",
+      "unit": "Unit 2: Credit Evaluation and Management",
+      "question": "Choose three components which are part of Advanced Credit Management but are not part of Basic Credit Management.",
+      "options": {
+        "A": "Formula-based score and credit limit calculation",
+        "B": "Credit Limit Request",
+        "C": "Documented Credit Decision for Document",
+        "D": "Credit Account based on SAP Business Partner",
+        "E": "Integration with SAP S/4HANA Cloud for credit integration"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": ["A", "B", "E"],
+      "answer_key_found": true,
+      "answer_explanation": "In the license-free Basic Credit Management, formula-based score and credit limit calculation, Credit Limit Request, and integration with SAP S/4HANA Cloud for credit integration (and eventing) are not included. Documented Credit Decision for Document is available in Basic CM.",
+      "gold_page_span": [20, 43],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "Covered by credit-master-data-001 (Basic vs Advanced table, phys 20-29) and credit-rules-engine-001 (formula-based scoring/limit, phys 39-43)"
+    },
+    {
+      "id": "S4F30-LA-U2-Q2",
+      "unit": "Unit 2: Credit Evaluation and Management",
+      "question": "Which process-relevant relationship types can be maintained in SAP Credit Management?",
+      "options": {
+        "A": "Higher-level Credit Management Account of / Lower-level Credit Management Account of",
+        "B": "In Credit Management is managed by / Managed in Credit Management",
+        "C": "Is in Credit Analyst Group / Has Employees"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": ["A", "B", "C"],
+      "answer_key_found": true,
+      "answer_explanation": "All three relationship types (hierarchy FUKM001/TUKM001, analyst assignment TUKMSB0, analyst group TUKMSBG) are process-relevant in SAP Credit Management.",
+      "gold_page_span": [20, 29],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "Covered by credit-master-data-001 (customer hierarchies section, phys 20-29)"
+    },
+    {
+      "id": "S4F30-LA-U2-Q3",
+      "unit": "Unit 2: Credit Evaluation and Management",
+      "question": "Which FI information is the SAP standard providing within the Credit Segment data of a Business Partner?",
+      "options": {
+        "A": "Credit commitment data",
+        "B": "Oldest Open Item information",
+        "C": "Information regarding the total sales in the last 12 months",
+        "D": "Information if the open items are insured"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": ["A", "B", "C"],
+      "answer_key_found": true,
+      "answer_explanation": "FI-AR provides credit commitment data, oldest open item information, and information regarding total sales in the last 12 months into the credit segment. Whether open items are insured is not standard FI-AR data in the credit segment.",
+      "gold_page_span": [20, 38],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "Covered by credit-master-data-001 (credit segment data section, phys 20-29) and credit-check-sd-integration-001 (exposure update / FI-AR data flow, phys 30-38)"
+    },
+    {
+      "id": "S4F30-LA-U2-Q4",
+      "unit": "Unit 2: Credit Evaluation and Management",
+      "question": "Which calculation steps can be used when defining a formula?",
+      "options": {
+        "A": "Condition",
+        "B": "Calculation Step",
+        "C": "Substitution",
+        "D": "Exception"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": ["A", "C", "D"],
+      "answer_key_found": true,
+      "answer_explanation": "Formula steps can be defined as Condition, Substitution, or Exception. 'Calculation Step' is not a formula step type. Prerequisites are not available in the formula editor.",
+      "gold_page_span": [39, 43],
+      "mappable": true,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "Covered by credit-rules-engine-001 (formula structure section, phys 39-43)"
+    },
+    {
+      "id": "S4F30-LA-U2-Q5",
+      "unit": "Unit 2: Credit Evaluation and Management",
+      "question": "Which master data can be updated automatically per standard configuration when using the SAP S/4HANA Cloud for Credit Integration?",
+      "options": {
+        "A": "Rating",
+        "B": "Legal Form",
+        "C": "Recommended Credit Limit",
+        "D": "Industry Code"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": ["A", "B", "D"],
+      "answer_key_found": true,
+      "answer_explanation": "Rating (Credit Profile tab), Legal Form and Industry Code (Identification tab) are updated automatically. Recommended Credit Limit is not automatically updated.",
+      "gold_page_span": [44, 48],
+      "mappable": false,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "Unit 2 L5 (external SCP credit agency integration, phys 44-48) was deferred — no chunk covers this content. Coverage gap by design."
+    },
+    {
+      "id": "S4F30-LA-U2-Q6",
+      "unit": "Unit 2: Credit Evaluation and Management",
+      "question": "Which capabilities does the SAP Credit Management application provide to mass change the credit data?",
+      "options": {
+        "A": "Mass change Check Rule",
+        "B": "Trigger mass re-calculation of Credit Limits",
+        "C": "Mass change of relationships",
+        "D": "Mass change Rule for Scoring and Credit Limit Calculation",
+        "E": "Mass change Customer Credit Groups"
+      },
+      "question_type": "mcq",
+      "multi_answer": true,
+      "correct": ["A", "B", "D"],
+      "answer_key_found": true,
+      "answer_explanation": "Standard reports allow mass change of Check Rule and Rule for Scoring and Credit Limit Calculation, and mass triggering of score/limit recalculation. Mass change of relationships and customer credit groups are not standard.",
+      "gold_page_span": [49, 58],
+      "mappable": false,
+      "excluded": false,
+      "exclude_reason": "",
+      "notes": "Unit 2 L6 (reporting and mass changes, phys 49-58) was deferred — no chunk covers this content. Coverage gap by design."
+    }
+  ]
+}

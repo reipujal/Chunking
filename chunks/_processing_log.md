@@ -396,3 +396,42 @@ Extraction ratios (Skill 6): all 5 chunks show ratio <0.5 (range 0.30-0.45). Con
 Coverage table: all uncovered page clusters (≥3p, ≥100w) are either learning assessment pages or DEFERRED MM pure units. Coverage gate: PASS.
 
 Ontology completeness report: docs/audit/ontology_completeness_report_S4680.md
+
+---
+
+## 2026-06-18 — S4F30 + BD6 (credit-management area)
+
+### Status: completed
+
+Source: S4F30_EN_Col12 (132 pages, © 2019 SAP SE, Col12 → release S/4HANA 1909) + BD6 scope item (8 pages)
+Offset: +6 (física = footer + 6), verified at 3 points (phys7=footer1, phys18=footer12, phys30=footer24)
+
+### Chunks created (3)
+
+| Chunk ID | Path | Pages (phys) | Density | Quality |
+|---|---|---|---|---|
+| credit-management-credit-master-data-001 | credit-management/credit-master-data-001.md | 20-29 | 118.6 w/p | high |
+| credit-management-credit-check-sd-integration-001 | credit-management/credit-check-sd-integration-001.md | 30-38 (+BD6 pp1-2,5) | 117.4 w/p | high |
+| credit-management-credit-rules-engine-001 | credit-management/credit-rules-engine-001.md | 39-43 | 229.2 w/p | high |
+
+### Scope decisions
+
+- IN SCOPE: U2 L1-L4 (phys 20-43) — credit master data, SD-credit check integration, credit rules engine
+- DEFERRED (not chunked): U2 L5 (external SCP credit agency integration), U2 L6 (reporting/mass changes), U1 (overview — too thin), U3 (Cloud for Customer Payments — FI-AR cloud), U4 (Collections Management — FI-AR), U5 (Dispute Resolution — FI-AR)
+- All deferred units logged in DEB-004 (docs/audit/validation_debt.md)
+
+### Version handling (S4F30 2019 vs BD6 current)
+
+No functional divergences detected between S4F30 (1909) and BD6 (current scope item). Process flow (SO → credit check → block → DCD → release/reject) is consistent. sap_release: S/4HANA 1909 tagged in all 3 chunks.
+
+### Enum change
+
+validate_chunks.py VALID_RELEASE expanded: added "S/4HANA 1909" (line 28). Self-grep confirmed.
+
+### Risk flag
+
+HIGH RISK: source is 2019; no provenance audit (statement-by-statement); no expert sign-off. DEB-004 in validation_debt.md. Chunks are structurally_validated + retrieval_tested only.
+
+### Next pending
+
+Eval results: see eval/results/ (S4F30 score run after this log entry). Next doc: S4601 (high priority, not started).

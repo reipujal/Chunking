@@ -103,6 +103,41 @@ Both passages were removed from the body. The remaining scope boundary statement
 
 ---
 
+### DEB-004 — Credit Management chunked from S4F30 (2019) + BD6: HIGH RISK
+
+| Field | Value |
+|---|---|
+| **id** | DEB-004 |
+| **document** | S4F30_EN_Col12 Order to Cash Optimizations with SAP Receivables Management in SAP S4 HANA.pdf + BD6 scope item |
+| **units** | U2 L1-L4 (phys 20-43); U2 L5-L6 and U3-U5 deferred (scope: FI-AR / cloud) |
+| **chunks produced** | credit-management-credit-master-data-001, credit-management-credit-check-sd-integration-001, credit-management-credit-rules-engine-001 |
+| **decision type** | scope + provenance + version risk |
+| **decided by** | agent-judgment (no expert sign-off) |
+| **status** | needs-review — HIGH RISK |
+
+**Risk factors:**
+1. **Source release 2019 (S/4HANA 1909):** FSCM credit management is relatively stable 1909→2020, but UI details (Fiori app names, T-code aliases, configuration paths), BAdI names, and reporting structures may have changed. No version delta was available for formal comparison.
+2. **No provenance audit (affirmation-by-affirmation):** Chunks are structurally validated (validator 0 errors) and retrieval-tested (eval), but each body sentence has NOT been verified against the extracted pdftotext line it came from. This is the same provenance risk that produced the S4680 insertion errors.
+3. **No functional sign-off:** No SAP SD/FSCM credit consultant has reviewed the chunks for functional accuracy.
+4. **High insertion-temptation domain:** Credit management (VKM*, UKM_*, credit group Customizing paths, risk class tables) is a domain where a knowledgeable agent could easily insert "known" SAP facts not present in the cited pages. Regla 9 was followed, but trust level is structurally_validated only — not provenance_audited.
+
+**Scope decisions made (agent-judgment):**
+- U2 L5 (phys 44-48, external credit agency SCP integration): deferred as non-core O2C. No SD document generated; requires SAP Cloud Platform license. Scope: advanced/optional.
+- U2 L6 (phys 49-58, reporting and mass changes): deferred as operational credit management tools (BW queries, Fiori exposure reports, mass update of check rules). Not part of the credit-check-in-O2C flow.
+- U3 (phys 59-66, SAP S/4HANA Cloud for Customer Payments + Digital Payments): deferred — FI-AR cloud payment solution, not SD credit check.
+- U4 (phys 67-97, Collections Management): deferred — FI-AR post-O2C. OUT OF SCOPE per standing rule.
+- U5 (phys 98-132, Dispute Resolution): deferred — FI-AR dispute management. OUT OF SCOPE per standing rule.
+- U1 (phys 8-17, Receivables Management suite overview): not chunked — promotional/business case; no unique SD credit check content; too thin for a standalone functional chunk.
+
+**BD6 scope:** BD6 (Basic Credit Management, process diagrams) used as secondary source for credit-check-sd-integration-001 (pages 1-2, 5 cited). BD6 is current (no version mismatch detected — process flow matches S4F30 description).
+
+**What would resolve this entry:**
+- A SAP FSCM credit consultant reviews the 3 chunks against current S/4HANA system behavior (sign-off)
+- A provenance audit (statement-by-statement against pdftotext of cited pages) — same protocol as S4680 DEB-003
+- If divergences 1909→current are found: update sap_release notes or split into version chunks
+
+---
+
 ## Summary
 
 | Entry | Document | Unit | Type | Decision | Status |
@@ -110,6 +145,7 @@ Both passages were removed from the body. The remaining scope boundary statement
 | DEB-001 | S4680 | U3 Intra-Company STO | scope | In-scope as SD integration | needs-review |
 | DEB-002 | S4680 | U6 L2 ARM Supplier Returns | scope + provenance | Deferred (MM pure); provenance fix applied | needs-review |
 | DEB-003 | S4680 | U1 + U6 (2nd audit) | provenance audit | Cross-unit citations + absent terms corrected | resolved |
+| DEB-004 | S4F30 + BD6 | U2 L1-L4 (credit management) | scope + provenance + version risk | 3 chunks created; HIGH RISK; pending provenance audit + expert review | needs-review |
 
 ---
 
