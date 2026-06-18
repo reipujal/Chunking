@@ -9,7 +9,7 @@ sap_release: S/4HANA 1909
 sources:
   - file: "S4F30_EN_Col12 Order to Cash Optimizations with SAP Receivables Management in SAP S4 HANA.pdf"
     relative_path: "S4F30_EN_Col12 Order to Cash Optimizations with SAP Receivables Management in SAP S4 HANA.pdf"
-    pages: "30-38"
+    pages: "23, 30-38"
     source_type: A
     role: primary
   - file: "Basic Credit Management (BD6)_ Process Diagrams.html.pdf"
@@ -128,7 +128,7 @@ The Credit Limit Request Case is part of *Advanced Credit Management* and is not
 |---|---|---|
 | Sales order not credit-checked at all | No automatic credit control entry for the credit control area + credit group + risk class combination | Verify configuration in Customizing for automatic credit control |
 | Order blocked even though customer has sufficient limit | Stale exposure data — SD commitments not transferred to Credit Management | Verify automatic commitment update; run UKM_TRANSFER_ITEMS in rebuild mode to resync |
-| DCD not created on block | Credit Management system not reachable (distributed system) or WS-RM connection not configured | Check WS-RM partner profile and system connectivity |
+| DCD not created on block (only when Credit Management runs on a separate/distributed system) | Central Credit Management unreachable or WS-RM connection not configured | Check WS-RM partner profile and connectivity; not applicable to single-system S/4HANA |
 | Payment history not current | UKM_TRANSFER_VECTOR not scheduled | Schedule the program to run daily |
 
 ## Cross-References

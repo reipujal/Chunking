@@ -1,4 +1,4 @@
-# Validation Debt Ledger
+﻿# Validation Debt Ledger
 Created: 2026-06-17
 Purpose: Record judgment calls made without sign-off from a domain expert (functional SAP SD consultant). Each entry describes the decision, the evidence used, who made it, and its current review status. When an expert hour becomes available, start here — not with the full corpus.
 
@@ -117,7 +117,7 @@ Both passages were removed from the body. The remaining scope boundary statement
 
 **Risk factors:**
 1. **Source release 2019 (S/4HANA 1909):** FSCM credit management is relatively stable 1909→2020, but UI details (Fiori app names, T-code aliases, configuration paths), BAdI names, and reporting structures may have changed. No version delta was available for formal comparison.
-2. **No provenance audit (affirmation-by-affirmation):** Chunks are structurally validated (validator 0 errors) and retrieval-tested (eval), but each body sentence has NOT been verified against the extracted pdftotext line it came from. This is the same provenance risk that produced the S4680 insertion errors.
+2. **Provenance audit (manual, 2026-06-18) — COMPLETED:** Affirmation-by-affirmation audit performed against pdftotext of S4F30 cited page ranges (phys 20-43). All technical identifiers traced to source (UKM000 p26; FUKM001/TUKM001/TUKMSB0/TUKMSBG p29; UKM_COMMITMENTS p29; UKM_ITEM + commitment types 100/200/300/400/500 p31; UKM_TRANSFER_ITEMS p31; UKM_TRANSFER_VECTOR p32). Four provenance findings identified and corrected (F1–F4): F1 — "S/4HANA Cloud" specificity absent from source, replaced with "external credit information"; F2 — "levels" → "hierarchies" (source: "max. 10 hierarchies"); F3 — "(for document blocks)" parenthetical absent from source, removed; F4 — WS-RM row in Common Errors sourced from p23 (outside original 30-38 range): pages field extended to "23, 30-38" and row text scoped to distributed-system context. credit-rules-engine-001 clean — no findings. Residual trust level: provenance_audited for F1–F4 scope; functional_review still pending.
 3. **No functional sign-off:** No SAP SD/FSCM credit consultant has reviewed the chunks for functional accuracy.
 4. **High insertion-temptation domain:** Credit management (VKM*, UKM_*, credit group Customizing paths, risk class tables) is a domain where a knowledgeable agent could easily insert "known" SAP facts not present in the cited pages. Regla 9 was followed, but trust level is structurally_validated only — not provenance_audited.
 
@@ -132,9 +132,9 @@ Both passages were removed from the body. The remaining scope boundary statement
 **BD6 scope:** BD6 (Basic Credit Management, process diagrams) used as secondary source for credit-check-sd-integration-001 (pages 1-2, 5 cited). BD6 is current (no version mismatch detected — process flow matches S4F30 description).
 
 **What would resolve this entry:**
-- A SAP FSCM credit consultant reviews the 3 chunks against current S/4HANA system behavior (sign-off)
-- A provenance audit (statement-by-statement against pdftotext of cited pages) — same protocol as S4680 DEB-003
-- If divergences 1909→current are found: update sap_release notes or split into version chunks
+- A SAP FSCM credit consultant reviews the 3 chunks against current S/4HANA system behavior (functional sign-off) — this is the remaining open gate
+- If divergences 1909→current are found during functional review: update sap_release notes or split into version chunks
+- Note: provenance audit (F1–F4) completed 2026-06-18. The remaining HIGH RISK designation is driven by functional_review: pending and release_confidence: low (source 1909) — the provenance audit does NOT substitute for consultant review.
 
 ---
 
@@ -145,7 +145,7 @@ Both passages were removed from the body. The remaining scope boundary statement
 | DEB-001 | S4680 | U3 Intra-Company STO | scope | In-scope as SD integration | needs-review |
 | DEB-002 | S4680 | U6 L2 ARM Supplier Returns | scope + provenance | Deferred (MM pure); provenance fix applied | needs-review |
 | DEB-003 | S4680 | U1 + U6 (2nd audit) | provenance audit | Cross-unit citations + absent terms corrected | resolved |
-| DEB-004 | S4F30 + BD6 | U2 L1-L4 (credit management) | scope + provenance + version risk | 3 chunks created; HIGH RISK; pending provenance audit + expert review | needs-review |
+| DEB-004 | S4F30 + BD6 | U2 L1-L4 (credit management) | scope + provenance + version risk | 3 chunks; provenance audit done (F1-F4 corrected); HIGH RISK: functional_review pending + release_confidence low (1909) | needs-review |
 
 ---
 

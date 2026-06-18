@@ -102,11 +102,11 @@ In SAP S/4HANA, two tiers are available:
 | Business Partner in role UKM000 | ✓ | ✓ |
 | Credit limit per credit segment | ✓ | ✓ |
 | Manual credit score and risk class | ✓ | ✓ |
-| Documented Credit Decision (DCD) | ✓ (for document blocks) | ✓ |
+| Documented Credit Decision (DCD) | ✓ | ✓ |
 | Formula-based score and credit limit calculation | — | ✓ |
 | Credit eventing (automated follow-on actions) | — | ✓ |
 | Credit Limit Request Case | — | ✓ |
-| Integration with SAP S/4HANA Cloud for credit information | — | ✓ |
+| Integration of external credit information | — | ✓ |
 
 Basic Credit Management is provided without additional licensing as part of the S/4HANA technical foundation. Advanced Credit Management requires a separate licence.
 
@@ -114,7 +114,7 @@ Basic Credit Management is provided without additional licensing as part of the 
 
 The following relationship types can be maintained at the credit segment level between business partners:
 
-- **FUKM001 / TUKM001** (*Higher-level Credit Management Account of / Lower-level Credit Management Account of*): defines parent-child credit hierarchies (up to 10 levels). The credit exposure of lower-level credit accounts rolls up into the total exposure of the higher-level account. The report `UKM_COMMITMENTS` shows how sub-account exposure consolidates to the higher-level account.
+- **FUKM001 / TUKM001** (*Higher-level Credit Management Account of / Lower-level Credit Management Account of*): defines parent-child credit hierarchies (up to max. 10 hierarchies). The credit exposure of lower-level credit accounts rolls up into the total exposure of the higher-level account. The report `UKM_COMMITMENTS` shows how sub-account exposure consolidates to the higher-level account.
 - **TUKMSB0** (*In Credit Management is managed by*): assigns the responsible credit analyst (per credit segment) to the business partner. The analyst must also exist as a Business Partner (Person) in the Employee role.
 - **TUKMSBG** (*Is in credit analyst group*): organises credit analysts into groups.
 
