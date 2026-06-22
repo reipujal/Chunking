@@ -344,29 +344,38 @@ def aggregate_positive(results: list[dict]) -> dict:
     n = len(results)
     if not n:
         return {}
-    gf     = [r["judgment"].get("grounded_fraction", 0.0) for r in results]
-    has_us = [any(c.get("label") == "UNSUPPORTED"
-                  for c in r["judgment"].get("claims", []))
-              for r in results]
-    rmix   = [r["judgment"].get("release_mixing", False) for r in results]
-    gitk   = [r["gold_in_top_k"] for r in results]
-    cval   = [r["citation_check"]["all_in_top_k"] for r in results]
-    miss_abstain = [
+
+    abstained_flags = [
         r["abstention_det"] or r["judgment"].get("is_abstention", False)
-        for r in results if not r["gold_in_top_k"]
+        for r in results
     ]
+    answered = [r for r, a in zip(results, abstained_flags) if not a]
+    gf_answered = [r["judgment"].get("grounded_fraction", 0.0) for r in answered]
+
+    gitk = [r["gold_in_top_k"] for r in results]
+    # citation validity only meaningful for answered responses
+    cval = [r["citation_check"]["all_in_top_k"] for r in answered]
+    rmix = [r["judgment"].get("release_mixing", False) for r in results]
+
+    # False abstention: system abstained even though gold was in top-k
+    false_abs = sum(
+        1 for r, a in zip(results, abstained_flags) if a and r["gold_in_top_k"]
+    )
+
     return {
         "n": n,
-        "mean_grounded_fraction":    round(sum(gf) / n, 3),
-        "pct_with_any_unsupported":  round(100 * sum(has_us) / n, 1),
-        "release_mixing_incidents":  sum(rmix),
-        "citation_validity_rate":    round(100 * sum(cval) / n, 1),
-        "gold_in_top_k_rate":        round(100 * sum(gitk) / n, 1),
-        "n_retrieval_misses":        n - sum(gitk),
-        "pct_miss_abstained":        (
-            round(100 * sum(miss_abstain) / len(miss_abstain), 1)
-            if miss_abstain else None
+        "n_answered": len(answered),
+        "n_abstained": sum(abstained_flags),
+        "mean_grounded_fraction_answered": (
+            round(sum(gf_answered) / len(gf_answered), 3) if gf_answered else None
         ),
+        "pct_false_abstention":  round(100 * false_abs / n, 1),
+        "gold_in_top_k_rate":    round(100 * sum(gitk) / n, 1),
+        "n_retrieval_misses":    n - sum(gitk),
+        "citation_validity_rate": (
+            round(100 * sum(cval) / len(answered), 1) if answered else None
+        ),
+        "release_mixing_incidents": sum(rmix),
         "total_support_reclassified": sum(r.get("n_support_reclassified", 0) for r in results),
     }
 
@@ -379,15 +388,40 @@ def aggregate_abstention(results: list[dict]) -> dict:
         r["abstention_det"] or r["judgment"].get("is_abstention", False)
         for r in results
     ]
-    hallucinated = [
-        not c and r["judgment"].get("grounded_fraction", 0.0) > 0.0
-        for r, c in zip(results, correct)
-    ]
+    failures = [r for r, c in zip(results, correct) if not c]
+
+    total_recl = sum(r.get("n_support_reclassified", 0) for r in results)
+    # Abstention responses generate expected FP reclassifications (phrase not in context)
+    abs_phrase_fp = sum(
+        r.get("n_support_reclassified", 0) for r, c in zip(results, correct) if c
+    )
     return {
         "n": n,
-        "pct_correct_abstention": round(100 * sum(correct) / n, 1),
-        "pct_hallucinated":       round(100 * sum(hallucinated) / n, 1),
+        "pct_correct_abstention":          round(100 * sum(correct) / n, 1),
+        "pct_answered_when_should_abstain": round(100 * len(failures) / n, 1),
+        "n_failures":                      len(failures),
+        "total_support_reclassified":      total_recl,
+        "n_reclassified_abstention_fp":    abs_phrase_fp,
     }
+
+
+def aggregate_per_src(
+    positive_results: list[dict],
+    abstention_results: list[dict],
+) -> dict:
+    """Per-SRC breakdown of positive and abstention metrics."""
+    srcs = sorted(set(
+        r["src"] for r in (positive_results + abstention_results)
+    ))
+    per_src: dict = {}
+    for src in srcs:
+        pos  = [r for r in positive_results  if r["src"] == src]
+        abs_ = [r for r in abstention_results if r["src"] == src]
+        per_src[src] = {
+            "positive":   aggregate_positive(pos)   if pos  else {},
+            "abstention": aggregate_abstention(abs_) if abs_ else {},
+        }
+    return per_src
 
 # ---------------------------------------------------------------------------
 # Calibration report (human-readable)
@@ -496,6 +530,170 @@ def write_calibration(
     path.write_text("\n".join(lines), encoding="utf-8")
 
 # ---------------------------------------------------------------------------
+# Full-run report (abstention-primary, answered-only grounding, per-SRC)
+# ---------------------------------------------------------------------------
+
+def write_full_report(
+    abstention_results: list[dict],
+    pos_metrics: dict,
+    abs_metrics: dict,
+    per_src: dict,
+    path: Path,
+    top_k: int,
+    n_api_calls: int,
+    approx_cost_usd: float,
+) -> None:
+    today = date.today().isoformat()
+    lines = [
+        f"# P-gen Phase 1 — Full Faithfulness Run ({today})",
+        "",
+        (f"**Generator**: {GENERATOR_MODEL} | **Judge**: {JUDGE_MODEL} "
+         f"| **top-k**: {top_k}"),
+        (f"**N**: {pos_metrics.get('n')} positive + {abs_metrics.get('n')} abstention "
+         f"| {len(per_src)} sources"),
+        "",
+        "> **LÍMITE 2**: All questions are SAP Learning Assessment (easy, single-lesson scope).",
+        "> `mean_grounded_fraction_answered` is a **discipline floor** — it measures whether",
+        "> the generator stays within its context. It is NOT a proof of RAG quality.",
+        "> The real quality proof (LLM-only vs LLM+corpus, realistic consultant queries) is Phase 2.",
+        "",
+    ]
+
+    # ── PRIMARY RISK: answered when should abstain ───────────────────────────
+    pct_fail = abs_metrics.get("pct_answered_when_should_abstain", 0)
+    n_fail   = abs_metrics.get("n_failures", 0)
+    n_abs_total = abs_metrics.get("n", 0)
+    lines += [
+        "## ⚠ PRIMARY RISK — Answered When Should Abstain",
+        "",
+        (f"**{pct_fail}%** of abstention questions received an answer "
+         f"({n_fail}/{n_abs_total}) — the system generated a response using "
+         "irrelevant context instead of abstaining."),
+        "A high `grounded_fraction` does **NOT** redeem these: they are product-risk failures.",
+        "",
+    ]
+    failures = [
+        r for r in abstention_results
+        if not (r["abstention_det"] or r["judgment"].get("is_abstention", False))
+    ]
+    if failures:
+        lines += ["### Failure detail", ""]
+        lines += [
+            "| # | ID (SRC) | top-1 retrieved | gf | Response (first 200 chars) |",
+            "|---|---|---|---|---|",
+        ]
+        for i, r in enumerate(failures, 1):
+            top1 = r["top_k_ids"][0] if r["top_k_ids"] else "—"
+            gf   = r["judgment"].get("grounded_fraction", "?")
+            resp = r["response"].replace("\n", " ")[:200]
+            lines.append(
+                f"| {i} | {r['id']} ({r['src']}) | {top1} | {gf} | {resp}… |"
+            )
+        lines += [""]
+        for i, r in enumerate(failures, 1):
+            lines += [
+                f"#### Failure {i}: {r['id']} ({r['src']})",
+                f"**Q**: {r['question']}",
+                f"**Gold excluded**: {', '.join(r['gold_chunk_ids'])}",
+                f"**Context top-3**: {', '.join(r['top_k_ids'][:3])}",
+                "",
+                "**Response**:",
+                "```",
+                r["response"],
+                "```",
+                "",
+                f"**Judge**: grounded_fraction={r['judgment'].get('grounded_fraction')} "
+                f"| is_abstention={r['judgment'].get('is_abstention')}",
+            ]
+            for c in r["judgment"].get("claims", []):
+                recl = " ⚑" if c.get("_reclassified") else ""
+                lines.append(f"- `[{c.get('label')}]`{recl} {c.get('text', '')}")
+            lines += [""]
+    else:
+        lines += ["*No failures — all questions correctly abstained.*", ""]
+
+    # ── GLOBAL METRICS ───────────────────────────────────────────────────────
+    lines += ["## Global Metrics", "", "| Metric | Value |", "|---|---|"]
+    lines += [
+        f"| pct_correct_abstention (PRIMARY) | **{abs_metrics.get('pct_correct_abstention')}%** |",
+        f"| pct_answered_when_should_abstain | **{abs_metrics.get('pct_answered_when_should_abstain')}%** |",
+        f"| mean_grounded_fraction_answered (LÍMITE 2 — discipline floor) "
+        f"| {pos_metrics.get('mean_grounded_fraction_answered')} |",
+        f"| pct_false_abstention (pos set, abstained with gold in top-k) "
+        f"| {pos_metrics.get('pct_false_abstention')}% |",
+        f"| gold_in_top_k_rate (positive) | {pos_metrics.get('gold_in_top_k_rate')}% |",
+        f"| n_retrieval_misses (positive) | {pos_metrics.get('n_retrieval_misses')} |",
+        f"| citation_validity_rate (answered only) | {pos_metrics.get('citation_validity_rate')}% |",
+        f"| release_mixing_incidents | {pos_metrics.get('release_mixing_incidents')} |",
+        f"| total_support_reclassified (pos) | {pos_metrics.get('total_support_reclassified')} |",
+        f"| total_support_reclassified (abs) | {abs_metrics.get('total_support_reclassified')} "
+        f"(of which {abs_metrics.get('n_reclassified_abstention_fp')} expected FP from abstention phrase) |",
+        f"| n_api_calls total (generator + judge) | {n_api_calls} |",
+        f"| approx_cost_usd | ~${approx_cost_usd:.2f} |",
+    ]
+    lines += [""]
+
+    # ── PER-SRC TABLE ────────────────────────────────────────────────────────
+    lines += [
+        "## Per-SRC Breakdown",
+        "",
+        "| SRC | n_pos | n_abs | gf_answered | false_abs% | correct_abs% | answered_should_abs% | gitk% |",
+        "|---|---|---|---|---|---|---|---|",
+    ]
+    for src, m in sorted(per_src.items()):
+        pm = m.get("positive", {})
+        am = m.get("abstention", {})
+        lines.append(
+            f"| {src} "
+            f"| {pm.get('n', 0)} "
+            f"| {am.get('n', 0)} "
+            f"| {pm.get('mean_grounded_fraction_answered', '—')} "
+            f"| {pm.get('pct_false_abstention', '—')}% "
+            f"| {am.get('pct_correct_abstention', '—')}% "
+            f"| {am.get('pct_answered_when_should_abstain', '—')}% "
+            f"| {pm.get('gold_in_top_k_rate', '—')}% |"
+        )
+    lines += [""]
+
+    # ── ANOMALIES ────────────────────────────────────────────────────────────
+    anomalies = []
+    for src, m in per_src.items():
+        am = m.get("abstention", {})
+        pct_aws = am.get("pct_answered_when_should_abstain", 0)
+        global_aws = abs_metrics.get("pct_answered_when_should_abstain", 0)
+        if pct_aws and pct_aws > global_aws + 20:
+            anomalies.append(
+                f"- **{src}**: pct_answered_when_should_abstain={pct_aws}% "
+                f"(global avg {global_aws}%) — anomalously high"
+            )
+    if anomalies:
+        lines += ["## Anomalies", ""] + anomalies + [""]
+
+    # ── LIMITATIONS ─────────────────────────────────────────────────────────
+    lines += [
+        "## Limitations",
+        "",
+        "- **LÍMITE 2**: SAP Learning Assessment questions are easy, single-lesson scope. "
+          "grounded_fraction is a discipline floor, not a RAG quality signal.",
+        "- **Judge bias**: same model family (Anthropic) for generator and judge. "
+          "Mitigated by verify_supports (deterministic span check), but self-consistency "
+          "risk remains.",
+        "- **Retrieval error ≠ hallucination**: the judge cannot detect 'correct answer "
+          "from wrong chunk'. That failure mode appears in pct_answered_when_should_abstain "
+          "with high gf — the content is grounded, but in irrelevant context.",
+        "- **verify_supports FP on abstention phrase**: the exact abstention phrase is not "
+          "in the context by design. Reclassified ⚑ claims in correct-abstention responses "
+          "are expected false positives, not judge failures.",
+        "- **Cost estimate**: rough, based on assumed token counts (~4000 input + ~600 "
+          "output for generator; ~4600 input + ~1000 output for judge). Actual may vary.",
+        "- **n per SRC**: see Per-SRC table. Sources with few questions (n<5) are not "
+          "statistically meaningful.",
+    ]
+
+    path.write_text("\n".join(lines), encoding="utf-8")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -547,7 +745,7 @@ def main() -> None:
 
     if args.full:
         positive_qs   = mappable
-        abstention_qs = mappable[:args.n_abstention]
+        abstention_qs = mappable          # full run: all questions in both sets
     else:
         # Stratified round-robin across sources so no single src dominates
         by_src: dict[str, list] = defaultdict(list)
@@ -595,20 +793,41 @@ def main() -> None:
     # ── Aggregate ────────────────────────────────────────────────────────────
     pos_metrics = aggregate_positive(positive_results)
     abs_metrics = aggregate_abstention(abstention_results)
+    per_src     = aggregate_per_src(positive_results, abstention_results)
 
-    print("\n=== SAMPLE METRICS ===")
-    print(f"Positive (n={pos_metrics.get('n')}):")
+    # API call count (1 generator + 1 judge per question, retries excluded)
+    n_api_calls = (len(positive_results) + len(abstention_results)) * 2
+    # Approximate cost: sonnet-4-6 ~$3/$15 per MTok in/out; opus-4-8 ~$15/$75
+    # ~4000 tok in + 600 tok out generator; ~4600 tok in + 1000 tok out judge
+    n_q = len(positive_results) + len(abstention_results)
+    gen_cost  = n_q * (4000 * 3e-6 + 600 * 15e-6)
+    judge_cost = n_q * (4600 * 15e-6 + 1000 * 75e-6)
+    approx_cost_usd = round(gen_cost + judge_cost, 2)
+
+    print(f"\n=== {'FULL' if args.full else 'SAMPLE'} METRICS ===")
+    print("Positive:")
     for k, v in pos_metrics.items():
         if k != "n":
             print(f"  {k}: {v}")
-    print(f"Abstention (n={abs_metrics.get('n')}):")
+    print("Abstention:")
     for k, v in abs_metrics.items():
         if k != "n":
             print(f"  {k}: {v}")
+    print(f"\nAPI calls: {n_api_calls} | Approx cost: ~${approx_cost_usd}")
+
+    print("\nPer-SRC:")
+    for src, m in sorted(per_src.items()):
+        pm = m.get("positive", {})
+        am = m.get("abstention", {})
+        print(
+            f"  {src}: pos n={pm.get('n',0)} gf={pm.get('mean_grounded_fraction_answered')} "
+            f"abs n={am.get('n',0)} correct_abs={am.get('pct_correct_abstention')}%"
+        )
 
     # ── Save results ─────────────────────────────────────────────────────────
     today = date.today().isoformat()
     RESULTS_DIR.mkdir(exist_ok=True)
+    suffix = "full" if args.full else "sample"
 
     results_payload = {
         "generated_at":       today,
@@ -618,31 +837,43 @@ def main() -> None:
         "n_chunks_in_corpus": len(chunks),
         "positive_metrics":   pos_metrics,
         "abstention_metrics": abs_metrics,
+        "per_src":            per_src,
+        "n_api_calls":        n_api_calls,
+        "approx_cost_usd":    approx_cost_usd,
         "positive_results":   positive_results,
         "abstention_results": abstention_results,
         "limitations": [
             "Same model family for generator and judge — self-bias risk.",
             "LÍMITE 2: Learning Assessment questions, easy single-lesson scope.",
-            "parse_page_range does not handle comma-separated specs (e.g. '23, 30-38').",
+            "parse_page_range fixed: comma-separated specs handled correctly.",
+            "verify_supports FP: abstention phrase not in context by design.",
         ],
     }
 
-    json_path  = RESULTS_DIR / f"faithfulness_sample_{today}.json"
-    calib_path = RESULTS_DIR / f"faithfulness_calibration_{today}.md"
+    json_path   = RESULTS_DIR / f"faithfulness_{suffix}_{today}.json"
+    report_path = RESULTS_DIR / f"faithfulness_{suffix}_{today}.md"
 
     json_path.write_text(
         json.dumps(results_payload, indent=2, ensure_ascii=False), encoding="utf-8"
     )
 
-    write_calibration(
-        positive_results, abstention_results,
-        pos_metrics, abs_metrics,
-        calib_path, args.top_k,
-    )
+    if args.full:
+        write_full_report(
+            abstention_results,
+            pos_metrics, abs_metrics, per_src,
+            report_path, args.top_k, n_api_calls, approx_cost_usd,
+        )
+    else:
+        write_calibration(
+            positive_results, abstention_results,
+            pos_metrics, abs_metrics,
+            report_path, args.top_k,
+        )
 
-    print(f"\nResults   : {json_path}")
-    print(f"Calibration: {calib_path}")
-    print("\nPARA — review calibration before running full gold set (--full).")
+    print(f"\nResults : {json_path}")
+    print(f"Report  : {report_path}")
+    if not args.full:
+        print("\nPARA — review calibration before running full gold set (--full).")
 
 
 if __name__ == "__main__":
