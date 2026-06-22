@@ -22,6 +22,7 @@ import json
 import re
 import time
 import argparse
+from collections import defaultdict
 from pathlib import Path
 from datetime import date
 
@@ -72,11 +73,18 @@ JUDGE_SYSTEM = (
     "DE CONTEXTO dados a un asistente, y su RESPUESTA. Juzga SOLO si la respuesta "
     "está fundada en el contexto — NO uses tu propio conocimiento SAP, NO juzgues si "
     "es 'correcta' en general. Pasos: (1) descompón la RESPUESTA en afirmaciones "
-    "atómicas. (2) clasifica cada una: SUPPORTED (se sigue del contexto), PARTIAL "
-    "(parcial/sobre-afirmada), UNSUPPORTED (no está en el contexto). (3) determina "
-    "si la respuesta es una abstención. (4) marca release-mixing (afirma hechos de "
-    "un release ausentes del contexto, o mezcla releases). Devuelve SOLO JSON válido: "
-    '{"claims":[{"text":"...","label":"SUPPORTED|PARTIAL|UNSUPPORTED"}],'
+    "atómicas. (2) Para cada afirmación, busca el fragmento textual del CONTEXTO que "
+    "la respalda; cópialo VERBATIM en 'support'. Regla crítica: si no puedes citar un "
+    "fragmento textual literal del CONTEXTO que respalde la afirmación, su label DEBE "
+    "ser UNSUPPORTED — NO uses tu conocimiento propio para respaldarla. (3) clasifica: "
+    "SUPPORTED (el 'support' lo respalda directamente), PARTIAL (parcial/sobre-afirmada "
+    "— el contexto cubre parte pero no todo), UNSUPPORTED (no hay fragmento en el "
+    "CONTEXTO). (4) determina si la respuesta es una abstención. (5) marca "
+    "release-mixing (afirma hechos de un release ausentes del contexto, o mezcla "
+    "releases). (6) calcula grounded_fraction = (SUPPORTED + 0.5*PARTIAL) / "
+    "total_claims. Devuelve SOLO JSON válido: "
+    '{"claims":[{"text":"...","label":"SUPPORTED|PARTIAL|UNSUPPORTED",'
+    '"support":"<fragmento verbatim del CONTEXTO, o cadena vacía si UNSUPPORTED>"}],'
     '"is_abstention":bool,"release_mixing":bool,"grounded_fraction":float}. '
     "Sin prosa fuera del JSON."
 )
@@ -201,10 +209,50 @@ def _parse_judge_json(raw: str) -> dict:
             "release_mixing": False, "grounded_fraction": 0.0,
         }
     data.setdefault("claims", [])
+    for claim in data["claims"]:
+        claim.setdefault("support", "")
     data.setdefault("is_abstention", False)
     data.setdefault("release_mixing", False)
     data.setdefault("grounded_fraction", 0.0)
     return data
+
+# ---------------------------------------------------------------------------
+# Deterministic support verification
+# ---------------------------------------------------------------------------
+
+def verify_supports(judgment: dict, context: str) -> tuple[dict, int]:
+    """Reclassify SUPPORTED/PARTIAL claims whose support span is not verbatim in context.
+
+    Uses case-insensitive substring match. A support shorter than 8 chars is
+    considered vacuous and triggers reclassification regardless.
+    Recalculates grounded_fraction = (SUPPORTED + 0.5*PARTIAL) / n_claims.
+    Returns (updated_judgment, n_reclassified).
+    """
+    context_lower = context.lower()
+    n_reclassified = 0
+    for claim in judgment.get("claims", []):
+        label = claim.get("label", "UNSUPPORTED")
+        support = claim.get("support", "").strip()
+        if label in ("SUPPORTED", "PARTIAL"):
+            # Reclassify if support is missing, too short, or not in context
+            if not support or len(support) < 8 or support.lower() not in context_lower:
+                claim["label"] = "UNSUPPORTED"
+                claim["support"] = ""
+                claim["_reclassified"] = True
+                n_reclassified += 1
+    # Recalculate grounded_fraction after reclassification
+    claims = judgment.get("claims", [])
+    if claims:
+        gf = sum(
+            1.0 if c.get("label") == "SUPPORTED" else
+            0.5 if c.get("label") == "PARTIAL" else
+            0.0
+            for c in claims
+        ) / len(claims)
+        judgment["grounded_fraction"] = round(gf, 3)
+    judgment["_n_support_reclassified"] = n_reclassified
+    return judgment, n_reclassified
+
 
 # ---------------------------------------------------------------------------
 # Deterministic checks
@@ -267,23 +315,25 @@ def run_question(
     context  = format_context(top_k_ids, chunks)
     response = generate_answer(client, q_text, context)
     judgment = judge_answer(client, q_text, context, response)
+    judgment, n_reclassified = verify_supports(judgment, context)
 
     all_ids      = set(chunks.keys())
     cite_check   = check_citations(response, top_k_ids, all_ids)
     abstention_rx = check_abstention_regex(response)
 
     return {
-        "id":              q_id,
-        "question":        q_text,
-        "src":             src,
-        "mode":            mode,
-        "gold_chunk_ids":  gold_chunk_ids,
-        "top_k_ids":       top_k_ids,
-        "gold_in_top_k":   gold_in_top_k,
-        "response":        response,
-        "judgment":        judgment,
-        "citation_check":  cite_check,
-        "abstention_det":  abstention_rx,
+        "id":                    q_id,
+        "question":              q_text,
+        "src":                   src,
+        "mode":                  mode,
+        "gold_chunk_ids":        gold_chunk_ids,
+        "top_k_ids":             top_k_ids,
+        "gold_in_top_k":         gold_in_top_k,
+        "response":              response,
+        "judgment":              judgment,
+        "citation_check":        cite_check,
+        "abstention_det":        abstention_rx,
+        "n_support_reclassified": n_reclassified,
     }
 
 # ---------------------------------------------------------------------------
@@ -317,6 +367,7 @@ def aggregate_positive(results: list[dict]) -> dict:
             round(100 * sum(miss_abstain) / len(miss_abstain), 1)
             if miss_abstain else None
         ),
+        "total_support_reclassified": sum(r.get("n_support_reclassified", 0) for r in results),
     }
 
 
@@ -387,8 +438,12 @@ def write_calibration(
             f"is_abstention={j.get('is_abstention')}",
         ]
         for claim in j.get("claims", []):
-            lines.append(f"- `[{claim.get('label')}]` {claim.get('text', '')}")
+            recl = " ⚑RECLASSIFIED" if claim.get("_reclassified") else ""
+            sup  = claim.get("support", "")
+            sup_str = f'  \n  > support: "{sup[:100]}{"..." if len(sup)>100 else ""}"' if sup else ""
+            lines.append(f"- `[{claim.get('label')}]`{recl} {claim.get('text', '')}{sup_str}")
         lines += [
+            f"**Reclassified supports**: {r.get('n_support_reclassified', 0)}",
             f"**Citations**: {r['citation_check']}",
             f"**Abstention regex**: {r['abstention_det']}",
             "",
@@ -414,8 +469,11 @@ def write_calibration(
             f"is_abstention={j.get('is_abstention')}",
         ]
         for claim in j.get("claims", []):
-            lines.append(f"- `[{claim.get('label')}]` {claim.get('text', '')}")
-        lines.append("")
+            recl = " ⚑RECLASSIFIED" if claim.get("_reclassified") else ""
+            sup  = claim.get("support", "")
+            sup_str = f'  \n  > support: "{sup[:100]}{"..." if len(sup)>100 else ""}"' if sup else ""
+            lines.append(f"- `[{claim.get('label')}]`{recl} {claim.get('text', '')}{sup_str}")
+        lines += [f"**Reclassified supports**: {r.get('n_support_reclassified', 0)}", ""]
 
     lines += [
         "---",
@@ -427,8 +485,12 @@ def write_calibration(
         "- **LÍMITE 2**: questions are SAP Learning Assessment (easy, single-lesson scope). "
           "Grounding score is a discipline floor, NOT a RAG quality proof.",
         "- **n**: small sample. Not statistically significant.",
-        "- **parse_page_range**: comma-separated page specs (e.g. '23, 30-38') are "
-          "partially parsed by score.py (only first number); may miss some gold chunks.",
+        "- **parse_page_range**: fixed (commit 66e4862+). Comma-separated specs now "
+          "parsed correctly; no known gold-chunk miss from page parsing.",
+        "- **verify_supports / abstention claims**: the abstention phrase itself is not "
+          "in the context by design, so verify_supports reclassifies abstention claims to "
+          "UNSUPPORTED — these ⚑RECLASSIFIED labels on abstention responses are expected "
+          "and do not indicate judge failure.",
     ]
 
     path.write_text("\n".join(lines), encoding="utf-8")
@@ -444,6 +506,8 @@ def main() -> None:
     parser.add_argument("--n-positive",    type=int, default=DEFAULT_N_POSITIVE)
     parser.add_argument("--n-abstention",  type=int, default=DEFAULT_N_ABSTENTION)
     parser.add_argument("--top-k",         type=int, default=DEFAULT_TOP_K)
+    parser.add_argument("--srcs",          type=str, default=None,
+                        help="Comma-separated source IDs to include, e.g. S4600,S4F30")
     args = parser.parse_args()
 
     # ── API key ──────────────────────────────────────────────────────────────
@@ -475,12 +539,36 @@ def main() -> None:
             mappable.append(q)
     print(f"  {len(raw_qs)} questions in gold files -> {len(mappable)} verified mappable")
 
+    # Optional source filter
+    if args.srcs:
+        src_filter = set(args.srcs.split(","))
+        mappable = [q for q in mappable if q["_src"] in src_filter]
+        print(f"  Source filter: {args.srcs} -> {len(mappable)} mappable")
+
     if args.full:
         positive_qs   = mappable
         abstention_qs = mappable[:args.n_abstention]
     else:
-        positive_qs   = mappable[:args.n_positive]
-        abstention_qs = mappable[:args.n_abstention]
+        # Stratified round-robin across sources so no single src dominates
+        by_src: dict[str, list] = defaultdict(list)
+        for q in mappable:
+            by_src[q["_src"]].append(q)
+        src_order = sorted(by_src.keys())
+        src_iters = {s: iter(by_src[s]) for s in src_order}
+        exhausted: set[str] = set()
+        positive_qs = []
+        src_cycle = list(src_order)
+        idx = 0
+        while len(positive_qs) < args.n_positive and len(exhausted) < len(src_order):
+            s = src_cycle[idx % len(src_order)]
+            idx += 1
+            if s in exhausted:
+                continue
+            try:
+                positive_qs.append(next(src_iters[s]))
+            except StopIteration:
+                exhausted.add(s)
+        abstention_qs = positive_qs[:args.n_abstention]
 
     print(f"\nSample: {len(positive_qs)} positive + {len(abstention_qs)} abstention")
 

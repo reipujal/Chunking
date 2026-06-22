@@ -39,21 +39,34 @@ RESULTS_DIR = Path("eval/results")
 # Page-overlap logic
 # ---------------------------------------------------------------------------
 
-def parse_page_range(pages_str: str) -> tuple[int, int] | None:
-    """Parse '40-53' or '40' into (start, end). Returns None if unparseable."""
+def parse_page_range(pages_str: str) -> set[int]:
+    """Parse page spec into a set of page numbers.
+
+    Handles single pages ('40'), ranges ('40-53'), and comma-separated
+    combinations ('23, 30-38', '1-2, 5'). Returns empty set if unparseable.
+    """
     pages_str = str(pages_str).strip().strip('"').strip("'")
-    m = re.match(r"(\d+)\s*[-–]\s*(\d+)", pages_str)
-    if m:
-        return int(m.group(1)), int(m.group(2))
-    m = re.match(r"(\d+)", pages_str)
-    if m:
-        p = int(m.group(1))
-        return p, p
-    return None
+    result: set[int] = set()
+    for segment in pages_str.split(","):
+        segment = segment.strip()
+        m = re.match(r"^(\d+)\s*[-–]\s*(\d+)$", segment)
+        if m:
+            result.update(range(int(m.group(1)), int(m.group(2)) + 1))
+            continue
+        m = re.match(r"^(\d+)$", segment)
+        if m:
+            result.add(int(m.group(1)))
+    return result
 
 
-def ranges_overlap(a: tuple[int, int], b: tuple[int, int]) -> bool:
-    return a[0] <= b[1] and b[0] <= a[1]
+# Inline asserts — run at import time, cheap, catch regressions
+assert parse_page_range("23, 30-38") >= set(range(23, 24)) | set(range(30, 39))
+assert parse_page_range("1-2, 5") == {1, 2, 5}
+assert parse_page_range("30-38") == set(range(30, 39))
+
+
+def ranges_overlap(a: set[int], b: set[int]) -> bool:
+    return bool(a & b)
 
 
 def derive_gold_chunk_ids(
@@ -68,7 +81,7 @@ def derive_gold_chunk_ids(
     gold_span = question.get("gold_page_span")
     if not gold_span or len(gold_span) < 2:
         return []
-    gold_range = (gold_span[0], gold_span[1])
+    gold_range = set(range(gold_span[0], gold_span[1] + 1))
 
     gold_ids = []
     for chunk_id, chunk in chunks.items():

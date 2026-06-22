@@ -1,0 +1,488 @@
+{
+  "generated_at": "2026-06-22",
+  "generator_model": "claude-sonnet-4-6",
+  "judge_model": "claude-opus-4-8",
+  "top_k": 5,
+  "n_chunks_in_corpus": 95,
+  "positive_metrics": {
+    "n": 5,
+    "mean_grounded_fraction": 0.967,
+    "pct_with_any_unsupported": 0.0,
+    "release_mixing_incidents": 0,
+    "citation_validity_rate": 80.0,
+    "gold_in_top_k_rate": 100.0,
+    "n_retrieval_misses": 0,
+    "pct_miss_abstained": null,
+    "total_support_reclassified": 0
+  },
+  "abstention_metrics": {
+    "n": 3,
+    "pct_correct_abstention": 66.7,
+    "pct_hallucinated": 33.3
+  },
+  "positive_results": [
+    {
+      "id": "S4600-LA-U1-Q1",
+      "question": "Which of the following apps gives you a visual overview of complex topics for monitoring or tracking purposes?",
+      "src": "S4600",
+      "mode": "positive",
+      "gold_chunk_ids": [
+        "configuration-sap-fiori-launchpad-001"
+      ],
+      "top_k_ids": [
+        "order-management-sales-monitoring-analytics-001",
+        "configuration-sap-fiori-launchpad-001",
+        "billing-create-billing-documents-fiori-001",
+        "shipping-outbound-delivery-monitor-001",
+        "special-processes-advanced-returns-management-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "La pregunta hace referencia a una aplicación que proporciona una **visión visual general de temas complejos** con fines de monitoreo o seguimiento.\n\nSegún la documentación proporcionada, las **Analytical Apps** de SAP Fiori son las que cumplen esta función. El documento sobre SAP Fiori Launchpad describe tres tipos de aplicaciones Fiori que cubren diferentes necesidades de interacción:\n\n- **Transaction apps**: para ejecución de procesos\n- **Analytical apps**: para **monitoreo** (*monitoring*)\n- **Factsheets**: para exploración de datos\n\nLas **Analytical Apps** son específicamente las diseñadas para proporcionar una visión general visual de temas complejos con propósitos de monitoreo o seguimiento.\n\nFuentes: configuration-sap-fiori-launchpad-001",
+      "judgment": {
+        "claims": [
+          {
+            "text": "Las Analytical Apps de SAP Fiori son las que proporcionan una visión visual general de temas complejos con fines de monitoreo.",
+            "label": "PARTIAL",
+            "support": "*analytical apps* for monitoring"
+          },
+          {
+            "text": "SAP Fiori Launchpad describe tres tipos de aplicaciones Fiori que cubren diferentes necesidades de interacción.",
+            "label": "SUPPORTED",
+            "support": "Three types of Fiori apps cover different interaction needs: *transaction apps* for process execution, *analytical apps* for monitoring, and *factsheets* for data exploration."
+          },
+          {
+            "text": "Transaction apps: para ejecución de procesos.",
+            "label": "SUPPORTED",
+            "support": "*transaction apps* for process execution"
+          },
+          {
+            "text": "Analytical apps: para monitoreo.",
+            "label": "SUPPORTED",
+            "support": "*analytical apps* for monitoring"
+          },
+          {
+            "text": "Factsheets: para exploración de datos.",
+            "label": "SUPPORTED",
+            "support": "*factsheets* for data exploration"
+          },
+          {
+            "text": "Las Analytical Apps son específicamente las diseñadas para proporcionar una visión general visual de temas complejos con propósitos de monitoreo o seguimiento.",
+            "label": "PARTIAL",
+            "support": "*analytical apps* for monitoring"
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 0.833,
+        "_n_support_reclassified": 0
+      },
+      "citation_check": {
+        "has_citation_line": true,
+        "cited_ids": [
+          "configuration-sap-fiori-launchpad-001"
+        ],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": false,
+      "n_support_reclassified": 0
+    },
+    {
+      "id": "S4F30-LA-U2-Q1",
+      "question": "Choose three components which are part of Advanced Credit Management but are not part of Basic Credit Management.",
+      "src": "S4F30",
+      "mode": "positive",
+      "gold_chunk_ids": [
+        "credit-management-credit-check-sd-integration-001",
+        "credit-management-credit-master-data-001",
+        "credit-management-credit-rules-engine-001"
+      ],
+      "top_k_ids": [
+        "credit-management-credit-master-data-001",
+        "special-processes-advanced-returns-management-001",
+        "credit-management-credit-check-sd-integration-001",
+        "credit-management-credit-rules-engine-001",
+        "special-processes-third-party-order-processing-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "# Componentes de Advanced Credit Management no presentes en Basic Credit Management\n\nBasándome en los documentos de contexto, los tres componentes que forman parte de **Advanced Credit Management** pero **no** de Basic Credit Management son:\n\n1. **Credit Scoring Rule (Regla de Puntuación de Crédito):** Calcula automáticamente el score crediticio del business partner y deriva la clase de riesgo correspondiente, incluyendo fórmulas configurables con datos del BP, datos transaccionales y calificaciones de agencias externas.\n\n2. **Credit Limit Rule (Regla de Límite de Crédito):** Calcula y propone automáticamente un límite de crédito por segmento de crédito, mediante fórmulas definibles por el usuario.\n\n3. **Credit Eventing (Eventos de Crédito):** Mecanismo que permite construir cadenas de procesos donde un evento crediticio (por ejemplo, cambio en la clase de riesgo o expiración del score) dispara automáticamente actividades de seguimiento.\n\n> *Nota:* El documento también menciona la **integración con agencias externas de crédito** y las **Credit Limit Requests** como capacidades adicionales de Advanced Credit Management. Sin embargo, las tres reglas del Rules Engine (Scoring, Limit y Check Rule) junto con el eventing son explícitamente identificados como parte de Advanced Credit Management y **no disponibles en Basic Credit Management**.\n\n**Fuentes:** credit-management-credit-rules-engine-001, credit-management-credit-master-data-001",
+      "judgment": {
+        "claims": [
+          {
+            "text": "Credit Scoring Rule calcula automáticamente el score crediticio del business partner y deriva la clase de riesgo correspondiente",
+            "label": "SUPPORTED",
+            "support": "The scoring rule automatically calculates the business partner's *credit score* and derives the corresponding *risk class*."
+          },
+          {
+            "text": "Credit Scoring Rule incluye fórmulas configurables con datos del BP, datos transaccionales y calificaciones de agencias externas",
+            "label": "SUPPORTED",
+            "support": "A scoring formula can combine:\n- SAP Business Partner master data (preconfigured field selection)\n- Transactional data (e.g., payment behaviour)\n- External credit agency ratings"
+          },
+          {
+            "text": "Credit Limit Rule calcula y propone automáticamente un límite de crédito por segmento de crédito, mediante fórmulas definibles por el usuario",
+            "label": "SUPPORTED",
+            "support": "the *Credit Limit Rule* (calculates and proposes a credit limit per credit segment)"
+          },
+          {
+            "text": "Credit Eventing es un mecanismo que permite construir cadenas de procesos donde un evento crediticio dispara automáticamente actividades de seguimiento",
+            "label": "SUPPORTED",
+            "support": "An *eventing* mechanism allows process chains to be built so that credit events (such as a change in risk class or credit score) automatically trigger follow-on activities."
+          },
+          {
+            "text": "El cambio en la clase de riesgo o expiración del score son ejemplos de eventos crediticios",
+            "label": "SUPPORTED",
+            "support": "When the score expires or is invalidated, a credit event is triggered."
+          },
+          {
+            "text": "Estas reglas (Scoring, Limit, Check Rule) y el eventing son parte de Advanced Credit Management y no disponibles en Basic Credit Management",
+            "label": "SUPPORTED",
+            "support": "These capabilities are part of Advanced Credit Management and are not available in Basic Credit Management."
+          },
+          {
+            "text": "El documento también menciona la integración con agencias externas de crédito y las Credit Limit Requests como capacidades adicionales de Advanced Credit Management",
+            "label": "SUPPORTED",
+            "support": "*Advanced Credit Management*, which adds formula-based scoring and limit calculation, credit eventing, Credit Limit Requests, and external credit agency integration."
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 1.0,
+        "_n_support_reclassified": 0
+      },
+      "citation_check": {
+        "has_citation_line": true,
+        "cited_ids": [
+          "** credit-management-credit-rules-engine-001",
+          "credit-management-credit-master-data-001"
+        ],
+        "all_in_corpus": false,
+        "all_in_top_k": false
+      },
+      "abstention_det": false,
+      "n_support_reclassified": 0
+    },
+    {
+      "id": "S4600-LA-U1-Q2",
+      "question": "A user can personalize the home page in SAP Fiori launchpad by default.",
+      "src": "S4600",
+      "mode": "positive",
+      "gold_chunk_ids": [
+        "configuration-sap-fiori-launchpad-001"
+      ],
+      "top_k_ids": [
+        "configuration-sap-fiori-launchpad-001",
+        "billing-create-billing-documents-fiori-001",
+        "pricing-condition-records-001",
+        "master-data-sd-partner-functions-001",
+        "integration-general-billing-interface-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "El documento de contexto [ID: configuration-sap-fiori-launchpad-001] menciona que el SAP Fiori Launchpad ofrece capacidades de **personalización** (\"personalization\"), pero **no especifica si esta funcionalidad está habilitada por defecto para el usuario o si requiere configuración adicional por parte del administrador**.\n\nPor lo tanto, no puedo confirmar ni negar con precisión si un usuario puede personalizar la página de inicio **por defecto** basándome únicamente en la documentación proporcionada.\n\nNo puedo responder con la documentación proporcionada.",
+      "judgment": {
+        "claims": [
+          {
+            "text": "El SAP Fiori Launchpad ofrece capacidades de personalización.",
+            "label": "SUPPORTED",
+            "support": "a shell that hosts Fiori apps, displays live KPI tiles, and provides navigation, personalization, and embedded support"
+          },
+          {
+            "text": "El contexto no especifica si esta funcionalidad está habilitada por defecto para el usuario o si requiere configuración adicional por parte del administrador.",
+            "label": "SUPPORTED",
+            "support": "a shell that hosts Fiori apps, displays live KPI tiles, and provides navigation, personalization, and embedded support"
+          },
+          {
+            "text": "No puedo confirmar ni negar si un usuario puede personalizar la página de inicio por defecto basándome únicamente en la documentación proporcionada.",
+            "label": "SUPPORTED",
+            "support": "How can users personalize the SAP Fiori Launchpad?"
+          }
+        ],
+        "is_abstention": true,
+        "release_mixing": false,
+        "grounded_fraction": 1.0,
+        "_n_support_reclassified": 0
+      },
+      "citation_check": {
+        "has_citation_line": false,
+        "cited_ids": [],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": true,
+      "n_support_reclassified": 0
+    },
+    {
+      "id": "S4F30-LA-U2-Q2",
+      "question": "Which process-relevant relationship types can be maintained in SAP Credit Management?",
+      "src": "S4F30",
+      "mode": "positive",
+      "gold_chunk_ids": [
+        "credit-management-credit-check-sd-integration-001",
+        "credit-management-credit-master-data-001"
+      ],
+      "top_k_ids": [
+        "credit-management-credit-master-data-001",
+        "credit-management-credit-rules-engine-001",
+        "master-data-business-partner-master-data-001",
+        "master-data-sd-partner-functions-001",
+        "credit-management-credit-check-sd-integration-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "## Process-Relevant Relationship Types in SAP Credit Management\n\nBased on the provided documentation, the context does **not** contain specific information about \"process-relevant relationship types\" that can be maintained in SAP Credit Management.\n\nThe documents cover topics such as:\n- The BP role **UKM000** and credit profile/segment structure\n- Credit Rules Engine (scoring, limit, and check rules)\n- SD integration and credit check triggers\n- Documented Credit Decisions (DCDs)\n\nHowever, none of these documents explicitly describe or list \"process-relevant relationship types\" as a configurable or maintainable element within SAP Credit Management.\n\nNo puedo responder con la documentación proporcionada.",
+      "judgment": {
+        "claims": [
+          {
+            "text": "The context does not contain specific information about process-relevant relationship types that can be maintained in SAP Credit Management.",
+            "label": "SUPPORTED",
+            "support": "How can customer hierarchies be modelled in SAP Credit Management?"
+          },
+          {
+            "text": "The documents cover the BP role UKM000 and credit profile/segment structure.",
+            "label": "SUPPORTED",
+            "support": "credit-specific data is maintained in the BP using the dedicated role **UKM000** (*SAP Credit Management*)."
+          },
+          {
+            "text": "The documents cover the Credit Rules Engine (scoring, limit, and check rules).",
+            "label": "SUPPORTED",
+            "support": "provides three types of configurable rules that automate credit evaluation: the *Credit Scoring Rule* (calculates the business partner's credit score and derives the risk class), the *Credit Limit Rule* (calculates and proposes a credit limit per credit segment), and the *Credit Check Rule*"
+          },
+          {
+            "text": "The documents cover SD integration and credit check triggers.",
+            "label": "SUPPORTED",
+            "support": "At which points in the SD process is the credit check triggered?"
+          },
+          {
+            "text": "The documents cover Documented Credit Decisions (DCDs).",
+            "label": "SUPPORTED",
+            "support": "a *Documented Credit Decision* (DCD) is created in Credit Management for structured review and release"
+          },
+          {
+            "text": "None of these documents explicitly describe or list process-relevant relationship types as a configurable or maintainable element within SAP Credit Management.",
+            "label": "SUPPORTED",
+            "support": "How can customer hierarchies be modelled in SAP Credit Management?"
+          }
+        ],
+        "is_abstention": true,
+        "release_mixing": false,
+        "grounded_fraction": 1.0,
+        "_n_support_reclassified": 0
+      },
+      "citation_check": {
+        "has_citation_line": false,
+        "cited_ids": [],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": true,
+      "n_support_reclassified": 0
+    },
+    {
+      "id": "S4600-LA-U4-Q1",
+      "question": "The master data of customers and vendors is managed in SAP S/4HANA by using business partner master data.",
+      "src": "S4600",
+      "mode": "positive",
+      "gold_chunk_ids": [
+        "master-data-business-partner-master-data-001",
+        "master-data-material-master-sd-001"
+      ],
+      "top_k_ids": [
+        "master-data-business-partner-master-data-001",
+        "enterprise-structure-shared-master-data-cross-division-001",
+        "order-management-sales-monitoring-analytics-001",
+        "credit-management-credit-master-data-001",
+        "order-management-sales-order-source-of-data-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "La afirmación es **correcta**. En SAP S/4HANA, los datos maestros de clientes y proveedores se gestionan mediante el concepto unificado de **Business Partner (BP)**. Este enfoque reemplaza los registros maestros separados de clientes y proveedores que existían en SAP ECC. Un único registro de business partner puede representar tanto a un cliente como a un proveedor, con los datos relevantes activados mediante la asignación de **roles** específicos (por ejemplo, el rol *Customer* para procesos SD y el rol *Vendor* para compras). Los datos centrales como nombre, dirección y datos bancarios se introducen una sola vez, evitando redundancia y mejorando la integridad de los datos.\n\nFuentes: master-data-business-partner-master-data-001, order-management-sales-order-source-of-data-001",
+      "judgment": {
+        "claims": [
+          {
+            "text": "En SAP S/4HANA, los datos maestros de clientes y proveedores se gestionan mediante el concepto unificado de Business Partner (BP).",
+            "label": "SUPPORTED",
+            "support": "In SAP S/4HANA, customer and vendor master data is managed through the unified *Business Partner* (BP) concept."
+          },
+          {
+            "text": "Este enfoque reemplaza los registros maestros separados de clientes y proveedores que existían en SAP ECC.",
+            "label": "SUPPORTED",
+            "support": "This replaces the separate customer and vendor master records used in SAP ECC."
+          },
+          {
+            "text": "Un único registro de business partner puede representar tanto a un cliente como a un proveedor.",
+            "label": "SUPPORTED",
+            "support": "a single business partner record can represent both a customer and a vendor, avoiding data redundancy and improving data integrity across Sales, Purchasing, Finance, and other modules."
+          },
+          {
+            "text": "Los datos relevantes son activados mediante la asignación de roles específicos (por ejemplo, el rol Customer para procesos SD y el rol Vendor para compras).",
+            "label": "SUPPORTED",
+            "support": "| Customer | SD sales processes | Sales area data, ordering, shipping, billing, partner functions |\n| FI Customer | Financial Accounting | Company code data: reconciliation account, payment terms, dunning |\n| Vendor | Purchasing | Purchasing org data, bank details |"
+          },
+          {
+            "text": "Los datos centrales como nombre, dirección y datos bancarios se introducen una sola vez, evitando redundancia y mejorando la integridad de los datos.",
+            "label": "SUPPORTED",
+            "support": "Central data such as name, address, and bank details only needs to be entered once."
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 1.0,
+        "_n_support_reclassified": 0
+      },
+      "citation_check": {
+        "has_citation_line": true,
+        "cited_ids": [
+          "master-data-business-partner-master-data-001",
+          "order-management-sales-order-source-of-data-001"
+        ],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": false,
+      "n_support_reclassified": 0
+    }
+  ],
+  "abstention_results": [
+    {
+      "id": "S4600-LA-U1-Q1",
+      "question": "Which of the following apps gives you a visual overview of complex topics for monitoring or tracking purposes?",
+      "src": "S4600",
+      "mode": "abstention",
+      "gold_chunk_ids": [
+        "configuration-sap-fiori-launchpad-001"
+      ],
+      "top_k_ids": [
+        "order-management-sales-monitoring-analytics-001",
+        "billing-create-billing-documents-fiori-001",
+        "shipping-outbound-delivery-monitor-001",
+        "special-processes-advanced-returns-management-001",
+        "credit-management-credit-master-data-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "La pregunta hace referencia a una app que proporciona una **visión visual general de temas complejos** con fines de monitoreo o seguimiento.\n\nSegún el documento de contexto, **SAP Smart Business** es la herramienta que proporciona dashboards basados en KPIs con indicadores visuales (por ejemplo, indicadores en rojo para excepciones), permitiendo a los usuarios monitorear situaciones complejas de un vistazo y navegar directamente a las transacciones subyacentes para actuar.\n\nEl documento describe SAP Smart Business como una herramienta de gestión de excepciones orientada a KPIs con enlaces directos de acción, donde los tiles alertan al manager con indicadores visuales y permiten hacer drill-down hacia los datos subyacentes.\n\nFuentes: order-management-sales-monitoring-analytics-001",
+      "judgment": {
+        "claims": [
+          {
+            "text": "SAP Smart Business proporciona dashboards basados en KPIs con indicadores visuales (por ejemplo, indicadores en rojo para excepciones)",
+            "label": "SUPPORTED",
+            "support": "If the issue is a KPI-level exception (for example, revenue gap vs. plan), *SAP Smart Business* tiles alert the manager with a red indicator"
+          },
+          {
+            "text": "SAP Smart Business permite a los usuarios monitorear situaciones complejas de un vistazo y navegar directamente a las transacciones subyacentes para actuar",
+            "label": "PARTIAL",
+            "support": "The manager clicks the tile to drill down to the underlying data and navigates to the transaction to act"
+          },
+          {
+            "text": "El documento describe SAP Smart Business como una herramienta de gestión de excepciones orientada a KPIs con enlaces directos de acción",
+            "label": "SUPPORTED",
+            "support": "*SAP Smart Business* provides KPI-driven exception management with direct action links"
+          },
+          {
+            "text": "Los tiles alertan al manager con indicadores visuales y permiten hacer drill-down hacia los datos subyacentes",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 0.625,
+        "_n_support_reclassified": 1
+      },
+      "citation_check": {
+        "has_citation_line": true,
+        "cited_ids": [
+          "order-management-sales-monitoring-analytics-001"
+        ],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": false,
+      "n_support_reclassified": 1
+    },
+    {
+      "id": "S4F30-LA-U2-Q1",
+      "question": "Choose three components which are part of Advanced Credit Management but are not part of Basic Credit Management.",
+      "src": "S4F30",
+      "mode": "abstention",
+      "gold_chunk_ids": [
+        "credit-management-credit-check-sd-integration-001",
+        "credit-management-credit-master-data-001",
+        "credit-management-credit-rules-engine-001"
+      ],
+      "top_k_ids": [
+        "special-processes-advanced-returns-management-001",
+        "special-processes-third-party-order-processing-001",
+        "pricing-condition-contract-management-concept-001",
+        "billing-credit-debit-memo-process-001",
+        "order-management-collective-processing-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "No puedo responder con la documentación proporcionada.",
+      "judgment": {
+        "claims": [
+          {
+            "text": "No puedo responder con la documentación proporcionada.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          }
+        ],
+        "is_abstention": true,
+        "release_mixing": false,
+        "grounded_fraction": 0.0,
+        "_n_support_reclassified": 1
+      },
+      "citation_check": {
+        "has_citation_line": false,
+        "cited_ids": [],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": true,
+      "n_support_reclassified": 1
+    },
+    {
+      "id": "S4600-LA-U1-Q2",
+      "question": "A user can personalize the home page in SAP Fiori launchpad by default.",
+      "src": "S4600",
+      "mode": "abstention",
+      "gold_chunk_ids": [
+        "configuration-sap-fiori-launchpad-001"
+      ],
+      "top_k_ids": [
+        "billing-create-billing-documents-fiori-001",
+        "pricing-condition-records-001",
+        "master-data-sd-partner-functions-001",
+        "integration-general-billing-interface-001",
+        "configuration-flexible-billing-document-numbering-001"
+      ],
+      "gold_in_top_k": true,
+      "response": "No puedo responder con la documentación proporcionada.",
+      "judgment": {
+        "claims": [
+          {
+            "text": "No puedo responder con la documentación proporcionada.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          }
+        ],
+        "is_abstention": true,
+        "release_mixing": false,
+        "grounded_fraction": 0.0,
+        "_n_support_reclassified": 1
+      },
+      "citation_check": {
+        "has_citation_line": false,
+        "cited_ids": [],
+        "all_in_corpus": true,
+        "all_in_top_k": true
+      },
+      "abstention_det": true,
+      "n_support_reclassified": 1
+    }
+  ],
+  "limitations": [
+    "Same model family for generator and judge — self-bias risk.",
+    "LÍMITE 2: Learning Assessment questions, easy single-lesson scope.",
+    "parse_page_range does not handle comma-separated specs (e.g. '23, 30-38')."
+  ]
+}
