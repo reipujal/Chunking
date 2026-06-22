@@ -33,13 +33,13 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from eval.retriever import load_chunks, make_retriever, strip_frontmatter
 from eval.score import derive_gold_chunk_ids
 
-from openai import OpenAI
+from anthropic import Anthropic
 
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
 
-GENERATOR_MODEL = os.getenv("VAES_MODEL", "gpt-4.1")
+GENERATOR_MODEL = os.getenv("VAES_MODEL", "claude-sonnet-4-6")
 JUDGE_MODEL      = os.getenv("JUDGE_MODEL", GENERATOR_MODEL)
 
 GOLD_DIR    = Path("eval/gold")
@@ -134,20 +134,20 @@ def format_context(chunk_ids: list[str], chunks: dict, max_body: int = 3000) -> 
 # Generator
 # ---------------------------------------------------------------------------
 
-def generate_answer(client: OpenAI, question: str, context: str) -> str:
+def generate_answer(client: Anthropic, question: str, context: str) -> str:
     user_msg = f"Pregunta: {question}\n\nDocumentos de contexto:\n\n{context}"
     for attempt in range(3):
         try:
-            resp = client.chat.completions.create(
+            resp = client.messages.create(
                 model=GENERATOR_MODEL,
+                system=GENERATOR_SYSTEM,
                 messages=[
-                    {"role": "system", "content": GENERATOR_SYSTEM},
-                    {"role": "user",   "content": user_msg},
+                    {"role": "user", "content": user_msg},
                 ],
                 temperature=0.0,
                 max_tokens=600,
             )
-            return resp.choices[0].message.content.strip()
+            return resp.content[0].text.strip()
         except Exception as exc:
             if attempt < 2:
                 time.sleep(2 ** attempt)
@@ -158,7 +158,7 @@ def generate_answer(client: OpenAI, question: str, context: str) -> str:
 # Judge
 # ---------------------------------------------------------------------------
 
-def judge_answer(client: OpenAI, question: str, context: str, response: str) -> dict:
+def judge_answer(client: Anthropic, question: str, context: str, response: str) -> dict:
     user_msg = (
         f"PREGUNTA:\n{question}\n\n"
         f"DOCUMENTOS DE CONTEXTO:\n{context}\n\n"
@@ -166,16 +166,15 @@ def judge_answer(client: OpenAI, question: str, context: str, response: str) -> 
     )
     for attempt in range(3):
         try:
-            resp = client.chat.completions.create(
+            resp = client.messages.create(
                 model=JUDGE_MODEL,
+                system=JUDGE_SYSTEM,
                 messages=[
-                    {"role": "system", "content": JUDGE_SYSTEM},
-                    {"role": "user",   "content": user_msg},
+                    {"role": "user", "content": user_msg},
                 ],
-                temperature=0.0,
                 max_tokens=1000,
             )
-            raw = resp.choices[0].message.content.strip()
+            raw = resp.content[0].text.strip()
             return _parse_judge_json(raw)
         except Exception as exc:
             if attempt < 2:
@@ -239,7 +238,7 @@ def check_abstention_regex(response: str) -> bool:
 # ---------------------------------------------------------------------------
 
 def run_question(
-    client: OpenAI,
+    client: Anthropic,
     question_data: dict,
     chunks: dict,
     retriever,
@@ -423,7 +422,7 @@ def write_calibration(
         "",
         "## Limitations",
         "",
-        "- **Judge bias**: generator and judge share the same model family (OpenAI). "
+        "- **Judge bias**: generator and judge share the same model family (Anthropic). "
           "No cross-model independence — self-consistency risk.",
         "- **LÍMITE 2**: questions are SAP Learning Assessment (easy, single-lesson scope). "
           "Grounding score is a discipline floor, NOT a RAG quality proof.",
@@ -448,11 +447,11 @@ def main() -> None:
     args = parser.parse_args()
 
     # ── API key ──────────────────────────────────────────────────────────────
-    api_key = os.getenv("OPENAI_API_KEY")
+    api_key = os.getenv("ANTHROPIC_API_KEY")
     if not api_key:
-        print("ERROR: OPENAI_API_KEY not found. Check .env file.")
+        print("ERROR: ANTHROPIC_API_KEY not found. Check .env file.")
         sys.exit(1)
-    client = OpenAI(api_key=api_key)
+    client = Anthropic(api_key=api_key)
     print(f"Generator : {GENERATOR_MODEL}")
     print(f"Judge     : {JUDGE_MODEL}")
     print(f"top-k     : {args.top_k}")
