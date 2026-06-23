@@ -434,4 +434,4 @@ HIGH RISK: source is 2019; no provenance audit (statement-by-statement); no expe
 
 ### Next pending
 
-Eval results: see eval/results/ (S4F30 score run after this log entry). Next doc: S4601 (high priority, not started).
+Eval results: see eval/results/ (S4F30 score run after this log entry). Next doc: TBD — S4601 EXCLUIDO (Supply Chain Execution, fuera de scope SD, decisión cerrada 2026-06-23).
