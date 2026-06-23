@@ -1,0 +1,271 @@
+{
+  "generated_at": "2026-06-23",
+  "t2_abstention_homogeneous": {
+    "S4600": {
+      "judge": "opus (old)",
+      "abstention": {
+        "n": 21,
+        "n_errors": 0,
+        "n_abstained": 9,
+        "n_answered_should_abstain": 12,
+        "pct_correct_abstention": 42.9,
+        "pct_answered_when_should_abstain": 57.1
+      },
+      "false_abstention": {
+        "n_positive": 21,
+        "n_gold_in_top_k": 18,
+        "n_false_abstention": 1,
+        "pct_false_abstention": 5.6
+      }
+    },
+    "S4605": {
+      "judge": "opus (old)",
+      "abstention": {
+        "n": 31,
+        "n_errors": 0,
+        "n_abstained": 12,
+        "n_answered_should_abstain": 19,
+        "pct_correct_abstention": 38.7,
+        "pct_answered_when_should_abstain": 61.3
+      },
+      "false_abstention": {
+        "n_positive": 31,
+        "n_gold_in_top_k": 31,
+        "n_false_abstention": 1,
+        "pct_false_abstention": 3.2
+      }
+    },
+    "S4610": {
+      "judge": "opus (old)",
+      "abstention": {
+        "n": 26,
+        "n_errors": 0,
+        "n_abstained": 12,
+        "n_answered_should_abstain": 14,
+        "pct_correct_abstention": 46.2,
+        "pct_answered_when_should_abstain": 53.8
+      },
+      "false_abstention": {
+        "n_positive": 26,
+        "n_gold_in_top_k": 23,
+        "n_false_abstention": 0,
+        "pct_false_abstention": 0.0
+      }
+    },
+    "S4615": {
+      "judge": "gpt-4.1-mini",
+      "abstention": {
+        "n": 30,
+        "n_errors": 0,
+        "n_abstained": 12,
+        "n_answered_should_abstain": 18,
+        "pct_correct_abstention": 40.0,
+        "pct_answered_when_should_abstain": 60.0
+      },
+      "false_abstention": {
+        "n_positive": 30,
+        "n_gold_in_top_k": 25,
+        "n_false_abstention": 0,
+        "pct_false_abstention": 0.0
+      }
+    },
+    "S4620": {
+      "judge": "gpt-4.1-mini",
+      "abstention": {
+        "n": 26,
+        "n_errors": 0,
+        "n_abstained": 14,
+        "n_answered_should_abstain": 12,
+        "pct_correct_abstention": 53.8,
+        "pct_answered_when_should_abstain": 46.2
+      },
+      "false_abstention": {
+        "n_positive": 26,
+        "n_gold_in_top_k": 25,
+        "n_false_abstention": 0,
+        "pct_false_abstention": 0.0
+      }
+    },
+    "S4650": {
+      "judge": "gpt-4.1-mini",
+      "abstention": {
+        "n": 14,
+        "n_errors": 0,
+        "n_abstained": 5,
+        "n_answered_should_abstain": 9,
+        "pct_correct_abstention": 35.7,
+        "pct_answered_when_should_abstain": 64.3
+      },
+      "false_abstention": {
+        "n_positive": 14,
+        "n_gold_in_top_k": 11,
+        "n_false_abstention": 0,
+        "pct_false_abstention": 0.0
+      }
+    },
+    "S4680": {
+      "judge": "gpt-4.1-mini",
+      "abstention": {
+        "n": 25,
+        "n_errors": 0,
+        "n_abstained": 11,
+        "n_answered_should_abstain": 14,
+        "pct_correct_abstention": 44.0,
+        "pct_answered_when_should_abstain": 56.0
+      },
+      "false_abstention": {
+        "n_positive": 25,
+        "n_gold_in_top_k": 20,
+        "n_false_abstention": 0,
+        "pct_false_abstention": 0.0
+      }
+    },
+    "S4F30": {
+      "judge": "gpt-4.1-mini",
+      "abstention": {
+        "n": 4,
+        "n_errors": 0,
+        "n_abstained": 3,
+        "n_answered_should_abstain": 1,
+        "pct_correct_abstention": 75.0,
+        "pct_answered_when_should_abstain": 25.0
+      },
+      "false_abstention": {
+        "n_positive": 4,
+        "n_gold_in_top_k": 4,
+        "n_false_abstention": 0,
+        "pct_false_abstention": 0.0
+      }
+    }
+  },
+  "t3_failure_modes": {
+    "S4600": {
+      "n": 12,
+      "judge": "opus (old)",
+      "type_a_distractor_grounded": 11,
+      "type_b_fabricated": 1,
+      "pct_type_a": 91.7,
+      "pct_type_b": 8.3
+    },
+    "S4605": {
+      "n": 19,
+      "judge": "opus (old)",
+      "type_a_distractor_grounded": 12,
+      "type_b_fabricated": 7,
+      "pct_type_a": 63.2,
+      "pct_type_b": 36.8
+    },
+    "S4610": {
+      "n": 14,
+      "judge": "opus (old)",
+      "type_a_distractor_grounded": 12,
+      "type_b_fabricated": 2,
+      "pct_type_a": 85.7,
+      "pct_type_b": 14.3
+    },
+    "S4615": {
+      "n": 18,
+      "judge": "gpt-4.1-mini",
+      "type_a_distractor_grounded": 6,
+      "type_b_fabricated": 12,
+      "pct_type_a": 33.3,
+      "pct_type_b": 66.7
+    },
+    "S4620": {
+      "n": 12,
+      "judge": "gpt-4.1-mini",
+      "type_a_distractor_grounded": 5,
+      "type_b_fabricated": 7,
+      "pct_type_a": 41.7,
+      "pct_type_b": 58.3
+    },
+    "S4650": {
+      "n": 9,
+      "judge": "gpt-4.1-mini",
+      "type_a_distractor_grounded": 6,
+      "type_b_fabricated": 3,
+      "pct_type_a": 66.7,
+      "pct_type_b": 33.3
+    },
+    "S4680": {
+      "n": 14,
+      "judge": "gpt-4.1-mini",
+      "type_a_distractor_grounded": 7,
+      "type_b_fabricated": 7,
+      "pct_type_a": 50.0,
+      "pct_type_b": 50.0
+    },
+    "S4F30": {
+      "n": 1,
+      "judge": "gpt-4.1-mini",
+      "type_a_distractor_grounded": 0,
+      "type_b_fabricated": 1,
+      "pct_type_a": 0.0,
+      "pct_type_b": 100.0
+    }
+  },
+  "t3b_false_abstention_cases": [
+    {
+      "id": "S4600-LA-U6-Q3",
+      "src": "S4600",
+      "question": "Which of the following options contains a collection of settings that defines which requirements are checked and how they are handled before the backorder processing (BOP)?",
+      "gold_chunk": "order-management-availability-check-atp-001",
+      "gold_title": "Availability Check (ATP) in SAP SD — Concept and Configuration",
+      "keyword_hits": 0,
+      "verdict": "gold ambiguous/fine-grained",
+      "gold_snippet": "# Availability Check (ATP) in SAP SD — Concept and Configuration\n\n## Operational Summary\nThe *availability check* determines whether the requested quantity of a material can be confirmed for a customer's requested delivery date at the time of sales o"
+    },
+    {
+      "id": "S4605-LA-U9-Q2",
+      "src": "S4605",
+      "question": "Which of the following statements is true for a partner function procedure?",
+      "gold_chunk": "master-data-sd-partner-functions-001",
+      "gold_title": "Partner Functions and Partner Determination in SAP SD",
+      "keyword_hits": 2,
+      "verdict": "over-abstention ← gold likely answers",
+      "gold_snippet": "# Partner Functions and Partner Determination in SAP SD\n\n## Operational Summary\nPartner processing separates who a business partner is from the role they play in a transaction. SAP defines *partner types* (the technical category: customer, vendor, pe"
+    }
+  ],
+  "t4_gf_homogeneous": {
+    "S4600": {
+      "n_answered": 19,
+      "gf_answered_mini": 0.982,
+      "gf_answered_opus": 0.754
+    },
+    "S4605": {
+      "n_answered": 30,
+      "gf_answered_mini": 0.923,
+      "gf_answered_opus": 0.878
+    },
+    "S4610": {
+      "n_answered": 25,
+      "gf_answered_mini": 0.933,
+      "gf_answered_opus": 0.924
+    },
+    "S4615": {
+      "n_answered": 29,
+      "gf_answered_mini": 0.981,
+      "gf_answered_opus": 0.853
+    },
+    "S4620": {
+      "n_answered": 26,
+      "gf_answered_mini": 0.955,
+      "gf_answered_opus": 0.772
+    },
+    "S4650": {
+      "n_answered": 13,
+      "gf_answered_mini": 0.968,
+      "gf_answered_opus": 0.766
+    },
+    "S4680": {
+      "n_answered": 23,
+      "gf_answered_mini": 0.938,
+      "gf_answered_opus": 0.838
+    },
+    "S4F30": {
+      "n_answered": 4,
+      "gf_answered_mini": 1.0,
+      "gf_answered_opus": 0.729
+    }
+  }
+}
