@@ -1,0 +1,343 @@
+{
+  "generated_at": "2026-06-22",
+  "reference_judge": "claude-opus-4-8",
+  "new_judge": "gpt-4.1-mini",
+  "judge_provider": "openai",
+  "generator_model": "claude-sonnet-4-6",
+  "top_k": 5,
+  "mean_delta": -0.338,
+  "comparable": "NO -- |mean_delta| >= 0.15, judges diverge",
+  "rows": [
+    {
+      "id": "S4600-LA-U1-Q1",
+      "gf_opus": 0.2,
+      "gf_new": 0.0,
+      "delta": -0.2,
+      "response_snippet": "La pregunta hace referencia a un tipo de app que proporciona una visión visual general de temas complejos para propósito",
+      "judgment": {
+        "claims": [
+          {
+            "text": "Tres tipos de apps Fiori: transaction apps para ejecución de procesos, analytical apps para monitoreo, y factsheets para exploración de datos.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "Las analytical apps proporcionan una visión general visual de temas complejos para monitoreo o seguimiento.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "Los factsheets están orientados a la exploración de datos de objetos específicos.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "Analytical apps son las que ofrecen una visión visual general de temas complejos para propósitos de monitoreo, mientras que factsheets lo hacen para exploración/seguimiento de datos de un objeto.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "Si la pregunta apunta a una sola opción de monitoreo visual, la respuesta es Analytical apps.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 0.0,
+        "_n_support_reclassified": 5
+      }
+    },
+    {
+      "id": "S4600-LA-U1-Q2",
+      "gf_opus": 1.0,
+      "gf_new": 0.0,
+      "delta": -1.0,
+      "response_snippet": "Según el documento de contexto, el SAP Fiori Launchpad proporciona capacidades de personalización a los usuarios. Sin em",
+      "judgment": {
+        "claims": [
+          {
+            "text": "SAP Fiori Launchpad proporciona capacidades de personalización a los usuarios",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "El documento no especifica explícitamente si esta personalización está habilitada por defecto",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "El Launchpad está configurado por rol (principio role-based)",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "No es posible confirmar con precisión si la personalización de la página de inicio está disponible por defecto para el usuario",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          }
+        ],
+        "is_abstention": true,
+        "release_mixing": false,
+        "grounded_fraction": 0.0,
+        "_n_support_reclassified": 4
+      }
+    },
+    {
+      "id": "S4600-LA-U4-Q1",
+      "gf_opus": 0.8,
+      "gf_new": 0.75,
+      "delta": -0.05,
+      "response_snippet": "La afirmación es **correcta**. En SAP S/4HANA, los datos maestros de clientes y proveedores se gestionan mediante el con",
+      "judgment": {
+        "claims": [
+          {
+            "text": "En SAP S/4HANA, los datos maestros de clientes y proveedores se gestionan mediante el concepto unificado de Business Partner (BP).",
+            "label": "SUPPORTED",
+            "support": "In SAP S/4HANA, customer and vendor master data is managed through the unified *Business Partner* (BP) concept."
+          },
+          {
+            "text": "Este enfoque reemplaza los registros maestros separados de clientes y proveedores que existían en SAP ECC.",
+            "label": "SUPPORTED",
+            "support": "This replaces the separate customer and vendor master records used in SAP ECC."
+          },
+          {
+            "text": "Un único registro de business partner puede representar tanto a un cliente como a un proveedor, con los datos relevantes activados mediante la asignación de roles específicos (por ejemplo, el rol Customer para procesos SD y el rol Vendor para compras).",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "Los datos centrales como nombre, dirección y datos bancarios se introducen una sola vez, evitando redundancia y mejorando la integridad de los datos.",
+            "label": "SUPPORTED",
+            "support": "The BP approach centralizes master data maintenance: a single business partner record can represent both a customer and a vendor, avoiding data redundancy and improving data integrity across Sales, Purchasing, Finance, and other modules."
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 0.75,
+        "_n_support_reclassified": 1
+      }
+    },
+    {
+      "id": "S4600-LA-U4-Q2",
+      "gf_opus": 0.833,
+      "gf_new": 0.75,
+      "delta": -0.083,
+      "response_snippet": "## Partner Function for the Customer Who Receives the Invoice  Based on the context documents, the partner function appl",
+      "judgment": {
+        "claims": [
+          {
+            "text": "the partner function applicable for a customer who receives the invoice is the Bill-to Party",
+            "label": "SUPPORTED",
+            "support": "In the simplest case, a single customer is the sold-to party, ship-to party, payer, and bill-to party. In more realistic scenarios these can be different business partners."
+          },
+          {
+            "text": "the four central partner functions in a sales transaction are Sold-to party, Ship-to party, Payer, and Bill-to party",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "the bill-to party is the partner function specifically associated with receiving the invoice",
+            "label": "SUPPORTED",
+            "support": "a single customer is the sold-to party, ship-to party, payer, and bill-to party. In more realistic scenarios these can be different business partners."
+          },
+          {
+            "text": "the payer is the one who settles the payment, distinct from the bill-to party",
+            "label": "SUPPORTED",
+            "support": "In the simplest case, a single customer is the sold-to party, ship-to party, payer, and bill-to party. In more realistic scenarios these can be different business partners."
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 0.75,
+        "_n_support_reclassified": 1
+      }
+    },
+    {
+      "id": "S4600-LA-U4-Q3",
+      "gf_opus": 0.0,
+      "gf_new": 0.0,
+      "delta": 0.0,
+      "response_snippet": "No puedo responder con la documentación proporcionada.",
+      "judgment": {
+        "claims": [
+          {
+            "text": "No puedo responder con la documentación proporcionada.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          }
+        ],
+        "is_abstention": true,
+        "release_mixing": false,
+        "grounded_fraction": 0.0,
+        "_n_support_reclassified": 1
+      }
+    },
+    {
+      "id": "S4610-LA-U1-Q1",
+      "gf_opus": 0.929,
+      "gf_new": 0.25,
+      "delta": -0.679,
+      "response_snippet": "The delivery document that refers to a sales document is the **Outbound Delivery**.  According to the context, the outbo",
+      "judgment": {
+        "claims": [
+          {
+            "text": "The delivery document that refers to a sales document is the Outbound Delivery.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "The outbound delivery is \"referenced to a sales order\" and \"represents the outbound shipment of goods to a customer.\"",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "The Sales Order is explicitly listed as the \"reference document for the outbound delivery.\"",
+            "label": "SUPPORTED",
+            "support": "| Object | Relationship |\n|---|---|\n| Sales Order | Reference document for the outbound delivery |"
+          },
+          {
+            "text": "The returns delivery (inbound) is referenced to a returns order (a sales document), not directly to a sales order in the standard sense, but it is also created with reference to a sales document type.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 0.25,
+        "_n_support_reclassified": 3
+      }
+    },
+    {
+      "id": "S4610-LA-U1-Q2",
+      "gf_opus": 1.0,
+      "gf_new": 0.333,
+      "delta": -0.667,
+      "response_snippet": "En el nivel de ítem, la pantalla detallada muestra tabstrips con información sobre los ítems, de manera similar a la org",
+      "judgment": {
+        "claims": [
+          {
+            "text": "En el nivel de ítem, la pantalla detallada muestra tabstrips con información sobre los ítems, de manera similar a la organización del nivel de cabecera.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "Los ítems contienen información sobre los materiales a entregar.",
+            "label": "SUPPORTED",
+            "support": "Items contain information about the materials to be delivered."
+          },
+          {
+            "text": "En la pantalla de detalle del ítem, los datos también están organizados en tabstrips similares a las del nivel de cabecera (las cuales incluyen: procesamiento, picking, carga, envío, comercio exterior/aduanas, textos, interlocutores, salida de documentos, monitoreo de paquetes y condiciones).",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 0.333,
+        "_n_support_reclassified": 2
+      }
+    },
+    {
+      "id": "S4610-LA-U1-Q3",
+      "gf_opus": 0.0,
+      "gf_new": 0.0,
+      "delta": 0.0,
+      "response_snippet": "No puedo responder con la documentación proporcionada.",
+      "judgment": {
+        "claims": [
+          {
+            "text": "No puedo responder con la documentación proporcionada.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          }
+        ],
+        "is_abstention": true,
+        "release_mixing": false,
+        "grounded_fraction": 0.0,
+        "_n_support_reclassified": 1
+      }
+    },
+    {
+      "id": "S4610-LA-U2-Q1",
+      "gf_opus": 0.7,
+      "gf_new": 0.333,
+      "delta": -0.367,
+      "response_snippet": "Sí, varias ubicaciones de almacén (storage locations) dentro de una planta pueden referirse al mismo número de almacén (",
+      "judgment": {
+        "claims": [
+          {
+            "text": "Varias ubicaciones de almacén (storage locations) dentro de una planta pueden referirse al mismo número de almacén (warehouse number).",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          },
+          {
+            "text": "La conexión entre la jerarquía de IM y la jerarquía de EWM se establece asignando una planta y una ubicación de almacén a un número de almacén.",
+            "label": "SUPPORTED",
+            "support": "The two are linked by assigning a plant and storage location to a warehouse number."
+          },
+          {
+            "text": "Una planta puede tener múltiples ubicaciones de almacén, y cada una de ellas puede ser asignada al mismo número de almacén, por lo que varias ubicaciones de almacén dentro de una misma planta pueden apuntar al mismo número de almacén.",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 0.333,
+        "_n_support_reclassified": 2
+      }
+    },
+    {
+      "id": "S4610-LA-U2-Q2",
+      "gf_opus": 1.0,
+      "gf_new": 0.667,
+      "delta": -0.333,
+      "response_snippet": "Según la documentación proporcionada, a shipping point may also be set as a **goods receipt point**, which means it can ",
+      "judgment": {
+        "claims": [
+          {
+            "text": "a shipping point may also be set as a goods receipt point",
+            "label": "SUPPORTED",
+            "support": "### Shipping Point as Goods Receipt Point\nA shipping point can be configured as a **goods receipt point**, enabling it to process inbound deliveries as well."
+          },
+          {
+            "text": "which means it can also be used for inbound deliveries",
+            "label": "SUPPORTED",
+            "support": "### Shipping Point as Goods Receipt Point\nA shipping point can be configured as a **goods receipt point**, enabling it to process inbound deliveries as well."
+          },
+          {
+            "text": "This allows the same physical location to handle both outbound and inbound flows",
+            "label": "UNSUPPORTED",
+            "support": "",
+            "_reclassified": true
+          }
+        ],
+        "is_abstention": false,
+        "release_mixing": false,
+        "grounded_fraction": 0.667,
+        "_n_support_reclassified": 1
+      }
+    }
+  ]
+}
