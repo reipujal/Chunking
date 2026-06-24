@@ -19,12 +19,36 @@ import re
 import math
 import json
 import yaml
+import hashlib
 from pathlib import Path
 from collections import defaultdict
 from datetime import date as _date
 
 CHUNKS_DIR = Path("chunks")
 INDEX_DIR = Path("eval/index")
+
+
+# ---------------------------------------------------------------------------
+# Cache manifest helpers — shared by all three retriever classes.
+# body_hashes keys on self._chunks[cid]["body"], the exact string passed to
+# self._model.encode() before any windowing or truncation. Any body edit
+# invalidates the cache by construction.
+# ---------------------------------------------------------------------------
+
+def _compute_manifest(chunks: dict, model_name: str, max_tokens: int, recipe_id: str) -> dict:
+    return {
+        "model_name": model_name,
+        "max_tokens": max_tokens,
+        "recipe_id": recipe_id,
+        "body_hashes": {
+            cid: hashlib.sha256(chunks[cid]["body"].encode("utf-8")).hexdigest()
+            for cid in sorted(chunks)
+        },
+    }
+
+
+def _manifest_valid(cached_meta: dict, manifest: dict) -> bool:
+    return cached_meta.get("manifest") == manifest
 
 
 # ---------------------------------------------------------------------------
@@ -151,9 +175,9 @@ class SemanticRetriever:
     """
 
     MODEL_NAME = "BAAI/bge-small-en-v1.5"
-    # BGE-v1.5 query prefix (passages get no prefix)
     QUERY_PREFIX = "Represent this sentence for searching relevant passages: "
     MAX_TOKENS = 512
+    RECIPE_ID  = "bge-small-v1.5-whole-chunk"
 
     def __init__(self, chunks: dict[str, dict], model_name: str = MODEL_NAME):
         self._chunks = chunks
@@ -171,12 +195,17 @@ class SemanticRetriever:
     # ------------------------------------------------------------------
 
     def _cache_valid(self) -> bool:
-        emb_p = self._cache_path / "embeddings.npy"
-        ids_p = self._cache_path / "chunk_ids.json"
-        if not (emb_p.exists() and ids_p.exists()):
+        emb_p  = self._cache_path / "embeddings.npy"
+        ids_p  = self._cache_path / "chunk_ids.json"
+        meta_p = self._cache_path / "meta.json"
+        if not (emb_p.exists() and ids_p.exists() and meta_p.exists()):
             return False
-        cached_ids = json.loads(ids_p.read_text(encoding="utf-8"))
-        return sorted(cached_ids) == sorted(self._chunks.keys())
+        try:
+            meta = json.loads(meta_p.read_text(encoding="utf-8"))
+        except Exception:
+            return False
+        manifest = _compute_manifest(self._chunks, self._model_name, self.MAX_TOKENS, self.RECIPE_ID)
+        return _manifest_valid(meta, manifest)
 
     def _load_model(self):
         from sentence_transformers import SentenceTransformer
@@ -236,6 +265,7 @@ class SemanticRetriever:
             "n_chunks": len(self._chunk_ids),
             "truncated": self.truncated_count,
             "generated_at": _date.today().isoformat(),
+            "manifest": _compute_manifest(self._chunks, self._model_name, self.MAX_TOKENS, self.RECIPE_ID),
         }, indent=2), encoding="utf-8")
         print(f"  [semantic] Index saved: {self._cache_path}")
 
@@ -296,6 +326,7 @@ class LongContextRetriever:
 
     MODEL_NAME = "BAAI/bge-m3"
     MAX_TOKENS = 8192
+    RECIPE_ID  = "bge-m3-whole-chunk"
 
     def __init__(self, chunks: dict[str, dict], model_name: str = MODEL_NAME):
         self._chunks = chunks
@@ -310,12 +341,17 @@ class LongContextRetriever:
         self._build()
 
     def _cache_valid(self) -> bool:
-        emb_p = self._cache_path / "embeddings.npy"
-        ids_p = self._cache_path / "chunk_ids.json"
-        if not (emb_p.exists() and ids_p.exists()):
+        emb_p  = self._cache_path / "embeddings.npy"
+        ids_p  = self._cache_path / "chunk_ids.json"
+        meta_p = self._cache_path / "meta.json"
+        if not (emb_p.exists() and ids_p.exists() and meta_p.exists()):
             return False
-        cached_ids = json.loads(ids_p.read_text(encoding="utf-8"))
-        return sorted(cached_ids) == sorted(self._chunks.keys())
+        try:
+            meta = json.loads(meta_p.read_text(encoding="utf-8"))
+        except Exception:
+            return False
+        manifest = _compute_manifest(self._chunks, self._model_name, self.MAX_TOKENS, self.RECIPE_ID)
+        return _manifest_valid(meta, manifest)
 
     def _load_model(self):
         from sentence_transformers import SentenceTransformer
@@ -376,6 +412,7 @@ class LongContextRetriever:
             "max_tokens_found": self.max_tokens_found,
             "truncated": self.truncated_count,
             "generated_at": _date.today().isoformat(),
+            "manifest": _compute_manifest(self._chunks, self._model_name, self.MAX_TOKENS, self.RECIPE_ID),
         }, indent=2), encoding="utf-8")
         print(f"  [long-ctx] Index saved: {self._cache_path}")
 
@@ -426,10 +463,12 @@ class WindowPooledRetriever:
     Cache: eval/index/jina-embeddings-v2-base-en-window/
     """
 
-    MODEL_NAME = LongContextRetriever.MODEL_NAME   # SAME model as B — do not change
-    WINDOW_TOKENS = 400    # target window size (model tokens, without special)
-    STRIDE_TOKENS = 300    # 100-token overlap per step = ~25% of window
-    MAX_WINDOW_TOKENS = 512  # hard cap for verification
+    MODEL_NAME        = LongContextRetriever.MODEL_NAME  # SAME model as B — do not change
+    WINDOW_TOKENS     = 400   # target window size (model tokens, without special)
+    STRIDE_TOKENS     = 300   # 100-token overlap per step = ~25% of window
+    MAX_WINDOW_TOKENS = 512   # hard cap for verification
+    MAX_TOKENS        = MAX_WINDOW_TOKENS  # alias for manifest (_compute_manifest interface)
+    RECIPE_ID         = "bge-m3-window-pooled"
 
     def __init__(self, chunks: dict[str, dict], model_name: str = MODEL_NAME):
         self._chunks = chunks
@@ -445,13 +484,17 @@ class WindowPooledRetriever:
         self._build()
 
     def _cache_valid(self) -> bool:
-        emb_p = self._cache_path / "window_embeddings.npy"
-        idx_p = self._cache_path / "window_index.json"
-        if not (emb_p.exists() and idx_p.exists()):
+        emb_p  = self._cache_path / "window_embeddings.npy"
+        idx_p  = self._cache_path / "window_index.json"
+        meta_p = self._cache_path / "meta.json"
+        if not (emb_p.exists() and idx_p.exists() and meta_p.exists()):
             return False
-        idx = json.loads(idx_p.read_text(encoding="utf-8"))
-        cached_ids = sorted(set(w["chunk_id"] for w in idx))
-        return cached_ids == sorted(self._chunks.keys())
+        try:
+            meta = json.loads(meta_p.read_text(encoding="utf-8"))
+        except Exception:
+            return False
+        manifest = _compute_manifest(self._chunks, self._model_name, self.MAX_TOKENS, self.RECIPE_ID)
+        return _manifest_valid(meta, manifest)
 
     def _load_model(self):
         from sentence_transformers import SentenceTransformer
@@ -555,6 +598,7 @@ class WindowPooledRetriever:
             "window_size_tokens": self.WINDOW_TOKENS,
             "stride_tokens": self.STRIDE_TOKENS,
             "generated_at": _date.today().isoformat(),
+            "manifest": _compute_manifest(self._chunks, self._model_name, self.MAX_TOKENS, self.RECIPE_ID),
         }
         meta_p.write_text(json.dumps(self.stats, indent=2), encoding="utf-8")
         print(f"  [window] Index saved: {self._cache_path}")

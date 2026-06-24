@@ -29,7 +29,8 @@ load_dotenv()
 # Constants
 # ---------------------------------------------------------------------------
 
-PHRASE = "No puedo responder con la documentación proporcionada."
+from eval.eval_shared import compute_state
+
 RESULTS_DIR   = Path(__file__).parent / "results"
 CHUNKS_DIR    = Path(__file__).parent.parent / "chunks"
 FULL_RUN_PATH = RESULTS_DIR / "faithfulness_full_2026-06-22.json"
@@ -66,14 +67,6 @@ JUDGE_SYSTEM = (
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
-
-def compute_state(response: str) -> str:
-    if response.startswith("[GENERATION ERROR:"):
-        return "error"
-    elif response.strip() == PHRASE:
-        return "abstained"
-    else:
-        return "answered"
 
 def computed_gold_in_top_k(record: dict) -> bool:
     """Always compute from arrays — do NOT trust stored gold_in_top_k for abstention set."""

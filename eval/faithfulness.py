@@ -33,6 +33,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from eval.retriever import load_chunks, make_retriever, strip_frontmatter
 from eval.score import derive_gold_chunk_ids
+from eval.eval_shared import ABSTENTION_PHRASE, is_pure_abstention, is_error
 
 from anthropic import Anthropic
 from openai import OpenAI
@@ -61,8 +62,6 @@ CHUNKS_DIR  = Path("chunks")
 DEFAULT_TOP_K      = 5
 DEFAULT_N_POSITIVE = 5
 DEFAULT_N_ABSTENTION = 3
-
-ABSTENTION_PHRASE = "No puedo responder con la documentación proporcionada."
 
 # ---------------------------------------------------------------------------
 # Prompts (verbatim from task spec)
@@ -391,16 +390,11 @@ def aggregate_positive(results: list[dict]) -> dict:
         return {}
 
     # C2: exclude error-state from all rates
-    errors = [r for r in results if r.get("state") == "error"]
-    valid  = [r for r in results if r.get("state") != "error"]
+    errors = [r for r in results if is_error(r)]
+    valid  = [r for r in results if not is_error(r)]
     n_valid = len(valid)
 
-    abstained_flags = [
-        r.get("state") == "abstained"
-        or r["abstention_det"]
-        or r["judgment"].get("is_abstention", False)
-        for r in valid
-    ]
+    abstained_flags = [is_pure_abstention(r) for r in valid]  # pure phrase only
     answered = [r for r, a in zip(valid, abstained_flags) if not a]
     gf_answered = [
         r["judgment"]["grounded_fraction"]
@@ -444,18 +438,12 @@ def aggregate_abstention(results: list[dict]) -> dict:
         return {}
 
     # C2: exclude errors from numerator AND denominator
-    errors = [r for r in results if r.get("state") == "error"]
-    valid  = [r for r in results if r.get("state") != "error"]
+    errors = [r for r in results if is_error(r)]
+    valid  = [r for r in results if not is_error(r)]
     n_valid = len(valid)
 
-    # A result is "correct abstention" if:
-    #   state==abstained  OR  (state==answered AND judgment.is_abstention==True)
-    correct = [
-        r.get("state") == "abstained"
-        or r["abstention_det"]
-        or r["judgment"].get("is_abstention", False)
-        for r in valid
-    ]
+    # A result is "correct abstention" if the exact phrase was returned (pure phrase only)
+    correct = [is_pure_abstention(r) for r in valid]
     failures = [r for r, c in zip(valid, correct) if not c]
 
     total_recl = sum(r.get("n_support_reclassified", 0) for r in results)
@@ -560,7 +548,7 @@ def write_calibration(
     lines += ["---", "", "## Abstention Questions (review abstention)", ""]
     for r in abstention_results:
         j = r["judgment"]
-        correct = r["abstention_det"] or j.get("is_abstention", False)
+        correct = is_pure_abstention(r)
         lines += [
             f"### {r['id']} ({r['src']}) — ABSTENTION MODE",
             f"**Q**: {r['question']}",
@@ -651,10 +639,7 @@ def write_full_report(
         "A high `grounded_fraction` does **NOT** redeem these: they are product-risk failures.",
         "",
     ]
-    failures = [
-        r for r in abstention_results
-        if not (r["abstention_det"] or r["judgment"].get("is_abstention", False))
-    ]
+    failures = [r for r in abstention_results if not is_pure_abstention(r)]
     if failures:
         lines += ["### Failure detail", ""]
         lines += [
@@ -1001,9 +986,7 @@ def write_abstention_completion_report(
     ]
     failures = [
         r for r in abstention_results
-        if r.get("state") not in ("abstained", "error")
-        and not r["judgment"].get("is_abstention", False)
-        and not r["abstention_det"]
+        if not is_pure_abstention(r) and not is_error(r)
     ]
     if failures:
         lines += [
@@ -1145,11 +1128,7 @@ def main() -> None:
         r = run_question(gen_client, judge_client, q, chunks, retriever,
                          mode="abstention", top_k=args.top_k)
         state   = r.get("state", "?")
-        correct = (
-            state == "abstained"
-            or r["abstention_det"]
-            or r["judgment"].get("is_abstention", False)
-        )
+        correct = is_pure_abstention(r)
         print(f"    state={state}  correct_abstention={correct}")
         abstention_results.append(r)
 
