@@ -13,3 +13,6 @@ __pycache__/
 
 # Semantic embedding cache (generated; regenerate with compare.py)
 eval/index/
+
+# Contiene una ruta específica de una máquina (source_root).
+chunks/_project_state.md

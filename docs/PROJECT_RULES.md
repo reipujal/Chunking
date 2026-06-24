@@ -1,5 +1,10 @@
 # SAP SD Knowledge Base — Chunking Agent
 
+> Núcleo del proyecto. Lo importa `AGENTS.md` mediante `@docs/PROJECT_RULES.md`.
+> Las reglas universales (tests, secretos, dependencias, git, razonamiento) viven en
+> `biblio_skills/rules/` (global) y NO se repiten aquí: este fichero contiene solo lo
+> específico de SAP SD / chunking.
+
 ## Project Objectives & Operating Context
 
 Two objectives, equally weighted:
@@ -8,8 +13,8 @@ Two objectives, equally weighted:
 
 Context that governs every decision:
 - **Token-optimized.** Many documents will be processed; token cost per document is a first-class constraint. Prefer one-pass processing with the gate passing the first time over re-read/re-correct loops. Re-read only the specific pages a finding implicates, never the whole PDF by default.
-- **Every defect is a process defect.** When an error is found, fix the chunk AND update CLAUDE.md / the relevant skill / the validator / the audit board so the class cannot recur. A fix that does not harden the process is incomplete.
-- **Every good practice gets encoded** into CLAUDE.md or a skill — not into one-off memory.
+- **Every defect is a process defect.** When an error is found, fix the chunk AND update this file / the relevant skill / the validator / the audit board so the class cannot recur. A fix that does not harden the process is incomplete.
+- **Every good practice gets encoded** into this file or a skill — not into one-off memory.
 - **The validator is the only source of truth for corpus health.** Never report "0 errors" from memory.
 
 ---
@@ -32,15 +37,22 @@ Context that governs every decision:
 
 ## Project Paths
 
+Todas las rutas son **relativas al workspace** (el directorio de trabajo = raíz del repo).
+No se hardcodean rutas absolutas de una máquina: rompen al clonar en otro PC y contradicen
+el objetivo de reproducibilidad.
+
 | Variable | Value |
 |---|---|
-| **Workspace** | `c:\Users\aranu\Desktop\IA\Chunking` |
-| **Source PDFs** | `c:\Users\aranu\Desktop\IA\Chunking\docu sap` |
-| **Chunks output** | `c:\Users\aranu\Desktop\IA\Chunking\chunks\` |
+| **Workspace** | working directory (raíz del repo; resolver con `pwd`) |
+| **Source PDFs** | `docu sap/` (workspace-relative). La ruta real **por máquina** se confirma y persiste en `chunks/_project_state.md` (`source_root`), no aquí |
+| **Chunks output** | `chunks/` |
 | **Validator** | `python3 validate_chunks.py` |
 | **Preferred shell** | PowerShell (Windows) — use Bash tool for POSIX commands |
 
 > Working directory is always the workspace. All `chunks/` paths are workspace-relative.
+> El `SOURCE_ROOT` no se fija en este fichero: se detecta/confirma en el arranque de sesión
+> y se guarda en `chunks/_project_state.md` (ver "Mandatory Session Startup"). Esto es lo que
+> permite mover el proyecto a otro PC sin editar rutas.
 
 ---
 
@@ -393,6 +405,7 @@ Every chunk ends with `## Cross-References`. Write at least one: `Prior step:`, 
 
 Ejecutar `/audit-board docs/audit/audit_board_profile.md` ante cualquiera de estos triggers.
 **No esperar a que el usuario lo pida** — proponer la ejecución cuando se cumple alguno.
+(La skill `audit-board` es ahora global, en `biblio_skills`.)
 
 | Trigger | Tier |
 |---------|------|
