@@ -1,12 +1,12 @@
 # Tarea para agente (Sonnet): pasada retroactiva de cobertura — 4 documentos procesados
 
 ## Por qué
-S4605, S4610, S4615 y S4620 se chunkearon **antes** de que existiera el source-coverage gate (CLAUDE.md *Preventive Rule 6* / `docs/skills/5-validate-log.md` Step 6c). Ninguno lo pasó. Esta es una **pasada retroactiva única** para llevarlos al objetivo 1 (chunks óptimos) y, de paso, validar el gate como proceso repetible (objetivo 2).
+S4605, S4610, S4615 y S4620 se chunkearon **antes** de que existiera el source-coverage gate (CLAUDE.md *Preventive Rule 6* / `docs/playbooks/5-validate-log.md` Step 6c). Ninguno lo pasó. Esta es una **pasada retroactiva única** para llevarlos al objetivo 1 (chunks óptimos) y, de paso, validar el gate como proceso repetible (objetivo 2).
 
 No es reprocesar de cero: es **detectar y cerrar gaps reales sin tocar lo que ya está bien**, gastando los mínimos tokens.
 
 ## Lee primero (en orden)
-`AGENTS.md`, `CLAUDE.md` (completo, atención a *Preventive Rules*), `docs/skills/2-extract.md`, `docs/skills/5-validate-log.md` (Step 6c), `docs/examples.md`, y para método/estado: `docs/audit/analisis_estrategia_pdf_a_chunk_2026-06-08.md` y `docs/audit/audit_context_shared.md`.
+`AGENTS.md`, `CLAUDE.md` (completo, atención a *Preventive Rules*), `docs/playbooks/2-extract.md`, `docs/playbooks/5-validate-log.md` (Step 6c), `docs/examples.md`, y para método/estado: `docs/audit/analisis_estrategia_pdf_a_chunk_2026-06-08.md` y `docs/audit/audit_context_shared.md`.
 
 ## Pre-vuelo (ROL 0 — bloqueante)
 Antes de empezar: `python3 validate_chunks.py chunks/` debe dar **0 errores**; disco↔índice↔inventario sincronizados; sin `.git/index.lock`; **una sola sesión** sobre este workspace. Si algo falla, detente y reporta solo eso.
@@ -47,4 +47,4 @@ Provenance literal (`transactions`/`tables` solo tokens del texto; lo demás en 
 Validador 0 errores **y** cada cluster ≥100w o bien chunkeado o bien **justificado en el log con motivo** **y** outliers de ratio triados **y** `_processing_log.md` con una entrada de pasada por documento **y** coverage registrada en `_source_inventory.md`.
 
 ## El procedimiento ya es skill
-Este cribado+triaje+cierre está codificado en **`docs/skills/6-coverage-review.md`** (gate de cierre estándar). Síguela como referencia canónica; este prompt solo añade la worklist sembrada y el orden de los 4 documentos. A partir de ahora, Skill 6 corre como paso de cierre de cada documento futuro, así que esta pasada retroactiva es de una sola vez.
+Este cribado+triaje+cierre está codificado en **`docs/playbooks/6-coverage-review.md`** (gate de cierre estándar). Síguela como referencia canónica; este prompt solo añade la worklist sembrada y el orden de los 4 documentos. A partir de ahora, Skill 6 corre como paso de cierre de cada documento futuro, así que esta pasada retroactiva es de una sola vez.

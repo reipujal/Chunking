@@ -36,14 +36,14 @@ arranque de sesión, densidad/rasterización, límites de sesión.)
    literalmente en el texto fuente o son legibles en una figura rasterizada. Nunca desde
    conocimiento de entrenamiento.
 2. **Páginas físicas**: usar siempre el número físico de página del PDF, no la etiqueta
-   del pie. Detectar el offset en el Paso 1 (`docs/skills/1-classify.md`).
+   del pie. Detectar el offset en el Paso 1 (`docs/playbooks/1-classify.md`).
 3. **Mínimo 300 palabras**: cuerpo por debajo de 300 → fusionar con el chunk relacionado
    más cercano.
 4. **Cross-references**: solo el ID del chunk en texto plano — sin backticks, comillas ni
    sintaxis de enlace markdown.
 5. **Apéndice de back-matter**: escanear siempre las últimas 10–15 páginas de cualquier
    curso SAP buscando apéndices de T-codes/tablas antes de concluir que `transactions: []`
-   es correcto (`docs/skills/2-extract.md`).
+   es correcto (`docs/playbooks/2-extract.md`).
 
 ## Skills por fase
 
@@ -51,11 +51,11 @@ Tras leer el núcleo, lee la skill de la fase actual antes de ejecutarla:
 
 | Fase | Fichero |
 |---|---|
-| Clasificar documento | `docs/skills/1-classify.md` |
-| Extraer contenido del PDF | `docs/skills/2-extract.md` |
+| Clasificar documento | `docs/playbooks/1-classify.md` |
+| Extraer contenido del PDF | `docs/playbooks/2-extract.md` |
 | Duplicados + decisión de chunking | núcleo (Pasos 3 y 4) |
-| Validar chunk + actualizar estado | `docs/skills/5-validate-log.md` |
-| Cerrar documento (gate de cobertura) | `docs/skills/6-coverage-review.md` |
+| Validar chunk + actualizar estado | `docs/playbooks/5-validate-log.md` |
+| Cerrar documento (gate de cobertura) | `docs/playbooks/6-coverage-review.md` |
 | Primer chunk de una sesión nueva | además `docs/examples.md` |
 
 ## Validador (gate duro — ya alineado con biblio_skills/ci-templates)

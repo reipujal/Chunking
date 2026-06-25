@@ -3,7 +3,7 @@ Generated: 2026-06-16
 
 ## Context
 
-Skill 6 (`docs/skills/6-coverage-review.md`) currently performs dedup via runtime judgment:
+Skill 6 (`docs/playbooks/6-coverage-review.md`) currently performs dedup via runtime judgment:
 the model searches existing chunks by topic keywords and decides primary/secondary/discard
 based on domain knowledge. This is correct but not reproducible and loses design-time
 decisions that were previously made.

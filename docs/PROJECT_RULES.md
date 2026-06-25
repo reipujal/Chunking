@@ -28,7 +28,7 @@ Context that governs every decision:
 3. **Write-integrity.** After writing/editing any chunk, confirm it is complete: terminal line present, no NUL bytes, no truncated `## Cross-Re…` headers, every cross-ref target resolves. The validator now enforces NUL + truncated/broken cross-refs as ERROR. On this workspace a file watcher can truncate in-place writes — prefer atomic writes (write temp, then move) and re-read to confirm persistence.
 4. **Corrections must preserve content and provenance.** A "fix" may not silently delete content or introduce unsourced tokens. Real failures: (a) dissolving the Unit 13 workshop chunk dropped *bill-of-material in sales* and *sales-to-employee* content instead of merging it into existing chunks (the mandatory merge step was skipped); (b) a cash-sales "correction" CS→BV contradicted the S4615 source (which says billing document type CS). Before closing a correction: confirm no functional content was lost and re-read the source for any token changed.
 5. **Never trust the correction log — re-verify.** A defect marked CORREGIDO is a hypothesis until re-checked against the file. One phantom correction invalidates trust in the whole log (see audit ROL 16).
-6. **Source-coverage gate (per document).** "0 validator errors" ≠ "document complete." After processing a document, build a coverage map: every physical page with ≥100 words not inside any chunk's cited range must be justified in the log (front-matter, learning assessment, or intentionally merged). Also track **extraction ratio** = chunk body words / source words in the cited range; healthy band ≈ 0.5–1.5. <0.5 → under-extraction; >1.5 on a terse source → inflation/unsourced prose. Chunk-internal density (w/p) does not catch either. Run **Skill 6 (`docs/skills/6-coverage-review.md`)** as the standing close gate.
+6. **Source-coverage gate (per document).** "0 validator errors" ≠ "document complete." After processing a document, build a coverage map: every physical page with ≥100 words not inside any chunk's cited range must be justified in the log (front-matter, learning assessment, or intentionally merged). Also track **extraction ratio** = chunk body words / source words in the cited range; healthy band ≈ 0.5–1.5. <0.5 → under-extraction; >1.5 on a terse source → inflation/unsourced prose. Chunk-internal density (w/p) does not catch either. Run **Skill 6 (`docs/playbooks/6-coverage-review.md`)** as the standing close gate.
 7. **Token discipline.** Gate must pass on the first write. Validate once per document (batch), not per chunk. Avoid correction rounds by getting provenance and coverage right the first pass.
 8. **Scope gate for cross-application documents (standing rule).** Include content from the pilot module (SD) plus the SD-leg of cross-application processes when an SD document, delivery, or billing document is citable from the source. Defer content that is pure to another module (MM, FI, etc.). When in doubt: include the SD leg (cited, literal) and cross-reference the other module's leg — never narrate it. Every in/out classification must be justified with cited evidence from the source (transaction code, document type, or page reference). Where SAP's Signavio Line-of-Business taxonomy is available, use it as an external oracle for scope decisions. Root cause: S4680 U6 L2 supplier-returns content (movement type 122, supplier-return-order mechanics) was narrated in the ARM chunk body without citation instead of being cross-referenced — established after S4680 processing 2026-06-17.
 9. **Zero unsourced body content — including cross-module context (standing rule).** Every statement in a chunk body must trace to a page cited in `sources[].pages`. Cross-module context belongs in `## Cross-References`, not in the body. Do not summarise or infer adjacent material that is not in the cited page range. When removing uncited content lowers density below a quality threshold, accept the honest lower rating — do not re-inflate with unsourced prose. Root cause: S4680 U1 L2 (MM Individual PO) PO/GR mechanics (GR/IR clearing, payment-block logic, MIRO quantity proposal) were summarised into the third-party chunk body without citation — established after S4680 processing 2026-06-17.
@@ -177,14 +177,14 @@ touch chunks/_index.md chunks/_processing_log.md chunks/_source_inventory.md
 
 | Step | Where rules live | When to read |
 |---|---|---|
-| 1 — Classify | `docs/skills/1-classify.md` | Before classifying a new document |
-| 2 — Extract | `docs/skills/2-extract.md` | Before extracting any block |
+| 1 — Classify | `docs/playbooks/1-classify.md` | Before classifying a new document |
+| 2 — Extract | `docs/playbooks/2-extract.md` | Before extracting any block |
 | 3 — Deduplicate | **This file — see below** | Rules are in the nucleus (short enough) |
 | 4 — Decide how to chunk | **This file — see below** | Rules are in the nucleus (short enough) |
 | 5 — Write the chunk | **This file — see below** | Rules are in the nucleus |
-| 6+7 — Validate & Log | `docs/skills/5-validate-log.md` | After writing each chunk and before closing a document |
-| 8 — Coverage review (close) | `docs/skills/6-coverage-review.md` | After all chunks of a document are written, before marking it `completed` |
-| 9 — Retrieval eval (close) | `docs/skills/7-eval-harness.md` | After Skill 6 passes; before marking `completed`. Run from **Bash tool** (pdftotext not in PowerShell PATH). |
+| 6+7 — Validate & Log | `docs/playbooks/5-validate-log.md` | After writing each chunk and before closing a document |
+| 8 — Coverage review (close) | `docs/playbooks/6-coverage-review.md` | After all chunks of a document are written, before marking it `completed` |
+| 9 — Retrieval eval (close) | `docs/playbooks/7-eval-harness.md` | After Skill 6 passes; before marking `completed`. Run from **Bash tool** (pdftotext not in PowerShell PATH). |
 | Examples | `docs/examples.md` | First chunk of a new session — read before writing |
 
 ---
@@ -342,7 +342,7 @@ pdftoppm -r 200 -f $PAGES_START -l $PAGES_END "docu sap/processed/[filename].pdf
 ```
 Re-extract content and expand the chunk body. Only accept density < 80 w/p after rasterization confirms the pages are diagram-only with no extractable text.
 
-**sap_release notes:** `not specified` → mark `quality: medium` at minimum. Physical page offset must be detected once per document (see `docs/skills/1-classify.md`) and recorded in the log.
+**sap_release notes:** `not specified` → mark `quality: medium` at minimum. Physical page offset must be detected once per document (see `docs/playbooks/1-classify.md`) and recorded in the log.
 
 ### Content Sections by chunk_type
 

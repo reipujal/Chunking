@@ -64,7 +64,7 @@ del proyecto: pipeline RAG agéntico, escalable y token-eficiente; SD es el pilo
 | Cluster | Archivos a leer |
 |---------|----------------|
 | `C0_integridad` | `validate_chunks.py` (working-tree **y** `git show HEAD:validate_chunks.py`), salida de `python3 validate_chunks.py chunks/`, `git status --short`, `_index.md`, `_source_inventory.md`, conteo `find chunks -name '*.md' -not -name '_*' \| wc -l` |
-| `C1_fuente` | `docs/audit/audit_context_shared.md`, `chunks/_processing_log.md`, `docs/skills/1-classify.md`, `docs/skills/2-extract.md` + 4 chunks de S4605 (muestra) |
+| `C1_fuente` | `docs/audit/audit_context_shared.md`, `chunks/_processing_log.md`, `docs/playbooks/1-classify.md`, `docs/playbooks/2-extract.md` + 4 chunks de S4605 (muestra) |
 | `C2_contenido` | `docs/audit/audit_context_shared.md`, `chunks/_index.md`, CLAUDE.md §Step 3 y §Step 5 + 6 chunks representativos (2 por fuente) |
 | `C3_rag` | `docs/audit/audit_context_shared.md`, `chunks/_index.md`, `validate_chunks.py` + 8 chunks de distintas áreas |
 | `C4_schema` | `docs/audit/audit_context_shared.md`, `validate_chunks.py`, `CLAUDE.md` §Step 5 completo + output de `python3 validate_chunks.py` |

@@ -82,7 +82,7 @@ python3 validate_chunks.py chunks/ 2>&1 | tail -3
 ```
 If any chunk was written and a later edit shows a shorter file, re-read it — prefer atomic writes (write to /tmp, then move) and re-read to confirm persistence.
 
-**B. Source-coverage gate.** Run **Skill 6 — `docs/skills/6-coverage-review.md`** (coverage-map + extraction-ratio + triaje). No marques el documento `completed` hasta que su criterio de "hecho" se cumpla: cada página ≥100w o chunkeada o justificada en el log, y los outliers de ratio triados.
+**B. Source-coverage gate.** Run **Skill 6 — `docs/playbooks/6-coverage-review.md`** (coverage-map + extraction-ratio + triaje). No marques el documento `completed` hasta que su criterio de "hecho" se cumpla: cada página ≥100w o chunkeada o justificada en el log, y los outliers de ratio triados.
 
 ## Step 7 — Update State
 
