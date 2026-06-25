@@ -15,8 +15,7 @@ Este proyecto hereda las reglas universales de `biblio_skills/rules/` (instalada
 - **06 (disciplina de razonamiento)** → **todo defecto es defecto de proceso**: al corregir
   un chunk, endurece el validador / la skill de fase / este AGENTS para que la clase de
   error no pueda recurrir. Un fix que no endurece el proceso está incompleto.
-- **05 (cierre)** → además de commit + push, actualizar `chunks/_processing_log.md` y
-  `docs/STATE.md`.
+- **05 (cierre)** → además de commit + push, actualizar `chunks/_processing_log.md`.
 
 ## Núcleo del proyecto
 
@@ -93,10 +92,7 @@ Antes de ejecutar: actualizar `docs/audit/audit_context_shared.md`.
 
 ## Memoria y reproducibilidad (estándar biblio_skills)
 
-- **`docs/STATE.md`** (nuevo): estado actual · siguiente documento/página pendiente ·
-  decisiones abiertas. Actualizar en `/cierre`. Capa portable que sobrevive a un cambio de
-  PC y que un auditor externo (Gemini/GPT) lee desde GitHub. (Los Knowledge Items de
-  Antigravity cubren la capa automática local; no duplicar con un `memory.md`.)
+- **`chunks/_processing_log.md`**: fuente de verdad del estado — documento actual, página pendiente, decisiones abiertas. Actualizar al cerrar cada sesión. Es la capa portable que un auditor externo lee desde GitHub.
 - **`requirements.lock`** (nuevo): congelar el entorno Python. Las herramientas de sistema
   (`pdfinfo`, `pdftotext`, `pdffonts`, `pdftoppm` de poppler-utils) se documentan en
   Comandos.
