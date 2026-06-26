@@ -5,6 +5,18 @@
 > no se carga por una instrucción que el agente puede ignorar, sino por `@import`,
 > para que esté siempre presente. Las cinco no-negociables van además inline.
 
+## Objetivo del proyecto (ancla)
+No se construye un RAG que responde preguntas de SAP SD. Se construye un asistente
+de redacción de VAES para consultores: el chunking de SD aporta conocimiento de
+proceso estándar para saber QUÉ preguntar al consultor sobre los desarrollos Z del
+cliente (≈99% del trabajo), no para dar respuestas.
+
+NO reintroducir faithfulness/over-response como métrica de éxito (mide el eje
+equivocado). Éxito = calidad de las preguntas y del borrador de VAES.
+
+Antes de cualquier decisión de rumbo, alcance o "¿para qué sirve esto?",
+lee docs/context/00_objetivo_y_rol_del_chunking.md.
+
 ## Reglas globales que aplican
 
 Este proyecto hereda las reglas universales de `biblio_skills/rules/` (instaladas en el
