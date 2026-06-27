@@ -7,7 +7,7 @@
 
 ## Estado y motivo del cierre
 
-La línea de trabajo de over-response/abstención queda aparcada. El motivo no es fracaso del experimento —el experimento fue correcto— sino que el eje de medición estaba mal orientado respecto al objetivo real del proyecto: un asistente de redacción de Valoraciones de Análisis de Elementos de Servicio (VAES). Para ese caso de uso, la abstención no es un fallo a suprimir: es la función que distingue lo que el corpus cubre de lo que el consultor debe aportar. Perseguir over-response como métrica de éxito perseguía el objetivo equivocado.
+La línea de trabajo de over-response/abstención queda aparcada. El motivo no es fracaso del experimento —el experimento fue correcto— sino que el eje de medición estaba mal orientado respecto al objetivo real del proyecto: un asistente de redacción de VAES (Valoración de Esfuerzo): el documento que convierte el requerimiento de un cliente en una propuesta valorable. Para ese caso de uso, la abstención no es un fallo a suprimir: es la función que distingue lo que el corpus cubre de lo que el consultor debe aportar. Perseguir over-response como métrica de éxito perseguía el objetivo equivocado.
 
 ---
 
@@ -77,7 +77,7 @@ El over-response original (Phase 1: ~57% SRCs primarios) no era un único proble
 - **Protocolo de frase-exacta:** demasiado frágil como contrato (near-miss inevitable con modelos generativos); si se retoma, canonicalizar en postproceso
 - **over-response / grounded_fraction como KPI principal:** válido para caracterizar el corpus, no para guiar el desarrollo del producto
 
-**Reubicación conceptual de la abstención:** pasa de "fallo a suprimir" a "función deseada". El sistema que abstiene cuando no sabe responde exactamente lo que un asistente de VAES debe hacer: delimitar lo que el estándar cubre y señalar lo que el consultor debe elicitar. La métrica de éxito futura no es "cuántas veces responde bien" sino "cuántas preguntas útiles genera para completar la VAE".
+**Reubicación conceptual de la abstención:** pasa de "fallo a suprimir" a "función deseada". El sistema que abstiene cuando no sabe responde exactamente lo que un asistente de VAES debe hacer: delimitar lo que el estándar cubre y señalar lo que el consultor debe elicitar. La métrica de éxito futura no es "cuántas veces responde bien" sino "cuántas preguntas útiles genera para completar el VAES".
 
 ---
 
@@ -93,8 +93,8 @@ Queda anotada aquí. No se hace en esta sesión. Si se retoma la línea, este es
 
 El documento de objetivo VAES (`docs/context/`, a añadir por el usuario) definirá el rol de la capa 1 RAG. En ese marco:
 
-- **Capa 1 (RAG de SD):** su función es recuperar lo que el estándar dice. Su éxito se mide por la calidad de las preguntas de elicitación que genera para completar una VAE, no por faithfulness.
-- **Validación de la hipótesis:** un pilot de $0 con juicio humano (¿esta pregunta es útil para completar la VAE?) es el siguiente paso, no construir métricas automáticas.
+- **Capa 1 (RAG de SD):** su función es recuperar lo que el estándar dice. Su éxito se mide por la calidad de las preguntas de elicitación que genera para completar un VAES, no por faithfulness.
+- **Validación de la hipótesis:** un pilot de $0 con juicio humano (¿esta pregunta es útil para completar el VAES?) es el siguiente paso, no construir métricas automáticas.
 - **No construir antes de validar:** el harness de eval se retoma solo si el pilot confirma la hipótesis y se necesita escalar el juicio humano.
 
 ---
